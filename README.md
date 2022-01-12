@@ -1,6 +1,6 @@
 # Cryptocurrency-Ledger
 
-![image](https://user-images.githubusercontent.com/43221618/149054888-3a49729c-f256-4b87-8e9a-eb10af8c28b6.png)
+![image](https://user-images.githubusercontent.com/43221618/149056085-505511bd-4427-4be8-adc6-a46341cd43a6.png)
 
 The 'Cryptocurrency Ledger' is a collaborative group project developed in our CS 380 - Software Engineering Class. This project aims to act as a transaction ledger which will display a variety of useful information to everyday traders.
 
