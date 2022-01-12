@@ -11,7 +11,6 @@ A Simple readme file for this project.
 - [ ] Attractive, modern day sleek dashboard which displays asset information in a neat, and concise way.
 - [ ] Display graph data for selected cryptocurrencies.
 - [ ] Show asset diversification of profolio
-- [ ] 
 - [ ] Total number of shares / coins
 - [ ] Display market cap data
 - [ ] Display current real time price
