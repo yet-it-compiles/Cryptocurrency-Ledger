@@ -13,18 +13,29 @@ TODO
 
 def return_enrollment_info():
     """ Prints the email, name, and password to the console """
-    user_email_entry = user_email.get()
-    user_password_entry = user_password.get()
-    user_phone_number_entry = user_phone_number.get()
+    global user_email_entry
+    global user_password_entry
+    global user_phone_number_entry
 
-    print("Should be the name ", user_email_entry)
-    print("Should be the name ", user_password_entry)
-    print("Should be the name ", user_phone_number_entry)
+    # Logic to captures the user input
+    user_email_entry = user_email_str.get()
+    user_password_entry = user_password_str.get()
+    user_phone_number_entry = user_phone_number_str.get()
 
-    # Clears the entry when the user clicks "Get Started
-    user_email.set("")
-    user_password.set("")
-    user_phone_number.set("")
+    # Clears the entry when the user clicks "Get Started"
+    user_email_str.set("")
+    user_password_str.set("")
+    user_phone_number_str.set("")
+    store_user_information()
+
+
+def store_user_information():
+    """ Stores the user information into a dictionary where it's values is set to password, and phone number """
+    dict_of_enrolled = {}
+    if user_email_entry not in dict_of_enrolled:
+        dict_of_enrolled[user_email_entry] = {user_password_entry, user_phone_number_entry}
+    else:
+        pass
 
 
 enrollment_screen = Tk()
@@ -41,36 +52,36 @@ enrollment_screen.configure(bg="#ffffff")
 background_img = PhotoImage(file=f"background.png")
 background = sign_in_canvas.create_image(500.5, 300.0, image=background_img)
 
-user_email = tkinter.StringVar()
-user_password = tkinter.StringVar()
-user_phone_number = tkinter.StringVar()
+# Declaration of string variable which captures user entries
+user_email_str = tkinter.StringVar()
+user_password_str = tkinter.StringVar()
+user_phone_number_str = tkinter.StringVar()
 
-# Initializes user entry box objects 1-2
 email_entry_img = PhotoImage(file=f"img_textBox0.png")
 email_background = sign_in_canvas.create_image(722.5, 179.5, image=email_entry_img)
-email_entry = Entry(textvariable=user_email, bd=0, bg="#e9e9e9", highlightthickness=0)
+email_entry = Entry(textvariable=user_email_str, bd=0, bg="#e9e9e9", highlightthickness=0)
 email_entry.place(x=588.5, y=154, width=268.0, height=49)
 
-entry1_img = PhotoImage(file=f"img_textBox1.png")
-entry1_bg = sign_in_canvas.create_image(722.5, 298.5, image=entry1_img)
-entry1 = Entry(textvariable=user_password, bd=0, bg="#e9e9e9", highlightthickness=0)
-entry1.place(x=588.5, y=273, width=268.0, height=49)
+# Initializes user entry box objects 1-2
+password_img = PhotoImage(file=f"img_textBox1.png")
+password_background = sign_in_canvas.create_image(722.5, 298.5, image=password_img)
+user_password_entry = Entry(textvariable=user_password_str, bd=0, bg="#e9e9e9", highlightthickness=0)
+user_password_entry.place(x=588.5, y=273, width=268.0, height=49)
 
-entry2_img = PhotoImage(file=f"img_textBox2.png")
-entry2_bg = sign_in_canvas.create_image(722.5, 417.5, image=entry2_img)
-entry2 = Entry(textvariable=user_phone_number, bd=0, bg="#e9e9e9", highlightthickness=0)
-entry2.place(x=588.5, y=392, width=268.0, height=49)
+phone_number_img = PhotoImage(file=f"img_textBox2.png")
+phone_number_background = sign_in_canvas.create_image(722.5, 417.5, image=phone_number_img)
+phone_number_entry = Entry(textvariable=user_phone_number_str, bd=0, bg="#e9e9e9", highlightthickness=0)
+phone_number_entry.place(x=588.5, y=392, width=268.0, height=49)
 
 splash_image = PhotoImage(file=f"img0.png")  # Crypto picture that shows on the enrollment screen
 
 # Initializes user entry box objects 1-2
-b0 = Button(image=splash_image, borderwidth=0, highlightthickness=0, relief="flat", command=return_enrollment_info)
-b0.place(x=636, y=481, height=53)
+get_started_button = Button(image=splash_image, borderwidth=0, highlightthickness=0, relief="flat"
+                            , command=return_enrollment_info)
+get_started_button.place(x=636, y=481, height=53)
 
 enrollment_screen.resizable(False, False)
 enrollment_screen.mainloop()
-name = entry1.get()
-print("Name")
 
 if __name__ == '__main__':
     pass
