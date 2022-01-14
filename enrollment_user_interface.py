@@ -6,11 +6,11 @@ from tkinter import *
 TODO 
 - Capture the input information entered by the user - Completed
 - Record this information -Design Decision- [Dictionary would make sense, else send to a .txt file] - Completed
-- Send an email to the user saying that have successfully registered their account
+- Send an email to the user saying that have successfully registered their account - Completed
 """
 
 
-def return_enrollment_info():
+def store_enrollment_info():
     """ Prints the email, name, and password to the console """
     global user_email_entry
     global user_password_entry
@@ -25,18 +25,16 @@ def return_enrollment_info():
     user_email_str.set("")
     user_password_str.set("")
     user_phone_number_str.set("")
-    store_user_information()
+    return_user_information()
 
 
-def store_user_information():
+def return_user_information():
     """ Stores the user information into a dictionary where it's values is set to password, and phone number """
     dict_of_enrolled = {}
     if user_email_entry not in dict_of_enrolled:
         dict_of_enrolled[user_email_entry] = {user_password_entry, user_phone_number_entry}
-    else:
-        pass
 
-    print(dict_of_enrolled)
+    return dict_of_enrolled
 
 
 enrollment_screen = Tk()
@@ -80,7 +78,7 @@ splash_image = PhotoImage(file=f"img0.png")  # Crypto picture that shows on the 
 
 # Initializes the "Get Started" button
 get_started_button = Button(image=splash_image, borderwidth=0, highlightthickness=0, relief="flat"
-                            , command=return_enrollment_info)
+                            , command=store_enrollment_info)
 get_started_button.place(x=636, y=481, height=53)
 
 enrollment_screen.resizable(False, False)
