@@ -5,9 +5,8 @@ from tkinter import *
 """
 TODO 
 - Capture the input information entered by the user - Completed
-- Record this information -Design Decision- [Dictionary would make sense, else send to a .txt file]
+- Record this information -Design Decision- [Dictionary would make sense, else send to a .txt file] - Completed
 - Send an email to the user saying that have successfully registered their account
-- 
 """
 
 
@@ -37,6 +36,8 @@ def store_user_information():
     else:
         pass
 
+    print(dict_of_enrolled)
+
 
 enrollment_screen = Tk()
 
@@ -57,6 +58,7 @@ user_email_str = tkinter.StringVar()
 user_password_str = tkinter.StringVar()
 user_phone_number_str = tkinter.StringVar()
 
+# Initializes the email entry boxes
 email_entry_img = PhotoImage(file=f"img_textBox0.png")
 email_background = sign_in_canvas.create_image(722.5, 179.5, image=email_entry_img)
 email_entry = Entry(textvariable=user_email_str, bd=0, bg="#e9e9e9", highlightthickness=0)
@@ -68,6 +70,7 @@ password_background = sign_in_canvas.create_image(722.5, 298.5, image=password_i
 user_password_entry = Entry(textvariable=user_password_str, bd=0, bg="#e9e9e9", highlightthickness=0)
 user_password_entry.place(x=588.5, y=273, width=268.0, height=49)
 
+# Initializes the phone number entry boxes
 phone_number_img = PhotoImage(file=f"img_textBox2.png")
 phone_number_background = sign_in_canvas.create_image(722.5, 417.5, image=phone_number_img)
 phone_number_entry = Entry(textvariable=user_phone_number_str, bd=0, bg="#e9e9e9", highlightthickness=0)
@@ -75,7 +78,7 @@ phone_number_entry.place(x=588.5, y=392, width=268.0, height=49)
 
 splash_image = PhotoImage(file=f"img0.png")  # Crypto picture that shows on the enrollment screen
 
-# Initializes user entry box objects 1-2
+# Initializes the "Get Started" button
 get_started_button = Button(image=splash_image, borderwidth=0, highlightthickness=0, relief="flat"
                             , command=return_enrollment_info)
 get_started_button.place(x=636, y=481, height=53)
