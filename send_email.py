@@ -5,6 +5,7 @@ import ssl
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()  # loads the encapsulated values from the .env file
 
 port = 465  # Establishes localhost for SSL
@@ -12,7 +13,7 @@ port = 465  # Establishes localhost for SSL
 smtp_server = "smtp.gmail.com"
 crypto_ledger_email = "bmxfreestyle357@gmail.com"  # Enter your address
 new_member_email = enrollment_info.return_user_information()  # Enter receiver address
-_crypto_ledger_pass = os.getenv('PASSWORD')  # Encapsulated/private variable
+_crypto_ledger_pass = 'Entropy457'  # Encapsulated/private variable
 password = _crypto_ledger_pass
 
 message_to_send = """\
