@@ -26,10 +26,10 @@ class Calculator:
         if check < 0:
             # change color to red
             const.ALARM = True
-            return -(check / initial_price)
+            return -(check / initial_price) * 100
         else:
             # change color to green
-            return check / initial_price
+            return (check / initial_price) * 100
 
     def STOPCALL(self, initial_price, final_price):
         """
