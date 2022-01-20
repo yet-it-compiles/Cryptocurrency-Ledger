@@ -1,6 +1,9 @@
+"""A simple calculator that can be used to calculate the net/percent increase/decrease between a purchased cost, and a current price of Cryptocurrency."""
+
 class calculator():
-    
-    ALARM = False
+    # would like an "alarm" type of functionality, with the ability to use this boolean value
+    # to create an alert sent to the user. 
+    #ALARM = False
 
     def PROFITLOSS_NET(purchased, price):
         return int(price-purchased)
@@ -10,11 +13,11 @@ class calculator():
         
         if check < 0:
             #change color to red
-            ALARM = True
-            return -(check/purchased)
+            #ALARM = True
+            return -(check/purchased) * 100
         else:
             #change color to green
-            return check/purchased
+            return (check/purchased) * 100
     
     def STOPCALL(purchased, price):
         #could have these values pass through as well
@@ -33,5 +36,5 @@ class calculator():
         else:
             print("No sell options have been met with this coin")    
 
-profit = calculator.PROFITLOSS_NET(100, 50)
+profit = calculator.PROFITLOSS_PERCENT(30, 50)
 print(profit)
