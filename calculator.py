@@ -1,40 +1,62 @@
-"""A simple calculator that can be used to calculate the net/percent increase/decrease between a purchased cost, and a current price of Cryptocurrency."""
+""" Simple calculator that calculate the percent increase. and decrease between two values """
+from pconst import const
 
-class calculator():
-    # would like an "alarm" type of functionality, with the ability to use this boolean value
-    # to create an alert sent to the user. 
-    #ALARM = False
 
-    def PROFITLOSS_NET(purchased, price):
-        return int(price-purchased)
-    
-    def PROFITLOSS_PERCENT(purchased, price):
-        check = price - purchased
-        
+class Calculator:
+    const.ALARM = False
+
+    def profit_loss_net(self, initial_price, final_price):
+        """
+
+        :param final_price:
+        :param initial_price:
+        :return:
+        """
+        return int(initial_price - final_price)
+
+    def profit_loss_percent(self, initial_price, final_price):
+        """
+
+        :param initial_price:
+        :param final_price:
+        :return:
+        """
+        check = final_price - initial_price
+
         if check < 0:
-            #change color to red
-            #ALARM = True
-            return -(check/purchased) * 100
+            # change color to red
+            const.ALARM = True
+            return -(check / initial_price)
         else:
-            #change color to green
-            return (check/purchased) * 100
-    
-    def STOPCALL(purchased, price):
-        #could have these values pass through as well
-        SELL_1 = 0.25
-        SELL_2 = 0.3
-        SELL_3 = 0.35
-        #could have percent pass through instead of purchase/price
-        percent = (price - purchased) / purchased
-        #simple check for stop calls
-        if percent >= SELL_3:
-            print("The percent " + str(percent * 100) + "% is greater than your third sell option: " + str(SELL_3 * 100) + "%.")
-        elif percent >= SELL_2:
-            print("The percent " + str(percent * 100) + "% is greater than your second sell option: " + str(SELL_2 * 100) + "%.")
-        elif percent >= SELL_1:
-            print("The percent " + str(percent * 100) + "% is greater than your first sell option: " + str(SELL_1 * 100) + "%.")
-        else:
-            print("No sell options have been met with this coin")    
+            # change color to green
+            return check / initial_price
 
-profit = calculator.PROFITLOSS_PERCENT(30, 50)
+    def STOPCALL(self, initial_price, final_price):
+        """
+
+        :param initial_price:
+        :param final_price:
+        :return:
+        """
+        # could have these values pass through as well
+        profit_target_1 = 0.25
+        profit_target_2 = 0.3
+        profit_target_3 = 0.35
+        # could have percent pass through instead of purchase/price
+        percent = (final_price - initial_price) / initial_price
+        # simple check for stop calls
+        if percent >= profit_target_3:
+            print("The percent " + str(percent * 100) + "% is greater than your third sell option: " + str(
+                profit_target_3 * 100) + "%.")
+        elif percent >= profit_target_2:
+            print("The percent " + str(percent * 100) + "% is greater than your second sell option: " + str(
+                profit_target_2 * 100) + "%.")
+        elif percent >= profit_target_1:
+            print("The percent " + str(percent * 100) + "% is greater than your first sell option: " + str(
+                profit_target_1 * 100) + "%.")
+        else:
+            print("No sell options have been met with this coin")
+
+
+profit = Calculator().profit_loss_net(100, 50)
 print(profit)
