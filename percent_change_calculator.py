@@ -25,9 +25,9 @@ class PercentChange:
         red = "\033[91m"
 
         if self.final_price > self.initial_price:
-            return green + "+{0:.2f}%".format(percent_increase_result)
+            return "+{0:.2f}%".format(percent_increase_result)
         else:
-            return red + "{0:.2f}%".format(percent_increase_result)
+            return "{0:.2f}%".format(percent_increase_result)
 
     def price_difference(self):
         """
@@ -38,5 +38,5 @@ class PercentChange:
         return abs(self.initial_price - self.final_price)
 
 
-percent_change = PercentChange(30, 1).percent_increase()
-price_difference = PercentChange(1, 3).price_difference()
+percent_change = PercentChange(0, -1).price_difference()  # res = 8
+print(percent_change)
