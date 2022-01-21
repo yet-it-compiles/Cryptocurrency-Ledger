@@ -15,22 +15,22 @@ CoinGecko documentation: https://www.coingecko.com/en/api/documentation"""
 #   id                           |   name of coin for making API calls (ex. bitcoin)  #
 #   symbol                       |   symbol of coin (ex. btc)                         #
 #   name                         |   name of coin (ex. Bitcoin)                       #
-#  ------------------------------|--------------------------------------------------  #
 #   image                        |   icon url                                         #
+#  ------------------------------|--------------------------------------------------  #
 #   current_price                |   latest trading price                             #
 #   market_cap                   |   latest trading price x circulating supply        #
 #   market_cap_rank              |   coin gecko rank based on market cap              #
-#  ------------------------------|--------------------------------------------------  #
 #   fully_diluted_valuation      |   total value of market if all future coins exist  #
 #   total_volume                 |   approx. # of coins that currently exist          #
+#  ------------------------------|--------------------------------------------------  #
 #   high_24h                     |   highest trading price in last 24 hours           #
-#  ------------------------------|--------------------------------------------------  #
 #   low_24h                      |   lowest trading price in last 24 hours            #
-#   price_change_24h             |   price change since 24 hours ago                  #
 #  ------------------------------|--------------------------------------------------  #
+#   price_change_24h             |   price change since 24 hours ago                  #
 #   price_change_percentage_24h  |   % price change since 24 hours ago                #
 #   market_cap_change_24h        |   market cap change since 24 hours ago             #
 #   market_cap_change_percentage |   $ market cap change since 24 hours ago           #
+#  ------------------------------|--------------------------------------------------  #
 #   circulating_supply           |   approx. # of coins currently in circulation      #
 #   total_supply                 |   approx. # of coins that currently exist          #
 #   max_supply                   |   approx. # of coins that will ever exist          #
@@ -42,6 +42,7 @@ CoinGecko documentation: https://www.coingecko.com/en/api/documentation"""
 #   atl                          |   all-time low trading price                       #
 #   atl_change_percentage        |   % change in all-time low vs. current price       #
 #   atl_date                     |   date of all-time low trading price               #
+#  ------------------------------|--------------------------------------------------  #
 #   roi                          |   return on investment? specifics unclear          #
 #   last_updated                 |   date/time when information was updated           #
 # =================================================================================== #
