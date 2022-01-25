@@ -51,12 +51,14 @@ import requests
 from PIL import Image
 from io import BytesIO
 
-""" Returns the dictionary for a given coin. 
-    Users must enter name (not symbol), not case-sensitive.
-    @param name: name of coin
-    @return coin: the queried coin dictionary"""
+
         
 def get_coin(name):
+""" Returns the dictionary for a given coin. 
+    Users must enter name (not symbol), not case-sensitive.
+    :param name: name of coin
+    :rtype dict
+    :return coin: the queried coin dictionary"""
 
     url_1 = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=" 
     url_2 = "&order=market_cap_desc&per_page=100&page=1&sparkline=false"
@@ -65,23 +67,27 @@ def get_coin(name):
     return coin
     
 
-""" Returns a given attribute for a given coin.       
-    Users must enter name (not symbol), not case-sensitive.
-    @param attribute: the given attribute (use any from Attributes table above)
-    @param name: name of coin
-    @return the desired attribute for given coin"""
+
     
 def get_attribute(name, attribute):
+    """ Returns a given attribute for a given coin.       
+    Users must enter name (not symbol), not case-sensitive.
+    :param attribute: the given attribute (use any from Attributes table above)
+    :param name: name of coin
+    :rtype int | float | str
+    :return the desired attribute for given coin"""
     
     coin = get_coin(name)
     if coin:
         return coin[0][attribute]
 
-""" Returns an Image object representing the icon for a given coin.
-    @param asset_id: coin identifier
-    @return icon: the icon as an Image object"""
+
 
 def get_icon(name): 
+    """ Returns an Image object representing the icon for a given coin.
+    :param asset_id: coin identifier
+    :rtype Image
+    :return icon: the icon as an Image object"""
     
     coin = get_coin(name)
     if coin:
