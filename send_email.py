@@ -10,7 +10,7 @@ load_dotenv()  # loads the encapsulated values from the .env file
 port = 465  # Establishes localhost for SSL
 
 smtp_server = "smtp.gmail.com"
-crypto_ledger_email = "bmxfreestyle357@gmail.com"  # Enter your address
+crypto_ledger_email = "cryptocurrencyledger380@gmail.com"  # Enter your address
 new_member_email = enrollment_info.return_user_information()  # Enter receiver address
 _crypto_ledger_pass = os.getenv('PASSWORD')  # Encapsulated/private variable
 password = _crypto_ledger_pass
