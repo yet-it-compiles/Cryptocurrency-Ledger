@@ -54,10 +54,11 @@ from io import BytesIO
 
         
 def get_coin(name):
-""" Returns the dictionary for a given coin. 
+    """ Returns the dictionary for a given coin. 
     Users must enter name (not symbol), not case-sensitive.
     :param name: name of coin
-    :rtype dict
+    :type name: str
+    :rtype: dict
     :return coin: the queried coin dictionary"""
 
     url_1 = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=" 
@@ -73,9 +74,11 @@ def get_attribute(name, attribute):
     """ Returns a given attribute for a given coin.       
     Users must enter name (not symbol), not case-sensitive.
     :param attribute: the given attribute (use any from Attributes table above)
+    :type attribute: str
     :param name: name of coin
-    :rtype int | float | str
-    :return the desired attribute for given coin"""
+    :type name: str
+    :rtype: int | float | str
+    :return: the desired attribute for given coin"""
     
     coin = get_coin(name)
     if coin:
@@ -85,10 +88,11 @@ def get_attribute(name, attribute):
 
 def get_icon(name): 
     """ Returns an Image object representing the icon for a given coin.
-    :param asset_id: coin identifier
-    :rtype Image
+    :param name: name of coin 
+    :type name: str
+    :rtype: Image
     :return icon: the icon as an Image object"""
-    
+
     coin = get_coin(name)
     if coin:
         url = coin[0]["image"]
@@ -102,7 +106,7 @@ def get_icon(name):
     
 # # get_coin method
 # print("get_coin method to print ethereum dictionary\n" + line_break)
-print(get_coin("vertcoin"))
+# print(get_coin("ethererum"))
 
 # # get_attribute method
 # print("\n\nget_attribute_method to print market cap for litecoin\n" + line_break)
