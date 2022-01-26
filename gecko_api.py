@@ -106,7 +106,7 @@ def get_icon(name):
     
 # # get_coin method
 # print("get_coin method to print ethereum dictionary\n" + line_break)
-# print(get_coin("ethererum"))
+# print(get_coin("ethereum"))
 
 # # get_attribute method
 # print("\n\nget_attribute_method to print market cap for litecoin\n" + line_break)
