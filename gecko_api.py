@@ -14,7 +14,6 @@ class GeckoApi:
     def get_coin(self):
         """
         Returns the dictionary representation of the coin with all available attributes
-
         :rtype: dict
         :return requested_crypto_info: the queried coin dictionary
         """
@@ -27,9 +26,7 @@ class GeckoApi:
     def get_attribute(self, attribute):
         """
         Retrieves a specific attribute request
-
         Note: Users must enter name (not symbol), not case-sensitive.
-
         :param attribute: the given attribute (use any from Attributes table above)
         :type attribute: str
         :rtype: int | float | str
@@ -42,7 +39,6 @@ class GeckoApi:
     def get_icon(self):
         """
         Retrieves the image of the requested cryptocurrency
-
         :rtype: Image
         :return crypto_icon
         """
@@ -55,10 +51,9 @@ class GeckoApi:
             crypto_icon = Image.open(image_bytes)
             return crypto_icon
 
-    def get_ohcl_data(self, days_previous):
+    def get_ohlc_data(self, days_previous):
         """
         Returns a list of opening price, high/low, and closing price for the period
-
         :param days_previous: int
         :rtype: list
         :return: coin_ohlc
@@ -66,7 +61,7 @@ class GeckoApi:
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/ohlc?vs_currency=usd&days='
 
-        coin_ohlc = requests.get(info_from_api + self.crypto_name.lower().strip() + json_converter + str(days_previous)).json()
+        coin_ohlc = requests.get(info_from_api + self.name.lower().strip() + json_converter + str(days_previous)).json()
 
         # return an empty list if the coin does not exist (api returns error dictionary)
         if type(coin_ohlc) == dict:
@@ -77,7 +72,6 @@ class GeckoApi:
     def get_price_history(self, days_previous, separate=False):
         """
         Returns a list of historical price data in the form of  [unix_timestamp, price]
-
         :param days_previous: int
         :param separate: bool
         :rtype: list
@@ -109,7 +103,6 @@ class GeckoApi:
     def get_market_cap_history(self, days_previous, separate=False):
         """
         Returns a list of historical market cap data, each entry having the form: [unix_timestamp, market_cap]
-
         :param days_previous: int
         :param separate: bool
         :rtype: list
@@ -141,7 +134,6 @@ class GeckoApi:
     def get_volume_history(self, days_previous, separate=False):
         """
         Returns a list of historical total volume data, each entry having the form: [unix_timestamp, total_volume]
-
         :param days_previous: int
         :param separate: bool
         :rtype: list
