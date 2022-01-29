@@ -19,6 +19,8 @@ class TestPercentChange(unittest.TestCase):
     def test_price_difference(self):
         self.assertEqual(self.price_1.price_difference(), 8)
         self.assertEqual(self.price_2.price_difference(), 17)
+        self.assertEqual(self.price_3.price_difference(), 3)
+        
 
 if __name__ == '__main__':
     unittest.main()

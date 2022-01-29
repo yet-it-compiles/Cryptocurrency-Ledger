@@ -15,7 +15,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_profit_loss_percent(self):
         """
-        result 2 is affected by incorrect code
+        result 2 is affected by incorrect code. var ALARM is constant so immutable
         """
         result_1 = Calculator.profit_loss_percent(self, 10, 14)
         # result_2 = Calculator.profit_loss_percent(self, 31, 27) 
