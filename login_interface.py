@@ -1,6 +1,8 @@
+""" Simple module which creates, and displays the login UI """
+
 from tkinter import *
 
-login_window = Tk()
+login_window = Tk()  # Declares the login window
 
 login_window.geometry("1000x600")
 login_window.configure(bg="#343333")
