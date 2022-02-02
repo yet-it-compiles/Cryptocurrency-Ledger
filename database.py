@@ -22,11 +22,13 @@ class database:
 
     def fetchPass(self, username):
 
+        return 0
 
     def addTrade(self,username, Trade):
-
+        return 0
     def getCoin(self, coin, username):
 
+        return 0
     def getAll(self, username):
         '''
         Get all the trades related to a user
