@@ -24,7 +24,7 @@ class database:
 
 
     def addTrade(self,username, Trade):
-    
+
     def getCoin(self, coin, username):
 
     def getAll(self, username):
