@@ -1,6 +1,6 @@
 """ Simple module which will email the member who just enrolled by taking the email address from enrollment_info """
 
-import enrollment_user_interface as enrollment_info
+import enrollment_interface as enrollment_info
 import smtplib
 import ssl
 import os

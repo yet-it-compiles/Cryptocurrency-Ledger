@@ -2,7 +2,7 @@
 import tkinter
 from tkinter import *
 
-
+'''
 def store_enrollment_info():
     """ Prints the email, name, and password to the console """
     global user_email_entry
@@ -18,9 +18,9 @@ def store_enrollment_info():
     user_email_str.set("")
     user_password_str.set("")
     user_name_str.set("")
-    return_user_information()
-
-
+    #return_user_information()
+'''
+'''
 def return_user_information():
     """
     Stores the user information into a dictionary where it's values is set to password, and user name
@@ -30,7 +30,7 @@ def return_user_information():
     if user_email_entry not in dict_of_enrolled:
         dict_of_enrolled[user_email_entry] = {user_password_entry, user_name_entry}
     return dict_of_enrolled
-
+'''
 
 enrollment_window = Tk()
 
@@ -73,4 +73,4 @@ enrollment_canvas.create_text(727.5, 71.5, text="Create Account", fill="#ffffff"
 if __name__ == '__main__':
     enrollment_window.resizable(False, False)
     enrollment_window.mainloop()
-    store_enrollment_info()
+ #   store_enrollment_info()

@@ -3,35 +3,38 @@ from psycopg2 import Error
 
 class database:
 
-    def connect(self):
+    def __init__(self, username):
+        '''
+        The connection to the database gets instantiated as part of the constructor
+
+        This makes it so that the connection to the database stays permanent speeds up the process
+        '''
+        self.username = username
+
+        self.connection = psycopg2.connect(user="postgres",
+                                      password="pynative@#29",
+                                      host="127.0.0.1",
+                                      port="5432",
+                                      database="postgres_db")
+        self.cursor = connection.cursor()
+
+    @staticmethod
+    def adduser(name, email, password):
+        '''
+        Method for adding the user for the first time. Its static so that
+        the whole class does not need to be instantiated
+        '''
         connection = psycopg2.connect(user="postgres",
                                       password="pynative@#29",
                                       host="127.0.0.1",
                                       port="5432",
                                       database="postgres_db")
 
-        cusor = connection.cursor()
-        return cursor
-    def addUser(self,username, email, password):
+        cursor = connection.cursor()
 
-        cursor = connect(self)
-
-        cursor.execute("INSERT INTO users VALUES (1, '{username}', '{email}', '{password}')")
+        cursor.execute(f"INSERT INTO users (\'{name}\', \'{email}\', \'{password}\'")
 
         cursor.close()
+        connection.close()
 
-    def fetchPass(self, username):
-
-        return 0
-
-    def addTrade(self,username, Trade):
-        return 0
-    def getCoin(self, coin, username):
-
-        return 0
-    def getAll(self, username):
-        '''
-        Get all the trades related to a user
-        :return:
-        '''
-
+    
