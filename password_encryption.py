@@ -9,13 +9,14 @@ class PasswordEncryption:
 
     def __init__(self, password):
         """
-        Parameterized constructor which initializes the password
+        Parameterized constructor which initializes the string password
         """
         self.password = password
 
     def encrypt(self):
         """
         Returns the encrypted password
+
         :rtype bytes
         :return: hashed value of password
         """
@@ -27,6 +28,7 @@ class PasswordEncryption:
     def decrypt(self, encrypted):
         """
         Returns the decrypted password
+
         :rtype String
         :return: string value of the typed password
         """
@@ -35,8 +37,10 @@ class PasswordEncryption:
         decrypted = f.decrypt(encrypted).decode()
         return decrypted
 
-e = PasswordEncryption(os.getenv('PASSWORD')).encrypt()
-# print(e)
-
-d = PasswordEncryption(os.getenv('PASSWORD')).decrypt(e)
-# print(d)
+# These two lines are used to test and ensure encryption and decryption works properly
+#
+# encryptedPassword = PasswordEncryption(os.getenv('PASSWORD')).encrypt()
+# print(encryptedPassword)
+#
+# decryptedPassword = PasswordEncryption(os.getenv('PASSWORD')).decrypt(e)
+# print(decryptedPassword)
