@@ -44,7 +44,6 @@ class TkinterApp(tk.Tk):
         new_frame.tkraise()
 
 
-# first window frame start page
 class LoginPage(tk.Frame):
     """ Displays the login page """
 
@@ -90,7 +89,6 @@ class LoginPage(tk.Frame):
         textbox_two_location.place(x=602.0, y=345, width=273.0, height=44)
 
 
-# second window frame page1
 class Enrollment(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -129,6 +127,7 @@ class Enrollment(tk.Frame):
 
         enrollment_canvas.create_text(727.5, 71.5, text="Create Account", fill="#ffffff",
                                       font=("Rosarivo-Regular", int(36.0)))
+
 
 # Driver Code
 app = TkinterApp()
