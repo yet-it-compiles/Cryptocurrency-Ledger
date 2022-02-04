@@ -37,4 +37,8 @@ class database:
         cursor.close()
         connection.close()
 
-    
+    def getPass(self):
+
+        cusor.execute("SELECT * FROM users WHERE")
+
+
