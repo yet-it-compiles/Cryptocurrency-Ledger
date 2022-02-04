@@ -37,7 +37,7 @@ class PasswordEncryption:
         decrypted = f.decrypt(encrypted).decode()
         return decrypted
 
-# These two lines are used to test and ensure encryption and decryption works properly
+# These lines are used to test and ensure encryption and decryption works properly
 #
 # encryptedPassword = PasswordEncryption(os.getenv('PASSWORD')).encrypt()
 # print(encryptedPassword)
