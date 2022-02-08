@@ -48,8 +48,8 @@ def store_transaction():
 
 
 def return_transaction():
-    """ Stores the transaction into a dictionary with a key where it's values is set to [date + time purchased: coin, the amount] """
-    key = str(str(date_time) + crypto_name, num_coins_trading)
+    """ Stores the transaction into a dictionary with a key where it's values is set to [date + time purchased: coin name, the amount] """
+    key = str(str(date_time) + ": " + crypto_name, num_coins_trading)
     transaction_dictonary = {}
     if key not in transaction_dictonary:
         transaction_dictonary[key] = {date_time, timezone, crypto_name, num_coins_trading, trade_value, fee, buy_or_sell}
@@ -83,6 +83,8 @@ if __name__ == "__main__":
     LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
     dt = datetime.datetime.now()
     
+    # date_time = datetime.datetime.now()
+    # print("key: " + str(date_time) + " " + "crypto_name", "num_coins_trading")
     print(str(dt))
     print(LOCAL_TIMEZONE)
 
