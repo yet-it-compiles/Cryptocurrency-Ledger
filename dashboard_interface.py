@@ -78,33 +78,28 @@ canvas.create_text(972.0, 604.0, text="$4", fill="#ffffff", font=("Rosarivo-Regu
 canvas.create_text(975.0, 620.0, text="$0.00 is a 0% increase from $0.00", fill="#ffffff",
                    font=("Rosarivo-Regular", int(10.0)))
 
-
-
-
-
-
-
-
-
-img0 = PhotoImage(file=f"dashboard_profile_img.png")
-b0 = Button(image=img0, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
-
+# Retrieves the images, and configures the profile image
+dash_profile_img = PhotoImage(file=f"dashboard_profile_img.png")
+b0 = Button(image=dash_profile_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
 b0.place(x=1360, y=4, width=68, height=57)
 
-img1 = PhotoImage(file=f"dashboard_notes.png")
-b1 = Button(image=img1, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
 
-b1.place(x=1275, y=24, width=39, height=42)
 
-img2 = PhotoImage(file=f"dashboard_support.png")
-b2 = Button(image=img2, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+# Retrieves the images, and configures the notes image
+dash_notes_img = PhotoImage(file=f"dashboard_notes.png")
+notes_button = Button(image=dash_notes_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+notes_button.place(x=1275, y=24, width=39, height=42)
 
-b2.place(x=1149, y=16, width=81, height=50)
+# Retrieves the images, and configures the support image
+dash_support_img = PhotoImage(file=f"dashboard_support.png")
+support_button = Button(image=dash_support_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+support_button.place(x=1149, y=16, width=81, height=50)
 
-img3 = PhotoImage(file=f"dashboard_notifications.png")
-b3 = Button(image=img3, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
-
-b3.place(x=1027, y=19, width=81, height=47)
+# Retrieves the images, and configures the notifications image
+dash_notifications_img = PhotoImage(file=f"dashboard_notifications.png")
+notifications_button = Button(image=dash_notifications_img, borderwidth=0, highlightthickness=0, command=btn_clicked
+                              , relief="flat")
+notifications_button.place(x=1027, y=19, width=81, height=47)
 
 img4 = PhotoImage(file=f"dashboard_logout.png")
 b4 = Button(image=img4, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
