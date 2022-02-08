@@ -101,45 +101,46 @@ notifications_button = Button(image=dash_notifications_img, borderwidth=0, highl
                               , relief="flat")
 notifications_button.place(x=1027, y=19, width=81, height=47)
 
-img4 = PhotoImage(file=f"dashboard_logout.png")
-b4 = Button(image=img4, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+# Retrieves the images, and configures the logout image
+dash_logout_img = PhotoImage(file=f"dashboard_logout.png")
+logout_button = Button(image=dash_logout_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+logout_button.place(x=45, y=937, width=30, height=30)
 
-b4.place(x=45, y=937, width=30, height=30)
+# Retrieves the images, and dash the logout image
+dash_settings_img = PhotoImage(file=f"dashboard_settings.png")
+settings_button = Button(image=dash_settings_img, borderwidth=0, highlightthickness=0, command=btn_clicked
+                         , relief="flat")
+settings_button.place(x=14, y=789, width=90, height=90)
 
-img5 = PhotoImage(file=f"dashboard_settings.png")
-b5 = Button(image=img5, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+# Retrieves the images, and configures the news image
+dash_news_img = PhotoImage(file=f"dashboard_news.png")
+news_button = Button(image=dash_news_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+news_button.place(x=14, y=680, width=90, height=90)
 
-b5.place(x=14, y=789, width=90, height=90)
+# Retrieves the images, and configures the alarms image
+dash_alarms_img = PhotoImage(file=f"dashboard_alarms.png")
+alarms_button = Button(image=dash_alarms_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+alarms_button.place(x=14, y=571, width=90, height=90)
 
-img6 = PhotoImage(file=f"dashboard_news.png")
-b6 = Button(image=img6, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+# Retrieves the images, and configures the portfolio image
+dash_portfolio_img = PhotoImage(file=f"dashboard _portfolio.png")
+portfolio_button = Button(image=dash_portfolio_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+portfolio_button.place(x=14, y=462, width=90, height=90)
 
-b6.place(x=14, y=680, width=90, height=90)
+# Retrieves the images, and configures the charts image
+dash_charts_img = PhotoImage(file=f"dashboard_charts.png")
+charts_button = Button(image=dash_charts_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+charts_button.place(x=13, y=353, width=90, height=90)
 
-img7 = PhotoImage(file=f"dashboard_alarms.png")
-b7 = Button(image=img7, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+# Retrieves the images, and configures the simulated trading image
+dash_simulated_img = PhotoImage(file=f"dashboard_simulated_trading.png")
+simulated_button = Button(image=dash_simulated_img, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+simulated_button.place(x=15, y=244, width=90, height=90)
 
-b7.place(x=14, y=571, width=90, height=90)
-
-img8 = PhotoImage(file=f"dashboard _portfolio.png")
-b8 = Button(image=img8, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
-
-b8.place(x=14, y=462, width=90, height=90)
-
-img9 = PhotoImage(file=f"dashboard _charts.png")
-b9 = Button(image=img9, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
-
-b9.place(x=13, y=353, width=90, height=90)
-
-img10 = PhotoImage(file=f"dashboard_simulated_trading.png")
-b10 = Button(image=img10, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
-
-b10.place(x=15, y=244, width=90, height=90)
-
-img11 = PhotoImage(file=f"dashboard_dashboard.png")
-b11 = Button(image=img11, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
-
-b11.place(x=15, y=135, width=90, height=90)
+# Retrieves the images, and configures the dashboard image
+dash_image = PhotoImage(file=f"dashboard_dashboard.png")
+dash_button = Button(image=dash_image, borderwidth=0, highlightthickness=0, command=btn_clicked, relief="flat")
+dash_button.place(x=15, y=135, width=90, height=90)
 
 window.resizable(False, False)
 window.mainloop()
