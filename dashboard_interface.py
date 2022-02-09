@@ -5,23 +5,23 @@ class Dashboard:
     def __init__(self):
         window = Tk()
 
+        # Configures dashboard window
         window.geometry("1440x1024")
         window.configure(bg="#ffffff")
         canvas = Canvas(window, bg="#ffffff", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
+        # Sets background image
         background_img = PhotoImage(file=f"dashboard_background.png")
         background = canvas.create_image(718.0, 512.0, image=background_img)
 
+        # Search Bar and Username Entries
         canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
-
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        # Investing PortFolio
+        # Investing Portfolio
         canvas.create_text(430.0, 198.0, text="$34", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-
         canvas.create_text(430.0, 248.0, text="$33", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-
         canvas.create_text(411.0, 298.5, text="%32", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earners #1
