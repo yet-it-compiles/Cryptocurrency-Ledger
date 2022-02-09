@@ -2,7 +2,6 @@ from tkinter import *
 
 
 class Dashboard:
-
     def __init__(self):
         window = Tk()
 
@@ -114,7 +113,7 @@ class Dashboard:
         alarms_button.place(x=14, y=571, width=90, height=90)
 
         # Retrieves the images, and configures the portfolio image
-        dash_portfolio_img = PhotoImage(file=f"dashboard _portfolio.png")
+        dash_portfolio_img = PhotoImage(file=f"dashboard_portfolio.png")
         portfolio_button = Button(image=dash_portfolio_img, borderwidth=0, highlightthickness=0, relief="flat")
         portfolio_button.place(x=14, y=462, width=90, height=90)
 
@@ -135,3 +134,11 @@ class Dashboard:
 
         window.resizable(False, False)
         window.mainloop()
+
+
+def main():
+    Dashboard_Root = Dashboard()
+
+
+if __name__ == '__main__':
+    main()
