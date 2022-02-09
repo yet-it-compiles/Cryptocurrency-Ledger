@@ -4,6 +4,9 @@ from tkinter import *
 
 
 class TkinterApp(tk.Tk):
+    """
+    Configures the screen, and
+    """
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -23,7 +26,7 @@ class TkinterApp(tk.Tk):
         self.collection_of_canvases = {}
 
         # Declaration of logic to iterate through each page layout
-        for each_layout in (LoginPage, Enrollment):
+        for each_layout in (LoginPage, Enrollment, Dashboard):
             each_canvas = each_layout(canvas_setup, self)
 
             self.collection_of_canvases[each_layout] = each_canvas
@@ -62,7 +65,8 @@ class LoginPage(tk.Frame):
         # Logic to populate the window
         self.sign_in_button = PhotoImage(file=f"sign_in_button.png")
         sign_in_button_location = Button(self, image=self.sign_in_button, borderwidth=0, highlightthickness=0,
-                                         relief="flat", activebackground="#343333")
+                                         command=lambda: controller.show_frame(Dashboard), relief="flat"
+                                         , activebackground="#343333")
         sign_in_button_location.place(x=659, y=417, width=159, height=53)
 
         # Creates, and displays the forgot password button
@@ -140,8 +144,189 @@ class Enrollment(tk.Frame):
 
 
 class Dashboard(tk.Frame):
-    """ """
-    pass
+    """ Configures, and displays the Dashboard """
+    def __init__(self, parent, controller):
+
+        tk.Frame.__init__(self, parent)
+        self.config(width=1440, height=1024)
+        flash_delay = 100  # Milliseconds.
+        self.controller = controller
+
+        canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        canvas.place(x=0, y=0)
+
+        image_path = "dashboard_background.png"
+        self.background_img = tk.PhotoImage(file=image_path)
+        canvas.create_image(0, 0, anchor='nw', image=self.background_img)
+
+        # Creates text-fields for Searchbar, and Username
+        canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
+        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+
+        # Investing PortFolio
+        canvas.create_text(430.0, 198.0, text="$34", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(430.0, 248.0, text="$33", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(411.0, 298.5, text="%32", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+
+        # Top Earners #1
+        canvas.create_text(696.0, 212.0, text="%29", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(557.0, 190.0, text="$30", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(555.5, 147.0, text="$31", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+
+        # Top Earners #2
+        canvas.create_text(784.5, 147.0, text="$28", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(786.0, 190.0, text="$27", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(925.0, 212.0, text="%26", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+
+        # Top Earners #3
+        canvas.create_text(1009.5, 149.0, text="$25", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1013.0, 192.0, text="$24", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1152.0, 214.0, text="%23", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+
+        # Top Earners #4
+        canvas.create_text(1235.5, 149.0, text="$22", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1237.0, 192.0, text="$21", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1376.0, 214.0, text="%20", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+
+        # Closest to Profit #1
+        canvas.create_text(553.5, 295.0, text="$19", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(555.0, 338.0, text="$18", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(694.0, 360.0, text="%17", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+
+        # Closest to Profit #2
+        canvas.create_text(782.5, 295.0, text="$16", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(784.0, 338.0, text="$15", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(923.0, 360.0, text="%14", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+
+        # Closest to Profit #3
+        canvas.create_text(1009.5, 295.0, text="$13", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1011.0, 338.0, text="$12", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1150.0, 360.0, text="%11", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+
+        # Closest to Profit #4
+        canvas.create_text(1235.5, 295.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1237.0, 338.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1376.0, 360.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+
+        # Percent Increase Calculator
+        canvas.create_text(968.0, 469.0, text="$7", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(968.0, 504.0, text="$6", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(968.0, 553.0, text="%5", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(972.0, 604.0, text="$4", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(975.0, 620.0, text="$0.00 is a 0% increase from $0.00", fill="#ffffff",
+                           font=("Rosarivo-Regular", int(10.0)))
+
+        # Retrieves the images, and configures the dashboard button
+        dashboard_image_path = "dashboard_dashboard.png"
+        self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
+        dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
+        canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(dashboard_image_obj), self.btn_clicked("1")))
+
+        # Retrieves the images, and configures the simulated trading button
+        simulated_trading_image_path = "dashboard_simulated_trading.png"
+        self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
+        simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
+        canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(simulated_trading_image_obj), self.btn_clicked("2")))
+
+        # Retrieves the images, and configures the charts button
+        charts_image_path = "dashboard_charts.png"
+        self.charts_image = tk.PhotoImage(file=charts_image_path)
+        charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
+        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(charts_image_obj), self.btn_clicked("3")))
+
+        # Retrieves the images, and configures the portfolio button
+        portfolio_image_path = "dashboard_portfolio.png"
+        self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
+        portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
+        canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(portfolio_image_obj), self.btn_clicked("4")))
+
+        alarm_image_path = "dashboard_alarms.png"
+        self.alarm_image = tk.PhotoImage(file=alarm_image_path)
+        alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
+        canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(alarm_image_obj), self.btn_clicked("5")))
+
+        # Retrieves the images, and configures the news button
+        news_image_path = "dashboard_news.png"
+        self.news_image = tk.PhotoImage(file=news_image_path)
+        news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
+        canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(news_image_obj), self.btn_clicked("6")))
+
+        # Retrieves the images, and configures the settings button
+        settings_image_path = "dashboard_settings.png"
+        self.settings_image = tk.PhotoImage(file=settings_image_path)
+        settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
+        canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(settings_image_obj), self.btn_clicked("7")))
+
+        # Retrieves the images, and configures the logout button
+        logout_image_path = "dashboard_logout.png"
+        self.logout_image = tk.PhotoImage(file=logout_image_path)
+        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
+        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(logout_image_obj), self.btn_clicked("8")))
+
+        # Retrieves the images, and configures the notifications image
+        notifications_image_path = "dashboard_notifications.png"
+        self.notifications_image = tk.PhotoImage(file=notifications_image_path)
+        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(notifications_image_obj), self.btn_clicked("9")))
+
+        # Retrieves the images, and configures the support image
+        support_image_path = "dashboard_support.png"
+        self.support_image = tk.PhotoImage(file=support_image_path)
+        support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
+        canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(support_image_obj), self.btn_clicked("10")))
+
+        # Retrieves the images, and configures the profile image
+        notes_image_path = "dashboard_notes.png"
+        self.notes_image = tk.PhotoImage(file=notes_image_path)
+        notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
+        canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(notes_image_obj), self.btn_clicked("11")))
+
+        # Retrieves the images, and configures the profile image
+        profile_image_path = "dashboard_profile_img.png"
+        self.profile_image = tk.PhotoImage(file=profile_image_path)
+        profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
+        canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(profile_image_obj), self.btn_clicked("12")))
+
+        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+
+
+        def flash_hidden(image_obj):
+            """
+            Method sets the state of the object, and hides the buttons when they are interacted with
+
+            :param image_obj: is the image object to hide
+            :type : int
+            :return:
+            """
+            print(type(image_obj))
+            set_state(tk.HIDDEN, image_obj)
+            canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+
+
+        def set_state(state, image_obj):
+            """
+            Sets the state of the image object
+
+            :param state: the state to apply to the buttons
+            :param image_obj: is the image object to apply a state on
+            :return: an image object with a state applied
+            """
+            canvas.itemconfigure(image_obj, state=state)
+
+        bgr_width, bgr_height = self.background_img.width(), self.background_img.height()
+
 
 
 # Driver Code
