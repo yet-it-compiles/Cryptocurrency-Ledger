@@ -5,7 +5,7 @@ from tkinter import *
 
 class TkinterApp(tk.Tk):
     """
-    Configures the screen, and
+
     """
 
     def __init__(self, *args, **kwargs):
@@ -34,17 +34,19 @@ class TkinterApp(tk.Tk):
 
             each_canvas.grid(row=5, column=0, sticky="nsew")
 
-        self.show_frame(LoginPage)
+        self.show_frame(LoginPage)  # First frame to show
 
     def show_frame(self, container):
         """
         Displays the current from that is passed as a parameter, and raises it to the current stack
-
         :param container: The passed in window to display next
         :return: the new canvas
         """
-        new_frame = self.collection_of_canvases[container]
-        new_frame.tkraise()
+
+        for frame in self.collection_of_canvases.values():
+            frame.grid_remove()
+        frame = self.collection_of_canvases[container]
+        frame.grid()
 
 
 class LoginPage(tk.Frame):
@@ -305,7 +307,6 @@ class Dashboard(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -316,7 +317,6 @@ class Dashboard(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -429,7 +429,6 @@ class ComingSoon(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return:
@@ -440,7 +439,6 @@ class ComingSoon(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -548,7 +546,6 @@ class Settings(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -559,7 +556,6 @@ class Settings(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -588,6 +584,32 @@ class Settings(tk.Frame):
         entry2.place(x=597.5, y=503, width=268.0, height=49)
 
         canvas.create_text(583, 372.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(26.0)))
+
+
+class CloseButton(tk.Frame):
+
+    def init(self, parent, controller):
+        tk.Frame.init(self, parent)
+        self.config(width=537, height=273)
+        self.controller = controller
+
+        # controller.attributes("-topmost", True)
+
+        logout_canvas = tk.Canvas(self, bg="#343333", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
+        logout_canvas.place(x=0, y=0)
+
+        self.background_img = PhotoImage(file=f"logout_background.png")
+        logout_canvas.create_image(268.5, 136.5, image=self.background_img)
+
+        self.settings_yes_img = PhotoImage(file=f"settings_yes.png")
+        settings_yes_button = Button(self, image=self.settings_yes_img, borderwidth=0, highlightthickness=0
+                                     , relief="flat")
+        settings_yes_button.place(x=112, y=135, width=123, height=49)
+
+        self.settings_no_img = PhotoImage(file=f"settings_no.png")
+        settings_no_button = Button(self, image=self.settings_no_img, borderwidth=0, highlightthickness=0
+                                    , relief="flat")
+        settings_no_button.place(x=297, y=135, width=123, height=49)
 
 
 # Driver Code
