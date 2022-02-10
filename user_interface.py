@@ -167,49 +167,54 @@ class Dashboard(tk.Frame):
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         # Investing PortFolio
+        canvas.create_text(430.0, 198.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(430.0, 248.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(411.0, 298.5, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+
+        # Investing Portfolio
         canvas.create_text(430.0, 198.0, text="$34", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
         canvas.create_text(430.0, 248.0, text="$33", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
         canvas.create_text(411.0, 298.5, text="%32", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
-        # Top Earners #1
-        canvas.create_text(696.0, 212.0, text="%29", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(557.0, 190.0, text="$30", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(555.5, 147.0, text="$31", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        # Top Earner #1
+        canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
 
-        # Top Earners #2
-        canvas.create_text(784.5, 147.0, text="$28", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(786.0, 190.0, text="$27", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(925.0, 212.0, text="%26", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        # Top Earner #2
+        canvas.create_text(865.0, 147.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(865.0, 190.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(920.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
 
-        # Top Earners #3
-        canvas.create_text(1009.5, 149.0, text="$25", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1013.0, 192.0, text="$24", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1152.0, 214.0, text="%23", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        # Top Earner #3
+        canvas.create_text(1096.0, 149.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1096.0, 192.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1149.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
 
-        # Top Earners #4
-        canvas.create_text(1235.5, 149.0, text="$22", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1237.0, 192.0, text="$21", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1376.0, 214.0, text="%20", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        # Top Earner #4
+        canvas.create_text(1322.0, 149.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1322.0, 192.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1373.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
 
-        # Closest to Profit #1
-        canvas.create_text(553.5, 295.0, text="$19", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(555.0, 338.0, text="$18", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(694.0, 360.0, text="%17", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        # Closest to profit #1
+        canvas.create_text(640.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(640.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(690.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
-        # Closest to Profit #2
-        canvas.create_text(782.5, 295.0, text="$16", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(784.0, 338.0, text="$15", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(923.0, 360.0, text="%14", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        # Closest to profit #2
+        canvas.create_text(865.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(865.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(920.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
-        # Closest to Profit #3
-        canvas.create_text(1009.5, 295.0, text="$13", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1011.0, 338.0, text="$12", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1150.0, 360.0, text="%11", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        # Closest to profit #3
+        canvas.create_text(1096.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1096.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1149.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
-        # Closest to Profit #4
-        canvas.create_text(1235.5, 295.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1237.0, 338.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1376.0, 360.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        # Closest to profit #4
+        canvas.create_text(1322.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1322.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Percent Increase Calculator
         canvas.create_text(968.0, 469.0, text="$7", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
@@ -272,7 +277,7 @@ class Dashboard(tk.Frame):
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_frame(ComingSoon)))
+                        lambda event: (flash_hidden(logout_image_obj), controller.show_frame(LogoutButtonBottom)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -460,8 +465,8 @@ class Settings(tk.Frame):
         canvas.place(x=0, y=0)
 
         # Retrieves the images, and configures the dashboard button
-        self.background_img = PhotoImage(file = f"settings_background.png")
-        canvas.create_image(722.0, 512.0,image=self.background_img)
+        self.background_img = tk.PhotoImage(file=f"settings_background.png")
+        canvas.create_image(722.0, 512.0, image=self.background_img)
 
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "dashboard_dashboard.png"
@@ -591,30 +596,30 @@ class Settings(tk.Frame):
         canvas.create_text(583, 372.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(26.0)))
 
 
-class CloseButton(tk.Frame):
-
-    def init(self, parent, controller):
-        tk.Frame.init(self, parent)
-        self.config(width=537, height=273)
-        self.controller = controller
-
-        # controller.attributes("-topmost", True)
-
-        logout_canvas = tk.Canvas(self, bg="#343333", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
-        logout_canvas.place(x=0, y=0)
-
-        self.background_img = PhotoImage(file=f"logout_background.png")
-        logout_canvas.create_image(268.5, 136.5, image=self.background_img)
-
-        self.settings_yes_img = PhotoImage(file=f"settings_yes.png")
-        settings_yes_button = Button(self, image=self.settings_yes_img, borderwidth=0, highlightthickness=0
-                                     , relief="flat")
-        settings_yes_button.place(x=112, y=135, width=123, height=49)
-
-        self.settings_no_img = PhotoImage(file=f"settings_no.png")
-        settings_no_button = Button(self, image=self.settings_no_img, borderwidth=0, highlightthickness=0
-                                    , relief="flat")
-        settings_no_button.place(x=297, y=135, width=123, height=49)
+# class LogoutButtonBottom(tk.Frame):
+#     """
+#
+#     """
+#     def init(self, parent, controller):
+#         tk.Frame.__init__(self, parent)
+#         self.config(width=573, height=273)
+#         self.controller = controller
+#
+#         canvas = tk.Canvas(self, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
+#         canvas.place(x=0, y=0)
+#
+#         self.background_img = tk.PhotoImage(file=f"logout_background.png")
+#         canvas.create_image(268.5, 136.5, image=self.background_img)
+#
+#         self.logout_yes = tk.PhotoImage(file=f"settings_yes.png")
+#         logout_yes_button = Button(image=self.logout_yes, borderwidth=0, highlightthickness=0, relief="flat")
+#
+#         logout_yes_button.place(x=112, y=135, width=123, height=49)
+#
+#         self.logout_no = tk.PhotoImage(file=f"settings_no.png")
+#         logout_no_button = Button(image=self.logout_no, borderwidth=0, highlightthickness=0, relief="flat")
+#
+#         logout_no_button.place(x=297, y=135, width=123, height=49)
 
 
 # Driver Code
