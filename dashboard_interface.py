@@ -24,45 +24,46 @@ class Dashboard:
         canvas.create_text(430.0, 248.0, text="$33", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
         canvas.create_text(411.0, 298.5, text="%32", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
-        # Top Earners #1
-        canvas.create_text(696.0, 212.0, text="%29", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(557.0, 190.0, text="$30", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(555.5, 147.0, text="$31", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        #Top Earner #1
+        canvas.create_text(640.0, 147.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(640.0, 190.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(690.0, 214.0, text = "%", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
 
-        # Top Earners #2
-        canvas.create_text(784.5, 147.0, text="$28", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(786.0, 190.0, text="$27", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(925.0, 212.0, text="%26", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        # Top Earner #2
+        canvas.create_text(865.0, 147.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(865.0, 190.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(920.0, 214.0, text = "%", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
 
-        # Top Earners #3
-        canvas.create_text(1009.5, 149.0, text="$25", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1013.0, 192.0, text="$24", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1152.0, 214.0, text="%23", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        # Top Earner #3
+        canvas.create_text(1096.0, 149.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0))) 
+        canvas.create_text(1096.0, 192.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1149.0, 214.0, text = "%", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
 
-        # Top Earners #4
-        canvas.create_text(1235.5, 149.0, text="$22", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1237.0, 192.0, text="$21", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1376.0, 214.0, text="%20", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        # Top Earner #4
+        canvas.create_text(1322.0, 149.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1322.0, 192.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1373.0, 214.0, text = "%", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
 
-        # Closest to Profit #1
-        canvas.create_text(553.5, 295.0, text="$19", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(555.0, 338.0, text="$18", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(694.0, 360.0, text="%17", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        #========================================================================================================
+        # Closest to profict #1
+        canvas.create_text(640.0, 295.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(640.0, 338.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(690.0, 356.0, text = "%", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
 
-        # Closest to Profit #2
-        canvas.create_text(782.5, 295.0, text="$16", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(784.0, 338.0, text="$15", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(923.0, 360.0, text="%14", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        # Closest to profict #2
+        canvas.create_text(865.0, 295.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(865.0, 338.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(920.0, 356.0, text = "%", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
 
-        # Closest to Profit #3
-        canvas.create_text(1009.5, 295.0, text="$13", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1011.0, 338.0, text="$12", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1150.0, 360.0, text="%11", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        # Closest to profit #3
+        canvas.create_text(1096.0, 295.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1096.0, 338.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1149.0, 356.0, text = "%", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
 
-        # Closest to Profit #4
-        canvas.create_text(1235.5, 295.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1237.0, 338.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1376.0, 360.0, text="", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        # Closest to profit #4
+        canvas.create_text(1322.0, 295.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1322.0, 338.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(1373.0, 356.0, text = "%", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
 
         # Percent Increase Calculator
         canvas.create_text(968.0, 469.0, text="$7", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
