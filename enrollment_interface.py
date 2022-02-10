@@ -1,7 +1,7 @@
 """ Simple UI module which contains the logic to display an enrollment screen for a new user to register """
 import tkinter
 from tkinter import *
-
+from password_encryption import PasswordEncryption as encryption 
 
 class EnrollmentInterface:
     enrollment_window = Tk()
@@ -15,6 +15,10 @@ class EnrollmentInterface:
         # Logic to captures the user input
         user_email_entry = self.user_email_str.get()
         user_password_entry = self.user_password_str.get()
+        
+        # all that is necessary to encrypt password
+        encrypted_password_entry = user_password_entry.encrypt()
+        
         user_name_entry = self.user_name_str.get()
 
         # Clears the entry when the user clicks "Get Started"
@@ -23,7 +27,9 @@ class EnrollmentInterface:
         self.user_name_str.set("")
 
         if user_email_entry not in self.dict_of_enrolled:
-            self.dict_of_enrolled[user_email_entry] = {user_password_entry, user_name_entry}
+            # Uncomment if password encrypted line does not work. 
+            # self.dict_of_enrolled[user_email_entry] = {user_password_entry, user_name_entry}
+            self.dict_of_enrolled[user_email_entry] = {encrypted_password_entry, user_name_entry}
         return self.dict_of_enrolled
 
     enrollment_window.geometry("1000x600")

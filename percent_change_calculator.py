@@ -15,6 +15,7 @@ class PercentChange:
     def percent_increase(self):
         """
         Returns the percent increase / decrease as a two decimal result, with a green or red color
+        
         :rtype float
         :return: the percent differential
         """
@@ -31,12 +32,13 @@ class PercentChange:
 
     def price_difference(self):
         """
-        Returns the different between initial - final
+        Returns the different between (initial - final)
+        
         :rtype: int
         :return: the difference between two numbers
         """
         return abs(self.initial_price - self.final_price)
 
 
-percent_change = PercentChange(0, -1).price_difference()  # res = 8
+percent_change = PercentChange(0, -1).price_difference()
 print(percent_change)
