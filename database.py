@@ -66,7 +66,15 @@ class database:
 
     @staticmethod
     def checkUsername(name):
-        pass
+        connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
+                                      database="dilabshsjveo3",
+                                      user="ogjzilgdyfltod",
+                                      password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
+                                      )
+        cursor = connection.cursor()
+        postgres_select_query = "Select * FROM users WHERE  username = %s"
+        record_to_get = (name)
+
 
 
 database.adduser("hinduhops", "arieshgroevr@gmail", "password")
