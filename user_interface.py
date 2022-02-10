@@ -434,9 +434,10 @@ class ComingSoon(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
-            :return:
+            :return: an image object that is hidden
             """
             set_state(tk.HIDDEN, image_obj)
             canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
@@ -444,6 +445,7 @@ class ComingSoon(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -556,6 +558,7 @@ class Settings(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -566,13 +569,14 @@ class Settings(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
             """
             canvas.itemconfigure(image_obj, state=state)
 
-        bgr_width, bgr_height = self.settings_image.width(), self.settings_image.height()
+        self.settings_image.width(), self.settings_image.height()
 
         self.entry0_img = PhotoImage(file=f"settings_entry.png")
         canvas.create_image(731.5, 766.5, image=self.entry0_img)
