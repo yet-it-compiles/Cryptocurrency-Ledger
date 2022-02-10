@@ -25,22 +25,16 @@ class ManualTransaction:
         self.num_coins_trading = num_coins_trading
         self.fee = 0 # I don't know what this fee is, so for now it will best 0
         self.buy_or_sell = buy_or_sell
-    
-    def store_transaction(self, crypto_name, num_coins_trading, fee, buy_or_sell):
-        """ prints coin, price of coin, number of coins being traded, local date + time, fee, and trade value """
+        self.current_price = GeckoApi(crypto_name).get_attribute("current_price")
+        self.trade_value = self.trade_value_format(self.current_price, num_coins_trading)
+
         global utc_date_time
-        
+        global timezone
+        global local_date_time
         """ captures other necessary data """
         local_date_time = datetime.datetime.now()
         timezone = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
         utc_date_time = datetime.datetime.utcnow() # date time that will be stored
-        
-        # retrieves current price of cryptocurrency
-        current_price = GeckoApi(crypto_name).get_attribute("current_price")
-
-        trade_value = self.trade_value_format(current_price, num_coins_trading)
-        
-        self.return_transaction(crypto_name, num_coins_trading, timezone, trade_value, fee, buy_or_sell)
 
     def weighted_calculator(self, weight_list, value_list):
         """
