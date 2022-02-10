@@ -75,7 +75,8 @@ class LoginPage(tk.Frame):
         # Creates, and displays the forgot password button
         self.forgot_password_button = PhotoImage(file=f"forgot_password_button.png")
         forgot_password_location = Button(self, image=self.forgot_password_button, borderwidth=0, highlightthickness=0,
-                                          relief="flat", activebackground="#343333")
+                                          command=lambda: controller.show_frame(ComingSoon)
+                                          , relief="flat", activebackground="#343333")
         forgot_password_location.place(x=444, y=537, width=142, height=50)
 
         # Creates, and displays the sign-up button
@@ -132,7 +133,8 @@ class Enrollment(tk.Frame):
 
         self.get_started_button = PhotoImage(file=f"enrollment_get_started.png")
         get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0
-                                        , relief="flat", activebackground="#343333")
+                                        , command=lambda: controller.show_frame(Dashboard), relief="flat"
+                                        , activebackground="#343333")
         get_started_background.place(x=636, y=481, width=161, height=53)
 
         enrollment_canvas.create_text(727.5, 71.5, text="Create Account", fill="#ffffff",
@@ -305,13 +307,14 @@ class Dashboard(tk.Frame):
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(profile_image_obj), controller.show_frame(ComingSoon)))
+                        lambda event: (flash_hidden(profile_image_obj), controller.show_frame(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -322,6 +325,7 @@ class Dashboard(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+            
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
