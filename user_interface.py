@@ -55,11 +55,11 @@ class LoginPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1000, height=600)
+        self.controller = controller
 
         login_canvas = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
                               relief="ridge")
         login_canvas.place(x=0, y=0)
-        self.controller = controller
 
         # Grabs the background image, and applies it
         self.login_background = PhotoImage(file=f"login_background.png")
@@ -68,22 +68,22 @@ class LoginPage(tk.Frame):
         # Logic to populate the window
         self.sign_in_button = PhotoImage(file=f"sign_in_button.png")
         sign_in_button_location = Button(self, image=self.sign_in_button, borderwidth=0, highlightthickness=0,
-                                         command=lambda: controller.show_frame(Dashboard), relief="flat"
-                                         , activebackground="#343333")
+                                         command=lambda: controller.show_frame(Dashboard), relief="flat",
+                                         activebackground="#343333")
         sign_in_button_location.place(x=659, y=417, width=159, height=53)
 
         # Creates, and displays the forgot password button
         self.forgot_password_button = PhotoImage(file=f"forgot_password_button.png")
         forgot_password_location = Button(self, image=self.forgot_password_button, borderwidth=0, highlightthickness=0,
-                                          command=lambda: controller.show_frame(ComingSoon)
-                                          , relief="flat", activebackground="#343333")
+                                          command=lambda: controller.show_frame(ComingSoon),
+                                          relief="flat", activebackground="#343333")
         forgot_password_location.place(x=444, y=537, width=142, height=50)
 
         # Creates, and displays the sign-up button
         self.sign_up_button = PhotoImage(file=f"sign_up_button.png")
         sign_up_button_location = Button(self, image=self.sign_up_button, borderwidth=0, highlightthickness=0,
-                                         relief="flat", activebackground="#343333"
-                                         , command=lambda: controller.show_frame(Enrollment))
+                                         relief="flat", activebackground="#343333",
+                                         command=lambda: controller.show_frame(Enrollment))
 
         sign_up_button_location.place(x=864, y=537, width=136, height=46)
 
@@ -112,7 +112,7 @@ class Enrollment(tk.Frame):
         enrollment_canvas.place(x=0, y=0)
 
         self.enrollment_background = PhotoImage(file=f"enrollment_background.png")
-        background = enrollment_canvas.create_image(348.0, 300.0, image=self.enrollment_background)
+        enrollment_canvas.create_image(348.0, 300.0, image=self.enrollment_background)
 
         # Declaration of string variable which captures user entries
 
@@ -132,17 +132,17 @@ class Enrollment(tk.Frame):
         enrollment_text_box_location_3.place(x=586.0, y=387, width=273.0, height=44)
 
         self.get_started_button = PhotoImage(file=f"enrollment_get_started.png")
-        get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0
-                                        , command=lambda: controller.show_frame(Dashboard), relief="flat"
-                                        , activebackground="#343333")
+        get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
+                                        command=lambda: controller.show_frame(Dashboard), relief="flat",
+                                        activebackground="#343333")
         get_started_background.place(x=636, y=481, width=161, height=53)
 
         enrollment_canvas.create_text(727.5, 71.5, text="Create Account", fill="#ffffff",
                                       font=("Rosarivo-Regular", int(36.0)))
 
         self.existing_account = PhotoImage(file=f"enrollment_existing_account.png")
-        existing_account_background = Button(self, image=self.existing_account, borderwidth=0, highlightthickness=0
-                                             , command=lambda: controller.show_frame(LoginPage), relief="flat",
+        existing_account_background = Button(self, image=self.existing_account, borderwidth=0, highlightthickness=0,
+                                             command=lambda: controller.show_frame(LoginPage), relief="flat",
                                              activebackground="#343333")
 
         existing_account_background.place(x=618, y=530, width=212, height=51)
@@ -279,7 +279,7 @@ class Dashboard(tk.Frame):
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_frame(LogoutButtonBottom)))
+                        lambda event: (flash_hidden(logout_image_obj), controller.show_frame(ComingSoon)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -325,14 +325,14 @@ class Dashboard(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-            
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
             """
             canvas.itemconfigure(image_obj, state=state)
 
-        bgr_width, bgr_height = self.background_img.width(), self.background_img.height()
+        self.background_img.width(), self.background_img.height()
 
 
 class ComingSoon(tk.Frame):
@@ -456,7 +456,7 @@ class ComingSoon(tk.Frame):
             """
             canvas.itemconfigure(image_obj, state=state)
 
-        bgr_width, bgr_height = self.background_img.width(), self.background_img.height()
+        self.background_img.width(), self.background_img.height()
 
 
 class Settings(tk.Frame):
@@ -608,26 +608,27 @@ class Settings(tk.Frame):
 #     """
 #
 #     """
+#
 #     def init(self, parent, controller):
 #         tk.Frame.__init__(self, parent)
-#         self.config(width=573, height=273)
+#         self.config(width=1000, height=600)
 #         self.controller = controller
 #
-#         canvas = tk.Canvas(self, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
+#         canvas = Canvas(self, bg="#343333", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
 #         canvas.place(x=0, y=0)
 #
-#         self.background_img = tk.PhotoImage(file=f"logout_background.png")
+#         self.background_img = PhotoImage(file=f"logout_background.png")
 #         canvas.create_image(268.5, 136.5, image=self.background_img)
 #
-#         self.logout_yes = tk.PhotoImage(file=f"settings_yes.png")
-#         logout_yes_button = Button(image=self.logout_yes, borderwidth=0, highlightthickness=0, relief="flat")
+#         self.img0 = PhotoImage(file=f"settings_yes.png")
+#         b0 = Button(image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
 #
-#         logout_yes_button.place(x=112, y=135, width=123, height=49)
+#         b0.place(x=112, y=135, width=123, height=49)
 #
-#         self.logout_no = tk.PhotoImage(file=f"settings_no.png")
-#         logout_no_button = Button(image=self.logout_no, borderwidth=0, highlightthickness=0, relief="flat")
+#         self.img1 = PhotoImage(file=f"settings_no.png")
+#         b1 = Button(image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
 #
-#         logout_no_button.place(x=297, y=135, width=123, height=49)
+#         b1.place(x=297, y=135, width=123, height=49)
 
 
 # Driver Code
