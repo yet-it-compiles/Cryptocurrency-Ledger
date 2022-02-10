@@ -27,9 +27,9 @@ class EnrollmentInterface:
         self.user_name_str.set("")
 
         if user_email_entry not in self.dict_of_enrolled:
-            self.dict_of_enrolled[user_email_entry] = {user_password_entry, user_name_entry}
-            # 
-            # self.dict_of_enrolled[user_email_entry] = {encrypted_password_entry, user_name_entry}
+            # Uncomment if password encrypted line does not work. 
+            # self.dict_of_enrolled[user_email_entry] = {user_password_entry, user_name_entry}
+            self.dict_of_enrolled[user_email_entry] = {encrypted_password_entry, user_name_entry}
         return self.dict_of_enrolled
 
     enrollment_window.geometry("1000x600")
