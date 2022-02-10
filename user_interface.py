@@ -452,18 +452,23 @@ class Settings(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
-        flash_delay = 100  # Milliseconds.
         self.controller = controller
+
+        flash_delay = 100  # in milliseconds.
 
         canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
         # Retrieves the images, and configures the dashboard button
-        settings_image_path = "settings_background.png"
-        self.dashboard_image = tk.PhotoImage(file=settings_image_path)
-        settings_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
-        canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(settings_image_obj), controller.show_frame(Settings)))
+        self.background_img = PhotoImage(file = f"settings_background.png")
+        canvas.create_image(722.0, 512.0,image=self.background_img)
+
+        # Retrieves the images, and configures the dashboard button
+        dashboard_image_path = "dashboard_dashboard.png"
+        self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
+        dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
+        canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(dashboard_image_obj), controller.show_frame(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
         simulated_trading_image_path = "dashboard_simulated_trading.png"
