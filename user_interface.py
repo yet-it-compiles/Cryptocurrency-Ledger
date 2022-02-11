@@ -172,15 +172,10 @@ class Dashboard(tk.Frame):
         canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        # Investing PortFolio
-        canvas.create_text(430.0, 198.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(430.0, 248.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(411.0, 298.5, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-
         # Investing Portfolio
         canvas.create_text(430.0, 198.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
         canvas.create_text(430.0, 248.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(411.0, 298.5, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(430.0, 298.5, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #1
         canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
@@ -226,7 +221,7 @@ class Dashboard(tk.Frame):
         canvas.create_text(968.0, 469.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
         canvas.create_text(968.0, 504.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
         canvas.create_text(968.0, 553.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(972.0, 604.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(968.0, 604.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
         canvas.create_text(975.0, 620.0, text="$0.00 is a 0% increase from $0.00", fill="#ffffff",
                            font=("Rosarivo-Regular", int(10.0)))
 
