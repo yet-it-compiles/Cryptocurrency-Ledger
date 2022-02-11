@@ -5,9 +5,8 @@ from tkinter import *
 
 class TkinterApp(tk.Tk):
     """
-
+    Configures the initial conditions for the UI, and contains the logic to switch between different canvases
     """
-
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -23,7 +22,7 @@ class TkinterApp(tk.Tk):
         self.login_background = PhotoImage(file=f"login_background.png")
         canvas_setup.create_image(395.0, 300.0, image=self.login_background)
 
-        # Initializing frames to an empty dictionary
+        # Initializing canvases to an empty dictionary
         self.collection_of_canvases = {}
 
         # Declaration of logic to iterate through each page layout
@@ -39,19 +38,18 @@ class TkinterApp(tk.Tk):
     def show_frame(self, container):
         """
         Displays the current from that is passed as a parameter, and raises it to the current stack
+
         :param container: The passed in window to display next
         :return: the new canvas
         """
-
-        for frame in self.collection_of_canvases.values():
-            frame.grid_remove()
-        frame = self.collection_of_canvases[container]
-        frame.grid()
+        for each_canvas in self.collection_of_canvases.values():
+            each_canvas.grid_remove()
+        each_canvas = self.collection_of_canvases[container]
+        each_canvas.grid()
 
 
 class LoginPage(tk.Frame):
     """ Configures, and displays the login page """
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1000, height=600)
@@ -107,29 +105,30 @@ class Enrollment(tk.Frame):
         self.config(width=1000, height=600)
         self.controller = controller
 
+        # Initializes the enrollment page, and configures the position of the canvas
         enrollment_canvas = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
                                    relief="ridge")
         enrollment_canvas.place(x=0, y=0)
 
+        # Captures the background image for the canvas
         self.enrollment_background = PhotoImage(file=f"enrollment_background.png")
         enrollment_canvas.create_image(348.0, 300.0, image=self.enrollment_background)
 
         # Declaration of string variable which captures user entries
-
         self.enrollment_text_box = PhotoImage(file=f"enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 176.0, image=self.enrollment_text_box)
-        enrollment_text_box_location = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        enrollment_text_box_location.place(x=586.0, y=153, width=273.0, height=44)
+        email_text_box = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        email_text_box.place(x=586.0, y=153, width=273.0, height=44)
 
         self.enrollment_text_box_2 = PhotoImage(file=f"enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 293.0, image=self.enrollment_text_box_2)
-        enrollment_text_box_location_2 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        enrollment_text_box_location_2.place(x=586.0, y=270, width=273.0, height=44)
+        enrollment_text_box = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        enrollment_text_box.place(x=586.0, y=270, width=273.0, height=44)
 
         self.enrollment_text_box_3 = PhotoImage(file=f"enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 410.0, image=self.enrollment_text_box_3)
-        enrollment_text_box_location_3 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        enrollment_text_box_location_3.place(x=586.0, y=387, width=273.0, height=44)
+        user_name_text_box = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        user_name_text_box.place(x=586.0, y=387, width=273.0, height=44)
 
         self.get_started_button = PhotoImage(file=f"enrollment_get_started.png")
         get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
@@ -160,6 +159,7 @@ class Dashboard(tk.Frame):
         canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
+        # Captures the background image for the canvas
         image_path = "dashboard_background.png"
         self.background_img = tk.PhotoImage(file=image_path)
         canvas.create_image(0, 0, anchor='nw', image=self.background_img)
@@ -219,10 +219,10 @@ class Dashboard(tk.Frame):
         canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Percent Increase Calculator
-        canvas.create_text(968.0, 469.0, text="$7", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(968.0, 504.0, text="$6", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(968.0, 553.0, text="%5", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(972.0, 604.0, text="$4", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(968.0, 469.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(968.0, 504.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(968.0, 553.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        canvas.create_text(972.0, 604.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
         canvas.create_text(975.0, 620.0, text="$0.00 is a 0% increase from $0.00", fill="#ffffff",
                            font=("Rosarivo-Regular", int(10.0)))
 
@@ -279,7 +279,7 @@ class Dashboard(tk.Frame):
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_frame(ComingSoon)))
+                        lambda event: (flash_hidden(logout_image_obj), controller.show_frame(LoginPage)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -521,13 +521,6 @@ class Settings(tk.Frame):
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_frame(ComingSoon)))
-
-        # Retrieves the images, and configures the logout button
-        logout_image_path = "dashboard_logout.png"
-        self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_frame(ComingSoon)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
