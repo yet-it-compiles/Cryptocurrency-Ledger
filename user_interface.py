@@ -7,6 +7,7 @@ class TkinterApp(tk.Tk):
     """
     Configures the initial conditions for the UI, and contains the logic to switch between different canvases
     """
+
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -47,12 +48,12 @@ class TkinterApp(tk.Tk):
         each_canvas = self.collection_of_canvases[container]
         each_canvas.grid()
 
-
-        self.geometry(f'{each_canvas.winfo_reqwidth()}x{each_canvas.winfo_reqheight()}')
+        self.geometry(f'{each_canvas.winfo_reqwidth()}x{each_canvas.winfo_reqheight()}')  # resizes the canvases
 
 
 class LoginPage(tk.Frame):
     """ Configures, and displays the login page """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1000, height=600)
