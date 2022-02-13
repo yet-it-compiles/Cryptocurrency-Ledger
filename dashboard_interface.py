@@ -44,13 +44,12 @@ class Dashboard:
         canvas.create_text(1322.0, 192.0, text = "$", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
         canvas.create_text(1373.0, 214.0, text = "%", fill = "#e5e5e5", font = ("Rosarivo-Regular", int(10.0)))
 
-        #========================================================================================================
-        # Closest to profict #1
+        # Closest to profit #1
         canvas.create_text(640.0, 295.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
         canvas.create_text(640.0, 338.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
         canvas.create_text(690.0, 356.0, text = "%", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
 
-        # Closest to profict #2
+        # Closest to profit #2
         canvas.create_text(865.0, 295.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
         canvas.create_text(865.0, 338.0, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
         canvas.create_text(920.0, 356.0, text = "%", fill = "#ffffff", font = ("Rosarivo-Regular", int(10.0)))
