@@ -100,6 +100,14 @@ class LoginPage(tk.Frame):
         textbox_two_location = Entry(self, bd=0, bg="#696969", highlightthickness=0)
         textbox_two_location.place(x=602.0, y=345, width=273.0, height=44)
 
+        def sign_in_button(username, password):
+            if database.checkUsername(username):
+                if password_encryption.comparePass(username, password):
+                    controller.show_canvas(Enrollment)
+                else:
+                    error = "incorrect password"
+            else:
+                error = "username does not exist"
 
 class Enrollment(tk.Frame):
     """ Configures, and displays the login page """
