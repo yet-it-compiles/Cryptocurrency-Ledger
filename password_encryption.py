@@ -5,15 +5,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class PasswordEncryption:
-    password = ""
 
-    def __init__(self, password):
-        """
-        Parameterized constructor which initializes the string password
-        """
-        self.password = password
 
-    def encrypt(self):
+    @staticmethod
+    def encrypt(password):
         """
         Returns the encrypted password
 
@@ -24,8 +19,8 @@ class PasswordEncryption:
         
         encrypted = f.encrypt(self.password.encode())
         return encrypted
-    
-    def decrypt(self, encrypted):
+    @staticmethod
+    def decrypt( encrypted):
         """
         Returns the decrypted password
 
@@ -36,6 +31,18 @@ class PasswordEncryption:
         
         decrypted = f.decrypt(encrypted).decode()
         return decrypted
+
+    @staticmethod
+    def comparePass (username, password):
+
+        encrypted = encrypt(password)
+        stored = database.getPass(username)
+
+        if stored == encrypted:
+            return true
+
+        return false
+
 
 # These lines are used to test and ensure encryption and decryption works properly
 #

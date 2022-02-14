@@ -105,9 +105,17 @@ class database:
                                            )
         self.cursor = connection.cursor()
 
-    def add_transaction(self, coin_name, cost, amount):
-    
+    def add_transaction(self, coin_name, longTrade, buyTrade, price, amount, target, time):
 
+        postgres_insert_query = "INSERT INTO users Values( %s, %s, %s, %s, %s, %s, %s, %s)"
+        record_to_insert = (username, coin_name, longTrade, buyTrade, price, amount, target, time)
+
+        cursor.execute(postgres_insert_query, record_to_insert)
+
+        connection.commit()
+    
+    def getTransaction(self):
+        pass
 
 
 
