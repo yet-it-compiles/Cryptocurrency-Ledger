@@ -2,67 +2,75 @@ import psycopg2
 from psycopg2 import Error
 
 
-class database:
+class Database:
+
+    def __init__(self, user_name, user_email, user_password):
+        self.user_name = user_name
+        self.user_email = user_email
+        self.user_password = user_password
+
+
     @staticmethod
-    def adduser(name, email, password):
-        '''
-        Method for adding the user for the first time. Its static so that
-        the whole class does not need to be instantiated
-        '''
+    def adduser(self):
+        """
+        Adds the user for the first time
+        """
 
         try:
-            connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
+            is_connected = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
                                           database="dilabshsjveo3",
                                           user="ogjzilgdyfltod",
                                           password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
                                           )
 
-            cursor = connection.cursor()
+            executes_query = is_connected.cursor()
             postgres_insert_query = "INSERT INTO users Values( %s, %s, %s)"
-            record_to_insert = (name, email, password)
+            record_to_insert = (self.user_name, self.user_email, self.user_password)
 
-            cursor.execute(postgres_insert_query, record_to_insert)
+            executes_query.execute(postgres_insert_query, record_to_insert)
 
-            connection.commit()
+            is_connected.commit()
 
-            count = cursor.rowcount
+            count = executes_query.rowcount
             print(count, "Record inserted successfully into mobile table")
 
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
 
         finally:
-            # closing database connection.
-            if connection:
-                cursor.close()
-                connection.close()
+            # closing database is_connected.
+            if is_connected:
+                executes_query.close()
+                is_connected.close()
 
     @staticmethod
-    def get_pass(name):
+    def get_pass(self):
 
         try:
-            connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
+            is_connected = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
                                           database="dilabshsjveo3",
                                           user="ogjzilgdyfltod",
                                           password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
                                           )
-            cursor = connection.cursor()
-            postgres_select_query = "Select password FROM users WHERE  username = %s"
+            executes_query = is_connected.cursor()
+            postgres_select_query = "Select self.user_name FROM users WHERE self.user_name = %s"
 
-            cursor.execute(postgres_select_query, (name,))
+            executes_query.execute(postgres_select_query, (name,))
 
-            result = cursor.fetchone()
-            if result == None:
-                return false
-            return true
+            result = executes_query.fetchone()
+
+            if result is None:
+                return False
+            return True
+
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
 
         finally:
-            # closing database connection.
-            if connection:
-                cursor.close()
-                connection.close()
+            # closing database is_connected.
+            if is_connected:
+                executes_query.close()
+                is_connected.close()
 
     @staticmethod
     def checkUsername(name):
@@ -78,9 +86,9 @@ class database:
             cursor.execute(postgres_select_query, (name,))
 
             result = cursor.fetchone()
-            if result == None:
-                return false
-            return true
+            if result is None:
+                return False
+            return True
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
 
@@ -93,7 +101,6 @@ class database:
     def __init__(self, username):
         '''
         The connection to the database gets instantiated as part of the constructor
-
         This makes it so that the connection to the database stays permanent speeds up the process
         '''
         self.username = username
@@ -108,17 +115,14 @@ class database:
     def add_transaction(self, coin_name, longTrade, buyTrade, price, amount, target, time):
 
         postgres_insert_query = "INSERT INTO users Values( %s, %s, %s, %s, %s, %s, %s, %s)"
-        record_to_insert = (username, coin_name, longTrade, buyTrade, price, amount, target, time)
+        record_to_insert = (self.user_name, coin_name, longTrade, buyTrade, price, amount, target, time)
 
         cursor.execute(postgres_insert_query, record_to_insert)
 
         connection.commit()
-    
+
     def getTransaction(self):
         pass
 
-
-
-
-#database.adduser("hinduhops", "arieshgroevr@gmail", "password")
-#database.checkUsername("hindops")
+# database.adduser("hinduhops", "arieshgroevr@gmail", "password")
+# database.checkUsername("hindops")
