@@ -7,7 +7,7 @@ from io import BytesIO
 
 class GeckoApi:
     def __init__(self, crypto_name):
-        self.name = crypto_name
+        self.name = crypto_name.lower().strip()
 
     def get_coin(self):
         """
@@ -18,7 +18,7 @@ class GeckoApi:
         """
         info_from_api = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="
         json_converter = "&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-        requested_crypto_info = requests.get(info_from_api + self.name.lower() + json_converter).json()
+        requested_crypto_info = requests.get(info_from_api + self.name + json_converter).json()
 
         return requested_crypto_info
 
@@ -63,8 +63,20 @@ class GeckoApi:
         """
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/ohlc?vs_currency=usd&days='
+        
+        # handle any days_previous input (API only accepts listed values below)
+        possible_days = [1, 7, 14, 30, 90, 180, 365]
+        if days_previous < 1:
+            days_previous = 1
+        elif days_previous not in possible_days:
+            for days in enumerate(possible_days):
+                if days_previous < days[1]:
+                    days_previous = possible_days[days[0] - 1]
+                    break
+            else:
+                days_previous = possible_days[-1]
 
-        coin_ohlc = requests.get(info_from_api + self.name.lower().strip() + json_converter + str(days_previous)).json()
+        coin_ohlc = requests.get(info_from_api + self.name + json_converter + str(days_previous)).json()
 
         # return an empty list if the coin does not exist (api returns error dictionary)
         if type(coin_ohlc) == dict:
@@ -84,7 +96,7 @@ class GeckoApi:
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/market_chart?vs_currency=usd&days='
         price_history = requests.get(
-            info_from_api + self.name.lower().strip() + json_converter + str(days_previous)).json()
+            info_from_api + self.name + json_converter + str(days_previous)).json()
 
         # return empty list if coin name is not recognized
         if "error" in price_history.keys():
@@ -116,7 +128,7 @@ class GeckoApi:
         """
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/market_chart?vs_currency=usd&days='
-        market_cap_hist = requests.get(info_from_api + self.name.lower().strip() + json_converter +
+        market_cap_hist = requests.get(info_from_api + self.name + json_converter +
                                        str(days_previous)).json()
 
         # return empty list if coin name is not recognized
@@ -148,7 +160,7 @@ class GeckoApi:
         """
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/market_chart?vs_currency=usd&days='
-        total_volume_history = requests.get(info_from_api, self.name.lower().strip(), json_converter,
+        total_volume_history = requests.get(info_from_api, self.name, json_converter,
                                             str(days_previous)).json()
 
         # return empty list if coin name is not recognized
@@ -179,7 +191,8 @@ def main():
     print('Total Supply: ' + str(crypto_info.get_attribute("total_supply")))
     print('Price High: ' + str(crypto_info.get_attribute("high_24h")))
     print('Price Low: ' + str(crypto_info.get_attribute("low_24h")))
-    # print('OHCL Data: ' + str(crypto_info.get_ohlc_data(2)))  # reporting an error
+    print('OHCL Data: ' + str(crypto_info.get_ohlc_data(2)))  # reporting an error
+    
     print('Price History: ' + str(crypto_info.get_price_history(2)))
     print('Market Cap History: ' + str(crypto_info.get_market_cap_history(2)))
 
