@@ -11,7 +11,7 @@ def weighted_calculator(weight_list, value_list):
 
         # calculations for weighted average
         for i in range(len(weight_list)):
-            sum += (weight_list[i] * value_list[i])
-            div += weight_list[i]
+            sum = sum + (weight_list[i] * value_list[i])
+            div = div + weight_list[i]
         
         return float("{0:.2f}".format(float(sum)/div))
