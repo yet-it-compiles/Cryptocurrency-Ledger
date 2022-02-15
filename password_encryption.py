@@ -4,45 +4,58 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class PasswordEncryption:
 
-
     @staticmethod
-    def encrypt(password):
+    def encrypt(user_password):
         """
-        Returns the encrypted password
+        Takes in the user password, and returns an encrypted password
 
-        :rtype bytes
+        :param user_password: The users' password
+        :type user_password: # TODO
+        :rtype: bytes
         :return: hashed value of password
         """
-        f = Fernet(os.getenv('KEY')) # could potentially move this elsewhere
-        
-        encrypted = f.encrypt(self.password.encode())
-        return encrypted
-    @staticmethod
-    def decrypt( encrypted):
-        """
-        Returns the decrypted password
+        secret_key = Fernet(os.getenv('KEY'))
 
-        :rtype String
-        :return: string value of the typed password
-        """
-        f = Fernet(os.getenv('KEY')) # repeated code from encrypt, necessary to decrypt
-        
-        decrypted = f.decrypt(encrypted).decode()
-        return decrypted
+        encrypted_password = secret_key.encrypt(self.user_password.encode())
+        return encrypted_password
 
     @staticmethod
-    def comparePass (username, password):
+    def decrypt(encrypted_password):
+        """
+        Takes in an encrypted password, and returns a decrypted password
 
+        :param encrypted_password: encrypted password
+        :type encrypted_password: bytes
+        :return: a decrypted password
+        """
+
+        secret_key = Fernet(os.getenv('KEY'))  # repeated code from encrypt, necessary to decrypt
+
+        decrypted_password = secret_key.decrypt(encrypted_password).decode()
+        return decrypted_password
+
+    @staticmethod
+    def password_comparison(username, password):
+        """
+        #TODO
+
+        :param username:
+        :type username:
+        :param password:
+        :type password:
+        :rtype: bool
+        :return:
+        """
         encrypted = encrypt(password)
         stored = database.getPass(username)
 
         if stored == encrypted:
-            return true
+            return True
 
-        return false
-
+        return False
 
 # These lines are used to test and ensure encryption and decryption works properly
 #

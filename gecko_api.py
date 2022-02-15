@@ -6,27 +6,28 @@ from io import BytesIO
 
 
 class GeckoApi:
-    crypto_name = ""
-
     def __init__(self, crypto_name):
-        self.name = crypto_name
+        self.name = crypto_name.lower().strip()
 
     def get_coin(self):
         """
         Returns the dictionary representation of the coin with all available attributes
+
         :rtype: dict
         :return requested_crypto_info: the queried coin dictionary
         """
         info_from_api = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="
         json_converter = "&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-        requested_crypto_info = requests.get(info_from_api + self.name.lower() + json_converter).json()
+        requested_crypto_info = requests.get(info_from_api + self.name + json_converter).json()
 
         return requested_crypto_info
 
     def get_attribute(self, attribute):
         """
         Retrieves a specific attribute request
+
         Note: Users must enter name (not symbol), not case-sensitive.
+
         :param attribute: the given attribute (use any from Attributes table above)
         :type attribute: str
         :rtype: int | float | str
@@ -39,6 +40,7 @@ class GeckoApi:
     def get_icon(self):
         """
         Retrieves the image of the requested cryptocurrency
+
         :rtype: Image
         :return crypto_icon
         """
@@ -54,14 +56,27 @@ class GeckoApi:
     def get_ohlc_data(self, days_previous):
         """
         Returns a list of opening price, high/low, and closing price for the period
+
         :param days_previous: int
         :rtype: list
         :return: coin_ohlc
         """
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/ohlc?vs_currency=usd&days='
+        
+        # handle any days_previous input (API only accepts listed values below)
+        possible_days = [1, 7, 14, 30, 90, 180, 365]
+        if days_previous < 1:
+            days_previous = 1
+        elif days_previous not in possible_days:
+            for days in enumerate(possible_days):
+                if days_previous < days[1]:
+                    days_previous = possible_days[days[0] - 1]
+                    break
+            else:
+                days_previous = possible_days[-1]
 
-        coin_ohlc = requests.get(info_from_api + self.name.lower().strip() + json_converter + str(days_previous)).json()
+        coin_ohlc = requests.get(info_from_api + self.name + json_converter + str(days_previous)).json()
 
         # return an empty list if the coin does not exist (api returns error dictionary)
         if type(coin_ohlc) == dict:
@@ -72,6 +87,7 @@ class GeckoApi:
     def get_price_history(self, days_previous, separate=False):
         """
         Returns a list of historical price data in the form of  [unix_timestamp, price]
+
         :param days_previous: int
         :param separate: bool
         :rtype: list
@@ -79,7 +95,8 @@ class GeckoApi:
         """
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/market_chart?vs_currency=usd&days='
-        price_history = requests.get(info_from_api + self.name.lower().strip() + json_converter + str(days_previous)).json()
+        price_history = requests.get(
+            info_from_api + self.name + json_converter + str(days_previous)).json()
 
         # return empty list if coin name is not recognized
         if "error" in price_history.keys():
@@ -103,6 +120,7 @@ class GeckoApi:
     def get_market_cap_history(self, days_previous, separate=False):
         """
         Returns a list of historical market cap data, each entry having the form: [unix_timestamp, market_cap]
+
         :param days_previous: int
         :param separate: bool
         :rtype: list
@@ -110,7 +128,7 @@ class GeckoApi:
         """
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/market_chart?vs_currency=usd&days='
-        market_cap_hist = requests.get(info_from_api + self.name.lower().strip() + json_converter +
+        market_cap_hist = requests.get(info_from_api + self.name + json_converter +
                                        str(days_previous)).json()
 
         # return empty list if coin name is not recognized
@@ -134,6 +152,7 @@ class GeckoApi:
     def get_volume_history(self, days_previous, separate=False):
         """
         Returns a list of historical total volume data, each entry having the form: [unix_timestamp, total_volume]
+
         :param days_previous: int
         :param separate: bool
         :rtype: list
@@ -141,8 +160,8 @@ class GeckoApi:
         """
         info_from_api = 'https://api.coingecko.com/api/v3/coins/'
         json_converter = '/market_chart?vs_currency=usd&days='
-        total_volume_history = requests.get(info_from_api, self.crypto_name.lower().strip(), json_converter,
-                                         str(days_previous)).json()
+        total_volume_history = requests.get(info_from_api, self.name, json_converter,
+                                            str(days_previous)).json()
 
         # return empty list if coin name is not recognized
         if "error" in total_volume_history.keys():
@@ -161,3 +180,22 @@ class GeckoApi:
             return times, total_volumes
         else:
             return total_volume_history
+
+
+def main():
+    crypto_info = GeckoApi("dogecoin")
+
+    print('Cryptocurrency Name: ' + str(crypto_info.name).title())
+    print('Current Price: ' + str(crypto_info.get_attribute("current_price")))
+    print('Market Cap: ' + str(crypto_info.get_attribute("market_cap")))
+    print('Total Supply: ' + str(crypto_info.get_attribute("total_supply")))
+    print('Price High: ' + str(crypto_info.get_attribute("high_24h")))
+    print('Price Low: ' + str(crypto_info.get_attribute("low_24h")))
+    print('OHCL Data: ' + str(crypto_info.get_ohlc_data(2)))  # reporting an error
+    
+    print('Price History: ' + str(crypto_info.get_price_history(2)))
+    print('Market Cap History: ' + str(crypto_info.get_market_cap_history(2)))
+
+
+if __name__ == '__main__':
+    main()

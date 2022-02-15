@@ -2,12 +2,12 @@
 
 
 class PercentChange:
-    initial_price = -1
-    final_price = -1
-
     def __init__(self, initial_price, final_price):
         """
         Parameterized constructor which initializes the initial, and final prices passed
+
+        :param initial_price: initial price of the asset
+        :param final_price: current price of the asset
         """
         self.initial_price = initial_price
         self.final_price = final_price
@@ -15,7 +15,7 @@ class PercentChange:
     def percent_increase(self):
         """
         Returns the percent increase / decrease as a two decimal result, with a green or red color
-        
+
         :rtype float
         :return: the percent differential
         """
@@ -32,13 +32,17 @@ class PercentChange:
 
     def price_difference(self):
         """
-        Returns the different between (initial - final)
-        
-        :rtype: int
+        Returns the difference between the values
+
         :return: the difference between two numbers
         """
         return abs(self.initial_price - self.final_price)
 
 
-percent_change = PercentChange(0, -1).price_difference()
-print(percent_change)
+def main():
+    """ """
+    #  percent_change = PercentChange()
+
+
+if __name__ == '__main__':
+    main()
