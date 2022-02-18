@@ -1,6 +1,12 @@
 """ This module configures each page of the Cryptocurrency ledger """
+from typing import Any
+
 import tkinter as tk
 from tkinter import *
+import database
+from database import *
+import password_encryption
+from password_encryption import *
 
 
 class TkinterApp(tk.Tk):
@@ -54,10 +60,27 @@ class TkinterApp(tk.Tk):
 class LoginPage(tk.Frame):
     """ Configures, and displays the login page """
 
+    def sign_in(self, controller, username, password):
+        print(username)
+        print(password)
+        if Database.checkUsername(username):
+            if PasswordEncryption.password_comparison(username, password):
+                print("made it")
+                controller.show_canvas(Dashboard)
+            else:
+
+                error = "Incorrect Password"
+                print(error)
+        else:
+            error = "No Username"
+            print(error)
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1000, height=600)
         self.controller = controller
+        username = tk.StringVar()
+        password = tk.StringVar()
 
         login_canvas = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
                               relief="ridge")
@@ -70,7 +93,8 @@ class LoginPage(tk.Frame):
         # Logic to populate the window
         self.sign_in_button = PhotoImage(file=f"sign_in_button.png")
         sign_in_button_location = Button(self, image=self.sign_in_button, borderwidth=0, highlightthickness=0,
-                                         command=lambda: controller.show_canvas(Dashboard), relief="flat",
+                                         command=lambda: self.sign_in(self.controller, username.get(), password.get()),
+                                         relief="flat",
                                          activebackground="#343333")
         sign_in_button_location.place(x=659, y=417, width=159, height=53)
 
@@ -92,30 +116,35 @@ class LoginPage(tk.Frame):
         # Creates, and initializes the text boxes
         self.login_textbox_one = PhotoImage(file=f"login_textbox.png")
         login_canvas.create_image(738.5, 263.0, image=self.login_textbox_one)
-        textbox_one_location = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        textbox_one_location = Entry(self, textvariable=username, bd=0, bg="#696969", highlightthickness=0)
         textbox_one_location.place(x=602.0, y=240, width=273.0, height=44)
 
         self.login_textbox_two = PhotoImage(file=f"login_textbox.png")
         login_canvas.create_image(738.5, 368.0, image=self.login_textbox_two)
-        textbox_two_location = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        textbox_two_location = Entry(self, textvariable=password, bd=0, bg="#696969", highlightthickness=0, show='*')
         textbox_two_location.place(x=602.0, y=345, width=273.0, height=44)
 
-        def sign_in_button(username, password):
-            if database.checkUsername(username):
-                if password_encryption.comparePass(username, password):
-                    controller.show_canvas(Enrollment)
-                else:
-                    error = "incorrect password"
-            else:
-                error = "username does not exist"
 
 class Enrollment(tk.Frame):
     """ Configures, and displays the login page """
+
+    def add_user(self, controller, username, password, email):
+        if Database.checkUsername(username):
+            error = "username is taken"
+            print(error)
+            controller.show_canvas(LoginPage)
+            return
+        # possible check for password constraints
+        Database.addUser(username, password, email)
+        controller.show_canvas(LoginPage)
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1000, height=600)
         self.controller = controller
+        email = tk.StringVar()
+        username = tk.StringVar()
+        password = tk.StringVar()
 
         # Initializes the enrollment page, and configures the position of the canvas
         enrollment_canvas = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
@@ -129,22 +158,23 @@ class Enrollment(tk.Frame):
         # Declaration of string variable which captures user entries
         self.enrollment_text_box = PhotoImage(file=f"enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 176.0, image=self.enrollment_text_box)
-        email_text_box = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        email_text_box = Entry(self, textvariable=email, bd=0, bg="#696969", highlightthickness=0)
         email_text_box.place(x=586.0, y=153, width=273.0, height=44)
 
         self.enrollment_text_box_2 = PhotoImage(file=f"enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 293.0, image=self.enrollment_text_box_2)
-        enrollment_text_box = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        enrollment_text_box = Entry(self, textvariable=password, bd=0, bg="#696969", highlightthickness=0)
         enrollment_text_box.place(x=586.0, y=270, width=273.0, height=44)
 
         self.enrollment_text_box_3 = PhotoImage(file=f"enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 410.0, image=self.enrollment_text_box_3)
-        user_name_text_box = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        user_name_text_box = Entry(self, textvariable=username, bd=0, bg="#696969", highlightthickness=0)
         user_name_text_box.place(x=586.0, y=387, width=273.0, height=44)
 
         self.get_started_button = PhotoImage(file=f"enrollment_get_started.png")
         get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
-                                        command=lambda: controller.show_canvas(Dashboard), relief="flat",
+                                        command=lambda: self.add_user(self.controller, username.get(), email.get(),
+                                                                      password.get()), relief="flat",
                                         activebackground="#343333")
         get_started_background.place(x=636, y=481, width=161, height=53)
 

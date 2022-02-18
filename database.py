@@ -9,23 +9,28 @@ class Database:
         self.user_email = user_email
         self.user_password = user_password
 
-
     @staticmethod
-    def adduser(self):
+    def connect():
+        connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
+                                            database="dilabshsjveo3",
+                                            user="ogjzilgdyfltod",
+                                            password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
+                                            )
+        return connection
+    @staticmethod
+    def addUser(username, email, password):
         """
         Adds the user for the first time
         """
-
+        if Database.checkUsername(username):
+            print("Username is taken")
+        is_connected = Database.connect()
         try:
-            is_connected = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
-                                          database="dilabshsjveo3",
-                                          user="ogjzilgdyfltod",
-                                          password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
-                                          )
+
 
             executes_query = is_connected.cursor()
             postgres_insert_query = "INSERT INTO users Values( %s, %s, %s)"
-            record_to_insert = (self.user_name, self.user_email, self.user_password)
+            record_to_insert = (username, email, password)
 
             executes_query.execute(postgres_insert_query, record_to_insert)
 
@@ -44,24 +49,22 @@ class Database:
                 is_connected.close()
 
     @staticmethod
-    def get_pass(self):
+    def get_pass(username):
 
         try:
             is_connected = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
-                                          database="dilabshsjveo3",
-                                          user="ogjzilgdyfltod",
-                                          password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
-                                          )
+                                            database="dilabshsjveo3",
+                                            user="ogjzilgdyfltod",
+                                            password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
+                                            )
             executes_query = is_connected.cursor()
-            postgres_select_query = "Select self.user_name FROM users WHERE self.user_name = %s"
+            postgres_select_query = "Select pass FROM users WHERE username = %s"
 
-            executes_query.execute(postgres_select_query, (name,))
+            executes_query.execute(postgres_select_query, (username,))
 
             result = executes_query.fetchone()
 
-            if result is None:
-                return False
-            return True
+            return result
 
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
@@ -74,12 +77,9 @@ class Database:
 
     @staticmethod
     def checkUsername(name):
+        connection = Database.connect()
         try:
-            connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
-                                          database="dilabshsjveo3",
-                                          user="ogjzilgdyfltod",
-                                          password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
-                                          )
+
             cursor = connection.cursor()
             postgres_select_query = "Select username FROM users WHERE  username = %s"
 
@@ -98,6 +98,8 @@ class Database:
                 cursor.close()
                 connection.close()
 
+
+"""
     def __init__(self, username):
         '''
         The connection to the database gets instantiated as part of the constructor
@@ -112,10 +114,10 @@ class Database:
                                            )
         self.cursor = connection.cursor()
 
-    def add_transaction(self, coin_name, longTrade, buyTrade, price, amount, target, time):
-
+    def add_transaction(self, transaction):
+        ##fee
         postgres_insert_query = "INSERT INTO users Values( %s, %s, %s, %s, %s, %s, %s, %s)"
-        record_to_insert = (self.user_name, coin_name, longTrade, buyTrade, price, amount, target, time)
+        record_to_insert = (self.user_name, transaction.coi, longTrade, buyTrade, price, amount, target, time)
 
         cursor.execute(postgres_insert_query, record_to_insert)
 
@@ -123,6 +125,6 @@ class Database:
 
     def getTransaction(self):
         pass
-
-# database.adduser("hinduhops", "arieshgroevr@gmail", "password")
-# database.checkUsername("hindops")
+"""
+#Database.adduser("admin", "admin@gmail.com", "admin")
+print(Database.checkUsername("admin"))
