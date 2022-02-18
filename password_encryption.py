@@ -1,7 +1,8 @@
 import os
 from cryptography.fernet import Fernet
 from dotenv import load_dotenv
-
+import database
+from database import *
 load_dotenv()
 
 
@@ -49,10 +50,13 @@ class PasswordEncryption:
         :rtype: bool
         :return:
         """
-        encrypted = encrypt(password)
-        stored = database.getPass(username)
+        #encrypted = PasswordEncryption.encrypt(password)
+        stored = Database.get_pass(username)
 
-        if stored == encrypted:
+
+        print(f"From Database: {stored[0]} and from user {password}")
+        db = stored[0]
+        if db == password:
             return True
 
         return False
