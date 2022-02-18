@@ -9,19 +9,25 @@ class Database:
         self.user_email = user_email
         self.user_password = user_password
 
+    @staticmethod
+    def connect():
+        connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
+                                      database="dilabshsjveo3",
+                                      user="ogjzilgdyfltod",
+                                      password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
+                                      )
+        return connection
 
     @staticmethod
     def adduser(username, email, password):
         """
         Adds the user for the first time
         """
-
+        if Database.checkUsername(username):
+            "username is taken"
+            return
+        is_connected = Database.connect()
         try:
-            is_connected = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
-                                          database="dilabshsjveo3",
-                                          user="ogjzilgdyfltod",
-                                          password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
-                                          )
 
             executes_query = is_connected.cursor()
             postgres_insert_query = "INSERT INTO users Values( %s, %s, %s)"
@@ -45,13 +51,9 @@ class Database:
 
     @staticmethod
     def get_pass(username):
-
+        is_connected = Database.connect()
         try:
-            is_connected = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
-                                          database="dilabshsjveo3",
-                                          user="ogjzilgdyfltod",
-                                          password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
-                                          )
+
             executes_query = is_connected.cursor()
             postgres_select_query = "Select pass FROM users WHERE username = %s"
 
@@ -72,12 +74,10 @@ class Database:
 
     @staticmethod
     def checkUsername(name):
+        connection = Database.connect()
         try:
-            connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
-                                          database="dilabshsjveo3",
-                                          user="ogjzilgdyfltod",
-                                          password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
-                                          )
+
+
             cursor = connection.cursor()
             postgres_select_query = "Select username FROM users WHERE  username = %s"
 
@@ -95,6 +95,8 @@ class Database:
             if connection:
                 cursor.close()
                 connection.close()
+
+
 """
     def __init__(self, username):
         '''
@@ -122,6 +124,5 @@ class Database:
     def getTransaction(self):
         pass
 """
-#Database.adduser("admin", "admin@gmail.com", "admin")
-#print(Database.checkUsername("admin"))
-
+# Database.adduser("admin", "admin@gmail.com", "admin")
+# print(Database.checkUsername("admin"))
