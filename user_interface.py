@@ -1,7 +1,12 @@
 """ This module configures each page of the Cryptocurrency ledger """
+from typing import Any
+
 import tkinter as tk
 from tkinter import *
-
+import database
+from database import *
+import password_encryption
+from password_encryption import *
 
 class TkinterApp(tk.Tk):
     """
@@ -54,10 +59,28 @@ class TkinterApp(tk.Tk):
 class LoginPage(tk.Frame):
     """ Configures, and displays the login page """
 
+    def sign_in(self, controller, username, password):
+        print (username)
+        print(password)
+        if Database.checkUsername(username):
+            if PasswordEncryption.password_comparison(username, password):
+                print("made it")
+                controller.show_canvas(Dashboard)
+            else:
+
+                error = "Incorrect Password"
+                print (error)
+        else:
+            error = "No Username"
+            print(error)
+
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1000, height=600)
         self.controller = controller
+        username = tk.StringVar()
+        password = tk.StringVar()
 
         login_canvas = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
                               relief="ridge")
@@ -70,7 +93,7 @@ class LoginPage(tk.Frame):
         # Logic to populate the window
         self.sign_in_button = PhotoImage(file=f"sign_in_button.png")
         sign_in_button_location = Button(self, image=self.sign_in_button, borderwidth=0, highlightthickness=0,
-                                         command=lambda: controller.show_canvas(Dashboard), relief="flat",
+                                         command=lambda: self.sign_in(self.controller, username.get(), password.get()), relief="flat",
                                          activebackground="#343333")
         sign_in_button_location.place(x=659, y=417, width=159, height=53)
 
@@ -92,12 +115,12 @@ class LoginPage(tk.Frame):
         # Creates, and initializes the text boxes
         self.login_textbox_one = PhotoImage(file=f"login_textbox.png")
         login_canvas.create_image(738.5, 263.0, image=self.login_textbox_one)
-        textbox_one_location = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        textbox_one_location = Entry(self, textvariable=username, bd=0, bg="#696969", highlightthickness=0)
         textbox_one_location.place(x=602.0, y=240, width=273.0, height=44)
 
         self.login_textbox_two = PhotoImage(file=f"login_textbox.png")
         login_canvas.create_image(738.5, 368.0, image=self.login_textbox_two)
-        textbox_two_location = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+        textbox_two_location = Entry(self, textvariable=password, bd=0, bg="#696969", highlightthickness=0, show='*')
         textbox_two_location.place(x=602.0, y=345, width=273.0, height=44)
 
 
