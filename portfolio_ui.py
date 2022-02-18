@@ -46,9 +46,9 @@ b1 = Button(
     relief = "flat")
 
 b1.place(
-    x = 1275, y = 24,
-    width = 39,
-    height = 42)
+    x = 1261, y = 17,
+    width = 76,
+    height = 59)
 
 img2 = PhotoImage(file = f"img2.png")
 b2 = Button(
@@ -59,9 +59,9 @@ b2 = Button(
     relief = "flat")
 
 b2.place(
-    x = 1149, y = 16,
-    width = 81,
-    height = 49)
+    x = 1145, y = 6,
+    width = 104,
+    height = 64)
 
 img3 = PhotoImage(file = f"img3.png")
 b3 = Button(
@@ -72,9 +72,9 @@ b3 = Button(
     relief = "flat")
 
 b3.place(
-    x = 1027, y = 19,
-    width = 81,
-    height = 46)
+    x = 1022, y = 12,
+    width = 95,
+    height = 55)
 
 img4 = PhotoImage(file = f"img4.png")
 b4 = Button(
@@ -85,9 +85,9 @@ b4 = Button(
     relief = "flat")
 
 b4.place(
-    x = 44, y = 925,
-    width = 30,
-    height = 30)
+    x = 38, y = 920,
+    width = 46,
+    height = 43)
 
 img5 = PhotoImage(file = f"img5.png")
 b5 = Button(
@@ -98,7 +98,7 @@ b5 = Button(
     relief = "flat")
 
 b5.place(
-    x = 13, y = 777,
+    x = 13, y = 781,
     width = 90,
     height = 90)
 
@@ -111,7 +111,7 @@ b6 = Button(
     relief = "flat")
 
 b6.place(
-    x = 13, y = 668,
+    x = 14, y = 670,
     width = 90,
     height = 90)
 
@@ -124,8 +124,8 @@ b7 = Button(
     relief = "flat")
 
 b7.place(
-    x = 13, y = 559,
-    width = 90,
+    x = 16, y = 559,
+    width = 91,
     height = 90)
 
 img8 = PhotoImage(file = f"img8.png")
@@ -137,7 +137,7 @@ b8 = Button(
     relief = "flat")
 
 b8.place(
-    x = 13, y = 450,
+    x = 14, y = 447,
     width = 90,
     height = 90)
 
@@ -150,7 +150,7 @@ b9 = Button(
     relief = "flat")
 
 b9.place(
-    x = 12, y = 341,
+    x = 14, y = 335,
     width = 90,
     height = 90)
 
@@ -163,7 +163,7 @@ b10 = Button(
     relief = "flat")
 
 b10.place(
-    x = 14, y = 232,
+    x = 14, y = 221,
     width = 90,
     height = 90)
 
@@ -176,8 +176,8 @@ b11 = Button(
     relief = "flat")
 
 b11.place(
-    x = 14, y = 123,
-    width = 90,
+    x = 14, y = 105,
+    width = 89,
     height = 90)
 
 canvas.create_text(
@@ -187,40 +187,228 @@ canvas.create_text(
     font = ("Rosarivo-Regular", int(12.0)))
 
 canvas.create_text(
-    440.5, 93.5,
+    274.0, 100.5,
     text = "$",
     fill = "#ffffff",
     font = ("Rosarivo-Regular", int(18.0)))
 
 canvas.create_text(
-    314.0, 345.5,
-    text = "Assets",
+    303.0, 428.0,
+    text = "Assets 1",
     fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(19.0)))
+    font = ("Rosarivo-Regular", int(13.0)))
 
 canvas.create_text(
-    479.0, 345.5,
-    text = "Balance",
+    948.0, 425.0,
+    text = "Percent Change  1",
     fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(19.0)))
+    font = ("Rosarivo-Regular", int(13.0)))
 
 canvas.create_text(
-    676.0, 345.5,
-    text = "Current Price",
+    729.0, 425.0,
+    text = "Currency Price 1",
     fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(19.0)))
+    font = ("Rosarivo-Regular", int(13.0)))
 
 canvas.create_text(
-    928.5, 345.5,
-    text = "Percent Change",
+    538.0, 428.0,
+    text = "Balance 1",
     fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(19.0)))
+    font = ("Rosarivo-Regular", int(13.0)))
 
 canvas.create_text(
-    1143.0, 345.5,
-    text = "Action",
+    303.0, 492.0,
+    text = "Assets 2",
     fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(19.0)))
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    948.0, 489.0,
+    text = "Percent Change  2",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    729.0, 489.0,
+    text = "Currency Price 2",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    538.0, 492.0,
+    text = "Balance 2",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    303.0, 555.0,
+    text = "Assets 3",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    948.0, 552.0,
+    text = "Percent Change  3",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    729.0, 552.0,
+    text = "Currency Price 3",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    538.0, 555.0,
+    text = "Balance 3",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    303.0, 624.0,
+    text = "Assets 4",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    948.0, 621.0,
+    text = "Percent Change  14",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    729.0, 621.0,
+    text = "Currency Price 4",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    538.0, 625.0,
+    text = "Balance 4",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    303.0, 693.0,
+    text = "Assets 5",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    948.0, 690.0,
+    text = "Percent Change  5",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    729.0, 690.0,
+    text = "Currency Price 5",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    538.0, 693.0,
+    text = "Balance 5",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    303.0, 762.0,
+    text = "Assets 6",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    948.0, 759.0,
+    text = "Percent Change  6",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    729.0, 759.0,
+    text = "Currency Price 6",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    538.0, 762.0,
+    text = "Balance 6",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    303.0, 831.0,
+    text = "Assets 7",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    948.0, 828.0,
+    text = "Percent Change  7",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    729.0, 828.0,
+    text = "Currency Price 7",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    538.0, 831.0,
+    text = "Balance 7",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    303.0, 900.0,
+    text = "Assets 8",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    948.0, 897.0,
+    text = "Percent Change  8",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    729.0, 897.0,
+    text = "Currency Price 8",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+canvas.create_text(
+    538.0, 900.0,
+    text = "Balance 8",
+    fill = "#ffffff",
+    font = ("Rosarivo-Regular", int(13.0)))
+
+img12 = PhotoImage(file = f"img12.png")
+b12 = Button(
+    image = img12,
+    borderwidth = 0,
+    highlightthickness = 0,
+    command = btn_clicked,
+    relief = "flat")
+
+b12.place(
+    x = 1236, y = 950,
+    width = 22,
+    height = 26)
+
+img13 = PhotoImage(file = f"img13.png")
+b13 = Button(
+    image = img13,
+    borderwidth = 0,
+    highlightthickness = 0,
+    command = btn_clicked,
+    relief = "flat")
+
+b13.place(
+    x = 1261, y = 949,
+    width = 19,
+    height = 23)
 
 window.resizable(False, False)
 window.mainloop()
