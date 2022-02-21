@@ -598,7 +598,7 @@ class Settings(tk.Frame):
 
         entry2.place(x=597.5, y=503, width=268.0, height=49)
 
-        canvas.create_text(583, 372.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(26.0)))
+        canvas.create_text(730, 420.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(26.0)))
 
 
 # class LogoutButtonBottom(tk.Frame):
