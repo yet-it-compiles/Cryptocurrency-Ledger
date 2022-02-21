@@ -128,15 +128,21 @@ class Enrollment(tk.Frame):
     """ Configures, and displays the login page """
 
     def add_user(self, controller, username, password, email):
-        if Database.checkUsername(username):
+        usernameTxt = username.get()
+        passwordTxt = password.get()
+        emailTxt = email.get()
+
+        if Database.checkUsername(usernameTxt):
             error = "username is taken"
             print(error)
             controller.show_canvas(LoginPage)
             return
         # possible check for password constraints
-        Database.addUser(username, password, email)
+        Database.adduser(usernameTxt, passwordTxt, emailTxt)
         controller.show_canvas(LoginPage)
-
+        username.set("")
+        password.set("")
+        email.set("")
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -174,7 +180,7 @@ class Enrollment(tk.Frame):
 
         self.get_started_button = PhotoImage(file=f"enrollment_get_started.png")
         get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
-                                        command=lambda: controller.show_canvas(Dashboard), relief="flat",
+                                        command=lambda: self.add_user(controller, username, password, email), relief="flat",
                                         activebackground="#343333")
         get_started_background.place(x=636, y=481, width=161, height=53)
 
