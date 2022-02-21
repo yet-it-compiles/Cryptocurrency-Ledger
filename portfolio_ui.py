@@ -1,414 +1,178 @@
+from typing import Any
+
+import tkinter as tk
 from tkinter import *
 
-
-def btn_clicked():
-    print("Button Clicked")
-
-
-window = Tk()
-
-window.geometry("1440x1024")
-window.configure(bg = "#ffffff")
-canvas = Canvas(
-    window,
-    bg = "#ffffff",
-    height = 1024,
-    width = 1440,
-    bd = 0,
-    highlightthickness = 0,
-    relief = "ridge")
-canvas.place(x = 0, y = 0)
-
-background_img = PhotoImage(file = f"background.png")
-background = canvas.create_image(
-    720.0, 512.0,
-    image=background_img)
-
-img0 = PhotoImage(file = f"img0.png")
-b0 = Button(
-    image = img0,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b0.place(
-    x = 1360, y = 4,
-    width = 68,
-    height = 57)
-
-img1 = PhotoImage(file = f"img1.png")
-b1 = Button(
-    image = img1,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b1.place(
-    x = 1261, y = 17,
-    width = 76,
-    height = 59)
-
-img2 = PhotoImage(file = f"img2.png")
-b2 = Button(
-    image = img2,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b2.place(
-    x = 1145, y = 6,
-    width = 104,
-    height = 64)
-
-img3 = PhotoImage(file = f"img3.png")
-b3 = Button(
-    image = img3,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b3.place(
-    x = 1022, y = 12,
-    width = 95,
-    height = 55)
-
-img4 = PhotoImage(file = f"img4.png")
-b4 = Button(
-    image = img4,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b4.place(
-    x = 38, y = 920,
-    width = 46,
-    height = 43)
-
-img5 = PhotoImage(file = f"img5.png")
-b5 = Button(
-    image = img5,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b5.place(
-    x = 13, y = 781,
-    width = 90,
-    height = 90)
-
-img6 = PhotoImage(file = f"img6.png")
-b6 = Button(
-    image = img6,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b6.place(
-    x = 14, y = 670,
-    width = 90,
-    height = 90)
-
-img7 = PhotoImage(file = f"img7.png")
-b7 = Button(
-    image = img7,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b7.place(
-    x = 16, y = 559,
-    width = 91,
-    height = 90)
-
-img8 = PhotoImage(file = f"img8.png")
-b8 = Button(
-    image = img8,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b8.place(
-    x = 14, y = 447,
-    width = 90,
-    height = 90)
-
-img9 = PhotoImage(file = f"img9.png")
-b9 = Button(
-    image = img9,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b9.place(
-    x = 14, y = 335,
-    width = 90,
-    height = 90)
-
-img10 = PhotoImage(file = f"img10.png")
-b10 = Button(
-    image = img10,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b10.place(
-    x = 14, y = 221,
-    width = 90,
-    height = 90)
-
-img11 = PhotoImage(file = f"img11.png")
-b11 = Button(
-    image = img11,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b11.place(
-    x = 14, y = 105,
-    width = 89,
-    height = 90)
-
-canvas.create_text(
-    1398.5, 68.5,
-    text = "John Doe",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(12.0)))
-
-canvas.create_text(
-    274.0, 100.5,
-    text = "$",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(18.0)))
-
-canvas.create_text(
-    303.0, 428.0,
-    text = "Assets 1",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    948.0, 425.0,
-    text = "Percent Change  1",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    729.0, 425.0,
-    text = "Currency Price 1",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    538.0, 428.0,
-    text = "Balance 1",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    303.0, 492.0,
-    text = "Assets 2",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    948.0, 489.0,
-    text = "Percent Change  2",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    729.0, 489.0,
-    text = "Currency Price 2",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    538.0, 492.0,
-    text = "Balance 2",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    303.0, 555.0,
-    text = "Assets 3",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    948.0, 552.0,
-    text = "Percent Change  3",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    729.0, 552.0,
-    text = "Currency Price 3",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    538.0, 555.0,
-    text = "Balance 3",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    303.0, 624.0,
-    text = "Assets 4",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    948.0, 621.0,
-    text = "Percent Change  14",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    729.0, 621.0,
-    text = "Currency Price 4",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    538.0, 625.0,
-    text = "Balance 4",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    303.0, 693.0,
-    text = "Assets 5",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    948.0, 690.0,
-    text = "Percent Change  5",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    729.0, 690.0,
-    text = "Currency Price 5",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    538.0, 693.0,
-    text = "Balance 5",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    303.0, 762.0,
-    text = "Assets 6",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    948.0, 759.0,
-    text = "Percent Change  6",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    729.0, 759.0,
-    text = "Currency Price 6",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    538.0, 762.0,
-    text = "Balance 6",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    303.0, 831.0,
-    text = "Assets 7",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    948.0, 828.0,
-    text = "Percent Change  7",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    729.0, 828.0,
-    text = "Currency Price 7",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    538.0, 831.0,
-    text = "Balance 7",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    303.0, 900.0,
-    text = "Assets 8",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    948.0, 897.0,
-    text = "Percent Change  8",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    729.0, 897.0,
-    text = "Currency Price 8",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-canvas.create_text(
-    538.0, 900.0,
-    text = "Balance 8",
-    fill = "#ffffff",
-    font = ("Rosarivo-Regular", int(13.0)))
-
-img12 = PhotoImage(file = f"img12.png")
-b12 = Button(
-    image = img12,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b12.place(
-    x = 1236, y = 950,
-    width = 22,
-    height = 26)
-
-img13 = PhotoImage(file = f"img13.png")
-b13 = Button(
-    image = img13,
-    borderwidth = 0,
-    highlightthickness = 0,
-    command = btn_clicked,
-    relief = "flat")
-
-b13.place(
-    x = 1261, y = 949,
-    width = 19,
-    height = 23)
-
-window.resizable(False, False)
-window.mainloop()
+class Portfolio(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width=1440, height=1024)
+        self.controller = controller
+
+        flash_delay = 100  # in milliseconds.
+
+        canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        canvas.place(x=0, y=0)
+
+        # Retrieves the images, and configures the dashboard button
+        self.background_img = tk.PhotoImage(file=f"portfolio_background.png")
+        canvas.create_image(722.0, 512.0, image=self.background_img)
+
+        # Retrieves the images, and configures the dashboard button
+        dashboard_image_path = "dashboard_dashboard.png"
+        self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
+        dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
+        canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the simulated trading button
+        simulated_trading_image_path = "dashboard_simulated_trading.png"
+        self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
+        simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
+        canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the charts button
+        charts_image_path = "dashboard_charts.png"
+        self.charts_image = tk.PhotoImage(file=charts_image_path)
+        charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
+        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the portfolio button
+        portfolio_image_path = "dashboard_portfolio.png"
+        self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
+        portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
+        canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
+
+        alarm_image_path = "dashboard_alarms.png"
+        self.alarm_image = tk.PhotoImage(file=alarm_image_path)
+        alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
+        canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the news button
+        news_image_path = "dashboard_news.png"
+        self.news_image = tk.PhotoImage(file=news_image_path)
+        news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
+        canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(news_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the settings button
+        settings_image_path = "dashboard_settings.png"
+        self.settings_image = tk.PhotoImage(file=settings_image_path)
+        settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
+        canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the notifications image
+        notifications_image_path = "dashboard_notifications.png"
+        self.notifications_image = tk.PhotoImage(file=notifications_image_path)
+        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the support image
+        support_image_path = "dashboard_support.png"
+        self.support_image = tk.PhotoImage(file=support_image_path)
+        support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
+        canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(support_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the profile image
+        notes_image_path = "dashboard_notes.png"
+        self.notes_image = tk.PhotoImage(file=notes_image_path)
+        notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
+        canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(Portfolio)))
+
+        # Retrieves the images, and configures the profile image
+        profile_image_path = "dashboard_profile_img.png"
+        self.profile_image = tk.PhotoImage(file=profile_image_path)
+        profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
+        canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Portfolio)))
+        
+        # Retrieves the images, and configures the left arrow image
+        # portfolio_leftArrow_image_path = "portfolio_leftArrow.png"
+        # self.portfolio_leftArrow_image = tk.PhotoImage(file = portfolio_leftArrow_image_path)
+        # portfolio_image_obj = canvas.create_image(1236, 950, anchor='nw', image=self.portfolio_leftArrow_image)
+        # canvas.tag_bind()
+
+        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+
+        def flash_hidden(image_obj):
+            """
+            Method sets the state of the object, and hides the buttons when they are interacted with
+
+            :param image_obj: is the image object to hide
+            :type : int
+            :return: a hidden button when pressed
+            """
+            set_state(tk.HIDDEN, image_obj)
+            canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+
+        def set_state(state, image_obj):
+            """
+            Sets the state of the image object
+
+            :param state: the state to apply to the buttons
+            :param image_obj: is the image object to apply a state on
+            :return: an image object with a state applied
+            """
+            canvas.itemconfigure(image_obj, state=state)
+
+        self.settings_image.width(), self.settings_image.height()
+        
+        canvas.create_text( 274.0, 100.5, text = "$", fill = "#ffffff", font = ("Rosarivo-Regular", int(18.0)))
+        
+        # Table data
+        # Row 1
+        canvas.create_text( 303.0, 419.0, text = "Assets 1", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 538.0, 420.0, text = "Balance 1", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 948.0, 421.0, text = "Percent Change  1", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 729.0, 420.0, text = "Currency Price 1", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        
+        # Row 2
+        canvas.create_text( 303.0, 491.0, text = "Assets 2", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 538.0, 492.0, text = "Balance 2", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 729.0, 492.0, text = "Currency Price 2", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 948.0, 493.0, text = "Percent Change  2", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        
+        # Row 3
+        canvas.create_text( 303.0, 560.0, text = "Assets 3", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 538.0, 561.0, text = "Balance 3", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 729.0, 561.0, text = "Currency Price 3", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 948.0, 562.0, text = "Percent Change  3", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        
+        #Row 4
+        canvas.create_text( 303.0, 630.0, text = "Assets 4", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 538.0, 631.0, text = "Balance 4", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 729.0, 631.0, text = "Currency Price 4", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 948.0, 632.0, text = "Percent Change  4", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        
+        # Row 5
+        canvas.create_text( 303.0, 697.0, text = "Assets 5", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 538.0, 698.0, text = "Balance 5", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 729.0, 698.0, text = "Currency Price 5", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 948.0, 699.0,text = "Percent Change  5", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        
+        # Row 6
+        canvas.create_text( 303.0, 767.0, text = "Assets 6", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 538.0, 768.0, text = "Balance 6", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(  729.0, 768.0, text = "Currency Price 6", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 948.0, 769.0, text = "Percent Change  6", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        
+        # Row 7
+        canvas.create_text( 303.0, 836.0, text = "Assets 7", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 538.0, 837.0, text = "Balance 7", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 729.0, 837.0, text = "Currency Price 7",fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 948.0, 838.0, text = "Percent Change  7", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        
+        # Row 8
+        canvas.create_text( 303.0, 905.0, text = "Assets 8", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 538.0, 906.0, text = "Balance 8", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 729.0, 906.0, text = "Currency Price 8", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        canvas.create_text( 948.0, 907.0, text = "Percent Change  8", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
+        
