@@ -138,7 +138,7 @@ class Enrollment(tk.Frame):
             controller.show_canvas(LoginPage)
             return
         # possible check for password constraints
-        Database.adduser(usernameTxt, passwordTxt, emailTxt)
+        Database.adduser(usernameTxt, emailTxt, passwordTxt)
         controller.show_canvas(LoginPage)
         username.set("")
         password.set("")
@@ -189,8 +189,7 @@ class Enrollment(tk.Frame):
 
         self.existing_account = PhotoImage(file=f"enrollment_existing_account.png")
         existing_account_background = Button(self, image=self.existing_account, borderwidth=0, highlightthickness=0,
-                                             command=lambda: self.add_user(self.controller, username.get(), email.get(),
-                                                                      password.get()), relief="flat",
+                                             command=lambda: self.show_canvas(LoginPage), relief="flat",
                                              activebackground="#343333")
 
         existing_account_background.place(x=618, y=530, width=212, height=51)
