@@ -59,9 +59,9 @@ class TkinterApp(tk.Tk):
 class LoginPage(tk.Frame):
     """ Configures, and displays the login page """
 
-    def sign_in(self, controller, username, password):
-        print(username)
-        print(password)
+    def sign_in(self, controller, usernameE, passwordE):
+        username = usernameE.get()
+        password = passwordE.get()
         if Database.checkUsername(username):
             if PasswordEncryption.password_comparison(username, password):
                 print("made it")
@@ -100,7 +100,7 @@ class LoginPage(tk.Frame):
         # Creates, and displays the forgot password button
         self.forgot_password_button = PhotoImage(file=f"forgot_password_button.png")
         forgot_password_location = Button(self, image=self.forgot_password_button, borderwidth=0, highlightthickness=0,
-                                          command=lambda: controller.show_canvas(ComingSoon),
+                                          command=lambda: controller.show_canvas(Dashboard),
                                           relief="flat", activebackground="#343333")
         forgot_password_location.place(x=444, y=537, width=142, height=50)
 
