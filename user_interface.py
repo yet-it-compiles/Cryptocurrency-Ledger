@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import *
 
 import database
-from databse import *
+from database import *
 import password_encryption
 from password_encryption import *
 
