@@ -50,6 +50,7 @@ class TkinterApp(tk.Tk):
         """
         for each_canvas in self.collection_of_canvases.values():
             each_canvas.grid_remove()
+
         each_canvas = self.collection_of_canvases[container]
         each_canvas.grid()
 
@@ -57,7 +58,9 @@ class TkinterApp(tk.Tk):
 
 
 class LoginPage(tk.Frame):
-    """ Configures, and displays the login page """
+    """
+    Configures, and displays the login page
+    """
 
     def sign_in(self, controller, usernameE, passwordE):
         username = usernameE.get()
@@ -196,7 +199,9 @@ class Enrollment(tk.Frame):
 
 
 class Dashboard(tk.Frame):
-    """ Configures, and displays the Dashboard """
+    """
+    Configures, and displays the Dashboard
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -357,6 +362,7 @@ class Dashboard(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -367,6 +373,7 @@ class Dashboard(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -377,7 +384,9 @@ class Dashboard(tk.Frame):
 
 
 class ComingSoon(tk.Frame):
-    """ Configures, and displays the Dashboard """
+    """
+    Configures, and displays the Dashboard
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -479,6 +488,7 @@ class ComingSoon(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: an image object that is hidden
@@ -489,6 +499,7 @@ class ComingSoon(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -499,6 +510,9 @@ class ComingSoon(tk.Frame):
 
 
 class Settings(tk.Frame):
+    """
+    Configures, and displays the Settings page
+    """
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
@@ -601,6 +615,7 @@ class Settings(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -611,6 +626,7 @@ class Settings(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -643,8 +659,8 @@ class Settings(tk.Frame):
 
 class LogoutButtonBottom(tk.Frame):
     """
-
-    """
+     Configures, and displays the Logout button
+     """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -668,12 +684,10 @@ class LogoutButtonBottom(tk.Frame):
         canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(logout_no_img_obj), controller.show_canvas(Dashboard)))
 
-
-
-
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+            
             :param image_obj: is the image object to hide
             :type : int
             :return: an image object that is hidden
@@ -684,6 +698,7 @@ class LogoutButtonBottom(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
