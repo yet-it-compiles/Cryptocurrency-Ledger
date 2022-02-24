@@ -573,7 +573,7 @@ class Settings(tk.Frame):
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -594,14 +594,14 @@ class Settings(tk.Frame):
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path = "dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
@@ -687,7 +687,7 @@ class LogoutButtonBottom(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-            
+
             :param image_obj: is the image object to hide
             :type : int
             :return: an image object that is hidden
