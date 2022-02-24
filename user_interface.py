@@ -13,7 +13,6 @@ class TkinterApp(tk.Tk):
     """
     Configures the initial conditions for the UI, and contains the logic to switch between different canvases
     """
-
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -33,7 +32,7 @@ class TkinterApp(tk.Tk):
         self.collection_of_canvases = {}
 
         # Declaration of logic to iterate through each page layout
-        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, LogoutButtonBottom):
+        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, LogoutButtonBottom, AlertPopUp):
             each_canvas = each_layout(canvas_setup, self)
 
             self.collection_of_canvases[each_layout] = each_canvas
@@ -61,7 +60,6 @@ class LoginPage(tk.Frame):
     """
     Configures, and displays the login page
     """
-
     def sign_in(self, controller, usernameE, passwordE):
         username = usernameE.get()
         password = passwordE.get()
@@ -128,7 +126,9 @@ class LoginPage(tk.Frame):
 
 
 class Enrollment(tk.Frame):
-    """ Configures, and displays the login page """
+    """
+    Configures, and displays the login page
+    """
 
     def add_user(self, controller, username, password, email):
         usernameTxt = username.get()
@@ -202,7 +202,6 @@ class Dashboard(tk.Frame):
     """
     Configures, and displays the Dashboard
     """
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
@@ -334,7 +333,7 @@ class Dashboard(tk.Frame):
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(AlertPopUp)))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -387,7 +386,6 @@ class ComingSoon(tk.Frame):
     """
     Configures, and displays the Dashboard
     """
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
@@ -460,7 +458,7 @@ class ComingSoon(tk.Frame):
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(AlertPopUp)))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -580,7 +578,7 @@ class Settings(tk.Frame):
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(AlertPopUp)))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -661,7 +659,6 @@ class LogoutButtonBottom(tk.Frame):
     """
      Configures, and displays the Logout button
      """
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=537, height=273)
@@ -708,15 +705,56 @@ class LogoutButtonBottom(tk.Frame):
 
 class NotesTab(tk.Frame):
     """
-    # TODO
-    """
-
+     Configures, and displays the Notes tab
+     """
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
         self.controller = controller
 
         flash_delay = 100  # in milliseconds.
+
+
+class AlertPopUp(tk.Frame):
+    """
+    Configures, and displays the alert popup
+    """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width=684, height=426)
+        self.controller = controller
+
+        flash_delay = 100  # in milliseconds.
+        canvas = Canvas(self, bg="#ffffff", height=426, width=684, bd=0, highlightthickness=0, relief="ridge")
+        canvas.place(x=0, y=0)
+
+        self.background_img = PhotoImage(file=f"alert_popup_background.png")
+        canvas.create_image(342.0, 213.0, image=self.background_img)
+
+        self.entry0_img = PhotoImage(file=f"alert_popup_textBox0.png")
+        canvas.create_image(331.5, 294.5, image=self.entry0_img)
+
+        entry0 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
+        entry0.place(x=264.5, y=283, width=134.0, height=21)
+
+        self.entry1_img = PhotoImage(file=f"alert_popup_textBox1.png")
+        canvas.create_image(297.5, 240.5, image=self.entry1_img)
+
+        entry1 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
+        entry1.place(x=264.5, y=229, width=66.0, height=21)
+
+        self.entry2_img = PhotoImage(file=f"alert_popup_textBox2.png")
+        canvas.create_image(335.5, 132.0, image=self.entry2_img)
+        entry2 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
+        entry2.place(x=268.0, y=121, width=135.0, height=20)
+
+        self.img0 = PhotoImage(file=f"alert_popup_img0.png")
+        b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
+        b0.place(x=342, y=178, width=98, height=22)
+
+        self.img1 = PhotoImage(file=f"alert_popup_img1.png")
+        b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
+        b1.place(x=253, y=178, width=80, height=22)
 
 
 # Driver Code
