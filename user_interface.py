@@ -63,8 +63,10 @@ class LoginPage(tk.Frame):
     """
 
     def sign_in(self, controller, usernameE, passwordE):
+        global username
         username = usernameE.get()
         password = passwordE.get()
+
         if Database.checkUsername(username):
             if PasswordEncryption.password_comparison(username, password):
                 print("made it")
