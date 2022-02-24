@@ -33,7 +33,7 @@ class TkinterApp(tk.Tk):
         self.collection_of_canvases = {}
 
         # Declaration of logic to iterate through each page layout
-        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, Portfolio):
+        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, LogoutButtonBottom):
             each_canvas = each_layout(canvas_setup, self)
 
             self.collection_of_canvases[each_layout] = each_canvas
@@ -92,7 +92,7 @@ class LoginPage(tk.Frame):
         # Logic to populate the window
         self.sign_in_button = PhotoImage(file=f"sign_in_button.png")
         sign_in_button_location = Button(self, image=self.sign_in_button, borderwidth=0, highlightthickness=0,
-                                         command=lambda: self.sign_in(self.controller, username.get(), password.get()),
+                                         command=lambda: self.sign_in(self.controller, username, password),
                                          relief="flat",
                                          activebackground="#343333")
         sign_in_button_location.place(x=659, y=417, width=159, height=53)
@@ -295,7 +295,7 @@ class Dashboard(tk.Frame):
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
+                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(ComingSoon)))
 
         alarm_image_path = "dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
@@ -322,7 +322,7 @@ class Dashboard(tk.Frame):
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LoginPage)))
+                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LogoutButtonBottom)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -444,7 +444,7 @@ class ComingSoon(tk.Frame):
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LogoutButtonBottom)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -591,6 +591,13 @@ class Settings(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
+        # Retrieves the images, and configures the logout button
+        logout_image_path = "dashboard_logout.png"
+        self.logout_image = tk.PhotoImage(file=logout_image_path)
+        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
+        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LogoutButtonBottom)))
+
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
@@ -632,171 +639,44 @@ class Settings(tk.Frame):
         entry2.place(x=597.5, y=503, width=268.0, height=49)
 
         canvas.create_text(731.5, 422.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(26.0)))
-        
-        
-class Portfolio(tk.Frame):
+
+
+class LogoutButtonBottom(tk.Frame):
+    """
+
+    """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.config(width=1440, height=1024)
+        self.config(width=537, height=273)
+        flash_delay = 100  # Milliseconds.
         self.controller = controller
 
-        flash_delay = 100  # in milliseconds.
-
-        canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        canvas = Canvas(self, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
-        # Retrieves the images, and configures the dashboard button
-        self.background_img = tk.PhotoImage(file=f"portfolio_background.png")
-        canvas.create_image(722.0, 512.0, image=self.background_img)
+        self.background_img = PhotoImage(file=f"logout_background.png")
+        canvas.create_image(268.5, 136.5, image=self.background_img)
 
-        # Retrieves the images, and configures the dashboard button
-        dashboard_image_path = "dashboard_dashboard.png"
-        self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
-        dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
-        canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
+        self.img0 = PhotoImage(file=f"logout_yes.png")
+        logout_yes_img_obj = canvas.create_image(112, 135, anchor='nw', image=self.img0)
+        canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(logout_yes_img_obj), controller.show_canvas(Dashboard)))
 
-        # Retrieves the images, and configures the simulated trading button
-        simulated_trading_image_path = "dashboard_simulated_trading.png"
-        self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
-        simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
-        canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
+        self.img1 = PhotoImage(file=f"logout_no.png")
+        logout_no_img_obj = canvas.create_image(297, 135, anchor='nw', image=self.img1)
+        canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(logout_no_img_obj), controller.show_canvas(LoginPage)))
 
-        # Retrieves the images, and configures the charts button
-        charts_image_path = "dashboard_charts.png"
-        self.charts_image = tk.PhotoImage(file=charts_image_path)
-        charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
-        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(ComingSoon)))
 
-        # Retrieves the images, and configures the portfolio button
-        portfolio_image_path = "dashboard_portfolio.png"
-        self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
-        portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
-        canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
-        alarm_image_path = "dashboard_alarms.png"
-        self.alarm_image = tk.PhotoImage(file=alarm_image_path)
-        alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
-        canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
-
-        # Retrieves the images, and configures the news button
-        news_image_path = "dashboard_news.png"
-        self.news_image = tk.PhotoImage(file=news_image_path)
-        news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
-        canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
-
-        # Retrieves the images, and configures the settings button
-        settings_image_path = "dashboard_settings.png"
-        self.settings_image = tk.PhotoImage(file=settings_image_path)
-        settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
-        canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(ComingSoon)))
-
-        # Retrieves the images, and configures the notifications image
-        notifications_image_path = "dashboard_notifications.png"
-        self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(ComingSoon)))
-
-        # Retrieves the images, and configures the support image
-        support_image_path = "dashboard_support.png"
-        self.support_image = tk.PhotoImage(file=support_image_path)
-        support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
-        canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
-
-        # Retrieves the images, and configures the profile image
-        notes_image_path = "dashboard_notes.png"
-        self.notes_image = tk.PhotoImage(file=notes_image_path)
-        notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
-        canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(ComingSoon)))
-
-        # Retrieves the images, and configures the profile image
-        profile_image_path = "dashboard_profile_img.png"
-        self.profile_image = tk.PhotoImage(file=profile_image_path)
-        profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
-        canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(ComingSoon)))
-        
-        # Retrieves the images, and configures the left arrow image
-        portfolio_leftArrow_image_path = "portfolio_leftArrow.png"
-        self.portfolio_leftArrow_image = tk.PhotoImage(file = portfolio_leftArrow_image_path)
-        portfolio_image_obj = canvas.create_image(1236, 950, anchor='nw', image=self.portfolio_leftArrow_image)
-        canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(ComingSoon)))
-        
-        # Retrieves the images, and configures the left arrow image
-        portfolio_rightArrow_image_path = "portfolio_rightArrow.png"
-        self.portfolio_rightArrow_image = tk.PhotoImage(file = portfolio_rightArrow_image_path)
-        portfolio_rightArrow_image_obj = canvas.create_image(1261, 949, anchor='nw', image=self.portfolio_rightArrow_image)
-        canvas.tag_bind(portfolio_rightArrow_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_rightArrow_image_obj), controller.show_canvas(ComingSoon)))
-        # Add trade 1
-        portfolio_addTrade1_image_path = "portfolio_addTrade1.png"
-        self.portfolio_addTrade1_image = tk.PhotoImage(file = portfolio_addTrade1_image_path)
-        portfolio_addTrade1_image_obj = canvas.create_image(1184, 367, anchor='nw', image=self.portfolio_addTrade1_image)
-        canvas.tag_bind(portfolio_addTrade1_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_addTrade1_image_obj), controller.show_canvas(ComingSoon)))
-        
-        # Add trade 2
-        portfolio_addTrade2_image_path = "portfolio_addTrade2.png"
-        self.portfolio_addTrade2_image = tk.PhotoImage(file = portfolio_addTrade2_image_path)
-        portfolio_addTrade2_image_obj = canvas.create_image(1184, 450, anchor='nw', image=self.portfolio_addTrade2_image)
-        canvas.tag_bind(portfolio_addTrade2_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_addTrade2_image_obj), controller.show_canvas(ComingSoon)))
-        
-        # Add trade 3
-        portfolio_addTrade3_image_path = "portfolio_addTrade3.png"
-        self.portfolio_addTrade3_image = tk.PhotoImage(file = portfolio_addTrade3_image_path)
-        portfolio_addTrade3_image_obj = canvas.create_image(1184, 536, anchor='nw', image=self.portfolio_addTrade3_image)
-        canvas.tag_bind(portfolio_addTrade3_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_addTrade3_image_obj), controller.show_canvas(ComingSoon)))
-        
-        # Add trade 4
-        portfolio_addTrade4_image_path = "portfolio_addTrade4.png"
-        self.portfolio_addTrade4_image = tk.PhotoImage(file = portfolio_addTrade4_image_path)
-        portfolio_addTrade4_image_obj = canvas.create_image(1184, 624, anchor='nw', image=self.portfolio_addTrade4_image)
-        canvas.tag_bind(portfolio_addTrade4_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_addTrade2_image_obj), controller.show_canvas(ComingSoon)))
-        
-        # Add trade 5
-        portfolio_addTrade5_image_path = "portfolio_addTrade5.png"
-        self.portfolio_addTrade5_image = tk.PhotoImage(file = portfolio_addTrade5_image_path)
-        portfolio_addTrade5_image_obj = canvas.create_image(1184, 709, anchor='nw', image=self.portfolio_addTrade5_image)
-        canvas.tag_bind(portfolio_addTrade5_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_addTrade5_image_obj), controller.show_canvas(ComingSoon)))
-        
-        # Add trade 6
-        portfolio_addTrade6_image_path = "portfolio_addTrade6.png"
-        self.portfolio_addTrade6_image = tk.PhotoImage(file = portfolio_addTrade6_image_path)
-        portfolio_addTrade6_image_obj = canvas.create_image(1184, 802, anchor='nw', image=self.portfolio_addTrade6_image)
-        canvas.tag_bind(portfolio_addTrade6_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_addTrade6_image_obj), controller.show_canvas(ComingSoon)))
-        
-        # Add trade 7
-        portfolio_addTrade7_image_path = "portfolio_addTrade7.png"
-        self.portfolio_addTrade7_image = tk.PhotoImage(file = portfolio_addTrade7_image_path)
-        portfolio_addTrade7_image_obj = canvas.create_image(1184, 885, anchor='nw', image=self.portfolio_addTrade7_image)
-        canvas.tag_bind(portfolio_addTrade7_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_addTrade7_image_obj), controller.show_canvas(ComingSoon)))
-        
-
-        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
-            :return: a hidden button when pressed
+            :return: an image object that is hidden
             """
             set_state(tk.HIDDEN, image_obj)
             canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
@@ -804,128 +684,24 @@ class Portfolio(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
             """
             canvas.itemconfigure(image_obj, state=state)
 
-        self.settings_image.width(), self.settings_image.height()
-        #Daily Change
-        canvas.create_text( 895.5, 241.5, text = "+4.49%", fill = "#4aea3c", font = ("SourceCodePro-Regular", int(15.0)))
-
-        #Total Amount Invested
-        canvas.create_text( 572.5, 241.5, text = "$1,128.00", fill = "#ffffff", font = ("SourceCodePro-Regular", int(15.0)))
-
-        # Net proceeds
-        canvas.create_text( 1111.5, 241.5, text = "+$1,368.00", fill = "#ffffff", font = ("SourceCodePro-Regular", int(15.0)))
-
-        # Total portfolio Value
-        canvas.create_text( 286.5, 157.5, text = "$1,000.00", fill = "#ffffff", font = ("SourceCodePro-Regular", int(25.0)))
-        
-        # Row 1
-        canvas.create_text( 438.0, 387.0, text = "Name 1", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
-        canvas.create_text( 601.0, 387.0, text = "Current 1 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 795.0, 368.0, text = "Holdings 1", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 751.5, 394.0, text = "110.14 DOGE ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 962.0, 382.0, text = "Avg 1", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1097.0, 376.0, text = "Pnl 1", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1107.0, 398.0, text = "+1.67%", fill = "#4aea3c", font = ("RopaSans-Regular", int(13.0)))
-
-        # Row 2
-        canvas.create_text( 438.0, 470.0, text = "Name 2", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
-        canvas.create_text( 601.0, 466.0, text = "Current 2", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 795.0, 451.0, text = "Holdings 2", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 751.5, 477.0, text = "220.14 DOGE",fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 962.0, 463.0, text = "Avg 2", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1097.0, 459.0, text = "Pnl 2", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1107.0, 481.0, text = "+2.67%", fill = "#4aea3c", font = ("RopaSans-Regular", int(13.0)))
-
-        # Row 3
-        canvas.create_text( 438.0, 557.0, text = "Name 3", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
-        canvas.create_text( 601.0, 562.0, text = "Current 3", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(795.0, 538.0, text = "Holdings 3", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 751.5, 564.0, text = "30.14 DOGE", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 962.0, 549.0, text = "Avg 3", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1097.0, 546.0, text = "Pnl 3", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1107.0, 568.0, text = "+3.67%", fill = "#4aea3c", font = ("RopaSans-Regular", int(13.0)))
-
-        # Row 4
-        canvas.create_text( 438.0, 644.0, text = "Name 4", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
-        canvas.create_text( 601.0, 644.0, text = "Current 4", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 795.0, 625.0, text = "Holdings 4", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 763.0, 651.0, text = "480.14 DOGE", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 962.0, 640.0, text = "Avg 4", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1097.0, 633.0, text = "Pnl 4", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1107.0, 655.0, text = "+4.67%", fill = "#4aea3c", font = ("RopaSans-Regular", int(13.0)))
-
-        # Row 5
-        canvas.create_text( 438.0, 729.0, text = "Name 5", fill = "#ffffff",font = ("Rosarivo-Regular", int(13.0)))
-        canvas.create_text( 601.0, 727.0, text = "Current 5", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 795.0, 710.0, text = "Holdings 5", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 763.0, 736.0, text = "580.14 DOGE", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 962.0, 724.0, text = "Avg 5", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1097.0, 718.0, text = "Pnl 5", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1107.0, 740.0, text = "+5.67%", fill = "#4aea3c", font = ("RopaSans-Regular", int(13.0)))
-
-        # Row 6
-        canvas.create_text( 438.0, 822.0, text = "Name 6", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
-        canvas.create_text( 601.0, 822.0, text = "Current 6", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 795.0, 803.0, text = "Holdinsgs 6", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(763.0, 829.0, text = "680.14 DOGE",fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 962.0, 818.0, text = "Avg 6", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1097.0, 811.0, text = "Pnl 6", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1107.0, 833.0, text = "+6.67%", fill = "#4aea3c", font = ("RopaSans-Regular", int(13.0)))
-
-        # Row 7
-        canvas.create_text( 438.0, 905.0, text = "Name 7", fill = "#ffffff", font = ("Rosarivo-Regular", int(13.0)))
-        canvas.create_text( 601.0, 904.0, text = "Current 7", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 795.0, 886.0, text = "Holdings 7", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 763.0, 912.0, text = "780.14 DOGE", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 962.0, 904.0, text = "Avg 7", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1097.0, 894.0, text = "Pnl 7", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1107.0, 916.0, text = "+7.67%", fill = "#4aea3c", font = ("RopaSans-Regular", int(13.0)))
-
-
-
-# class LogoutButtonBottom(tk.Frame):
-#     """
-#
-#     """
-#
-#     def init(self, parent, controller):
-#         tk.Frame.__init__(self, parent)
-#         self.config(width=1000, height=600)
-#         self.controller = controller
-#
-#         canvas = Canvas(self, bg="#343333", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
-#         canvas.place(x=0, y=0)
-#
-#         self.background_img = PhotoImage(file=f"logout_background.png")
-#         canvas.create_image(268.5, 136.5, image=self.background_img)
-#
-#         self.img0 = PhotoImage(file=f"settings_yes.png")
-#         b0 = Button(image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
-#
-#         b0.place(x=112, y=135, width=123, height=49)
-#
-#         self.img1 = PhotoImage(file=f"settings_no.png")
-#         b1 = Button(image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
-#
-#         b1.place(x=297, y=135, width=123, height=49)
 
 class NotesTab(tk.Frame):
     """
     # TODO
     """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
         self.controller = controller
 
         flash_delay = 100  # in milliseconds.
-
 
 
 # Driver Code
