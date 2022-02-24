@@ -9,10 +9,11 @@ import password_encryption
 from password_encryption import *
 
 
-class TkinterApp(tk.Tk):
+class CryptocurrencyLedger(tk.Tk):
     """
     Configures the initial conditions for the UI, and contains the logic to switch between different canvases
     """
+
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -60,6 +61,7 @@ class LoginPage(tk.Frame):
     """
     Configures, and displays the login page
     """
+
     def sign_in(self, controller, usernameE, passwordE):
         username = usernameE.get()
         password = passwordE.get()
@@ -202,6 +204,7 @@ class Dashboard(tk.Frame):
     """
     Configures, and displays the Dashboard
     """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
@@ -386,6 +389,7 @@ class ComingSoon(tk.Frame):
     """
     Configures, and displays the Dashboard
     """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
@@ -511,6 +515,7 @@ class Settings(tk.Frame):
     """
     Configures, and displays the Settings page
     """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
@@ -659,6 +664,7 @@ class LogoutButtonBottom(tk.Frame):
     """
      Configures, and displays the Logout button
      """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=537, height=273)
@@ -707,6 +713,7 @@ class NotesTab(tk.Frame):
     """
      Configures, and displays the Notes tab
      """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
@@ -719,6 +726,7 @@ class AlertPopUp(tk.Frame):
     """
     Configures, and displays the alert popup
     """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=684, height=426)
@@ -757,6 +765,14 @@ class AlertPopUp(tk.Frame):
         b1.place(x=253, y=178, width=80, height=22)
 
 
-# Driver Code
-app = TkinterApp()
-app.mainloop()
+def main():
+    """
+
+    :return:
+    """
+    app = CryptocurrencyLedger()
+    app.mainloop()
+
+
+if __name__ == '__main__':
+    main()
