@@ -662,8 +662,8 @@ class Settings(tk.Frame):
 
 class LogoutButtonBottom(tk.Frame):
     """
-     Configures, and displays the Logout button
-     """
+    Configures, and displays the Logout button
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -711,8 +711,8 @@ class LogoutButtonBottom(tk.Frame):
 
 class NotesTab(tk.Frame):
     """
-     Configures, and displays the Notes tab
-     """
+    Configures, and displays the Notes tab
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -767,8 +767,8 @@ class AlertPopUp(tk.Frame):
 
 def main():
     """
-
-    :return:
+    Launchpad method to compile, and run this module
+    :return: runs the program
     """
     app = CryptocurrencyLedger()
     app.mainloop()
