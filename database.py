@@ -4,10 +4,9 @@ from psycopg2 import Error
 
 class Database:
 
-    def __init__(self, user_name, user_email, user_password):
-        self.user_name = user_name
-        self.user_email = user_email
-        self.user_password = user_password
+    def __init__(self, username):
+        self.username = username
+        self.all_transactions = self.pull_transactions()
 
     @staticmethod
     def connect():
@@ -96,33 +95,36 @@ class Database:
                 cursor.close()
                 connection.close()
 
+def push_transactions(self):
 
-"""
-    def __init__(self, username):
-        '''
-        The connection to the database gets instantiated as part of the constructor
-        This makes it so that the connection to the database stays permanent speeds up the process
-        '''
-        self.username = username
+def pull_transactions(self):
+    connection = Database.connect()
+    try:
+        cursor = connection.cursor()
+        postgres_select_query = "Select * FROM transactions WHERE  username = %s"
+        cursor.execute(postgres_select_query, (username,))
+        result = cursor.fetchall()
+        return result
+    except(Exception, psycopg2.Error) as error:
+        print("Failed to insert record into mobile table", error)
 
-        self.connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
-                                           database="dilabshsjveo3",
-                                           user="ogjzilgdyfltod",
-                                           password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
-                                           )
-        self.cursor = connection.cursor()
+    finally:
+        # closing database connection.
+        if connection:
+            cursor.close()
+            connection.close()
 
-    def add_transaction(self, transaction):
-        ##fee
-        postgres_insert_query = "INSERT INTO users Values( %s, %s, %s, %s, %s, %s, %s, %s)"
-        record_to_insert = (self.user_name, transaction.coi, longTrade, buyTrade, price, amount, target, time)
-
-        cursor.execute(postgres_insert_query, record_to_insert)
-
-        connection.commit()
-
-    def getTransaction(self):
-        pass
-"""
-# Database.adduser("admin", "admin@gmail.com", "admin")
-# print(Database.checkUsername("admin"))
+def get_coin_transactions(self, coin_name):
+    """
+    Gets all the transactions related to the current coin
+    :param coin_name: The name of the coin that is being accessed
+    :return: a list of all the transactions with the coin
+    """
+    res
+    for x in all_transactions:
+        if  x == coin_name:
+            pass
+def push_current(self):
+    pass
+def get_current(self):
+    pass
