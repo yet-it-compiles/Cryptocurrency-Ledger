@@ -658,15 +658,15 @@ class LogoutButtonBottom(tk.Frame):
         self.background_img = PhotoImage(file=f"logout_background.png")
         canvas.create_image(268.5, 136.5, image=self.background_img)
 
-        self.img0 = PhotoImage(file=f"logout_yes.png")
-        logout_yes_img_obj = canvas.create_image(112, 135, anchor='nw', image=self.img0)
+        self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
+        logout_yes_img_obj = canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
         canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_yes_img_obj), controller.show_canvas(Dashboard)))
+                        lambda event: (flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage)))
 
-        self.img1 = PhotoImage(file=f"logout_no.png")
-        logout_no_img_obj = canvas.create_image(297, 135, anchor='nw', image=self.img1)
+        self.logout_no_img = PhotoImage(file=f"logout_no.png")
+        logout_no_img_obj = canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
         canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_no_img_obj), controller.show_canvas(LoginPage)))
+                        lambda event: (flash_hidden(logout_no_img_obj), controller.show_canvas(Dashboard)))
 
 
 
