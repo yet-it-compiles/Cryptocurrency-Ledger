@@ -18,7 +18,7 @@ class CryptocurrencyLedger(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
 
         # Declares the size of the canvas, and positions it on the screen
-        tk.Tk.geometry(self, '1000x600')
+        tk.Tk.geometry(self, "")
         tk.Tk.configure(self, bg="#343333")
 
         canvas_setup = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
@@ -63,7 +63,6 @@ class LoginPage(tk.Frame):
     """
 
     def sign_in(self, controller, usernameE, passwordE):
-
         global username
         username = usernameE.get()
         password = passwordE.get()
@@ -723,6 +722,145 @@ class NotesTab(tk.Frame):
         self.controller = controller
 
         flash_delay = 100  # in milliseconds.
+        canvas = Canvas(self, bg="#ffffff", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        canvas.place(x=0, y=0)
+
+        background_img = PhotoImage(file=f"background.png")
+        canvas.create_image(720.0, 512.0, image=background_img)
+
+        entry0_img = PhotoImage(file=f"img_textBox0.png")
+        canvas.create_image(1132.5, 720.5, image=entry0_img)
+
+        entry0 = Entry(bd=0, bg="#306380", highlightthickness=0)
+
+        entry0.place(x=975, y=611, width=315, height=217)
+
+        entry1_img = PhotoImage(file=f"img_textBox1.png")
+        canvas.create_image(754.5, 720.5, image=entry1_img)
+
+        entry1 = Entry(bd=0, bg="#2da596", highlightthickness=0)
+
+        entry1.place(x=597, y=611, width=315, height=217)
+
+        entry2_img = PhotoImage(file=f"img_textBox2.png")
+        canvas.create_image(376.5, 720.5, image=entry2_img)
+
+        entry2 = Entry(bd=0, bg="#9d5a89", highlightthickness=0)
+
+        entry2.place(x=219, y=611, width=315, height=217)
+
+        entry3_img = PhotoImage(file=f"img_textBox3.png")
+        canvas.create_image(1132.5, 352.5, image=entry3_img)
+
+        entry3 = Entry(bd=0, bg="#646da7", highlightthickness=0)
+
+        entry3.place(x=975, y=243, width=315, height=217)
+
+        entry4_img = PhotoImage(file=f"img_textBox4.png")
+        canvas.create_image(754.5, 352.5, image=entry4_img)
+
+        entry4 = Entry(bd=0, bg="#417e9a", highlightthickness=0)
+
+        entry4.place(x=597, y=243, width=315, height=217)
+
+        entry5_img = PhotoImage(file=f"img_textBox5.png")
+        canvas.create_image(376.5, 352.5, image=entry5_img)
+
+        entry5 = Entry(bd=0, bg="#826fa8", highlightthickness=0)
+
+        entry5.place(x=219, y=243, width=315, height=217)
+
+        img0 = PhotoImage(file=f"img0.png")
+        b0 = Button(image=img0, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b0.place(x=1260, y=835, width=20, height=12)
+
+        img1 = PhotoImage(file=f"img1.png")
+        b1 = Button(image=img1, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b1.place(x=1232, y=835, width=19, height=12)
+
+        img2 = PhotoImage(file=f"img2.png")
+        b2 = Button(image=img2, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b2.place(x=1203, y=835, width=20, height=12)
+
+        img3 = PhotoImage(file=f"img3.png")
+        b3 = Button(image=img3, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b3.place(x=880, y=835, width=20, height=12)
+
+        img4 = PhotoImage(file=f"img4.png")
+        b4 = Button(image=img4, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b4.place(x=852, y=835, width=19, height=12)
+
+        img5 = PhotoImage(file=f"img5.png")
+        b5 = Button(image=img5, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b5.place(x=823, y=835, width=20, height=12)
+
+        img6 = PhotoImage(file=f"img6.png")
+        b6 = Button(image=img6, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b6.place(x=500, y=836, width=20, height=12)
+
+        img7 = PhotoImage(file=f"img7.png")
+        b7 = Button(image=img7, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b7.place(x=473, y=836, width=19, height=12)
+
+        img8 = PhotoImage(file=f"img8.png")
+        b8 = Button(image=img8, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b8.place(x=445, y=836, width=20, height=12)
+
+        img9 = PhotoImage(file=f"img9.png")
+        b9 = Button(image=img9, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b9.place(x=1260, y=466, width=20, height=12)
+
+        img10 = PhotoImage(file=f"img10.png")
+        b10 = Button(image=img10, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b10.place(x=1232, y=466, width=19, height=12)
+
+        img11 = PhotoImage(file=f"img11.png")
+        b11 = Button(image=img11, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b11.place(x=1203, y=466, width=20, height=12)
+
+        img12 = PhotoImage(file=f"img12.png")
+        b12 = Button(image=img12, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b12.place(x=880, y=466, width=20, height=12)
+
+        img13 = PhotoImage(file=f"img13.png")
+        b13 = Button(image=img13, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b13.place(x=852, y=466, width=19, height=12)
+
+        img14 = PhotoImage(file=f"img14.png")
+        b14 = Button(image=img14, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b14.place(x=823, y=466, width=20, height=12)
+
+        img15 = PhotoImage(file=f"img15.png")
+        b15 = Button(image=img15, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b15.place(x=500, y=466, width=20, height=12)
+
+        img16 = PhotoImage(file=f"img16.png")
+        b16 = Button(image=img16, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b16.place(x=473, y=466, width=19, height=12)
+
+        img17 = PhotoImage(file=f"img17.png")
+        b17 = Button(image=img17, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b17.place(x=445, y=466, width=20, height=12)
+
+        canvas.create_text(1396.0, 73.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(14.0)))
 
 
 class AlertPopUp(tk.Frame):
@@ -771,6 +909,7 @@ class AlertPopUp(tk.Frame):
 def main():
     """
     Launchpad method to compile, and run this module
+
     :return: runs the program
     """
     app = CryptocurrencyLedger()
