@@ -33,7 +33,8 @@ class CryptocurrencyLedger(tk.Tk):
         self.collection_of_canvases = {}
 
         # Declaration of logic to iterate through each page layout
-        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, LogoutButtonBottom, AlertPopUp):
+        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, LogoutButtonBottom, AlertPopUp
+                            , NotesTab):
             each_canvas = each_layout(canvas_setup, self)
 
             self.collection_of_canvases[each_layout] = each_canvas
@@ -352,7 +353,7 @@ class Dashboard(tk.Frame):
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path = "dashboard_profile_img.png"
@@ -478,14 +479,14 @@ class ComingSoon(tk.Frame):
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path = "dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
@@ -836,104 +837,104 @@ class NotesTab(tk.Frame):
 
         self.entry0_img = PhotoImage(file=f"sticky_notes_textBox0.png")
         canvas.create_image(1132.5, 720.5, image=self.entry0_img)
-        entry0 = Entry(bd=0, bg="#306380", highlightthickness=0)
+        entry0 = Entry(self, bd=0, bg="#306380", highlightthickness=0)
         entry0.place(x=975, y=611, width=315, height=217)
 
         self.entry1_img = PhotoImage(file=f"sticky_notes_textBox1.png")
         canvas.create_image(754.5, 720.5, image=self.entry1_img)
-        entry1 = Entry(bd=0, bg="#2da596", highlightthickness=0)
+        entry1 = Entry(self, bd=0, bg="#2da596", highlightthickness=0)
         entry1.place(x=597, y=611, width=315, height=217)
 
         self.entry2_img = PhotoImage(file=f"sticky_notes_textBox2.png")
         canvas.create_image(376.5, 720.5, image=self.entry2_img)
-        entry2 = Entry(bd=0, bg="#9d5a89", highlightthickness=0)
+        entry2 = Entry(self, bd=0, bg="#9d5a89", highlightthickness=0)
         entry2.place(x=219, y=611, width=315, height=217)
 
         self.entry3_img = PhotoImage(file=f"sticky_notes_textBox3.png")
         canvas.create_image(1132.5, 352.5, image=self.entry3_img)
-        entry3 = Entry(bd=0, bg="#646da7", highlightthickness=0)
+        entry3 = Entry(self, bd=0, bg="#646da7", highlightthickness=0)
         entry3.place(x=975, y=243, width=315, height=217)
 
-        self.entry4_img = PhotoImage(file=f"img_textBox4.png")
+        self.entry4_img = PhotoImage(file=f"sticky_notes_textBox4.png")
         canvas.create_image(754.5, 352.5, image=self.entry4_img)
-        entry4 = Entry(bd=0, bg="#417e9a", highlightthickness=0)
+        entry4 = Entry(self, bd=0, bg="#417e9a", highlightthickness=0)
         entry4.place(x=597, y=243, width=315, height=217)
 
-        self.entry5_img = PhotoImage(file=f"img_textBox5.png")
+        self.entry5_img = PhotoImage(file=f"sticky_notes_textBox5.png")
         canvas.create_image(376.5, 352.5, image=self.entry5_img)
-        entry5 = Entry(bd=0, bg="#826fa8", highlightthickness=0)
+        entry5 = Entry(self, bd=0, bg="#826fa8", highlightthickness=0)
         entry5.place(x=219, y=243, width=315, height=217)
 
         self.img0 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b0 = Button(image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
+        b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
         b0.place(x=1260, y=835, width=20, height=12)
 
         self.img1 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b1 = Button(image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
+        b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
         b1.place(x=1232, y=835, width=19, height=12)
 
         self.img2 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b2 = Button(image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
+        b2 = Button(self, image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
         b2.place(x=1203, y=835, width=20, height=12)
 
         self.img3 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b3 = Button(image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
+        b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
         b3.place(x=880, y=835, width=20, height=12)
 
         self.img4 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b4 = Button(image=self.img4, borderwidth=0, highlightthickness=0, relief="flat")
+        b4 = Button(self, image=self.img4, borderwidth=0, highlightthickness=0, relief="flat")
         b4.place(x=852, y=835, width=19, height=12)
 
         self.img5 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b5 = Button(image=self.img5, borderwidth=0, highlightthickness=0, relief="flat")
+        b5 = Button(self, image=self.img5, borderwidth=0, highlightthickness=0, relief="flat")
         b5.place(x=823, y=835, width=20, height=12)
 
         self.img6 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b6 = Button(image=self.img6, borderwidth=0, highlightthickness=0, relief="flat")
+        b6 = Button(self, image=self.img6, borderwidth=0, highlightthickness=0, relief="flat")
         b6.place(x=500, y=836, width=20, height=12)
 
         self.img7 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b7 = Button(image=self.img7, borderwidth=0, highlightthickness=0, relief="flat")
+        b7 = Button(self, image=self.img7, borderwidth=0, highlightthickness=0, relief="flat")
         b7.place(x=473, y=836, width=19, height=12)
 
         self.img8 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b8 = Button(image=self.img8, borderwidth=0, highlightthickness=0, relief="flat")
+        b8 = Button(self, image=self.img8, borderwidth=0, highlightthickness=0, relief="flat")
         b8.place(x=445, y=836, width=20, height=12)
 
         self.img9 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b9 = Button(image=self.img9, borderwidth=0, highlightthickness=0, relief="flat")
+        b9 = Button(self, image=self.img9, borderwidth=0, highlightthickness=0, relief="flat")
         b9.place(x=1260, y=466, width=20, height=12)
 
         self.img10 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b10 = Button(image=self.img10, borderwidth=0, highlightthickness=0, relief="flat")
+        b10 = Button(self, image=self.img10, borderwidth=0, highlightthickness=0, relief="flat")
         b10.place(x=1232, y=466, width=19, height=12)
 
         self.img11 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b11 = Button(image=self.img11, borderwidth=0, highlightthickness=0, relief="flat")
+        b11 = Button(self, image=self.img11, borderwidth=0, highlightthickness=0, relief="flat")
         b11.place(x=1203, y=466, width=20, height=12)
 
         self.img12 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b12 = Button(image=self.img12, borderwidth=0, highlightthickness=0, relief="flat")
+        b12 = Button(self, image=self.img12, borderwidth=0, highlightthickness=0, relief="flat")
         b12.place(x=880, y=466, width=20, height=12)
 
         self.img13 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b13 = Button(image=self.img13, borderwidth=0, highlightthickness=0, relief="flat")
+        b13 = Button(self, image=self.img13, borderwidth=0, highlightthickness=0, relief="flat")
         b13.place(x=852, y=466, width=19, height=12)
 
         self.img14 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b14 = Button(image=self.img14, borderwidth=0, highlightthickness=0, relief="flat")
+        b14 = Button(self, image=self.img14, borderwidth=0, highlightthickness=0, relief="flat")
         b14.place(x=823, y=466, width=20, height=12)
 
         self.img15 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b15 = Button(image=self.img15, borderwidth=0, highlightthickness=0, relief="flat")
+        b15 = Button(self, image=self.img15, borderwidth=0, highlightthickness=0, relief="flat")
         b15.place(x=500, y=466, width=20, height=12)
 
         self.img16 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b16 = Button(image=self.img16, borderwidth=0, highlightthickness=0, relief="flat")
+        b16 = Button(self, image=self.img16, borderwidth=0, highlightthickness=0, relief="flat")
         b16.place(x=473, y=466, width=19, height=12)
 
         self.img17 = PhotoImage(file=f"sticky_notes_color_changer.png")
-        b17 = Button(image=self.img17, borderwidth=0, highlightthickness=0, relief="flat")
+        b17 = Button(self, image=self.img17, borderwidth=0, highlightthickness=0, relief="flat")
         b17.place(x=445, y=466, width=20, height=12)
 
         canvas.create_text(1396.0, 73.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(14.0)))
