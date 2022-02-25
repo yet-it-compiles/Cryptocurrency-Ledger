@@ -937,8 +937,6 @@ class NotesTab(tk.Frame):
         b17 = Button(self, image=self.img17, borderwidth=0, highlightthickness=0, relief="flat")
         b17.place(x=445, y=466, width=20, height=12)
 
-        canvas.create_text(1396.0, 73.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(14.0)))
-
 
 class AlertPopUp(tk.Frame):
     """
