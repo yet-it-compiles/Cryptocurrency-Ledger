@@ -33,7 +33,7 @@ class CryptocurrencyLedger(tk.Tk):
         self.collection_of_canvases = {}
 
         # Declaration of logic to iterate through each page layout
-        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, LogoutButtonBottom, AlertPopUp
+        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, AlertPopUp
                             , NotesTab, Portfolio):
             each_canvas = each_layout(canvas_setup, self)
 
@@ -222,6 +222,37 @@ class Dashboard(tk.Frame):
         self.background_img = tk.PhotoImage(file=image_path)
         canvas.create_image(0, 0, anchor='nw', image=self.background_img)
 
+        def logoutbuttonClicker():
+            pop = Toplevel(self)
+            pop.geometry('537x273')
+            pop.config(height=273, width=537)
+
+            logout_canvas = Canvas(pop, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
+            logout_canvas.place(x=0, y=0)
+
+            self.logout_background_img = PhotoImage(file=f"logout_background.png")
+            logout_canvas.create_image(0, 0, anchor='nw', image=self.logout_background_img)
+            
+            def destroy_logout():
+                pop.destroy()
+
+            # creates and adds functionality for the Yes button in the log out pop up
+            self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
+            logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
+            logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
+                        lambda event: [destroy_logout(), (flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+            
+            # creates and adds functionality for the No button in the log out pop up
+            self.logout_no_img = PhotoImage(file=f"logout_no.png")
+            logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
+            logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
+            
+        # creates and opens up a log out pop up    
+        logout_image_path = "dashboard_logout.png"
+        self.logout_image = tk.PhotoImage(file=logout_image_path)
+        logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
+        canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker())
+
         # Creates text-fields for Searchbar, and Username
         canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
@@ -326,13 +357,6 @@ class Dashboard(tk.Frame):
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
-
-        # Retrieves the images, and configures the logout button
-        logout_image_path = "dashboard_logout.png"
-        self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LogoutButtonBottom)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -452,13 +476,6 @@ class ComingSoon(tk.Frame):
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
-
-        # Retrieves the images, and configures the logout button
-        logout_image_path = "dashboard_logout.png"
-        self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LogoutButtonBottom)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -611,13 +628,6 @@ class Settings(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        # Retrieves the images, and configures the logout button
-        logout_image_path = "dashboard_logout.png"
-        self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LogoutButtonBottom)))
-
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
@@ -661,55 +671,6 @@ class Settings(tk.Frame):
         entry2.place(x=597.5, y=503, width=268.0, height=49)
 
         canvas.create_text(731.5, 422.0, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(26.0)))
-
-
-class LogoutButtonBottom(tk.Frame):
-    """
-    Configures, and displays the Logout button
-    """
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.config(width=537, height=273)
-        flash_delay = 100  # Milliseconds.
-        self.controller = controller
-
-        canvas = Canvas(self, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
-        canvas.place(x=0, y=0)
-
-        self.background_img = PhotoImage(file=f"logout_background.png")
-        canvas.create_image(268.5, 136.5, image=self.background_img)
-
-        self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
-        logout_yes_img_obj = canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
-        canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage)))
-
-        self.logout_no_img = PhotoImage(file=f"logout_no.png")
-        logout_no_img_obj = canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
-        canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_no_img_obj), controller.show_canvas(Dashboard)))
-
-        def flash_hidden(image_obj):
-            """
-            Method sets the state of the object, and hides the buttons when they are interacted with
-
-            :param image_obj: is the image object to hide
-            :type : int
-            :return: an image object that is hidden
-            """
-            set_state(tk.HIDDEN, image_obj)
-            canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
-
-        def set_state(state, image_obj):
-            """
-            Sets the state of the image object
-
-            :param state: the state to apply to the buttons
-            :param image_obj: is the image object to apply a state on
-            :return: an image object with a state applied
-            """
-            canvas.itemconfigure(image_obj, state=state)
 
 
 class NotesTab(tk.Frame):
@@ -806,13 +767,6 @@ class NotesTab(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        # Retrieves the images, and configures the logout button
-        logout_image_path = "dashboard_logout.png"
-        self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LogoutButtonBottom)))
 
         def flash_hidden(image_obj):
             """
@@ -1139,13 +1093,6 @@ class Portfolio(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        # Retrieves the images, and configures the logout button
-        logout_image_path = "dashboard_logout.png"
-        self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), controller.show_canvas(LogoutButtonBottom)))
 
         def flash_hidden(image_obj):
             """
