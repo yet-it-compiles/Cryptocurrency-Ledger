@@ -258,17 +258,14 @@ class Database:
         transaction.id = self.transaction_id
         self.all_transactions.append(transaction)
 
-def main():
-    """
-        Launchpad method to compile, and run this module
 
-        :return: runs the program
-        """
+"""
+
+def main():
     test = Database("admin")
 
     print(test.transaction_id)
     print(test.all_transactions)
 
 
-if __name__ == '__main__':
-    main()
+"""

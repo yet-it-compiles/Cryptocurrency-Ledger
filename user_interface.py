@@ -7,7 +7,8 @@ import database
 from database import *
 import password_encryption
 from password_encryption import *
-
+import Error
+from Error import *
 
 class CryptocurrencyLedger(tk.Tk):
     """
@@ -75,7 +76,7 @@ class LoginPage(tk.Frame):
             else:
 
                 error = "Incorrect Password"
-                print(error)
+                Error.open_popup(error)
         else:
             error = "No Username"
             print(error)
@@ -1276,6 +1277,8 @@ class Portfolio(tk.Frame):
         self.img19 = PhotoImage(file=f"portfolio_img19.png")
         b19 = Button(self, image=self.img19, borderwidth=0, highlightthickness=0, relief="flat")
         b19.place(x=1074, y=238, width=30, height=27)
+
+
 
 def main():
     """
