@@ -1,13 +1,24 @@
-import tkinter as tk
 from tkinter import *
+from tkinter import ttk
 
 
 class Error:
     @staticmethod
     def open_popup(message):
         win = Tk()
-        win("750x250")
+        win.geometry("250x300")
         win.title("Error")
-        Label(win, text="ERROR", font='Mistral 18 bold').place(x=150, y=80)
-        Label(win, text=message, font='Mistral 18 bold').place(x=150, y=210)
-        tk.Button(win, text="Close", command=win.destory).pack()
+        Label(win, text="ERROR", font="Times 12 bold").place(x=12, y=80)
+        Label(win, text=message, font='Times 12 bold').place(x=12, y=100)
+        exit_button = ttk.Button(
+            win,
+            text='Exit',
+            command=lambda: win.quit()
+        )
+
+        exit_button.pack(
+            ipadx=5,
+            ipady=5,
+            expand=True
+        )
+        win.mainloop()
