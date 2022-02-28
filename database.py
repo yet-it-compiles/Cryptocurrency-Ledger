@@ -11,7 +11,7 @@ class Database:
         self.session_start_id = 0
         self.transaction_id = 0
         self.all_transactions = []
-        self.current_transactions = []
+        self.current_holdings = {}
         self.pull_transactions()
 
     @staticmethod
@@ -119,11 +119,12 @@ class Database:
             postgres_query = "INSERT INTO allTransactions VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             for transaction in self.all_transactions:
                 if transaction.id > self.session_start_id:
-                    cusrsor.execute(postgres_query, transaction.id, transaction.crypto_name, transaction.is_buy,
+                    cusrsor.execute(postgres_query, transaction.id, self.username, transaction.crypto_name,
+                                    transaction.is_buy,
                                     transaction.current_price, transaction.num_coins_trading, transaction.target,
                                     transaction.fee, transaction.utc_date_time)
 
-                    connection.commit()
+                connection.commit()
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
             success = False
@@ -135,7 +136,6 @@ class Database:
                 is_connected.close()
 
         return success
-
 
     def pull_transactions(self):
         """
@@ -190,15 +190,73 @@ class Database:
                 result.append(row)
         return result
 
+    """
+    Current Holding dictionary:  (Dictionary of Dictionaries)
+    "coin_name": {avg_price: int, amount: int, target: int}
+    """
+
     def push_current(self):
         """
-        Takes the dictionary and updates all the fields in the 
+        Takes the dictionary and updates all the fields in the
+        returns true if successfully inserted
+        return type: boolean
         """
-        pass
+        connection = Database.connect()
+        success = True
+        try:
+            cursor = connection.cursor()
+            postgres_query = "UPDATE currentHoldings SET avg_price = %s, amount = %s, target = %s WHERE username = %s " \
+                             "AND coin_name = %s "
+            for key in self.current_holdings:
+                cursor.execute(postgres_query, self.current_holdings[key]['avg_price'],
+                               self.current_holdings[key]['amount'],
+                               self.current_holdings[key]['target'],
+                               self.username, key)
+
+            connection.commit()
+        except(Exception, psycopg2.Error) as error:
+            print("Failed to insert record into mobile table", error)
+            success = False
+
+        finally:
+            # closing database is_connected.
+            if is_connected:
+                executes_query.close()
+                is_connected.close()
+
+        return success
 
     def get_current(self):
-        pass
+        connection = Database.connect()
+        try:
+            cursor = connection.cursor()
+            postgres_query = "SELECT * FROM currentHoldings"
+            cursor.execute(postgres_select_query, (self.username,))
+            result = cursor.fetchall()
+            """
+            username = row[0]
+            coin_name = row[1]
+            avg_price = row[2]
+            amount = row[3]
+            target = row[4]
+            """
+            for row in result:
+                self.current_holdings[row[1]]['avg_price'] = row[2]
+                self.current_holdings[row[1]]['amount'] = row[3]
+                self.current_holdings[row[1]]['target'] = row[4]
+        except(Exception, psycopg2.Error) as error:
+            print("Failed to retrieve record into mobile table", error)
 
+        finally:
+            # closing database connection.
+            if connection:
+                cursor.close()
+                connection.close()
+
+    def add_transaction(self, transaction):
+        self.transaction_id += 1
+        transaction.id = self.transaction_id
+        self.all_transactions.append(transaction)
 
 def main():
     """
