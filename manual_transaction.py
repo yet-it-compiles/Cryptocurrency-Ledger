@@ -5,23 +5,22 @@ from gecko_api import GeckoApi
 import datetime
 import pytz
 
+
 class ManualTransaction:
     local_date_time = ""
     timezone = ""
     is_buy = True if 'buy' else False  # default value: True = Buy; False = Sell
 
-    def __init__(self, crypto_name, num_coins_trading, fee, is_long, buy_or_sell, target):
+    def __init__(self, id_num, crypto_name, buy_or_sell, price, num_coins_trading, target, fee, time):
+        self.id = id_num
         self.crypto_name = crypto_name
-        self.num_coins_trading = num_coins_trading # amount
+        self.num_coins_trading = num_coins_trading  # amount
         self.fee = fee
         self.is_buy = buy_or_sell
-        self.is_long = is_long
-
-        self.current_price = GeckoApi(crypto_name).get_attribute("current_price")
+        self.current_price = price
         self.trade_value = self.trade_value_format()
         self.target = target
-        self.utc_date_time = datetime.datetime.utcnow()  # date time that will be stored
-        # self.timezone = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
+        self.utc_date_time = time
 
     def return_transaction(self):
         """ Stores the transaction into a dictionary with a key where it's values is set to [date + time purchased:
@@ -30,7 +29,7 @@ class ManualTransaction:
         transaction_dictonary = {}
         if key not in transaction_dictonary:
             transaction_dictonary[key] = {self.crypto_name, self.is_long, self.is_buy,
-                self.current_price, self.num_coins_trading, self.target, self.utc_date_time}
+                                          self.current_price, self.num_coins_trading, self.target, self.utc_date_time}
         return transaction_dictonary
 
     def quantity_display(self):
@@ -89,6 +88,7 @@ class ManualTransaction:
         """
         return "${0:.1f}".format(value)
 
+
 def main():
     users_timezone = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
     datetime.datetime.now()  # is the current time zone
@@ -105,6 +105,7 @@ def main():
     # print(users_timezone)
 
     # print("Formatted UTC datetime: " + str(utc_dt.strftime("%b %d %Y %X %p")))
+
 
 if __name__ == "__main__":
     main()
