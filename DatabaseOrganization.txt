@@ -1,0 +1,13 @@
+TABLES: 
+
+users: 
+username, email, password
+
+allTransactions
+transaction id, username, coin_name, buy_trade, price, amount, target, fee, time_of
+
+currentTransactions
+transaction id, username, coin_name, buy_trade, price, amount, target, fee, time_of
+
+target
+coin_name, coinditions, frequency, price, alert_name

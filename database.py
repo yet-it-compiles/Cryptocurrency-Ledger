@@ -4,9 +4,9 @@ from psycopg2 import Error
 
 class Database:
 
-    def __init__(self, username):
+    def __init__(self, username) -> object:
         self.username = username
-        self.all_transactions = self.pull_transactions()
+        # self.all_transactions = self.pull_transactions()
 
     @staticmethod
     def connect():
@@ -72,10 +72,15 @@ class Database:
                 is_connected.close()
 
     @staticmethod
-    def checkUsername(name):
+    def checkUsername(name) -> bool:
+        """
+        Checks Database for the username provided. Static because it needs to be accessed from outside a database object
+        returns true if is in the database
+        param:  NAME: username as a string
+        return type: boolean
+        """
         connection = Database.connect()
         try:
-
 
             cursor = connection.cursor()
             postgres_select_query = "Select username FROM users WHERE  username = %s"
@@ -95,16 +100,35 @@ class Database:
                 cursor.close()
                 connection.close()
 
+
 def push_transactions(self):
+    """
+    takes the updated transaction lists and updates the database upon program close
+    param: database object.
+    return type: boolean
+    """
+    pass
+
 
 def pull_transactions(self):
     connection = Database.connect()
     try:
         cursor = connection.cursor()
         postgres_select_query = "Select * FROM transactions WHERE  username = %s"
-        cursor.execute(postgres_select_query, (username,))
+        cursor.execute(postgres_select_query, (self.username,))
         result = cursor.fetchall()
-        return result
+
+        for row in result:
+            print("Id = ", row[0], )
+            print("username = ", row[1])
+            print("coin_name  = ", row[2])
+            print("buy_trade = ", row[3], )
+            print("price = ", row[4])
+            print("amount  = ", row[5])
+            print("target = ", row[6], )
+            print("Fee = ", row[7])
+            print("time  = ", row[8])
+
     except(Exception, psycopg2.Error) as error:
         print("Failed to insert record into mobile table", error)
 
@@ -114,6 +138,7 @@ def pull_transactions(self):
             cursor.close()
             connection.close()
 
+
 def get_coin_transactions(self, coin_name):
     """
     Gets all the transactions related to the current coin
@@ -122,9 +147,17 @@ def get_coin_transactions(self, coin_name):
     """
     res
     for x in all_transactions:
-        if  x == coin_name:
+        if x == coin_name:
             pass
+
+
 def push_current(self):
     pass
+
+
 def get_current(self):
     pass
+
+
+test = Database("hinduhops")
+test.push_transactions()
