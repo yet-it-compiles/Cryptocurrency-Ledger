@@ -64,6 +64,28 @@ class LoginPage(tk.Frame):
     Configures, and displays the login page
     """
 
+    def destroy_error(self):
+        pop.destroy()
+
+    def logoutbuttonClicker(self):
+        pop = Toplevel(self)
+        pop.geometry('537x273')
+        pop.config(height=273, width=537)
+
+        error_canvas = Canvas(pop, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
+        error_canvas_canvas.place(x=0, y=0)
+
+        error_background_img = PhotoImage(file=f"error_background.png")
+        error_canvas_canvas.create_image(0, 0, anchor='nw', image=self.error_background_img)
+
+        error_button_img = PhotoImage(file=f"error_button_img.png")
+        error_button = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
+                              command=lambda: self.destroy_error(),
+                              relief="flat",
+                              activebackground="#343333")
+        error_button.place(x=864, y=537, width=136, height=46)
+
+
     def sign_in(self, controller, usernameE, passwordE):
         global username
         username = usernameE.get()
@@ -76,10 +98,11 @@ class LoginPage(tk.Frame):
             else:
 
                 error = "Incorrect Password"
-                Error.open_popup(error)
+                self.logoutbuttonClicker()
         else:
             error = "No Username"
-            Error.open_popup(error)
+            self.logoutbuttonClicker()
+
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
