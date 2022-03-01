@@ -241,6 +241,9 @@ class Dashboard(tk.Frame):
         flash_delay = 100  # Milliseconds.
         self.controller = controller
 
+        global user
+        user = Database(username)
+
         canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
@@ -1352,9 +1355,34 @@ class Portfolio(tk.Frame):
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker())
 
-        canvas.create_text(601.0, 904.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(763.0, 886.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 895.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+        ycoor = 0
+        portfolio = user.current_holdings
+        for coin in portfolio:
+            avg_buy = portfolio[coin]["avg_price"]
+            amount = portfolio[coin]["amount"]
+
+            target = portfolio[coin]["target"]
+            current_price = 0
+            PnL = current_price - avg_buy * amount
+            profitPercent = current_price / avg_buy * amount * 100
+            totalWorth = current_price * amount
+
+            canvas.create_text(601.0, 904.0, text=f"${current_price}", fill="#ffffff",
+                               font=("SourceCodePro-Regular", int(13.0)))
+            canvas.create_text(763.0, 886.0, text=f"${totalWorth}", fill="#ffffff",
+                               font=("SourceCodePro-Regular", int(13.0)))
+            canvas.create_text(1270.0, 895.0, text=f"${Pnl}", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+            canvas.create_text(1270.0, 917.0, text=f"{profitPercent}%", fill="#ffffff",
+                               font=("RopaSans-Regular", int(13.0)))
+            canvas.create_text(763.0, 912.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+            canvas.create_text(376.0, 905.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+            x += 50
+            y += 50
+
+        """
+        canvas.create_text(601.0, 904.0, text="First", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text(763.0, 886.0, text="Second", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text(1270.0, 895.0, text="Third", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(1270.0, 917.0, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
         canvas.create_text(763.0, 912.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(376.0, 905.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
@@ -1414,7 +1442,7 @@ class Portfolio(tk.Frame):
         canvas.create_text(763.0, 829.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(376.0, 822.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
         canvas.create_text(378.5, 237.0, text="0.00%", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
-
+        """
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)

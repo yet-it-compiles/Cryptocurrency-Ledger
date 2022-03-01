@@ -22,9 +22,9 @@ def update_average(curr_avg, curr_amt, new_purchase, new_amt):
         this method updates the new average price considering the price of the coin
         at the time it was bought
         param curr_avg: float
-        param curr_amt: int
+        param curr_amt: float
         param new_purchase: float
-        new_amt: int
+        new_amt: float
 
         rtype: float
         """
