@@ -7,8 +7,7 @@ import database
 from database import *
 import password_encryption
 from password_encryption import *
-import Error
-from Error import *
+
 
 
 class CryptocurrencyLedger(tk.Tk):
@@ -82,7 +81,7 @@ class LoginPage(tk.Frame):
         self.error_background_img = PhotoImage(file=f"error_background.png")
         error_canvas.create_image(0, 0, anchor='nw', image=self.error_background_img)
 
-        self.error_message = Label(self, text=message, font='Times 12 bold').place(x=265, y=150)
+        #self.error_message = Label(self, text=message, font='Times 12 bold').place(x=265, y=150)
         self.error_button_img = PhotoImage(file=f"error_button_img.png")
         error_button_obj = error_canvas.create_image(280, 200, image=self.error_button_img)
         error_canvas.tag_bind(error_button_obj, "<ButtonRelease-1>", lambda event: destroy_error())
@@ -100,9 +99,12 @@ class LoginPage(tk.Frame):
 
                 error = "Incorrect Password"
                 self.logoutbuttonClicker()
+                passwordE.set("")
         else:
             error = "No Username"
             self.logoutbuttonClicker()
+            usernameE.set("")
+            passwordE.set("")
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
