@@ -1,13 +1,26 @@
 """ Simple module which retrieves the requested cryptocurrency information """
 
 import requests
+import json
 from PIL import Image
 from io import BytesIO
+
+import pandas as pd
+import urllib.error
 
 
 class GeckoApi:
     def __init__(self, crypto_name):
-        self.name = crypto_name.lower().strip()
+        name = crypto_name.lower().strip()
+        
+        with open("coins.json") as file:
+            coins = json.load(file)
+            
+            if coins.get(name):
+                if type(coins[name]) == list:
+                    self.name = coins[name][0]
+                else:
+                    self.name = coins[name]
 
     def get_coin(self):
         """
@@ -16,11 +29,12 @@ class GeckoApi:
         :rtype: dict
         :return requested_crypto_info: the queried coin dictionary
         """
-        info_from_api = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="
-        json_converter = "&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-        requested_crypto_info = requests.get(info_from_api + self.name + json_converter).json()
+        if self.name:
+            info_from_api = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="
+            json_converter = "&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+            requested_crypto_info = requests.get(info_from_api + self.name + json_converter).json()
 
-        return requested_crypto_info
+            return requested_crypto_info[0]
 
     def get_attribute(self, attribute):
         """
@@ -35,7 +49,7 @@ class GeckoApi:
         """
         crypto_attribute = self.get_coin()
         if crypto_attribute:
-            return crypto_attribute[0][attribute]
+            return crypto_attribute[attribute]
 
     def get_icon(self):
         """
@@ -47,7 +61,7 @@ class GeckoApi:
         crypto_image = self.get_coin()
 
         if crypto_image:
-            crypto_image_url = crypto_image[0]["image"]  # captures the
+            crypto_image_url = crypto_image["image"]
             server_response = requests.get(crypto_image_url)
             image_bytes = BytesIO(server_response.content)
             crypto_icon = Image.open(image_bytes)
@@ -61,8 +75,8 @@ class GeckoApi:
         :rtype: list
         :return: coin_ohlc
         """
-        info_from_api = 'https://api.coingecko.com/api/v3/coins/'
-        json_converter = '/ohlc?vs_currency=usd&days='
+        api_url_1 = 'https://api.coingecko.com/api/v3/coins/'
+        api_url_2 = '/ohlc?vs_currency=usd&days='
         
         # handle any days_previous input (API only accepts listed values below)
         possible_days = [1, 7, 14, 30, 90, 180, 365]
@@ -76,12 +90,17 @@ class GeckoApi:
             else:
                 days_previous = possible_days[-1]
 
-        coin_ohlc = requests.get(info_from_api + self.name + json_converter + str(days_previous)).json()
-
-        # return an empty list if the coin does not exist (api returns error dictionary)
-        if type(coin_ohlc) == dict:
+        # fetch data
+        try:
+            coin_ohlc = pd.read_json(api_url_1 + self.name + api_url_2 + str(days_previous))
+            coin_ohlc.columns = ['date', 'open', 'high', 'low', 'close']
+            coin_ohlc['date'] = pd.to_datetime(coin_ohlc['date'], unit='ms')
+            coin_ohlc['date'] = pd.DatetimeIndex(coin_ohlc['date'])
+            coin_ohlc = coin_ohlc.set_index('date')
+              
+        except urllib.error.HTTPError:
             coin_ohlc = []
-
+            
         return coin_ohlc
 
     def get_price_history(self, days_previous, separate=False):
@@ -182,20 +201,22 @@ class GeckoApi:
             return total_volume_history
 
 
-def main():
-    crypto_info = GeckoApi("dogecoin")
+# def main():
+#     crypto_info = GeckoApi("bitcoin")
 
-    print('Cryptocurrency Name: ' + str(crypto_info.name).title())
-    print('Current Price: ' + str(crypto_info.get_attribute("current_price")))
-    print('Market Cap: ' + str(crypto_info.get_attribute("market_cap")))
-    print('Total Supply: ' + str(crypto_info.get_attribute("total_supply")))
-    print('Price High: ' + str(crypto_info.get_attribute("high_24h")))
-    print('Price Low: ' + str(crypto_info.get_attribute("low_24h")))
-    print('OHCL Data: ' + str(crypto_info.get_ohlc_data(2)))  # reporting an error
+#     # print('Cryptocurrency Name: ' + str(crypto_info.name).title())
+#     # print('Current Price: ' + str(crypto_info.get_attribute("current_price")))
+#     # print('Market Cap: ' + str(crypto_info.get_attribute("market_cap")))
+#     # print('Total Supply: ' + str(crypto_info.get_attribute("total_supply")))
+#     # print('Price High: ' + str(crypto_info.get_attribute("high_24h")))
+#     # print('Price Low: ' + str(crypto_info.get_attribute("low_24h")))
+#     # print('OHLC Data: ' + str(crypto_info.get_ohlc_data(2)))
     
-    print('Price History: ' + str(crypto_info.get_price_history(2)))
-    print('Market Cap History: ' + str(crypto_info.get_market_cap_history(2)))
+#     # print('Price History: ' + str(crypto_info.get_price_history(2)))
+#     # print('Market Cap History: ' + str(crypto_info.get_market_cap_history(2)))
+    
+#     crypto_info.get_icon().show()
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
