@@ -2,6 +2,8 @@ import psycopg2
 from psycopg2 import Error
 import manual_transaction
 from manual_transaction import *
+import weighted_calculator
+from weighted_calculator import update_average
 
 
 class Database:
@@ -267,7 +269,7 @@ class Database:
             current_avg = self.current_holdings[coin_name]["avg_price"]
             current_amt = self.current_holdings[coin_name]["amount"]
 
-            new_avg = self.update_average(current_avg, current_amt, new_purchase, new_amt)
+            new_avg = update_average(current_avg, current_amt, new_purchase, new_amt)
 
             if transaction.is_buy:
                 current_amt += new_amt
@@ -281,19 +283,7 @@ class Database:
             self.current_holdings[coin_name]['amount'] = new_amt
             self.current_holdings[coin_name]['target'] = transaction.target
 
-    def update_average(curr_avg, curr_amt, new_purchase, new_amt):
-        """
-        this method updates the new average price considering the price of the coin
-        at the time it was bought
-        param curr_avg: float
-        param curr_amt: int
-        param new_purchase: float
-        new_amt: int
 
-        rtype: float
-        """
-
-        return float("{0:.2f}".format((curr_avg + new_purchase) / (curr_amt + new_amt)))
 
 
 """

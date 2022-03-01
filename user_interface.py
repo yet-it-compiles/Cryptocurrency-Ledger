@@ -9,7 +9,6 @@ import password_encryption
 from password_encryption import *
 
 
-
 class CryptocurrencyLedger(tk.Tk):
     """
     Configures the initial conditions for the UI, and contains the logic to switch between different canvases
@@ -81,7 +80,7 @@ class LoginPage(tk.Frame):
         self.error_background_img = PhotoImage(file=f"error_background.png")
         error_canvas.create_image(0, 0, anchor='nw', image=self.error_background_img)
 
-        #self.error_message = Label(self, text=message, font='Times 12 bold').place(x=265, y=150)
+        # self.error_message = Label(self, text=message, font='Times 12 bold').place(x=265, y=150)
         self.error_button_img = PhotoImage(file=f"error_button_img.png")
         error_button_obj = error_canvas.create_image(280, 200, image=self.error_button_img)
         error_canvas.tag_bind(error_button_obj, "<ButtonRelease-1>", lambda event: destroy_error())
@@ -93,7 +92,8 @@ class LoginPage(tk.Frame):
 
         if Database.checkUsername(username):
             if PasswordEncryption.password_comparison(username, password):
-                print("made it")
+                usernameE.set("")
+                passwordE.set("")
                 controller.show_canvas(Dashboard)
             else:
 
@@ -267,7 +267,7 @@ class Dashboard(tk.Frame):
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
                                    lambda event: [destroy_logout(), (
-                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+                                       flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
 
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
@@ -475,7 +475,7 @@ class ComingSoon(tk.Frame):
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
                                    lambda event: [destroy_logout(), (
-                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+                                       flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
 
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
@@ -628,7 +628,7 @@ class Settings(tk.Frame):
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
                                    lambda event: [destroy_logout(), (
-                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+                                       flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
 
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
@@ -800,7 +800,7 @@ class NotesTab(tk.Frame):
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
                                    lambda event: [destroy_logout(), (
-                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+                                       flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
 
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
@@ -1095,7 +1095,7 @@ class Portfolio(tk.Frame):
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
                                    lambda event: [destroy_logout(), (
-                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+                                       flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
 
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
