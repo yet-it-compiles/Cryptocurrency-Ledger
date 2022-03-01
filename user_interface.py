@@ -10,6 +10,7 @@ from password_encryption import *
 import Error
 from Error import *
 
+
 class CryptocurrencyLedger(tk.Tk):
     """
     Configures the initial conditions for the UI, and contains the logic to switch between different canvases
@@ -69,22 +70,22 @@ class LoginPage(tk.Frame):
 
     def logoutbuttonClicker(self):
         pop = Toplevel(self)
-        pop.geometry('537x273')
-        pop.config(height=273, width=537)
+        pop.geometry('537x250')
+        pop.config(height=250, width=537)
+
+        def destroy_error():
+            pop.destroy()
 
         error_canvas = Canvas(pop, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
-        error_canvas_canvas.place(x=0, y=0)
+        error_canvas.place(x=0, y=0)
 
-        error_background_img = PhotoImage(file=f"error_background.png")
-        error_canvas_canvas.create_image(0, 0, anchor='nw', image=self.error_background_img)
+        self.error_background_img = PhotoImage(file=f"error_background.png")
+        error_canvas.create_image(0, 0, anchor='nw', image=self.error_background_img)
 
-        error_button_img = PhotoImage(file=f"error_button_img.png")
-        error_button = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
-                              command=lambda: self.destroy_error(),
-                              relief="flat",
-                              activebackground="#343333")
-        error_button.place(x=864, y=537, width=136, height=46)
-
+        self.error_message = Label(self, text=message, font='Times 12 bold').place(x=265, y=150)
+        self.error_button_img = PhotoImage(file=f"error_button_img.png")
+        error_button_obj = error_canvas.create_image(280, 200, image=self.error_button_img)
+        error_canvas.tag_bind(error_button_obj, "<ButtonRelease-1>", lambda event: destroy_error())
 
     def sign_in(self, controller, usernameE, passwordE):
         global username
@@ -102,7 +103,6 @@ class LoginPage(tk.Frame):
         else:
             error = "No Username"
             self.logoutbuttonClicker()
-
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -256,7 +256,7 @@ class Dashboard(tk.Frame):
 
             self.logout_background_img = PhotoImage(file=f"logout_background.png")
             logout_canvas.create_image(0, 0, anchor='nw', image=self.logout_background_img)
-            
+
             def destroy_logout():
                 pop.destroy()
 
@@ -264,13 +264,14 @@ class Dashboard(tk.Frame):
             self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
-                        lambda event: [destroy_logout(), (flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
-            
+                                   lambda event: [destroy_logout(), (
+                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
-            
+
         # creates and opens up a log out pop up    
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
@@ -463,7 +464,7 @@ class ComingSoon(tk.Frame):
 
             self.logout_background_img = PhotoImage(file=f"logout_background.png")
             logout_canvas.create_image(0, 0, anchor='nw', image=self.logout_background_img)
-            
+
             def destroy_logout():
                 pop.destroy()
 
@@ -471,13 +472,14 @@ class ComingSoon(tk.Frame):
             self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
-                        lambda event: [destroy_logout(), (flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
-            
+                                   lambda event: [destroy_logout(), (
+                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
-            
+
         # creates and opens up a log out pop up    
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
@@ -615,7 +617,7 @@ class Settings(tk.Frame):
 
             self.logout_background_img = PhotoImage(file=f"logout_background.png")
             logout_canvas.create_image(0, 0, anchor='nw', image=self.logout_background_img)
-            
+
             def destroy_logout():
                 pop.destroy()
 
@@ -623,13 +625,14 @@ class Settings(tk.Frame):
             self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
-                        lambda event: [destroy_logout(), (flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
-            
+                                   lambda event: [destroy_logout(), (
+                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
-            
+
         # creates and opens up a log out pop up    
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
@@ -786,7 +789,7 @@ class NotesTab(tk.Frame):
 
             self.logout_background_img = PhotoImage(file=f"logout_background.png")
             logout_canvas.create_image(0, 0, anchor='nw', image=self.logout_background_img)
-            
+
             def destroy_logout():
                 pop.destroy()
 
@@ -794,13 +797,14 @@ class NotesTab(tk.Frame):
             self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
-                        lambda event: [destroy_logout(), (flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
-            
+                                   lambda event: [destroy_logout(), (
+                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
-            
+
         # creates and opens up a log out pop up    
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
@@ -1080,7 +1084,7 @@ class Portfolio(tk.Frame):
 
             self.logout_background_img = PhotoImage(file=f"logout_background.png")
             logout_canvas.create_image(0, 0, anchor='nw', image=self.logout_background_img)
-            
+
             def destroy_logout():
                 pop.destroy()
 
@@ -1088,13 +1092,14 @@ class Portfolio(tk.Frame):
             self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
-                        lambda event: [destroy_logout(), (flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
-            
+                                   lambda event: [destroy_logout(), (
+                                   flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+
             # creates and adds functionality for the No button in the log out pop up
             self.logout_no_img = PhotoImage(file=f"logout_no.png")
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
-            
+
         # creates and opens up a log out pop up    
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
@@ -1300,7 +1305,6 @@ class Portfolio(tk.Frame):
         self.img19 = PhotoImage(file=f"portfolio_img19.png")
         b19 = Button(self, image=self.img19, borderwidth=0, highlightthickness=0, relief="flat")
         b19.place(x=1074, y=238, width=30, height=27)
-
 
 
 def main():
