@@ -34,7 +34,7 @@ class CryptocurrencyLedger(tk.Tk):
         self.collection_of_canvases = {}
 
         # Declaration of logic to iterate through each page layout
-        for each_layout in (LoginPage, Enrollment, Dashboard, ComingSoon, Settings, AlertPopUp
+        for each_layout in (LoginPage, Enrollment, Dashboard, Charts, ComingSoon, Settings, AlertPopUp
                             , NotesTab, Portfolio):
             each_canvas = each_layout(canvas_setup, self)
 
@@ -357,7 +357,7 @@ class Dashboard(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "dashboard_portfolio.png"
@@ -751,7 +751,7 @@ class ComingSoon(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "dashboard_portfolio.png"
@@ -904,7 +904,7 @@ class Settings(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "dashboard_portfolio.png"
@@ -1076,7 +1076,7 @@ class NotesTab(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "dashboard_portfolio.png"
@@ -1434,14 +1434,14 @@ class Portfolio(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
         alarm_image_path = "dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
