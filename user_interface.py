@@ -349,10 +349,10 @@ class Dashboard(tk.Frame):
          raw_entry.delete(0, END)])
         calculate_button.place(x=1085, y=600, height=20, width=50)
 
-        window = canvas.create_window(985, 460, window=initial_entry)
-        window = canvas.create_window(985, 502, window=final_entry)
-        window = canvas.create_window(985, 547, window=percent_entry)
-        window = canvas.create_window(985, 595, window=raw_entry)
+        canvas.create_window(985, 460, window=initial_entry)
+        canvas.create_window(985, 502, window=final_entry)
+        canvas.create_window(985, 547, window=percent_entry)
+        canvas.create_window(985, 595, window=raw_entry)
 
         initial_price.trace('w', calc.calculate_initial_price)
         final_price.trace('w', calc.calculate_final_price)
@@ -1631,6 +1631,7 @@ class AddTransaction(tk.Frame):
     """
 
     """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
