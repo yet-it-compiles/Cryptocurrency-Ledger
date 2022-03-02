@@ -485,7 +485,7 @@ class Charts(tk.Frame):
         dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(dashboard_image_obj), close_charts(), controller.show_canvas(Dashboard)))
+                            flash_hidden(dashboard_image_obj), close_charts(), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
         simulated_trading_image_path = "dashboard_simulated_trading.png"
@@ -493,7 +493,8 @@ class Charts(tk.Frame):
         simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(simulated_trading_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                            flash_hidden(simulated_trading_image_obj), close_charts(),
+                            controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path = "dashboard_charts.png"
@@ -508,7 +509,7 @@ class Charts(tk.Frame):
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(portfolio_image_obj), close_charts(), controller.show_canvas(Portfolio)))
+                            flash_hidden(portfolio_image_obj), close_charts(), controller.show_canvas(Portfolio)))
 
         # Retrieves the images, and configures the alarms button
         alarm_image_path = "dashboard_alarms.png"
@@ -516,7 +517,7 @@ class Charts(tk.Frame):
         alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(alarm_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                            flash_hidden(alarm_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
         news_image_path = "dashboard_news.png"
@@ -524,7 +525,7 @@ class Charts(tk.Frame):
         news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(news_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                            flash_hidden(news_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
         settings_image_path = "dashboard_settings.png"
@@ -532,7 +533,7 @@ class Charts(tk.Frame):
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(settings_image_obj), close_charts(), controller.show_canvas(Settings)))
+                            flash_hidden(settings_image_obj), close_charts(), controller.show_canvas(Settings)))
 
         # Retrieves the images, and configures the logout button
         logout_image_path = "dashboard_logout.png"
@@ -540,7 +541,7 @@ class Charts(tk.Frame):
         logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(logout_image_obj), close_charts(), controller.show_canvas(LoginPage)))
+                            flash_hidden(logout_image_obj), close_charts(), controller.show_canvas(LoginPage)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
@@ -548,7 +549,7 @@ class Charts(tk.Frame):
         notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(notifications_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                            flash_hidden(notifications_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -556,7 +557,7 @@ class Charts(tk.Frame):
         support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(support_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                            flash_hidden(support_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
         notes_image_path = "dashboard_notes.png"
@@ -564,7 +565,7 @@ class Charts(tk.Frame):
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(notes_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                            flash_hidden(notes_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path = "dashboard_profile_img.png"
@@ -572,7 +573,7 @@ class Charts(tk.Frame):
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
                         lambda event: (
-                        flash_hidden(profile_image_obj), close_charts(), controller.show_canvas(Settings)))
+                            flash_hidden(profile_image_obj), close_charts(), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
@@ -1418,13 +1419,11 @@ class Portfolio(tk.Frame):
                                font=("SourceCodePro-Regular", int(13.0)))
             canvas.create_text(763.0, 886.0, text=f"${totalWorth}", fill="#ffffff",
                                font=("SourceCodePro-Regular", int(13.0)))
-            canvas.create_text(1270.0, 895.0, text=f"${Pnl}", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+            canvas.create_text(1270.0, 895.0, text=f"${PnL}", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
             canvas.create_text(1270.0, 917.0, text=f"{profitPercent}%", fill="#ffffff",
                                font=("RopaSans-Regular", int(13.0)))
             canvas.create_text(763.0, 912.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
             canvas.create_text(376.0, 905.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-            x += 50
-            y += 50
 
         """
         canvas.create_text(601.0, 904.0, text="First", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
@@ -1626,6 +1625,93 @@ class Portfolio(tk.Frame):
         self.img19 = PhotoImage(file=f"portfolio_img19.png")
         b19 = Button(self, image=self.img19, borderwidth=0, highlightthickness=0, relief="flat")
         b19.place(x=1074, y=238, width=30, height=27)
+
+
+class AddTransaction(tk.Frame):
+    """
+
+    """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width=1440, height=1024)
+        self.controller = controller
+
+        flash_delay = 100  # in milliseconds.
+
+        canvas = Canvas(self, bg="#ffffff", height=704, width=485, bd=0, highlightthickness=0, relief="ridge")
+        canvas.place(x=0, y=0)
+
+        self.background_img = PhotoImage(file=f"background.png")
+        canvas.create_image(242.5, 350.0, image=self.background_img)
+
+        self.entry0_img = PhotoImage(file=f"img_textBox0.png")
+        canvas.create_image(336.5, 538.0, image=self.entry0_img)
+
+        entry0 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+
+        entry0.place(x=275.0, y=515, width=123.0, height=44)
+
+        entry1_img = PhotoImage(file=f"img_textBox1.png")
+        canvas.create_image(147.5, 538.0, image=entry1_img)
+
+        entry1 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+
+        entry1.place(x=86.0, y=515, width=123.0, height=44)
+
+        entry2_img = PhotoImage(file=f"img_textBox2.png")
+        canvas.create_image(336.5, 445.0, image=entry2_img)
+
+        entry2 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+
+        entry2.place(x=275.0, y=422, width=123.0, height=44)
+
+        entry3_img = PhotoImage(file=f"img_textBox3.png")
+        canvas.create_image(147.5, 445.0, image=entry3_img)
+
+        entry3 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+
+        entry3.place(x=86.0, y=422, width=123.0, height=44)
+
+        entry4_img = PhotoImage(file=f"img_textBox4.png")
+        canvas.create_image(336.5, 344.0, image=entry4_img)
+
+        entry4 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+
+        entry4.place(x=275.0, y=321, width=123.0, height=44)
+
+        entry5_img = PhotoImage(file=f"img_textBox5.png")
+        canvas.create_image(147.5, 344.0, image=entry5_img)
+
+        entry5 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+
+        entry5.place(x=86.0, y=321, width=123.0, height=44)
+
+        entry6_img = PhotoImage(file=f"img_textBox6.png")
+        canvas.create_image(242.5, 249.0, image=entry6_img)
+
+        entry6 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+
+        entry6.place(x=106.0, y=226, width=273.0, height=44)
+
+        img0 = PhotoImage(file=f"img0.png")
+        b0 = Button(self, image=img0, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b0.place(x=181, y=620, width=123, height=49)
+
+        img1 = PhotoImage(file=f"img1.png")
+        b1 = Button(self, image=img1, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b1.place(x=313, y=125, width=89, height=42)
+
+        img2 = PhotoImage(file=f"img2.png")
+        b2 = Button(self, image=img2, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b2.place(x=200, y=125, width=84, height=42)
+
+        self.img3 = PhotoImage(file=f"img3.png")
+        b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b3.place(x=83, y=125, width=84, height=42)
 
 
 def main():
