@@ -8,6 +8,7 @@ from database import *
 import password_encryption
 from password_encryption import *
 from mpl_charts import MplCharts
+import responsive_calculator
 
 
 class CryptocurrencyLedger(tk.Tk):
@@ -334,12 +335,27 @@ class Dashboard(tk.Frame):
         canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Percent Increase Calculator
-        canvas.create_text(968.0, 469.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(968.0, 504.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(968.0, 553.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(968.0, 604.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(975.0, 620.0, text="$0.00 is a 0% increase from $0.00", fill="#ffffff",
-                           font=("Rosarivo-Regular", int(10.0)))
+        calc = responsive_calculator.ResponsiveCalculator()
+        initial_price, final_price, percent_difference, raw_difference = calc.return_labels()
+
+        initial_entry = tk.Entry(self, textvariable=initial_price,  font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
+        final_entry = tk.Entry(self,textvariable=final_price, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
+        percent_entry = tk.Entry(self, textvariable=percent_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
+        raw_entry = tk.Entry(self, textvariable=raw_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
+         
+        calculate_button = Button(self, text= "clear", borderwidth=0, highlightthickness=0, command=lambda: 
+        [initial_entry.delete(0, END), final_entry.delete(0, END), percent_entry.delete(0, END), raw_entry.delete(0, END)])
+        calculate_button.place(x= 1085, y= 600, height=20, width=50)
+        
+        window = canvas.create_window(985, 460, window = initial_entry)
+        window = canvas.create_window(985, 502, window = final_entry)
+        window = canvas.create_window(985, 547, window = percent_entry)
+        window = canvas.create_window(985, 595, window = raw_entry)
+        
+        initial_price.trace('w', calc.calculate_initial_price)
+        final_price.trace('w', calc.calculate_final_price)
+        percent_difference.trace('w', calc.calculate_percent_difference)
+        raw_difference.trace('w', calc.calculate_raw_difference)
 
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "dashboard_dashboard.png"
