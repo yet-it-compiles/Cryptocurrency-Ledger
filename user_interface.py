@@ -1317,33 +1317,49 @@ class AlertPopUp(tk.Frame):
         canvas = Canvas(self, bg="#ffffff", height=426, width=684, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
-        self.background_img = PhotoImage(file=f"alert_popup_background.png")
-        canvas.create_image(342.0, 213.0, image=self.background_img)
+        background_img = PhotoImage(file=f"alert_popup_background.png")
+        canvas.create_image(342.0, 213.0, image=background_img)
 
-        self.entry0_img = PhotoImage(file=f"alert_popup_textBox0.png")
-        canvas.create_image(331.5, 294.5, image=self.entry0_img)
+        img0 = PhotoImage(file=f"alert_popup_img0.png")
+        b0 = Button(image=img0, borderwidth=0, highlightthickness=0, relief="flat")
 
-        entry0 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
-        entry0.place(x=264.5, y=283, width=134.0, height=21)
+        b0.place(x=300, y=341, width=84, height=18)
 
-        self.entry1_img = PhotoImage(file=f"alert_popup_textBox1.png")
-        canvas.create_image(297.5, 240.5, image=self.entry1_img)
+        img1 = PhotoImage(file=f"alert_popup_img1.png")
+        b1 = Button(image=img1, borderwidth=0, highlightthickness=0, relief="flat")
 
-        entry1 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
-        entry1.place(x=264.5, y=229, width=66.0, height=21)
+        b1.place(x=293, y=307, width=98, height=23)
 
-        self.entry2_img = PhotoImage(file=f"alert_popup_textBox2.png")
-        canvas.create_image(335.5, 132.0, image=self.entry2_img)
-        entry2 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
-        entry2.place(x=268.0, y=121, width=135.0, height=20)
+        img2 = PhotoImage(file=f"alert_popup_img2.png")
+        b2 = Button(image=img2, borderwidth=0, highlightthickness=0, relief="flat")
 
-        self.img0 = PhotoImage(file=f"alert_popup_img0.png")
-        b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
-        b0.place(x=342, y=178, width=98, height=22)
+        b2.place(x=289, y=209, width=98, height=22)
 
-        self.img1 = PhotoImage(file=f"alert_popup_img1.png")
-        b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
-        b1.place(x=253, y=178, width=80, height=22)
+        img3 = PhotoImage(file=f"alert_popup_img3.png")
+        b3 = Button(image=img3, borderwidth=0, highlightthickness=0, relief="flat")
+
+        b3.place(x=249, y=156, width=85, height=22)
+
+        entry0_img = PhotoImage(file=f"alert_popup_textBox0.png")
+        canvas.create_image(341.5, 278.5, image=entry0_img)
+
+        entry0 = Entry(bd=0, bg="#dcdcdc", highlightthickness=0)
+
+        entry0.place(x=260.5, y=267, width=162.0, height=21)
+
+        entry1_img = PhotoImage(file=f"alert_popup_textBox1.png")
+        canvas.create_image(391.5, 167.5, image=entry1_img)
+
+        entry1 = Entry(bd=0, bg="#dcdcdc", highlightthickness=0)
+
+        entry1.place(x=358.5, y=156, width=66.0, height=21)
+
+        entry2_img = PhotoImage(file=f"alert_popup_textBox2.png")
+        canvas.create_image(341.5, 108.0, image=entry2_img)
+
+        entry2 = Entry(bd=0, bg="#dcdcdc", highlightthickness=0)
+
+        entry2.place(x=260.0, y=97, width=163.0, height=20)
 
 
 class Portfolio(tk.Frame):
