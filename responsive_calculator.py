@@ -2,60 +2,15 @@
 
 import tkinter as tk
  
-class responsiveCalculator(tk.Tk):
+class ResponsiveCalculator(tk.Tk):
     
-    # Creation of the window that holds the calculator
     def __init__(self):
-        super().__init__()
-        self.title('Responsive Calculator')
-        self.resizable(False, False)
-        self.geometry("600x200")
-
         # Creation of the text box variables
         self.initial_price = tk.StringVar()
         self.final_price = tk.StringVar()
         self.percent_difference = tk.StringVar()
         self.raw_difference = tk.StringVar()
-
-        # Trace of the text box variables
-        self.initial_price.trace('w', self.calculate_initial_price)
-        self.final_price.trace('w', self.calculate_final_price)
-        self.percent_difference.trace('w', self.calculate_percent_difference)
-        self.raw_difference.trace('w', self.calculate_raw_difference)
- 
-        self.create_widgets()
-
-    # Creation of the text boxes 
-    def create_widgets(self):
-        self.initial_price_label = tk.Label(self, text = "Enter Initial Price:")
-        self.initial_price_label.grid(column = 0, row = 0)
-        self.initial_price_entry = tk.Entry(self, textvariable = self.initial_price)
-        self.initial_price_entry.grid(column = 1, row = 0)
-        self.initial_price_entry.focus()
-        self.initial_price_calc = tk.Label(self, text = "")
-        self.initial_price_calc.grid(column = 2, row = 0)
-
-        self.final_price_label = tk.Label(self, text = "Enter Final Price:")
-        self.final_price_label.grid(column = 0, row = 1)
-        self.final_price_entry = tk.Entry(self, textvariable = self.final_price)
-        self.final_price_entry.grid(column = 1, row = 1)
-        self.final_price_calc = tk.Label(self, text = "")
-        self.final_price_calc.grid(column = 2, row = 1)
-
-        self.percent_difference_label = tk.Label(self, text = "Enter Percent Difference:")
-        self.percent_difference_label.grid(column = 0, row = 2)
-        self.percent_difference_entry = tk.Entry(self, textvariable = self.percent_difference)
-        self.percent_difference_entry.grid(column = 1, row = 2)
-        self.percent_difference_calc = tk.Label(self, text = "")
-        self.percent_difference_calc.grid(column = 2, row = 2)
-
-        self.raw_difference_label = tk.Label(self, text = "Enter Raw Difference:")
-        self.raw_difference_label.grid(column = 0, row = 3)
-        self.raw_difference_entry = tk.Entry(self, textvariable = self.raw_difference)
-        self.raw_difference_entry.grid(column = 1, row = 3)
-        self.raw_difference_calc = tk.Label(self, text = "")
-        self.raw_difference_calc.grid(column = 2, row = 3)
-
+    
     # From perspective of the Initial Price
     def calculate_initial_price(self, *args):
         initial_price_input = self.initial_price.get()
@@ -72,11 +27,11 @@ class responsiveCalculator(tk.Tk):
                     percent_difference_result = 100 * (final_price_input - initial_price_input) / initial_price_input
                     raw_difference_result = final_price_input - initial_price_input
 
-                    # Print all four to the labels
-                    self.initial_price_calc['text'] = '$' + str(initial_price_input)
-                    self.final_price_calc['text'] = '$' + str(final_price_input)
-                    self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_result)) + '%'
-                    self.raw_difference_calc['text'] = '$' + str(raw_difference_result)
+                    # Adjust variables
+                    self.initial_price.set(str("{:.2f}".format(initial_price_input)))
+                    self.final_price.set(str("{:.2f}".format(final_price_input)))
+                    self.percent_difference.set(str("{:.2f}".format(percent_difference_result)))
+                    self.raw_difference.set(str("{:.2f}".format(raw_difference_result)))
 
                 # Initial Price & Percent Difference
                 percent_difference_input = self.percent_difference.get()
@@ -86,14 +41,14 @@ class responsiveCalculator(tk.Tk):
                     final_price_result = initial_price_input + ((percent_difference_input/100) * initial_price_input)
                     raw_difference_result = final_price_result - initial_price_input
                    
-                    # Print all four to the labels
-                    self.initial_price_calc['text'] = '$' + str(initial_price_input)
+                    # Adjust variables
+                    self.initial_price.set(str("{:.2f}".format(initial_price_input)))
                     if final_price_result < 0.0:
-                        self.final_price_calc['text'] = 'Error - Final Price cannot be less than Zero'
-                    else: 
-                        self.final_price_calc['text'] = '$' + str(final_price_result)
-                    self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_input)) + '%'
-                    self.raw_difference_calc['text'] = '$' + str(raw_difference_result)
+                        self.final_price.set('Error')
+                    else:     
+                        self.final_price.set(str("{:.2f}".format(final_price_result)))
+                    self.percent_difference.set(str("{:.2f}".format(percent_difference_input)))
+                    self.raw_difference.set(str("{:.2f}".format(raw_difference_result)))
 
                 # Initial Price & Raw Difference
                 raw_difference_input = self.raw_difference.get()
@@ -103,14 +58,14 @@ class responsiveCalculator(tk.Tk):
                     final_price_result = initial_price_input + raw_difference_input
                     percent_difference_result = 100 * (final_price_result - initial_price_input) / initial_price_input
 
-                    # Print all four to the labels
-                    self.initial_price_calc['text'] = '$' + str(initial_price_input)
+                    # Adjust price values
+                    self.initial_price.set(str("{:.2f}".format(initial_price_input)))
                     if final_price_result < 0.0:
-                        self.final_price_calc['text'] = 'Error - Final Price cannot be less than Zero'
-                    else: 
-                        self.final_price_calc['text'] = '$' + str(final_price_result)
-                    self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_result)) + '%'
-                    self.raw_difference_calc['text'] = '$' + str(raw_difference_input)
+                        self.final_price.set('Error')
+                    else:     
+                        self.final_price.set(str("{:.2f}".format(final_price_result)))
+                    self.percent_difference.set(str("{:.2f}".format(percent_difference_result)))
+                    self.raw_difference.set(str("{:.2f}".format(raw_difference_input)))
 
     
     
@@ -131,11 +86,12 @@ class responsiveCalculator(tk.Tk):
                         percent_difference_result = 100 * (final_price_input - initial_price_input) / initial_price_input
                         raw_difference_result = final_price_input - initial_price_input
 
-                        # Print all four to the labels
-                        self.initial_price_calc['text'] = '$' + str(initial_price_input)
-                        self.final_price_calc['text'] = '$' + str(final_price_input)
-                        self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_result)) + '%'
-                        self.raw_difference_calc['text'] = '$' + str(raw_difference_result)
+
+                        # Adjust variables   
+                        self.initial_price.set(str("{:.2f}".format(initial_price_input))) 
+                        self.final_price.set(str("{:.2f}".format(final_price_input)))
+                        self.percent_difference.set(str("{:.2f}".format(percent_difference_result)))
+                        self.raw_difference.set(str("{:.2f}".format(raw_difference_result)))
             
             #Final Price & Percent Difference
             percent_difference_input = self.percent_difference.get()
@@ -145,14 +101,14 @@ class responsiveCalculator(tk.Tk):
                 initial_price_result = final_price_input / ((percent_difference_input/100) + 1)
                 raw_difference_result = final_price_input - initial_price_result
 
-                # Print all four to the labels
+                # Adjust variables
                 if initial_price_result < 0.0:
-                    self.initial_price_calc['text'] = 'Error - Initial Price cannot be less than Zero'
-                else:
-                    self.initial_price_calc['text'] = '$' + str(initial_price_result)
-                self.final_price_calc['text'] = '$' + str(final_price_input)
-                self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_input)) + '%'
-                self.raw_difference_calc['text'] = '$' + str(raw_difference_result)
+                    self.initial_price = 'Error'
+                else:     
+                    self.initial_price.set(str("{:.2f}".format(initial_price_result))) 
+                self.final_price.set(str("{:.2f}".format(final_price_input)))
+                self.percent_difference.set(str("{:.2f}".format(percent_difference_input)))
+                self.raw_difference.set(str("{:.2f}".format(raw_difference_result)))
             
             # Final Price & Raw Input
             raw_difference_input = self.raw_difference.get()
@@ -162,14 +118,14 @@ class responsiveCalculator(tk.Tk):
                 initial_price_result = final_price_input - raw_difference_input
                 percent_difference_result = 100 * (final_price_input - initial_price_result) / initial_price_result
 
-                # Print all four to the labels
+                # Adjust variables
                 if initial_price_result < 0.0:
-                    self.initial_price_calc['text'] = 'Error - Initial Price cannot be less than Zero'
-                else:
-                    self.initial_price_calc['text'] = '$' + str(initial_price_result)
-                self.final_price_calc['text'] = '$' + str(final_price_input)
-                self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_result)) + '%'
-                self.raw_difference_calc['text'] = '$' + str(raw_difference_input)
+                    self.initial_price = 'Error'
+                else:     
+                    self.initial_price.set(str("{:.2f}".format(initial_price_result))) 
+                self.final_price.set(str("{:.2f}".format(final_price_input)))
+                self.percent_difference.set(str("{:.2f}".format(percent_difference_result)))
+                self.raw_difference.set(str("{:.2f}".format(raw_difference_input)))
                
                 
     # From perspective of the Percent Difference
@@ -188,16 +144,14 @@ class responsiveCalculator(tk.Tk):
                     final_price_result = initial_price_input + ((percent_difference_input/100) * initial_price_input)
                     raw_difference_result = final_price_result - initial_price_input
 
-                    # Print all four to the labels
-                    self.initial_price_calc['text'] = '$' + str(initial_price_input)
-                    
+                    # Adjust variables
+                    self.initial_price.set(str("{:.2f}".format(initial_price_input))) 
                     if final_price_result < 0.0:
-                        self.final_price_calc['text'] = 'Error - Final Price cannot be less than Zero'
-                    else: 
-                        self.final_price_calc['text'] = '$' + str(final_price_result)
-
-                    self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_input)) + '%'
-                    self.raw_difference_calc['text'] = '$' + str(raw_difference_result)
+                        self.final_price.set('Error')
+                    else:     
+                        self.final_price.set(("{:.2f}".format(final_price_result)))
+                    self.percent_difference.set(str("{:.2f}".format(percent_difference_input)))
+                    self.raw_difference.set(str("{:.2f}".format(raw_difference_result)))
             
             # Percent Difference & Final Price
             final_price_input = self.final_price.get()
@@ -207,19 +161,18 @@ class responsiveCalculator(tk.Tk):
                 initial_price_result = final_price_input / ((percent_difference_input/100) + 1)
                 raw_difference_result = final_price_input - initial_price_result
 
+                # Adjust variables
                 if initial_price_result < 0.0:
-                    self.initial_price_calc['text'] = 'Error - Initial Price cannot be less than Zero'
-                else:
-                    self.initial_price_calc['text'] = '$' + str(initial_price_result)
-                
-                self.final_price_calc['text'] = '$' + str(final_price_input)
-                self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_input)) + '%'
-                self.raw_difference_calc['text'] = '$' + str(raw_difference_result)
+                    self.initial_price.set('Error')
+                else:     
+                    self.initial_price.set(str("{:.2f}".format(initial_price_result)))    
+                self.final_price.set(str("{:.2f}".format(final_price_input)))
+                self.percent_difference.set(str("{:.2f}".format(percent_difference_input)))
+                self.raw_difference.set(str("{:.2f}".format(raw_difference_result)))
 
             # Percent Difference and Raw Difference do not allow for a proper answer.
          
         
-    
     # From perspective of the Raw Difference
     def calculate_raw_difference(self, *args):
         raw_difference_input = self.raw_difference.get()
@@ -236,14 +189,14 @@ class responsiveCalculator(tk.Tk):
                     final_price_result = initial_price_input + raw_difference_input
                     percent_difference_result = 100 * (final_price_result - initial_price_input) / initial_price_input
 
-                    # Print all four to the labels
-                    self.initial_price_calc['text'] = '$' + str(initial_price_input)
+                    # Adjust variables
+                    self.initial_price.set(str("{:.2f}".format(initial_price_input))) 
                     if final_price_result < 0.0:
-                        self.final_price_calc['text'] = 'Error - Final Price cannot be less than Zero'
-                    else: 
-                        self.final_price_calc['text'] = '$' + str(final_price_result)
-                    self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_result)) + '%'
-                    self.raw_difference_calc['text'] = '$' + str(raw_difference_input)
+                        self.final_price.set('Error')
+                    else:     
+                        self.final_price.set(str("{:.2f}".format(final_price_result)))
+                    self.percent_difference.set(str("{:.2f}".format(percent_difference_result)))
+                    self.raw_difference.set(str("{:.2f}".format(raw_difference_input)))
             
             # Raw Difference & Final Price 
             final_price_input = self.final_price.get()
@@ -253,18 +206,27 @@ class responsiveCalculator(tk.Tk):
                 initial_price_result = final_price_input - raw_difference_input
                 percent_difference_result = 100 * (final_price_input - initial_price_result) / initial_price_result
 
-                # Print all four to the labels
+                # Adjust variables
                 if initial_price_result < 0.0:
-                    self.initial_price_calc['text'] = 'Error - Initial Price cannot be less than Zero'
-                else:
-                    self.initial_price_calc['text'] = '$' + str(initial_price_result)
-                self.final_price_calc['text'] = '$' + str(final_price_input)
-                self.percent_difference_calc['text'] = str("{:.2f}".format(percent_difference_result)) + '%'
-                self.raw_difference_calc['text'] = '$' + str(raw_difference_input)
+                    self.initial_price = 'Error'
+                else:     
+                    self.initial_price.set(str("{:.2f}".format(initial_price_result)))    
+                self.final_price.set(str("{:.2f}".format(final_price_input)))
+                self.percent_difference.set(str("{:.2f}".format(percent_difference_result)))
+                self.raw_difference.set(str("{:.2f}".format(raw_difference_input)))
 
          # Raw Difference and Percent Difference do not allow for a proper answer.
-        
+            
+    def return_labels(self):
+        initial_price_input = self.initial_price
+        final_price_input = self.final_price
+        percent_difference = self.percent_difference
+        raw_difference = self.raw_difference
+        return initial_price_input, final_price_input, percent_difference, raw_difference
     
-if __name__ == "__main__":
-    app = responsiveCalculator()
+def main():
+    app = ResponsiveCalculator()
     app.mainloop()
+
+if __name__ == "__main__":
+    main()
