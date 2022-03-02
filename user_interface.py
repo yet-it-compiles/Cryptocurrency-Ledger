@@ -1,5 +1,4 @@
 """ This module configures each page of the Cryptocurrency ledger """
-from typing import Any
 
 import tkinter as tk
 from tkinter import *
@@ -48,6 +47,7 @@ class CryptocurrencyLedger(tk.Tk):
     def show_canvas(self, container):
         """
         Displays the current from that is passed as a parameter, and raises it to the current stack
+
         :param container: The passed in window to display next
         :return: the new canvas
         """
@@ -64,9 +64,6 @@ class LoginPage(tk.Frame):
     """
     Configures, and displays the login page
     """
-
-    def destroy_error(self):
-        pop.destroy()
 
     def logoutbuttonClicker(self):
         pop = Toplevel(self)
@@ -243,7 +240,7 @@ class Dashboard(tk.Frame):
         self.controller = controller
 
         global user
-        user = Database(username)
+        user = Database(username="")
 
         canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
@@ -279,7 +276,7 @@ class Dashboard(tk.Frame):
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
 
-        # creates and opens up a log out pop up    
+        # creates and opens up a log out pop up
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
@@ -338,20 +335,25 @@ class Dashboard(tk.Frame):
         calc = responsive_calculator.ResponsiveCalculator()
         initial_price, final_price, percent_difference, raw_difference = calc.return_labels()
 
-        initial_entry = tk.Entry(self, textvariable=initial_price,  font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-        final_entry = tk.Entry(self,textvariable=final_price, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-        percent_entry = tk.Entry(self, textvariable=percent_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-        raw_entry = tk.Entry(self, textvariable=raw_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-         
-        calculate_button = Button(self, text= "clear", borderwidth=0, highlightthickness=0, command=lambda: 
-        [initial_entry.delete(0, END), final_entry.delete(0, END), percent_entry.delete(0, END), raw_entry.delete(0, END)])
-        calculate_button.place(x= 1085, y= 600, height=20, width=50)
-        
-        window = canvas.create_window(985, 460, window = initial_entry)
-        window = canvas.create_window(985, 502, window = final_entry)
-        window = canvas.create_window(985, 547, window = percent_entry)
-        window = canvas.create_window(985, 595, window = raw_entry)
-        
+        initial_entry = tk.Entry(self, textvariable=initial_price, font=("Rosarivo-Regular", int(10)), width=15, bd=0,
+                                 bg='#d3d3d3')
+        final_entry = tk.Entry(self, textvariable=final_price, font=("Rosarivo-Regular", int(10)), width=15, bd=0,
+                               bg='#d3d3d3')
+        percent_entry = tk.Entry(self, textvariable=percent_difference, font=("Rosarivo-Regular", int(10)), width=15,
+                                 bd=0, bg='#d3d3d3')
+        raw_entry = tk.Entry(self, textvariable=raw_difference, font=("Rosarivo-Regular", int(10)), width=15, bd=0,
+                             bg='#d3d3d3')
+
+        calculate_button = Button(self, text="clear", borderwidth=0, highlightthickness=0, command=lambda:
+        [initial_entry.delete(0, END), final_entry.delete(0, END), percent_entry.delete(0, END),
+         raw_entry.delete(0, END)])
+        calculate_button.place(x=1085, y=600, height=20, width=50)
+
+        window = canvas.create_window(985, 460, window=initial_entry)
+        window = canvas.create_window(985, 502, window=final_entry)
+        window = canvas.create_window(985, 547, window=percent_entry)
+        window = canvas.create_window(985, 595, window=raw_entry)
+
         initial_price.trace('w', calc.calculate_initial_price)
         final_price.trace('w', calc.calculate_final_price)
         percent_difference.trace('w', calc.calculate_percent_difference)
@@ -458,6 +460,7 @@ class Dashboard(tk.Frame):
 
         self.background_img.width(), self.background_img.height()
 
+
 class Charts(tk.Frame):
     """ Configures, and displays the Charts Tab """
 
@@ -466,7 +469,7 @@ class Charts(tk.Frame):
         self.config(width=1440, height=1024)
         flash_delay = 100  # Milliseconds.
         self.controller = controller
-        
+
         canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
@@ -481,14 +484,16 @@ class Charts(tk.Frame):
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
         dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(dashboard_image_obj), close_charts(), controller.show_canvas(Dashboard)))
+                        lambda event: (
+                        flash_hidden(dashboard_image_obj), close_charts(), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
         simulated_trading_image_path = "dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(simulated_trading_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                        lambda event: (
+                        flash_hidden(simulated_trading_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path = "dashboard_charts.png"
@@ -502,83 +507,92 @@ class Charts(tk.Frame):
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_image_obj), close_charts(), controller.show_canvas(Portfolio)))
+                        lambda event: (
+                        flash_hidden(portfolio_image_obj), close_charts(), controller.show_canvas(Portfolio)))
 
         # Retrieves the images, and configures the alarms button
         alarm_image_path = "dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
         alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(alarm_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                        lambda event: (
+                        flash_hidden(alarm_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
         news_image_path = "dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(news_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                        lambda event: (
+                        flash_hidden(news_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
         settings_image_path = "dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(settings_image_obj), close_charts(), controller.show_canvas(Settings)))
+                        lambda event: (
+                        flash_hidden(settings_image_obj), close_charts(), controller.show_canvas(Settings)))
 
         # Retrieves the images, and configures the logout button
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(logout_image_obj), close_charts(), controller.show_canvas(LoginPage)))
+                        lambda event: (
+                        flash_hidden(logout_image_obj), close_charts(), controller.show_canvas(LoginPage)))
 
         # Retrieves the images, and configures the notifications image
         notifications_image_path = "dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                        lambda event: (
+                        flash_hidden(notifications_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
         support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(support_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                        lambda event: (
+                        flash_hidden(support_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
         notes_image_path = "dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notes_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+                        lambda event: (
+                        flash_hidden(notes_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path = "dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(profile_image_obj), close_charts(), controller.show_canvas(Settings)))
+                        lambda event: (
+                        flash_hidden(profile_image_obj), close_charts(), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-        
+
         # configures the coin entry box
         coin = tk.StringVar()
         coin_entry = tk.Entry(canvas, textvariable=coin)
         coin_entry.place(x=150, y=100)
-        
+
         # configures the 1d button
         day_button = tk.Button(canvas, text="1d", command=lambda: generate_chart(coin.get(), 1))
         day_button.place(x=275, y=100)
-                
+
         # configures the 1w button
         week_button = tk.Button(canvas, text="1w", command=lambda: generate_chart(coin.get(), 7))
         week_button.place(x=300, y=100)
-        
+
         # configures the 1m button
         month_button = tk.Button(canvas, text="1m", command=lambda: generate_chart(coin.get(), 30))
         month_button.place(x=325, y=100)
-        
+
         # configures the 3m button
         threemo_button = tk.Button(canvas, text="3m", command=lambda: generate_chart(coin.get(), 90))
         threemo_button.place(x=350, y=100)
@@ -586,54 +600,63 @@ class Charts(tk.Frame):
         # configures the 6m button
         sixmo_button = tk.Button(canvas, text="6m", command=lambda: generate_chart(coin.get(), 180))
         sixmo_button.place(x=375, y=100)
-                
+
         # configures the 1y button
         year_button = tk.Button(canvas, text="1y", command=lambda: generate_chart(coin.get(), 365))
         year_button.place(x=400, y=100)
-        
+
         # configures the go button
-        go_button = tk.Button(canvas, text="go", command=lambda: (generate_data(coin.get()), generate_chart(coin.get(), 365)))
+        go_button = tk.Button(canvas, text="go",
+                              command=lambda: (generate_data(coin.get()), generate_chart(coin.get(), 365)))
         go_button.place(x=425, y=100)
-        
-        # configures the name label        
+
+        # configures the name label
         canvas.create_text(200, 200, text="Name: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
         name = canvas.create_text(250, 200, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
 
-        # configures the price label        
+        # configures the price label
         canvas.create_text(500, 200, text="Price: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
-        price = canvas.create_text(550, 200, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)      
-                
-        # configures the market cap label        
-        canvas.create_text(750, 200, text="Market Cap: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
+        price = canvas.create_text(550, 200, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
+
+        # configures the market cap label
+        canvas.create_text(750, 200, text="Market Cap: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)),
+                           anchor=W)
         mc = canvas.create_text(850, 200, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
 
-        # configures the fully diluted valuation label        
-        canvas.create_text(1100, 200, text="Fully Diluted\n   Valuation: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
+        # configures the fully diluted valuation label
+        canvas.create_text(1100, 200, text="Fully Diluted\n   Valuation: ", fill="#abb0c8",
+                           font=("Rosarivo-Regular", int(12.0)), anchor=W)
         fdv = canvas.create_text(1200, 200, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
-        
-        # configures the all-time high label        
-        canvas.create_text(200, 250, text="All-Time High: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
+
+        # configures the all-time high label
+        canvas.create_text(200, 250, text="All-Time High: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)),
+                           anchor=W)
         ath = canvas.create_text(300, 250, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
 
-        # configures the all-time low label        
-        canvas.create_text(500, 250, text="All-Time Low: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
-        atl = canvas.create_text(600, 250, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)      
-                
-        # configures the 24 h high label        
-        canvas.create_text(750, 250, text="24-Hour High: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
+        # configures the all-time low label
+        canvas.create_text(500, 250, text="All-Time Low: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)),
+                           anchor=W)
+        atl = canvas.create_text(600, 250, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
+
+        # configures the 24 h high label
+        canvas.create_text(750, 250, text="24-Hour High: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)),
+                           anchor=W)
         h24 = canvas.create_text(850, 250, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
 
-        # configures the 24 h low label        
-        canvas.create_text(1100, 250, text="24-Hour Low: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
+        # configures the 24 h low label
+        canvas.create_text(1100, 250, text="24-Hour Low: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)),
+                           anchor=W)
         l24 = canvas.create_text(1200, 250, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
-        
-        # configures the volume label        
-        canvas.create_text(200, 300, text="Volume (24h): ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
+
+        # configures the volume label
+        canvas.create_text(200, 300, text="Volume (24h): ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)),
+                           anchor=W)
         vol = canvas.create_text(300, 300, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
 
-        # configures the circulating supply label        
-        canvas.create_text(500, 300, text="Circulating Supply: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
-        cs = canvas.create_text(635, 300, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)      
+        # configures the circulating supply label
+        canvas.create_text(500, 300, text="Circulating Supply: ", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)),
+                           anchor=W)
+        cs = canvas.create_text(635, 300, text="", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)), anchor=W)
 
         def format_currency(num):
             if num != "N/A":
@@ -646,7 +669,7 @@ class Charts(tk.Frame):
 
         def generate_chart(coin, days_previous):
             charts.candlestick(coin, days_previous)
-            
+
         def generate_data(coin):
             self.data = charts.charts_data(coin)
             # coin_entry.delete(0, tk.END)
@@ -654,11 +677,12 @@ class Charts(tk.Frame):
                 if value is None:
                     self.data[key] = "N/A"
 
-            price_text = format_currency(self.data["current_price"]) + "   (" + "{:.2f}".format(self.data["price_change_percentage_24h"]) + "%)"
-     
-            canvas.itemconfig(name, text=self.data["name"])            
-            canvas.itemconfig(price, text=price_text)            
-            canvas.itemconfig(mc, text=format_currency(self.data["market_cap"]))            
+            price_text = format_currency(self.data["current_price"]) + "   (" + "{:.2f}".format(
+                self.data["price_change_percentage_24h"]) + "%)"
+
+            canvas.itemconfig(name, text=self.data["name"])
+            canvas.itemconfig(price, text=price_text)
+            canvas.itemconfig(mc, text=format_currency(self.data["market_cap"]))
             canvas.itemconfig(fdv, text=format_currency(self.data["fully_diluted_valuation"]))
             canvas.itemconfig(ath, text=format_currency(self.data["ath"]))
             canvas.itemconfig(atl, text=format_currency(self.data["atl"]))
@@ -666,20 +690,20 @@ class Charts(tk.Frame):
             canvas.itemconfig(l24, text=format_currency(self.data["low_24h"]))
             canvas.itemconfig(vol, text=format_currency(self.data["total_volume"]))
             canvas.itemconfig(cs, text=self.data["circulating_supply"])
-            
+
         def close_charts():
             charts.close()
             coin_entry.delete(0, tk.END)
-            canvas.itemconfig(name, text="")            
-            canvas.itemconfig(price, text="")            
-            canvas.itemconfig(mc, text="")            
-            canvas.itemconfig(fdv, text="")          
-            canvas.itemconfig(ath, text="")          
-            canvas.itemconfig(atl, text="")          
-            canvas.itemconfig(h24, text="")          
-            canvas.itemconfig(l24, text="")          
-            canvas.itemconfig(vol, text="")          
-            canvas.itemconfig(cs, text="")          
+            canvas.itemconfig(name, text="")
+            canvas.itemconfig(price, text="")
+            canvas.itemconfig(mc, text="")
+            canvas.itemconfig(fdv, text="")
+            canvas.itemconfig(ath, text="")
+            canvas.itemconfig(atl, text="")
+            canvas.itemconfig(h24, text="")
+            canvas.itemconfig(l24, text="")
+            canvas.itemconfig(vol, text="")
+            canvas.itemconfig(cs, text="")
 
         def flash_hidden(image_obj):
             """
@@ -700,8 +724,9 @@ class Charts(tk.Frame):
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
             """
-            canvas.itemconfigure(image_obj, state=state)        
-        
+            canvas.itemconfigure(image_obj, state=state)
+
+
 class ComingSoon(tk.Frame):
     """
     Configures, and displays the Dashboard
@@ -745,7 +770,7 @@ class ComingSoon(tk.Frame):
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
 
-        # creates and opens up a log out pop up    
+        # creates and opens up a log out pop up
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
@@ -898,7 +923,7 @@ class Settings(tk.Frame):
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
 
-        # creates and opens up a log out pop up    
+        # creates and opens up a log out pop up
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
@@ -1070,7 +1095,7 @@ class NotesTab(tk.Frame):
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
 
-        # creates and opens up a log out pop up    
+        # creates and opens up a log out pop up
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
@@ -1365,7 +1390,7 @@ class Portfolio(tk.Frame):
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
 
-        # creates and opens up a log out pop up    
+        # creates and opens up a log out pop up
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
