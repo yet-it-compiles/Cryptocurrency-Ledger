@@ -35,7 +35,7 @@ class CryptocurrencyLedger(tk.Tk):
 
         # Declaration of logic to iterate through each page layout
         for each_layout in (LoginPage, Enrollment, Dashboard, Charts, ComingSoon, Settings, AlertPopUp
-                            , NotesTab, Portfolio):
+                            , NotesTab, Portfolio, AddTransaction):
             each_canvas = each_layout(canvas_setup, self)
 
             self.collection_of_canvases[each_layout] = each_canvas
@@ -1641,76 +1641,58 @@ class AddTransaction(tk.Frame):
         canvas = Canvas(self, bg="#ffffff", height=704, width=485, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
-        self.background_img = PhotoImage(file=f"background.png")
+        self.background_img = PhotoImage(file=f"add_transaction_background.png")
         canvas.create_image(242.5, 350.0, image=self.background_img)
 
-        self.entry0_img = PhotoImage(file=f"img_textBox0.png")
+        self.entry0_img = PhotoImage(file=f"add_transaction_textBox0.png")
         canvas.create_image(336.5, 538.0, image=self.entry0_img)
-
         entry0 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-
         entry0.place(x=275.0, y=515, width=123.0, height=44)
 
-        entry1_img = PhotoImage(file=f"img_textBox1.png")
-        canvas.create_image(147.5, 538.0, image=entry1_img)
-
+        self.entry1_img = PhotoImage(file=f"add_transaction_textBox1.png")
+        canvas.create_image(147.5, 538.0, image=self.entry1_img)
         entry1 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-
         entry1.place(x=86.0, y=515, width=123.0, height=44)
 
-        entry2_img = PhotoImage(file=f"img_textBox2.png")
-        canvas.create_image(336.5, 445.0, image=entry2_img)
-
+        self.entry2_img = PhotoImage(file=f"add_transaction_textBox2.png")
+        canvas.create_image(336.5, 445.0, image=self.entry2_img)
         entry2 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-
         entry2.place(x=275.0, y=422, width=123.0, height=44)
 
-        entry3_img = PhotoImage(file=f"img_textBox3.png")
-        canvas.create_image(147.5, 445.0, image=entry3_img)
-
+        self.entry3_img = PhotoImage(file=f"add_transaction_textBox3.png")
+        canvas.create_image(147.5, 445.0, image=self.entry3_img)
         entry3 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-
         entry3.place(x=86.0, y=422, width=123.0, height=44)
 
-        entry4_img = PhotoImage(file=f"img_textBox4.png")
-        canvas.create_image(336.5, 344.0, image=entry4_img)
-
+        self.entry4_img = PhotoImage(file=f"add_transaction_textBox4.png")
+        canvas.create_image(336.5, 344.0, image=self.entry4_img)
         entry4 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-
         entry4.place(x=275.0, y=321, width=123.0, height=44)
 
-        entry5_img = PhotoImage(file=f"img_textBox5.png")
-        canvas.create_image(147.5, 344.0, image=entry5_img)
-
+        self.entry5_img = PhotoImage(file=f"add_transaction_textBox5.png")
+        canvas.create_image(147.5, 344.0, image=self.entry5_img)
         entry5 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-
         entry5.place(x=86.0, y=321, width=123.0, height=44)
 
-        entry6_img = PhotoImage(file=f"img_textBox6.png")
-        canvas.create_image(242.5, 249.0, image=entry6_img)
-
+        self.entry6_img = PhotoImage(file=f"add_transaction_textBox6.png")
+        canvas.create_image(242.5, 249.0, image=self.entry6_img)
         entry6 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-
         entry6.place(x=106.0, y=226, width=273.0, height=44)
 
-        img0 = PhotoImage(file=f"img0.png")
-        b0 = Button(self, image=img0, borderwidth=0, highlightthickness=0, relief="flat")
-
+        self.img0 = PhotoImage(file=f"add_transaction_img0.png")
+        b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
         b0.place(x=181, y=620, width=123, height=49)
 
-        img1 = PhotoImage(file=f"img1.png")
-        b1 = Button(self, image=img1, borderwidth=0, highlightthickness=0, relief="flat")
-
+        self.img1 = PhotoImage(file=f"add_transaction_img1.png")
+        b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
         b1.place(x=313, y=125, width=89, height=42)
 
-        img2 = PhotoImage(file=f"img2.png")
-        b2 = Button(self, image=img2, borderwidth=0, highlightthickness=0, relief="flat")
-
+        self.img2 = PhotoImage(file=f"add_transaction_img2.png")
+        b2 = Button(self, image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
         b2.place(x=200, y=125, width=84, height=42)
 
-        self.img3 = PhotoImage(file=f"img3.png")
+        self.img3 = PhotoImage(file=f"add_transaction_img3.png")
         b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
-
         b3.place(x=83, y=125, width=84, height=42)
 
 
