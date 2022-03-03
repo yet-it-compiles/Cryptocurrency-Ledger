@@ -9,6 +9,117 @@ from password_encryption import *
 from mpl_charts import MplCharts
 import responsive_calculator
 
+# general method for the notifications button
+def notificationsClicker(self):
+    """
+    Configures, and displays the alert popup
+    """            
+    pop = Toplevel(self)
+    pop.geometry('684x426')
+    pop.config(width=684, height=426)
+
+    def destroy_alerts():
+        pop.destroy()
+
+    notifications_canvas = Canvas(pop, bg="#ffffff", height=426, width=684, bd=0, highlightthickness=0, relief="ridge")
+    notifications_canvas.place(x=0, y=0)
+
+    # alerts background initialization
+    self.alert_background_img = PhotoImage(file=f"alert_popup_background.png")
+    notifications_canvas.create_image(342.0, 213.0, image=self.alert_background_img)
+
+    # alert name entry
+    self.coin_name_img = PhotoImage(file=f"alert_popup_textBox2.png")
+    notifications_canvas.create_image(341.5, 278.5, image=self.coin_name_img)
+    coin_name_entry = Entry(pop, bd=0, bg="#dcdcdc", highlightthickness=0)
+    coin_name_entry.place(x=260.5, y=267, width=163.0, height=20)
+
+    # price entry
+    self.price_entry_img = PhotoImage(file=f"alert_popup_textBox1.png")
+    notifications_canvas.create_image(391.5, 167.5, image=self.price_entry_img)
+    price_entry = Entry(pop, bd=0, bg="#dcdcdc", highlightthickness=0)
+    price_entry.place(x=358.5, y=156, width=66.0, height=21)
+
+    # frequency options menu
+    frequencies = ["One Time", "Persistent"]
+    clickedFreq = StringVar()
+    clickedFreq.set(frequencies[0])
+
+    self.frequency_img = PhotoImage(file=f"alert_popup_img0.png")
+    frequency_button = OptionMenu(notifications_canvas, clickedFreq, *frequencies)
+    frequency_button.place(x=289, y=209, width=98, height=22)
+
+    # conditions options menu
+    conditions = [">", "<", "="]
+    clickedCon = StringVar(pop)
+    clickedCon.set(" ")
+
+    self.condition_img = PhotoImage(file=f"alert_popup_img1.png")
+    b1 = OptionMenu(notifications_canvas, clickedCon, *conditions)
+    b1.place(x=249, y=156, width=85, height=22)
+
+    # autofill search function for coins
+    coin_listbox = Listbox(notifications_canvas)
+    coin_list = ["Nobutas", "Ethereum", "Bitecoin", "Bitcoin123", "Nobume", "Maidenless", "Bitcoin"]
+    # updates the listbox
+    def update(data):
+        # clears the listbox
+        coin_listbox.delete(0, END)
+        for item in data:
+            coin_listbox.insert(END, item)
+    
+    # allows users to choose items from list
+    def fillout(event):
+        coin_name_entry.delete(0, END)
+        coin_name_entry.insert(0, coin_listbox.get(ACTIVE))
+
+    # displays in list appropriate items comparetively to entry
+    def check():
+        # grab whats typed
+        typed = coin_name_entry.get()
+        if typed == "":
+            data = coin_list
+        else:
+            data = []
+            for item in coin_list:
+                if typed.lower() in item.lower():
+                    data.append(item)
+        update(data)
+    
+    def show_list():                
+        coin_listbox.place(x=260, y=120, width=140.0, height=63)
+        check()
+
+        coin_listbox.bind("<<ListboxSelect>>", fillout)
+
+    # coin name entry and autofill
+    self.entry2_img = PhotoImage(file=f"alert_popup_textBox0.png")
+    notifications_canvas.create_image(341.5, 108.0, image=self.entry2_img)
+    coin_name_entry = Entry(pop, bd=0, bg="#dcdcdc", highlightthickness=0)
+    coin_name_entry.place(x=260.0, y=97, width=162.0, height=21)
+    # once a key is pressed in the entry the drop down will show with options
+    coin_name_entry.bind("<KeyRelease>", lambda event: show_list())
+        
+    # # test to work
+    # def testStuff():
+    #     save_condition = clickedCon.get()
+    #     save_frequency = clickedFreq.get()
+    #     print("Frequency is: " + save_frequency)
+    #     print("Condition is: " + str(save_condition) + "\n")
+
+    # testButton = Button(notifications_canvas, text="submit", command=testStuff)
+    # testButton.place(x=253, y=360, width=80, height=22)
+    # # delete test in final project
+
+    # cancel button
+    self.cancel_img = PhotoImage(file=f"alert_popup_img0.png")
+    cancel_button = notifications_canvas.create_image(324, 341, anchor='nw', image=self.cancel_img)
+    notifications_canvas.tag_bind(cancel_button, "<ButtonRelease-1>", lambda event: destroy_alerts())
+
+    # add alert button
+    self.add_alerts_img = PhotoImage(file=f"alert_popup_img1.png")
+    add_alert_button = notifications_canvas.create_image(293, 307, anchor='nw', image=self.add_alerts_img)
+    notifications_canvas.tag_bind(add_alert_button, "<ButtonRelease-1>", lambda event: destroy_alerts())
 
 class CryptocurrencyLedger(tk.Tk):
     """
@@ -34,8 +145,8 @@ class CryptocurrencyLedger(tk.Tk):
         self.collection_of_canvases = {}
 
         # Declaration of logic to iterate through each page layout
-        for each_layout in (LoginPage, Enrollment, Dashboard, Charts, ComingSoon, Settings, AlertPopUp
-                            , NotesTab, Portfolio, AddTransaction):
+        for each_layout in (LoginPage, Enrollment, Dashboard, Charts, ComingSoon, Settings
+                            , NotesTab, Portfolio):
             each_canvas = each_layout(canvas_setup, self)
 
             self.collection_of_canvases[each_layout] = each_canvas
@@ -64,25 +175,6 @@ class LoginPage(tk.Frame):
     """
     Configures, and displays the login page
     """
-
-    def logoutbuttonClicker(self):
-        pop = Toplevel(self)
-        pop.geometry('537x250')
-        pop.config(height=250, width=537)
-
-        def destroy_error():
-            pop.destroy()
-
-        error_canvas = Canvas(pop, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
-        error_canvas.place(x=0, y=0)
-
-        self.error_background_img = PhotoImage(file=f"error_background.png")
-        error_canvas.create_image(0, 0, anchor='nw', image=self.error_background_img)
-
-        # self.error_message = Label(self, text=message, font='Times 12 bold').place(x=265, y=150)
-        self.error_button_img = PhotoImage(file=f"error_button_img.png")
-        error_button_obj = error_canvas.create_image(280, 200, image=self.error_button_img)
-        error_canvas.tag_bind(error_button_obj, "<ButtonRelease-1>", lambda event: destroy_error())
 
     def sign_in(self, controller, usernameE, passwordE):
         global username
@@ -407,12 +499,11 @@ class Dashboard(tk.Frame):
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
-        # Retrieves the images, and configures the notifications image
+        # Retrieves the images, and opens the notifications image
         notifications_image_path = "dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(AlertPopUp)))
+        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -475,6 +566,32 @@ class Charts(tk.Frame):
 
         charts = MplCharts(canvas)
 
+        def logoutbuttonClicker():
+            pop = Toplevel(self)
+            pop.geometry('537x273')
+            pop.config(height=273, width=537)
+
+            logout_canvas = Canvas(pop, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
+            logout_canvas.place(x=0, y=0)
+
+            self.logout_background_img = PhotoImage(file=f"logout_background.png")
+            logout_canvas.create_image(0, 0, anchor='nw', image=self.logout_background_img)
+
+            def destroy_logout():
+                pop.destroy()
+
+            # creates and adds functionality for the Yes button in the log out pop up
+            self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
+            logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
+            logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
+                                   lambda event: [destroy_logout(), (
+                                       flash_hidden(logout_yes_img_obj), controller.show_canvas(LoginPage))])
+
+            # creates and adds functionality for the No button in the log out pop up
+            self.logout_no_img = PhotoImage(file=f"logout_no.png")
+            logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
+            logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
+
         # Creates text-fields for Searchbar, and Username
         canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
@@ -535,21 +652,17 @@ class Charts(tk.Frame):
                         lambda event: (
                             flash_hidden(settings_image_obj), close_charts(), controller.show_canvas(Settings)))
 
-        # Retrieves the images, and configures the logout button
+        # creates and opens up a log out pop up    
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logout_image_obj = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logout_image_obj, "<ButtonRelease-1>",
-                        lambda event: (
-                            flash_hidden(logout_image_obj), close_charts(), controller.show_canvas(LoginPage)))
+        logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
+        canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker())
 
-        # Retrieves the images, and configures the notifications image
+        # Retrieves the images, and opens the notifications image
         notifications_image_path = "dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (
-                            flash_hidden(notifications_image_obj), close_charts(), controller.show_canvas(ComingSoon)))
+        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -825,12 +938,11 @@ class ComingSoon(tk.Frame):
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
-        # Retrieves the images, and configures the notifications image
+        # Retrieves the images, and opens the notifications image
         notifications_image_path = "dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(AlertPopUp)))
+        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -978,12 +1090,11 @@ class Settings(tk.Frame):
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
-        # Retrieves the images, and configures the notifications image
+        # Retrieves the images, and opens the notifications image
         notifications_image_path = "dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(AlertPopUp)))
+        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -1150,12 +1261,11 @@ class NotesTab(tk.Frame):
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
-        # Retrieves the images, and configures the notifications image
+        # Retrieves the images, and opens the notifications image
         notifications_image_path = "dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(AlertPopUp)))
+        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -1304,55 +1414,6 @@ class NotesTab(tk.Frame):
         b17.place(x=445, y=466, width=20, height=12)
 
 
-class AlertPopUp(tk.Frame):
-    """
-    Configures, and displays the alert popup
-    """
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.config(width=684, height=426)
-        self.controller = controller
-
-        flash_delay = 100  # in milliseconds.
-        canvas = Canvas(self, bg="#ffffff", height=426, width=684, bd=0, highlightthickness=0, relief="ridge")
-        canvas.place(x=0, y=0)
-
-        self.background_img = PhotoImage(file=f"alert_popup_background.png")
-        canvas.create_image(342.0, 213.0, image=self.background_img)
-
-        self.img0 = PhotoImage(file=f"alert_popup_img0.png")
-        b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
-        b0.place(x=300, y=341, width=84, height=18)
-
-        self.img1 = PhotoImage(file=f"alert_popup_img1.png")
-        b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
-        b1.place(x=293, y=307, width=98, height=23)
-
-        self.img2 = PhotoImage(file=f"alert_popup_img2.png")
-        b2 = Button(self, image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
-        b2.place(x=289, y=209, width=98, height=22)
-
-        self.img3 = PhotoImage(file=f"alert_popup_img3.png")
-        b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
-        b3.place(x=249, y=156, width=85, height=22)
-
-        entry0_img = PhotoImage(file=f"alert_popup_textBox0.png")
-        canvas.create_image(341.5, 278.5, image=entry0_img)
-        entry0 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
-        entry0.place(x=260.5, y=267, width=162.0, height=21)
-
-        self.entry1_img = PhotoImage(file=f"alert_popup_textBox1.png")
-        canvas.create_image(391.5, 167.5, image=self.entry1_img)
-        entry1 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
-        entry1.place(x=358.5, y=156, width=66.0, height=21)
-
-        self.entry2_img = PhotoImage(file=f"alert_popup_textBox2.png")
-        canvas.create_image(341.5, 108.0, image=self.entry2_img)
-        entry2 = Entry(self, bd=0, bg="#dcdcdc", highlightthickness=0)
-        entry2.place(x=260.0, y=97, width=163.0, height=20)
-
-
 class Portfolio(tk.Frame):
     """
 
@@ -1370,6 +1431,73 @@ class Portfolio(tk.Frame):
 
         self.background_img = PhotoImage(file=f"portfolio_background.png")
         canvas.create_image(720.0, 512.0, image=self.background_img)
+
+
+        def AddTransactionClicker():
+            """
+            bow bow bow
+            """
+            pop = Toplevel(self)
+            pop.geometry('485x704')
+            pop.config(height=704, width=485)
+
+            add_transactions_canvas = Canvas(pop, bg="#ffffff", height=704, width=485, bd=0, highlightthickness=0, relief="ridge")
+            add_transactions_canvas.place(x=0, y=0)
+
+            self.add_transactions_background_img = PhotoImage(file=f"add_transaction_background.png")
+            add_transactions_canvas.create_image(242.5, 350.0, image=self.add_transactions_background_img)
+
+            self.entry0_img = PhotoImage(file=f"add_transaction_textBox0.png")
+            add_transactions_canvas.create_image(336.5, 538.0, image=self.entry0_img)
+            entry0 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+            entry0.place(x=275.0, y=515, width=123.0, height=44)
+
+            self.entry1_img = PhotoImage(file=f"add_transaction_textBox1.png")
+            add_transactions_canvas.create_image(147.5, 538.0, image=self.entry1_img)
+            entry1 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+            entry1.place(x=86.0, y=515, width=123.0, height=44)
+
+            self.entry2_img = PhotoImage(file=f"add_transaction_textBox2.png")
+            add_transactions_canvas.create_image(336.5, 445.0, image=self.entry2_img)
+            entry2 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+            entry2.place(x=275.0, y=422, width=123.0, height=44)
+
+            self.entry3_img = PhotoImage(file=f"add_transaction_textBox3.png")
+            add_transactions_canvas.create_image(147.5, 445.0, image=self.entry3_img)
+            entry3 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+            entry3.place(x=86.0, y=422, width=123.0, height=44)
+
+            self.entry4_img = PhotoImage(file=f"add_transaction_textBox4.png")
+            add_transactions_canvas.create_image(336.5, 344.0, image=self.entry4_img)
+            entry4 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+            entry4.place(x=275.0, y=321, width=123.0, height=44)
+
+            self.entry5_img = PhotoImage(file=f"add_transaction_textBox5.png")
+            add_transactions_canvas.create_image(147.5, 344.0, image=self.entry5_img)
+            entry5 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+            entry5.place(x=86.0, y=321, width=123.0, height=44)
+
+            self.entry6_img = PhotoImage(file=f"add_transaction_textBox6.png")
+            add_transactions_canvas.create_image(242.5, 249.0, image=self.entry6_img)
+            entry6 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
+            entry6.place(x=106.0, y=226, width=273.0, height=44)
+
+            self.img0 = PhotoImage(file=f"add_transaction_img0.png")
+            b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
+            b0.place(x=181, y=620, width=123, height=49)
+
+            self.img1 = PhotoImage(file=f"add_transaction_img1.png")
+            b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
+            b1.place(x=313, y=125, width=89, height=42)
+
+            self.img2 = PhotoImage(file=f"add_transaction_img2.png")
+            b2 = Button(self, image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
+            b2.place(x=200, y=125, width=84, height=42)
+
+            self.img3 = PhotoImage(file=f"add_transaction_img3.png")
+            b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
+            b3.place(x=83, y=125, width=84, height=42)
+
 
         def logoutbuttonClicker():
             pop = Toplevel(self)
@@ -1537,12 +1665,11 @@ class Portfolio(tk.Frame):
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
-        # Retrieves the images, and configures the notifications image
+        # Retrieves the images, and opens the notifications image
         notifications_image_path = "dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_image_obj = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notifications_image_obj), controller.show_canvas(AlertPopUp)))
+        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
@@ -1594,107 +1721,40 @@ class Portfolio(tk.Frame):
         entry0 = Entry(self, bd=0, bg="#053f53", highlightthickness=0)
         entry0.place(x=856.0, y=235, width=242.0, height=30)
 
-        self.img12 = PhotoImage(file=f"portfolio_img12.png")
-        b12 = Button(self, image=self.img12, borderwidth=0, highlightthickness=0, relief="flat")
-        b12.place(x=1140, y=226, width=190, height=50)
+        # add transactions button
+        self.add_transactions_img = PhotoImage(file=f"portfolio_img12.png")
+        notifications_button = canvas.create_image(1140, 226, anchor='nw', image=self.add_transactions_img)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: AddTransactionClicker())
 
-        self.img13 = PhotoImage(file=f"portfolio_img13.png")
-        b13 = Button(self, image=self.img13, borderwidth=0, highlightthickness=0, relief="flat")
-        b13.place(x=883, y=97, width=43, height=25)
+        self.all_option_img = PhotoImage(file=f"portfolio_img13.png")
+        all_option_button = Button(self, image=self.all_option_img, borderwidth=0, highlightthickness=0, relief="flat")
+        all_option_button.place(x=883, y=97, width=43, height=25)
 
-        self.img14 = PhotoImage(file=f"portfolio_img14.png")
-        b14 = Button(self, image=self.img14, borderwidth=0, highlightthickness=0, relief="flat")
-        b14.place(x=829, y=97, width=32, height=23)
+        self.sixmonths_option_img = PhotoImage(file=f"portfolio_img14.png")
+        sixmonths_option_button = Button(self, image=self.sixmonths_option_img, borderwidth=0, highlightthickness=0, relief="flat")
+        sixmonths_option_button.place(x=829, y=97, width=32, height=23)
 
-        self.img15 = PhotoImage(file=f"portfolio_img15.png")
-        b15 = Button(self, image=self.img15, borderwidth=0, highlightthickness=0, relief="flat")
-        b15.place(x=772, y=96, width=30, height=30)
+        self.threemonths_option_img = PhotoImage(file=f"portfolio_img15.png")
+        threemonths_option_button = Button(self, image=self.threemonths_option_img, borderwidth=0, highlightthickness=0, relief="flat")
+        threemonths_option_button.place(x=772, y=96, width=30, height=30)
 
-        self.img16 = PhotoImage(file=f"portfolio_img16.png")
-        b16 = Button(self, image=self.img16, borderwidth=0, highlightthickness=0, relief="flat")
-        b16.place(x=722, y=97, width=29, height=25)
+        self.onemonth_option_img = PhotoImage(file=f"portfolio_img16.png")
+        onemonth_option_button = Button(self, image=self.onemonth_option_img, borderwidth=0, highlightthickness=0, relief="flat")
+        onemonth_option_button.place(x=722, y=97, width=29, height=25)
 
-        self.img17 = PhotoImage(file=f"portfolio_img17.png")
-        b17 = Button(self, image=self.img17, borderwidth=0, highlightthickness=0, relief="flat")
-        b17.place(x=670, y=98, width=30, height=28)
+        self.oneweek_option_img = PhotoImage(file=f"portfolio_img17.png")
+        oneweek_option_button = Button(self, image=self.oneweek_option_img, borderwidth=0, highlightthickness=0, relief="flat")
+        oneweek_option_button.place(x=670, y=98, width=30, height=28)
 
-        self.img18 = PhotoImage(file=f"portfolio_img18.png")
-        b18 = Button(self, image=self.img18, borderwidth=0, highlightthickness=0, relief="flat")
-        b18.place(x=614, y=96, width=32, height=26)
+        self.oneday_option_img = PhotoImage(file=f"portfolio_img18.png")
+        oneday_option_button = Button(self, image=self.oneday_option_img, borderwidth=0, highlightthickness=0, relief="flat")
+        oneday_option_button.place(x=614, y=96, width=32, height=26)
 
-        self.img19 = PhotoImage(file=f"portfolio_img19.png")
-        b19 = Button(self, image=self.img19, borderwidth=0, highlightthickness=0, relief="flat")
-        b19.place(x=1074, y=238, width=30, height=27)
+        self.search_icon = PhotoImage(file=f"portfolio_img19.png")
+        search_button = Button(self, image=self.search_icon, borderwidth=0, highlightthickness=0, relief="flat")
+        search_button.place(x=1074, y=238, width=30, height=27)
+        
 
-
-class AddTransaction(tk.Frame):
-    """
-
-    """
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.config(width=1440, height=1024)
-        self.controller = controller
-
-        flash_delay = 100  # in milliseconds.
-
-        canvas = Canvas(self, bg="#ffffff", height=704, width=485, bd=0, highlightthickness=0, relief="ridge")
-        canvas.place(x=0, y=0)
-
-        self.background_img = PhotoImage(file=f"add_transaction_background.png")
-        canvas.create_image(242.5, 350.0, image=self.background_img)
-
-        self.entry0_img = PhotoImage(file=f"add_transaction_textBox0.png")
-        canvas.create_image(336.5, 538.0, image=self.entry0_img)
-        entry0 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        entry0.place(x=275.0, y=515, width=123.0, height=44)
-
-        self.entry1_img = PhotoImage(file=f"add_transaction_textBox1.png")
-        canvas.create_image(147.5, 538.0, image=self.entry1_img)
-        entry1 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        entry1.place(x=86.0, y=515, width=123.0, height=44)
-
-        self.entry2_img = PhotoImage(file=f"add_transaction_textBox2.png")
-        canvas.create_image(336.5, 445.0, image=self.entry2_img)
-        entry2 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        entry2.place(x=275.0, y=422, width=123.0, height=44)
-
-        self.entry3_img = PhotoImage(file=f"add_transaction_textBox3.png")
-        canvas.create_image(147.5, 445.0, image=self.entry3_img)
-        entry3 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        entry3.place(x=86.0, y=422, width=123.0, height=44)
-
-        self.entry4_img = PhotoImage(file=f"add_transaction_textBox4.png")
-        canvas.create_image(336.5, 344.0, image=self.entry4_img)
-        entry4 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        entry4.place(x=275.0, y=321, width=123.0, height=44)
-
-        self.entry5_img = PhotoImage(file=f"add_transaction_textBox5.png")
-        canvas.create_image(147.5, 344.0, image=self.entry5_img)
-        entry5 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        entry5.place(x=86.0, y=321, width=123.0, height=44)
-
-        self.entry6_img = PhotoImage(file=f"add_transaction_textBox6.png")
-        canvas.create_image(242.5, 249.0, image=self.entry6_img)
-        entry6 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
-        entry6.place(x=106.0, y=226, width=273.0, height=44)
-
-        self.img0 = PhotoImage(file=f"add_transaction_img0.png")
-        b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
-        b0.place(x=181, y=620, width=123, height=49)
-
-        self.img1 = PhotoImage(file=f"add_transaction_img1.png")
-        b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
-        b1.place(x=313, y=125, width=89, height=42)
-
-        self.img2 = PhotoImage(file=f"add_transaction_img2.png")
-        b2 = Button(self, image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
-        b2.place(x=200, y=125, width=84, height=42)
-
-        self.img3 = PhotoImage(file=f"add_transaction_img3.png")
-        b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
-        b3.place(x=83, y=125, width=84, height=42)
 
 
 def main():
