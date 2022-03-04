@@ -89,6 +89,12 @@ def notificationsClicker(self):
     coin_list = manual_transaction.get_list_of_coins()
     # updates the listbox
     def update(data):
+        # changes the size of the listbox to number of items in list
+        listbox_height = len(data)
+        if(len(data) > 5):
+            listbox_height = 5
+        coin_listbox.place(height=(16.5*listbox_height))
+        
         # clears the listbox
         coin_listbox.delete(0, END)
         for item in data:
@@ -115,7 +121,7 @@ def notificationsClicker(self):
         update(data)
     
     def show_list():                
-        coin_listbox.place(x=260, y=120, width=140.0, height=63)
+        coin_listbox.place(x=260, y=120, width=140.0, height=82.5)
         price_entry.place_forget()
         check()
 
@@ -128,17 +134,6 @@ def notificationsClicker(self):
     coin_name_entry.place(x=260.0, y=97, width=162.0, height=21)
     # once a key is pressed in the entry the drop down will show with options
     coin_name_entry.bind("<KeyRelease>", lambda event: show_list())
-        
-    # # test to work
-    # def testStuff():
-    #     save_condition = clickedCon.get()
-    #     save_frequency = clickedFreq.get()
-    #     print("Frequency is: " + save_frequency)
-    #     print("Condition is: " + str(save_condition) + "\n")
-
-    # testButton = Button(notifications_canvas, text="submit", command=testStuff)
-    # testButton.place(x=253, y=360, width=80, height=22)
-    # # delete test in final project
 
     # cancel button
     self.cancel_img = PhotoImage(file=f"alert_popup_img0.png")
@@ -1300,6 +1295,12 @@ class Portfolio(tk.Frame):
             coin_list = manual_transaction.get_list_of_coins()
             # updates the listbox
             def update(data):
+                # changes the size of the listbox to number of items in list
+                listbox_height = len(data)
+                if(len(data) > 5):
+                    listbox_height = 5
+                coin_listbox.place(height=(16.5*listbox_height))
+                
                 # clears the listbox
                 coin_listbox.delete(0, END)
                 for item in data:
