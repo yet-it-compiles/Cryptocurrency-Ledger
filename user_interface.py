@@ -8,6 +8,7 @@ import password_encryption
 from password_encryption import *
 from mpl_charts import MplCharts
 import responsive_calculator
+import manual_transaction
 
 def logoutbuttonClicker(self, controller):
             pop = Toplevel(self)
@@ -56,8 +57,8 @@ def notificationsClicker(self):
     # alert name entry
     self.coin_name_img = PhotoImage(file=f"alert_popup_textBox2.png")
     notifications_canvas.create_image(341.5, 278.5, image=self.coin_name_img)
-    coin_name_entry = Entry(pop, bd=0, bg="#dcdcdc", highlightthickness=0)
-    coin_name_entry.place(x=260.5, y=267, width=163.0, height=20)
+    alert_name_entry = Entry(pop, bd=0, bg="#dcdcdc", highlightthickness=0)
+    alert_name_entry.place(x=260.5, y=267, width=163.0, height=20)
 
     # price entry
     self.price_entry_img = PhotoImage(file=f"alert_popup_textBox1.png")
@@ -85,7 +86,7 @@ def notificationsClicker(self):
 
     # autofill search function for coins
     coin_listbox = Listbox(notifications_canvas)
-    coin_list = ["Nobutas", "Ethereum", "Bitecoin", "Bitcoin123", "Nobume", "Maidenless", "Bitcoin"]
+    coin_list = manual_transaction.get_list_of_coins()
     # updates the listbox
     def update(data):
         # clears the listbox
@@ -97,6 +98,8 @@ def notificationsClicker(self):
     def fillout(event):
         coin_name_entry.delete(0, END)
         coin_name_entry.insert(0, coin_listbox.get(ACTIVE))
+        price_entry.place(x=358.5, y=156, width=66.0, height=21)
+        coin_listbox.place_forget()
 
     # displays in list appropriate items comparetively to entry
     def check():
@@ -113,6 +116,7 @@ def notificationsClicker(self):
     
     def show_list():                
         coin_listbox.place(x=260, y=120, width=140.0, height=63)
+        price_entry.place_forget()
         check()
 
         coin_listbox.bind("<<ListboxSelect>>", fillout)
@@ -1286,16 +1290,54 @@ class Portfolio(tk.Frame):
             entry4.place(x=275.0, y=321, width=123.0, height=44)
 
             # date purchased
-            self.entry5_img = PhotoImage(file=f"add_transaction_textBox5.png")
-            add_transactions_canvas.create_image(147.5, 344.0, image=self.entry5_img)
-            entry5 = Entry(pop, textvariable=date_purchased_var, bd=0, bg="#696969", highlightthickness=0)
-            entry5.place(x=86.0, y=321, width=123.0, height=44)
+            self.date_purchased_img = PhotoImage(file=f"add_transaction_textBox5.png")
+            add_transactions_canvas.create_image(147.5, 344.0, image=self.date_purchased_img)
+            date_purchased_entry = Entry(pop, textvariable=date_purchased_var, bd=0, bg="#696969", highlightthickness=0)
+            date_purchased_entry.place(x=86.0, y=321, width=123.0, height=44)
+            
+            # autofill search function for coins
+            coin_listbox = Listbox(add_transactions_canvas)
+            coin_list = manual_transaction.get_list_of_coins()
+            # updates the listbox
+            def update(data):
+                # clears the listbox
+                coin_listbox.delete(0, END)
+                for item in data:
+                    coin_listbox.insert(END, item)
+            
+            # allows users to choose items from list
+            def fillout(event):
+                coin_name_entry.delete(0, END)
+                coin_name_entry.insert(0, coin_listbox.get(ACTIVE))
+                coin_listbox.place_forget()
+                date_purchased_entry.place(x=86.0, y=321, width=123.0, height=44)
+
+            # displays in list appropriate items comparetively to entry
+            def check():
+                # grab whats typed
+                typed = coin_name_entry.get()
+                if typed == "":
+                    data = coin_list
+                else:
+                    data = []
+                    for item in coin_list:
+                        if typed.lower() in item.lower():
+                            data.append(item)
+                update(data)
+            
+            def show_list():                
+                coin_listbox.place(x=114.0, y=270, width=140.0, height=63)
+                date_purchased_entry.place_forget() # Entry box appears in front of List box
+                check()
+
+                coin_listbox.bind("<<ListboxSelect>>", fillout)
 
             # coin name
-            self.entry6_img = PhotoImage(file=f"add_transaction_textBox6.png")
-            add_transactions_canvas.create_image(242.5, 249.0, image=self.entry6_img)
-            entry6 = Entry(pop, textvariable=coin_name_var, bd=0, bg="#696969", highlightthickness=0)
-            entry6.place(x=106.0, y=226, width=273.0, height=44)
+            self.coin_name_img = PhotoImage(file=f"add_transaction_textBox6.png")
+            add_transactions_canvas.create_image(242.5, 249.0, image=self.coin_name_img)
+            coin_name_entry = Entry(pop, textvariable=coin_name_var, bd=0, bg="#696969", highlightthickness=0)
+            coin_name_entry.place(x=106.0, y=226, width=273.0, height=44)
+            coin_name_entry.bind("<KeyRelease>", lambda event: show_list())
             """ End of Entry boxes """
             
             def buy_or_sell(buy_or_sell):
