@@ -18,20 +18,20 @@ def logoutbuttonClicker(self, controller):
             logout_canvas = Canvas(pop, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
             logout_canvas.place(x=0, y=0)
 
-            self.logout_background_img = PhotoImage(file=f"logout_background.png")
+            self.logout_background_img = PhotoImage(file=f"\Collection of all UI Graphics\logout_background.png")
             logout_canvas.create_image(0, 0, anchor='nw', image=self.logout_background_img)
 
             def destroy_logout():
                 pop.destroy()
 
             # creates and adds functionality for the Yes button in the log out pop up
-            self.logout_yes_img = PhotoImage(file=f"logout_yes.png")
+            self.logout_yes_img = PhotoImage(file=f"\Collection of all UI Graphics\logout_yes.png")
             logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
             logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
                                    lambda event: [destroy_logout(), (controller.show_canvas(LoginPage))])
 
             # creates and adds functionality for the No button in the log out pop up
-            self.logout_no_img = PhotoImage(file=f"logout_no.png")
+            self.logout_no_img = PhotoImage(file=f"\Collection of all UI Graphics\logout_no.png")
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
             
@@ -51,17 +51,17 @@ def notificationsClicker(self):
     notifications_canvas.place(x=0, y=0)
 
     # alerts background initialization
-    self.alert_background_img = PhotoImage(file=f"alert_popup_background.png")
+    self.alert_background_img = PhotoImage(file=f"/Collection of all UI Graphics/alert_popup_background.png")
     notifications_canvas.create_image(342.0, 213.0, image=self.alert_background_img)
 
     # alert name entry
-    self.coin_name_img = PhotoImage(file=f"alert_popup_textBox2.png")
+    self.coin_name_img = PhotoImage(file=f"/Collection of all UI Graphics/alert_popup_textBox2.png")
     notifications_canvas.create_image(341.5, 278.5, image=self.coin_name_img)
     alert_name_entry = Entry(pop, bd=0, bg="#dcdcdc", highlightthickness=0)
     alert_name_entry.place(x=260.5, y=267, width=163.0, height=20)
 
     # price entry
-    self.price_entry_img = PhotoImage(file=f"alert_popup_textBox1.png")
+    self.price_entry_img = PhotoImage(file=f"/Collection of all UI Graphics/alert_popup_textBox1.png")
     notifications_canvas.create_image(391.5, 167.5, image=self.price_entry_img)
     price_entry = Entry(pop, bd=0, bg="#dcdcdc", highlightthickness=0)
     price_entry.place(x=358.5, y=156, width=66.0, height=21)
@@ -71,7 +71,7 @@ def notificationsClicker(self):
     clickedFreq = StringVar()
     clickedFreq.set(frequencies[0])
 
-    self.frequency_img = PhotoImage(file=f"alert_popup_img0.png")
+    self.frequency_img = PhotoImage(file=f"/Collection of all UI Graphics/alert_popup_img0.png")
     frequency_button = OptionMenu(notifications_canvas, clickedFreq, *frequencies)
     frequency_button.place(x=289, y=209, width=98, height=22)
 
@@ -80,7 +80,7 @@ def notificationsClicker(self):
     clickedCon = StringVar(pop)
     clickedCon.set(" ")
 
-    self.condition_img = PhotoImage(file=f"alert_popup_img1.png")
+    self.condition_img = PhotoImage(file=f"/Collection of all UI Graphics/alert_popup_img1.png")
     b1 = OptionMenu(notifications_canvas, clickedCon, *conditions)
     b1.place(x=249, y=156, width=85, height=22)
 
@@ -128,7 +128,7 @@ def notificationsClicker(self):
         coin_listbox.bind("<<ListboxSelect>>", fillout)
 
     # coin name entry and autofill
-    self.entry2_img = PhotoImage(file=f"alert_popup_textBox0.png")
+    self.entry2_img = PhotoImage(file=f"/Collection of all UI Graphics/alert_popup_textBox0.png")
     notifications_canvas.create_image(341.5, 108.0, image=self.entry2_img)
     coin_name_entry = Entry(pop, bd=0, bg="#dcdcdc", highlightthickness=0)
     coin_name_entry.place(x=260.0, y=97, width=162.0, height=21)
@@ -136,12 +136,12 @@ def notificationsClicker(self):
     coin_name_entry.bind("<KeyRelease>", lambda event: show_list())
 
     # cancel button
-    self.cancel_img = PhotoImage(file=f"alert_popup_img0.png")
+    self.cancel_img = PhotoImage(file=f"/Collection of all UI Graphics/alert_popup_img0.png")
     cancel_button = notifications_canvas.create_image(324, 341, anchor='nw', image=self.cancel_img)
     notifications_canvas.tag_bind(cancel_button, "<ButtonRelease-1>", lambda event: destroy_alerts())
 
     # add alert button
-    self.add_alerts_img = PhotoImage(file=f"alert_popup_img1.png")
+    self.add_alerts_img = PhotoImage(file=f"/Collection of all UI Graphics/alert_popup_img1.png")
     add_alert_button = notifications_canvas.create_image(293, 307, anchor='nw', image=self.add_alerts_img)
     notifications_canvas.tag_bind(add_alert_button, "<ButtonRelease-1>", lambda event: destroy_alerts())
 
@@ -165,7 +165,7 @@ class CryptocurrencyLedger(tk.Tk):
         canvas_setup.place(x=0, y=0)
 
         # Captures the background image for the canvas
-        self.login_background = PhotoImage(file=f"login_background.png")
+        self.login_background = PhotoImage(file=f"/Collection of all UI Graphics/login_background.png")
         canvas_setup.create_image(395.0, 300.0, image=self.login_background)
 
         # Declaration of logic to iterate through each page layout
@@ -233,11 +233,11 @@ class LoginPage(tk.Frame):
         login_canvas.place(x=0, y=0)
 
         # Grabs the background image, and applies it
-        self.login_background = PhotoImage(file=f"login_background.png")
+        self.login_background = PhotoImage(file=f"/Collection of all UI Graphics/login_background.png")
         login_canvas.create_image(395.0, 300.0, image=self.login_background)
 
         # Logic to populate the window
-        self.sign_in_button = PhotoImage(file=f"sign_in_button.png")
+        self.sign_in_button = PhotoImage(file=f"/Collection of all UI Graphics/sign_in_button.png")
         sign_in_button_location = Button(self, image=self.sign_in_button, borderwidth=0, highlightthickness=0,
                                          command=lambda: self.sign_in(self.controller, username, password),
                                          relief="flat",
@@ -252,20 +252,20 @@ class LoginPage(tk.Frame):
         forgot_password_location.place(x=444, y=537, width=142, height=50)
 
         # Creates, and displays the sign-up button
-        self.sign_up_button = PhotoImage(file=f"sign_up_button.png")
         sign_up_button_location = Button(self, image=self.sign_up_button, borderwidth=0, highlightthickness=0,
                                          relief="flat", activebackground="#343333",
                                          command=lambda: controller.show_canvas(Enrollment))
+        self.sign_up_button = PhotoImage(file=f"/Collection of all UI Graphics/sign_up_button.png")
 
         sign_up_button_location.place(x=864, y=537, width=136, height=46)
 
         # Creates, and initializes the text boxes
-        self.login_textbox_one = PhotoImage(file=f"login_textbox.png")
+        self.login_textbox_one = PhotoImage(file=f"/Collection of all UI Graphics/login_textbox.png")
         login_canvas.create_image(738.5, 263.0, image=self.login_textbox_one)
         textbox_one_location = Entry(self, textvariable=username, bd=0, bg="#696969", highlightthickness=0)
         textbox_one_location.place(x=602.0, y=240, width=273.0, height=44)
 
-        self.login_textbox_two = PhotoImage(file=f"login_textbox.png")
+        self.login_textbox_two = PhotoImage(file=f"/Collection of all UI Graphics/login_textbox.png")
         login_canvas.create_image(738.5, 368.0, image=self.login_textbox_two)
         textbox_two_location = Entry(self, textvariable=password, bd=0, bg="#696969", highlightthickness=0, show='*')
         textbox_two_location.place(x=602.0, y=345, width=273.0, height=44)
@@ -307,16 +307,16 @@ class Enrollment(tk.Frame):
         enrollment_canvas.place(x=0, y=0)
 
         # Captures the background image for the canvas
-        self.enrollment_background = PhotoImage(file=f"enrollment_background.png")
+        self.enrollment_background = PhotoImage(file=f"/Collection of all UI Graphics/enrollment_background.png")
         enrollment_canvas.create_image(348.0, 300.0, image=self.enrollment_background)
 
         # Declaration of string variable which captures user entries
-        self.enrollment_text_box = PhotoImage(file=f"enrollment_textBox.png")
+        self.enrollment_text_box = PhotoImage(file=f"/Collection of all UI Graphics/enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 176.0, image=self.enrollment_text_box)
         email_text_box = Entry(self, textvariable=email, bd=0, bg="#696969", highlightthickness=0)
         email_text_box.place(x=586.0, y=153, width=273.0, height=44)
 
-        self.enrollment_text_box_2 = PhotoImage(file=f"enrollment_textBox.png")
+        self.enrollment_text_box_2 = PhotoImage(file=f"/Collection of all UI Graphics/enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 293.0, image=self.enrollment_text_box_2)
         enrollment_text_box = Entry(self, textvariable=password, bd=0, bg="#696969", highlightthickness=0)
         enrollment_text_box.place(x=586.0, y=270, width=273.0, height=44)
@@ -326,7 +326,7 @@ class Enrollment(tk.Frame):
         user_name_text_box = Entry(self, textvariable=username, bd=0, bg="#696969", highlightthickness=0)
         user_name_text_box.place(x=586.0, y=387, width=273.0, height=44)
 
-        self.get_started_button = PhotoImage(file=f"enrollment_get_started.png")
+        self.get_started_button = PhotoImage(file=f"/Collection of all UI Graphics/enrollment_get_started.png")
         get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
                                         command=lambda: self.add_user(controller, username, password, email),
                                         relief="flat",
@@ -336,7 +336,7 @@ class Enrollment(tk.Frame):
         enrollment_canvas.create_text(727.5, 71.5, text="Create Account", fill="#ffffff",
                                       font=("Rosarivo-Regular", int(36.0)))
 
-        self.existing_account = PhotoImage(file=f"enrollment_existing_account.png")
+        self.existing_account = PhotoImage(file=f"/Collection of all UI Graphics/enrollment_existing_account.png")
         existing_account_background = Button(self, image=self.existing_account, borderwidth=0, highlightthickness=0,
                                              command=lambda: self.controller.show_canvas(LoginPage), relief="flat",
                                              activebackground="#343333")
@@ -362,12 +362,12 @@ class Dashboard(tk.Frame):
         canvas.place(x=0, y=0)
 
         # Captures the background image for the canvas
-        image_path = "dashboard_background.png"
+        image_path = "/Collection of all UI Graphics/dashboard_background.png"
         self.background_img = tk.PhotoImage(file=image_path)
         canvas.create_image(0, 0, anchor='nw', image=self.background_img)
 
         # creates and opens up a log out pop up
-        logout_image_path = "dashboard_logout.png"
+        logout_image_path = "/Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
@@ -450,75 +450,75 @@ class Dashboard(tk.Frame):
         raw_difference.trace('w', calc.calculate_raw_difference)
 
         # Retrieves the images, and configures the dashboard button
-        dashboard_image_path = "dashboard_dashboard.png"
+        dashboard_image_path = "/Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
         dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
-        simulated_trading_image_path = "dashboard_simulated_trading.png"
+        simulated_trading_image_path = "/Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
-        charts_image_path = "dashboard_charts.png"
+        charts_image_path = "/Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
-        portfolio_image_path = "dashboard_portfolio.png"
+        portfolio_image_path = "/Collection of all UI Graphics/dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
-        alarm_image_path = "dashboard_alarms.png"
+        alarm_image_path = "/Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
         alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
-        news_image_path = "dashboard_news.png"
+        news_image_path = "/Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
-        settings_image_path = "dashboard_settings.png"
+        settings_image_path = "/Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
-        notifications_image_path = "dashboard_notifications.png"
+        notifications_image_path = "/Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
-        support_image_path = "dashboard_support.png"
+        support_image_path = "/Collection of all UI Graphics/dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
         support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
-        notes_image_path = "dashboard_notes.png"
+        notes_image_path = "/Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
-        profile_image_path = "dashboard_profile_img.png"
+        profile_image_path = "/Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
@@ -536,13 +536,13 @@ class Dashboard(tk.Frame):
 
         # search bar
         coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"charts_textBox2.png")
+        search_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_textBox2.png")
         canvas.create_image(713.0, 26.0, image=search_img)
         search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
         search_entry.place(x=592.0, y=10, width=242.0, height=30)
 
         # search bar go button
-        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        self.search_btn_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_img17.png")
         search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
         search_btn.place(x=812, y=17, width=20, height=21)
 
@@ -584,23 +584,23 @@ class Charts(tk.Frame):
         
         self.charts = MplCharts(self.canvas)
 
-        self.background_img = PhotoImage(file=f"charts_background.png")
+        self.background_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_background.png")
         self.canvas.create_image(720.0, 512.0, image=self.background_img)
 
         # creates and opens up a log out pop up
-        logout_image_path = "dashboard_logout.png"
+        logout_image_path = "/Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = self.canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         self.canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
         
         # end date label
-        self.entry0_img = PhotoImage(file=f"charts_textBox0.png")
+        self.entry0_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_textBox0.png")
         self.canvas.create_image(1337.0, 377.0, image=self.entry0_img)
         entry0 = Entry(self, bd=0, bg="#2a2b31", highlightthickness=0)
         entry0.place(x=1248.0, y=357, width=178.0, height=38)
 
         # start date label
-        self.entry1_img = PhotoImage(file=f"charts_textBox1.png")
+        self.entry1_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_textBox1.png")
         self.canvas.create_image(1085.0, 377.0, image=self.entry1_img)
         entry1 = Entry(self, bd=0, bg="#2a2b31", highlightthickness=0)
         entry1.place(x=996.0, y=357, width=178.0, height=38)
@@ -614,75 +614,75 @@ class Charts(tk.Frame):
         self.fdv = self.canvas.create_text(1333.0, 265.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
 
         # Retrieves the images, and configures the dashboard button
-        dashboard_image_path = "dashboard_dashboard.png"
+        dashboard_image_path = "/Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
         dashboard_image_obj = self.canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         self.canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(dashboard_image_obj), self.close_charts(), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
-        simulated_trading_image_path = "dashboard_simulated_trading.png"
+        simulated_trading_image_path = "/Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = self.canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         self.canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(simulated_trading_image_obj), self.close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
-        charts_image_path = "dashboard_charts.png"
+        charts_image_path = "/Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(charts_image_obj), self.close_charts(), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
-        portfolio_image_path = "dashboard_portfolio.png"
+        portfolio_image_path = "/Collection of all UI Graphics/dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = self.canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         self.canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(portfolio_image_obj), self.close_charts(), controller.show_canvas(Portfolio)))
 
-        alarm_image_path = "dashboard_alarms.png"
+        alarm_image_path = "/Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
         alarm_image_obj = self.canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         self.canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(alarm_image_obj), self.close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
-        news_image_path = "dashboard_news.png"
+        news_image_path = "/Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = self.canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         self.canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(news_image_obj), self.close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
-        settings_image_path = "dashboard_settings.png"
+        settings_image_path = "/Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = self.canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         self.canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), self.close_charts(), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
-        notifications_image_path = "dashboard_notifications.png"
+        notifications_image_path = "/Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_button = self.canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         self.canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
-        support_image_path = "dashboard_support.png"
+        support_image_path = "/Collection of all UI Graphics/dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
         support_image_obj = self.canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         self.canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), self.close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
-        notes_image_path = "dashboard_notes.png"
+        notes_image_path = "/Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = self.canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         self.canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(notes_image_obj), self.close_charts(), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
-        profile_image_path = "dashboard_profile_img.png"
+        profile_image_path = "/Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = self.canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         self.canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
@@ -690,35 +690,35 @@ class Charts(tk.Frame):
 
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        self.img0 = PhotoImage(file=f"charts_img0.png")
+        self.img0 = PhotoImage(file=f"/Collection of all UI Graphics/charts_img0.png")
         b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
         b0.place(x=855, y=370, width=26, height=16)
 
-        self.img1 = PhotoImage(file=f"charts_img1.png")
+        self.img1 = PhotoImage(file=f"/Collection of all UI Graphics/charts_img1.png")
         b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
         b1.place(x=799, y=370, width=25, height=16)
 
-        self.img2 = PhotoImage(file=f"charts_img2.png")
+        self.img2 = PhotoImage(file=f"/Collection of all UI Graphics/charts_img2.png")
         b2 = Button(self, image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
         b2.place(x=743, y=371, width=26, height=16)
 
-        self.img3 = PhotoImage(file=f"charts_img3.png")
+        self.img3 = PhotoImage(file=f"/Collection of all UI Graphics/charts_img3.png")
         b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
         b3.place(x=677, y=370, width=28, height=17)
 
-        self.img4 = PhotoImage(file=f"charts_img4.png")
+        self.img4 = PhotoImage(file=f"/Collection of all UI Graphics/charts_img4.png")
         b4 = Button(self, image=self.img4, borderwidth=0, highlightthickness=0, relief="flat")
         b4.place(x=618, y=369, width=26, height=16)
 
         # search bar
         self.coin_name = tk.StringVar(self.canvas)
-        search_img = PhotoImage(file=f"charts_textBox2.png")
+        search_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_textBox2.png")
         self.canvas.create_image(713.0, 26.0, image=search_img)
         self.search_entry = tk.Entry(self.canvas, textvariable=self.coin_name, bd=0, bg="#41597c", highlightthickness=0)
         self.search_entry.place(x=592.0, y=10, width=242.0, height=30)
 
         # search bar go button
-        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        self.search_btn_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_img17.png")
         search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=self.search)
         search_btn.place(x=812, y=17, width=20, height=21)
                 
@@ -808,85 +808,85 @@ class ComingSoon(tk.Frame):
         canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
-        self.background_img = PhotoImage(file=f"coming_soon.png")
+        self.background_img = PhotoImage(file=f"/Collection of all UI Graphics/coming_soon.png")
         canvas.create_image(718.0, 512.0, image=self.background_img)
 
         # creates and opens up a log out pop up
-        logout_image_path = "dashboard_logout.png"
+        logout_image_path = "/Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
 
         # Retrieves the images, and configures the dashboard button
-        dashboard_image_path = "dashboard_dashboard.png"
+        dashboard_image_path = "/Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
         dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
-        simulated_trading_image_path = "dashboard_simulated_trading.png"
+        simulated_trading_image_path = "/Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
-        charts_image_path = "dashboard_charts.png"
+        charts_image_path = "/Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
-        portfolio_image_path = "dashboard_portfolio.png"
+        portfolio_image_path = "/Collection of all UI Graphics/dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
-        alarm_image_path = "dashboard_alarms.png"
+        alarm_image_path = "/Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
         alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
-        news_image_path = "dashboard_news.png"
+        news_image_path = "/Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
-        settings_image_path = "dashboard_settings.png"
+        settings_image_path = "/Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
-        notifications_image_path = "dashboard_notifications.png"
+        notifications_image_path = "/Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
-        support_image_path = "dashboard_support.png"
+        support_image_path = "/Collection of all UI Graphics/dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
         support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
-        notes_image_path = "dashboard_notes.png"
+        notes_image_path = "/Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
-        profile_image_path = "dashboard_profile_img.png"
+        profile_image_path = "/Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
@@ -904,13 +904,13 @@ class ComingSoon(tk.Frame):
 
         # search bar
         coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"charts_textBox2.png")
+        search_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_textBox2.png")
         canvas.create_image(713.0, 26.0, image=search_img)
         search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
         search_entry.place(x=592.0, y=10, width=242.0, height=30)
 
         # search bar go button
-        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        self.search_btn_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_img17.png")
         search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
         search_btn.place(x=812, y=17, width=20, height=21)
             
@@ -954,85 +954,85 @@ class Settings(tk.Frame):
         canvas.place(x=0, y=0)
 
         # Retrieves the images, and configures the dashboard button
-        self.background_img = tk.PhotoImage(file=f"settings_background.png")
+        self.background_img = tk.PhotoImage(file=f"/Collection of all UI Graphics/settings_background.png")
         canvas.create_image(722.0, 512.0, image=self.background_img)
 
         # creates and opens up a log out pop up
-        logout_image_path = "dashboard_logout.png"
+        logout_image_path = "/Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
 
         # Retrieves the images, and configures the dashboard button
-        dashboard_image_path = "dashboard_dashboard.png"
+        dashboard_image_path = "/Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
         dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
-        simulated_trading_image_path = "dashboard_simulated_trading.png"
+        simulated_trading_image_path = "/Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
-        charts_image_path = "dashboard_charts.png"
+        charts_image_path = "/Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
-        portfolio_image_path = "dashboard_portfolio.png"
+        portfolio_image_path = "/Collection of all UI Graphics/dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
-        alarm_image_path = "dashboard_alarms.png"
+        alarm_image_path = "/Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
         alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
-        news_image_path = "dashboard_news.png"
+        news_image_path = "/Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
-        settings_image_path = "dashboard_settings.png"
+        settings_image_path = "/Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
-        notifications_image_path = "dashboard_notifications.png"
+        notifications_image_path = "/Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
-        support_image_path = "dashboard_support.png"
+        support_image_path = "/Collection of all UI Graphics/dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
         support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
-        notes_image_path = "dashboard_notes.png"
+        notes_image_path = "/Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
-        profile_image_path = "dashboard_profile_img.png"
+        profile_image_path = "/Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
@@ -1049,13 +1049,13 @@ class Settings(tk.Frame):
 
         # search bar
         coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"charts_textBox2.png")
+        search_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_textBox2.png")
         canvas.create_image(713.0, 26.0, image=search_img)
         search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
         search_entry.place(x=592.0, y=10, width=242.0, height=30)
 
         # search bar go button
-        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        self.search_btn_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_img17.png")
         search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
         search_btn.place(x=812, y=17, width=20, height=21)
 
@@ -1082,19 +1082,19 @@ class Settings(tk.Frame):
 
         self.settings_image.width(), self.settings_image.height()
 
-        self.entry0_img = PhotoImage(file=f"settings_entry.png")
+        self.entry0_img = PhotoImage(file=f"/Collection of all UI Graphics/settings_entry.png")
         canvas.create_image(731.5, 766.5, image=self.entry0_img)
         settings_email = Entry(self, bd=0, bg="#696969", highlightthickness=0)
         settings_email.place(x=597.5, y=741, width=268.0, height=49)
 
-        self.entry1_img = PhotoImage(file=f"settings_entry.png")
+        self.entry1_img = PhotoImage(file=f"/Collection of all UI Graphics/settings_entry.png")
         canvas.create_image(731.5, 647.5, image=self.entry1_img)
 
         entry1 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
 
         entry1.place(x=597.5, y=622, width=268.0, height=49)
 
-        self.entry2_img = PhotoImage(file=f"settings_entry.png")
+        self.entry2_img = PhotoImage(file=f"/Collection of all UI Graphics/settings_entry.png")
         canvas.create_image(731.5, 528.5, image=self.entry2_img)
 
         entry2 = Entry(self, bd=0, bg="#696969", highlightthickness=0)
@@ -1118,85 +1118,85 @@ class NotesTab(tk.Frame):
         canvas = Canvas(self, bg="#ffffff", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
-        self.background_img = PhotoImage(file=f"sticky_notes_background.png")
+        self.background_img = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_background.png")
         canvas.create_image(720.0, 512.0, image=self.background_img)
 
         # creates and opens up a log out pop up
-        logout_image_path = "dashboard_logout.png"
+        logout_image_path = "/Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
 
         # Retrieves the images, and configures the dashboard button
-        dashboard_image_path = "dashboard_dashboard.png"
+        dashboard_image_path = "/Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
         dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
-        simulated_trading_image_path = "dashboard_simulated_trading.png"
+        simulated_trading_image_path = "/Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
-        charts_image_path = "dashboard_charts.png"
+        charts_image_path = "/Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
-        portfolio_image_path = "dashboard_portfolio.png"
+        portfolio_image_path = "/Collection of all UI Graphics/dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
-        alarm_image_path = "dashboard_alarms.png"
+        alarm_image_path = "/Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
         alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
-        news_image_path = "dashboard_news.png"
+        news_image_path = "/Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
-        settings_image_path = "dashboard_settings.png"
+        settings_image_path = "/Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
-        notifications_image_path = "dashboard_notifications.png"
+        notifications_image_path = "/Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
-        support_image_path = "dashboard_support.png"
+        support_image_path = "/Collection of all UI Graphics/dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
         support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
-        notes_image_path = "dashboard_notes.png"
+        notes_image_path = "/Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
-        profile_image_path = "dashboard_profile_img.png"
+        profile_image_path = "/Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
@@ -1214,13 +1214,13 @@ class NotesTab(tk.Frame):
         
         # search bar
         coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"charts_textBox2.png")
+        search_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_textBox2.png")
         canvas.create_image(713.0, 26.0, image=search_img)
         search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
         search_entry.place(x=592.0, y=10, width=242.0, height=30)
 
         # search bar go button
-        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        self.search_btn_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_img17.png")
         search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
         search_btn.place(x=812, y=17, width=20, height=21)
 
@@ -1245,105 +1245,105 @@ class NotesTab(tk.Frame):
             """
             canvas.itemconfigure(image_obj, state=state)
 
-        self.entry0_img = PhotoImage(file=f"sticky_notes_textBox0.png")
+        self.entry0_img = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_textBox0.png")
         canvas.create_image(1132.5, 720.5, image=self.entry0_img)
         entry0 = Entry(self, bd=0, bg="#306380", highlightthickness=0)
         entry0.place(x=975, y=611, width=315, height=217)
 
-        self.entry1_img = PhotoImage(file=f"sticky_notes_textBox1.png")
+        self.entry1_img = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_textBox1.png")
         canvas.create_image(754.5, 720.5, image=self.entry1_img)
         entry1 = Entry(self, bd=0, bg="#2da596", highlightthickness=0)
         entry1.place(x=597, y=611, width=315, height=217)
 
-        self.entry2_img = PhotoImage(file=f"sticky_notes_textBox2.png")
+        self.entry2_img = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_textBox2.png")
         canvas.create_image(376.5, 720.5, image=self.entry2_img)
         entry2 = Entry(self, bd=0, bg="#9d5a89", highlightthickness=0)
         entry2.place(x=219, y=611, width=315, height=217)
 
-        self.entry3_img = PhotoImage(file=f"sticky_notes_textBox3.png")
+        self.entry3_img = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_textBox3.png")
         canvas.create_image(1132.5, 352.5, image=self.entry3_img)
         entry3 = Entry(self, bd=0, bg="#646da7", highlightthickness=0)
         entry3.place(x=975, y=243, width=315, height=217)
 
-        self.entry4_img = PhotoImage(file=f"sticky_notes_textBox4.png")
+        self.entry4_img = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_textBox4.png")
         canvas.create_image(754.5, 352.5, image=self.entry4_img)
         entry4 = Entry(self, bd=0, bg="#417e9a", highlightthickness=0)
         entry4.place(x=597, y=243, width=315, height=217)
 
-        self.entry5_img = PhotoImage(file=f"sticky_notes_textBox5.png")
+        self.entry5_img = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_textBox5.png")
         canvas.create_image(376.5, 352.5, image=self.entry5_img)
         entry5 = Entry(self, bd=0, bg="#826fa8", highlightthickness=0)
         entry5.place(x=219, y=243, width=315, height=217)
 
-        self.img0 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img0 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
         b0.place(x=1260, y=835, width=20, height=12)
 
-        self.img1 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img1 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
         b1.place(x=1232, y=835, width=19, height=12)
 
-        self.img2 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img2 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b2 = Button(self, image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
         b2.place(x=1203, y=835, width=20, height=12)
 
-        self.img3 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img3 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
         b3.place(x=880, y=835, width=20, height=12)
 
-        self.img4 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img4 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b4 = Button(self, image=self.img4, borderwidth=0, highlightthickness=0, relief="flat")
         b4.place(x=852, y=835, width=19, height=12)
 
-        self.img5 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img5 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b5 = Button(self, image=self.img5, borderwidth=0, highlightthickness=0, relief="flat")
         b5.place(x=823, y=835, width=20, height=12)
 
-        self.img6 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img6 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b6 = Button(self, image=self.img6, borderwidth=0, highlightthickness=0, relief="flat")
         b6.place(x=500, y=836, width=20, height=12)
 
-        self.img7 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img7 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b7 = Button(self, image=self.img7, borderwidth=0, highlightthickness=0, relief="flat")
         b7.place(x=473, y=836, width=19, height=12)
 
-        self.img8 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img8 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b8 = Button(self, image=self.img8, borderwidth=0, highlightthickness=0, relief="flat")
         b8.place(x=445, y=836, width=20, height=12)
 
-        self.img9 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img9 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b9 = Button(self, image=self.img9, borderwidth=0, highlightthickness=0, relief="flat")
         b9.place(x=1260, y=466, width=20, height=12)
 
-        self.img10 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img10 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b10 = Button(self, image=self.img10, borderwidth=0, highlightthickness=0, relief="flat")
         b10.place(x=1232, y=466, width=19, height=12)
 
-        self.img11 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img11 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b11 = Button(self, image=self.img11, borderwidth=0, highlightthickness=0, relief="flat")
         b11.place(x=1203, y=466, width=20, height=12)
 
-        self.img12 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img12 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b12 = Button(self, image=self.img12, borderwidth=0, highlightthickness=0, relief="flat")
         b12.place(x=880, y=466, width=20, height=12)
 
-        self.img13 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img13 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b13 = Button(self, image=self.img13, borderwidth=0, highlightthickness=0, relief="flat")
         b13.place(x=852, y=466, width=19, height=12)
 
-        self.img14 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img14 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b14 = Button(self, image=self.img14, borderwidth=0, highlightthickness=0, relief="flat")
         b14.place(x=823, y=466, width=20, height=12)
 
-        self.img15 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img15 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b15 = Button(self, image=self.img15, borderwidth=0, highlightthickness=0, relief="flat")
         b15.place(x=500, y=466, width=20, height=12)
 
-        self.img16 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img16 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b16 = Button(self, image=self.img16, borderwidth=0, highlightthickness=0, relief="flat")
         b16.place(x=473, y=466, width=19, height=12)
 
-        self.img17 = PhotoImage(file=f"sticky_notes_color_changer.png")
+        self.img17 = PhotoImage(file=f"/Collection of all UI Graphics/sticky_notes_color_changer.png")
         b17 = Button(self, image=self.img17, borderwidth=0, highlightthickness=0, relief="flat")
         b17.place(x=445, y=466, width=20, height=12)
 
@@ -1363,7 +1363,7 @@ class Portfolio(tk.Frame):
         canvas = Canvas(self, bg="#ffffff", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
         canvas.place(x=0, y=0)
 
-        self.background_img = PhotoImage(file=f"portfolio_background.png")
+        self.background_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_background.png")
         canvas.create_image(720.0, 512.0, image=self.background_img)
 
 
@@ -1393,37 +1393,37 @@ class Portfolio(tk.Frame):
             
             """ Entry boxes """
             # currency selection
-            self.entry0_img = PhotoImage(file=f"add_transaction_textBox0.png")
+            self.entry0_img = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_textBox0.png")
             add_transactions_canvas.create_image(336.5, 538.0, image=self.entry0_img)
             entry0 = Entry(pop, textvariable=currency_selection_var, bd=0, bg="#696969", highlightthickness=0)
             entry0.place(x=275.0, y=515, width=123.0, height=44)
 
             # purchase fee
-            self.entry1_img = PhotoImage(file=f"add_transaction_textBox1.png")
+            self.entry1_img = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_textBox1.png")
             add_transactions_canvas.create_image(147.5, 538.0, image=self.entry1_img)
             entry1 = Entry(pop, textvariable=purchase_fee_var, bd=0, bg="#696969", highlightthickness=0)
             entry1.place(x=86.0, y=515, width=123.0, height=44)
 
             # price purchased
-            self.entry2_img = PhotoImage(file=f"add_transaction_textBox2.png")
+            self.entry2_img = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_textBox2.png")
             add_transactions_canvas.create_image(336.5, 445.0, image=self.entry2_img)
             entry2 = Entry(pop, textvariable=price_purchased_var, bd=0, bg="#696969", highlightthickness=0)
             entry2.place(x=275.0, y=422, width=123.0, height=44)
 
             # amount purchased
-            self.entry3_img = PhotoImage(file=f"add_transaction_textBox3.png")
+            self.entry3_img = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_textBox3.png")
             add_transactions_canvas.create_image(147.5, 445.0, image=self.entry3_img)
             entry3 = Entry(pop, textvariable=amount_purchased_var, bd=0, bg="#696969", highlightthickness=0)
             entry3.place(x=86.0, y=422, width=123.0, height=44)
 
             # time purchased
-            self.entry4_img = PhotoImage(file=f"add_transaction_textBox4.png")
+            self.entry4_img = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_textBox4.png")
             add_transactions_canvas.create_image(336.5, 344.0, image=self.entry4_img)
             entry4 = Entry(pop, textvariable=time_purchased_var, bd=0, bg="#696969", highlightthickness=0)
             entry4.place(x=275.0, y=321, width=123.0, height=44)
 
             # date purchased
-            self.date_purchased_img = PhotoImage(file=f"add_transaction_textBox5.png")
+            self.date_purchased_img = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_textBox5.png")
             add_transactions_canvas.create_image(147.5, 344.0, image=self.date_purchased_img)
             date_purchased_entry = Entry(pop, textvariable=date_purchased_var, bd=0, bg="#696969", highlightthickness=0)
             date_purchased_entry.place(x=86.0, y=321, width=123.0, height=44)
@@ -1503,27 +1503,27 @@ class Portfolio(tk.Frame):
                     pop.destroy()
 
             # submit button
-            self.submit_button_image = PhotoImage(file=f"add_transaction_img0.png")
+            self.submit_button_image = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_img0.png")
             submit_button = add_transactions_canvas.create_image(181, 620, anchor='nw', image=self.submit_button_image)
             add_transactions_canvas.tag_bind(submit_button, "<ButtonRelease-1>", lambda event: submit())
 
             # transfer button
-            self.transfer_button_image = PhotoImage(file=f"add_transaction_img1.png")
+            self.transfer_button_image = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_img1.png")
             transfer_button = add_transactions_canvas.create_image(313, 125, anchor='nw', image=self.transfer_button_image)
             add_transactions_canvas.tag_bind(transfer_button, "<ButtonRelease-1>")
 
             # sell button
-            self.sell_button_image = PhotoImage(file=f"add_transaction_img2.png")
+            self.sell_button_image = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_img2.png")
             sell_button = add_transactions_canvas.create_image(200, 125, anchor='nw', image=self.sell_button_image)
             add_transactions_canvas.tag_bind(sell_button, "<ButtonRelease-1>", lambda event: buy_or_sell(False))
 
             # buy button
-            self.buy_button_image = PhotoImage(file=f"add_transaction_img3.png")
+            self.buy_button_image = PhotoImage(file=f"/Collection of all UI Graphics/add_transaction_img3.png")
             buy_button = add_transactions_canvas.create_image(83, 125, anchor='nw', image=self.buy_button_image)
             add_transactions_canvas.tag_bind(buy_button, "<ButtonRelease-1>", lambda event: buy_or_sell(True))
 
         # creates and opens up a log out pop up
-        logout_image_path = "dashboard_logout.png"
+        logout_image_path = "/Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
@@ -1615,75 +1615,75 @@ class Portfolio(tk.Frame):
         canvas.create_text(378.5, 237.0, text="0.00%", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
         """
         # Retrieves the images, and configures the dashboard button
-        dashboard_image_path = "dashboard_dashboard.png"
+        dashboard_image_path = "/Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
         dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
-        simulated_trading_image_path = "dashboard_simulated_trading.png"
+        simulated_trading_image_path = "/Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
-        charts_image_path = "dashboard_charts.png"
+        charts_image_path = "/Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
-        portfolio_image_path = "dashboard_portfolio.png"
+        portfolio_image_path = "/Collection of all UI Graphics/dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
-        alarm_image_path = "dashboard_alarms.png"
+        alarm_image_path = "/Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
         alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
-        news_image_path = "dashboard_news.png"
+        news_image_path = "/Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
-        settings_image_path = "dashboard_settings.png"
+        settings_image_path = "/Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
-        notifications_image_path = "dashboard_notifications.png"
+        notifications_image_path = "/Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
         canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
-        support_image_path = "dashboard_support.png"
+        support_image_path = "/Collection of all UI Graphics/dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
         support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
-        notes_image_path = "dashboard_notes.png"
+        notes_image_path = "/Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
-        profile_image_path = "dashboard_profile_img.png"
+        profile_image_path = "/Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
@@ -1701,13 +1701,13 @@ class Portfolio(tk.Frame):
 
         # search bar
         coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"charts_textBox2.png")
+        search_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_textBox2.png")
         canvas.create_image(713.0, 26.0, image=search_img)
         search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
         search_entry.place(x=592.0, y=10, width=242.0, height=30)
 
         # search bar go button
-        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        self.search_btn_img = PhotoImage(file=f"/Collection of all UI Graphics/charts_img17.png")
         search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
         search_btn.place(x=812, y=17, width=20, height=21)
             
@@ -1732,42 +1732,42 @@ class Portfolio(tk.Frame):
             """
             canvas.itemconfigure(image_obj, state=state)
 
-        self.entry0_img = PhotoImage(file=f"portfolio_textBox0.png")
+        self.entry0_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_textBox0.png")
         canvas.create_image(977.0, 251.0, image=self.entry0_img)
 
         entry0 = Entry(self, bd=0, bg="#053f53", highlightthickness=0)
         entry0.place(x=856.0, y=235, width=242.0, height=30)
 
         # add transactions button
-        self.add_transactions_img = PhotoImage(file=f"portfolio_img12.png")
+        self.add_transactions_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_img12.png")
         notifications_button = canvas.create_image(1140, 226, anchor='nw', image=self.add_transactions_img)
         canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: AddTransactionClicker())
 
-        self.all_option_img = PhotoImage(file=f"portfolio_img13.png")
+        self.all_option_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_img13.png")
         all_option_button = Button(self, image=self.all_option_img, borderwidth=0, highlightthickness=0, relief="flat")
         all_option_button.place(x=883, y=97, width=43, height=25)
 
-        self.sixmonths_option_img = PhotoImage(file=f"portfolio_img14.png")
+        self.sixmonths_option_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_img14.png")
         sixmonths_option_button = Button(self, image=self.sixmonths_option_img, borderwidth=0, highlightthickness=0, relief="flat")
         sixmonths_option_button.place(x=829, y=97, width=32, height=23)
 
-        self.threemonths_option_img = PhotoImage(file=f"portfolio_img15.png")
+        self.threemonths_option_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_img15.png")
         threemonths_option_button = Button(self, image=self.threemonths_option_img, borderwidth=0, highlightthickness=0, relief="flat")
         threemonths_option_button.place(x=772, y=96, width=30, height=30)
 
-        self.onemonth_option_img = PhotoImage(file=f"portfolio_img16.png")
+        self.onemonth_option_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_img16.png")
         onemonth_option_button = Button(self, image=self.onemonth_option_img, borderwidth=0, highlightthickness=0, relief="flat")
         onemonth_option_button.place(x=722, y=97, width=29, height=25)
 
-        self.oneweek_option_img = PhotoImage(file=f"portfolio_img17.png")
+        self.oneweek_option_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_img17.png")
         oneweek_option_button = Button(self, image=self.oneweek_option_img, borderwidth=0, highlightthickness=0, relief="flat")
         oneweek_option_button.place(x=670, y=98, width=30, height=28)
 
-        self.oneday_option_img = PhotoImage(file=f"portfolio_img18.png")
+        self.oneday_option_img = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_img18.png")
         oneday_option_button = Button(self, image=self.oneday_option_img, borderwidth=0, highlightthickness=0, relief="flat")
         oneday_option_button.place(x=614, y=96, width=32, height=26)
 
-        self.search_icon = PhotoImage(file=f"portfolio_img19.png")
+        self.search_icon = PhotoImage(file=f"/Collection of all UI Graphics/portfolio_img19.png")
         search_button = Button(self, image=self.search_icon, borderwidth=0, highlightthickness=0, relief="flat")
         search_button.place(x=1074, y=238, width=30, height=27)
         
