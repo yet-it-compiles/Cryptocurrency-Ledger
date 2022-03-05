@@ -145,6 +145,9 @@ def notificationsClicker(self):
     add_alert_button = notifications_canvas.create_image(293, 307, anchor='nw', image=self.add_alerts_img)
     notifications_canvas.tag_bind(add_alert_button, "<ButtonRelease-1>", lambda event: destroy_alerts())
 
+# initializing canvases to an empty dictionary
+collection_of_canvases = {}
+
 class CryptocurrencyLedger(tk.Tk):
     """
     Configures the initial conditions for the UI, and contains the logic to switch between different canvases
@@ -165,15 +168,12 @@ class CryptocurrencyLedger(tk.Tk):
         self.login_background = PhotoImage(file=f"login_background.png")
         canvas_setup.create_image(395.0, 300.0, image=self.login_background)
 
-        # Initializing canvases to an empty dictionary
-        self.collection_of_canvases = {}
-
         # Declaration of logic to iterate through each page layout
         for each_layout in (LoginPage, Enrollment, Dashboard, Charts, ComingSoon, Settings
                             , NotesTab, Portfolio):
             each_canvas = each_layout(canvas_setup, self)
 
-            self.collection_of_canvases[each_layout] = each_canvas
+            collection_of_canvases[each_layout] = each_canvas
 
             each_canvas.grid(row=5, column=0, sticky="nsew")
 
@@ -186,10 +186,10 @@ class CryptocurrencyLedger(tk.Tk):
         :param container: The passed in window to display next
         :return: the new canvas
         """
-        for each_canvas in self.collection_of_canvases.values():
+        for each_canvas in collection_of_canvases.values():
             each_canvas.grid_remove()
 
-        each_canvas = self.collection_of_canvases[container]
+        each_canvas = collection_of_canvases[container]
         each_canvas.grid()
 
         self.geometry(f'{each_canvas.winfo_reqwidth()}x{each_canvas.winfo_reqheight()}')  # resizes the canvases
@@ -373,7 +373,7 @@ class Dashboard(tk.Frame):
         canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
 
         # Creates text-fields for Searchbar, and Username
-        canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
+        # canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         # Investing Portfolio
@@ -525,6 +525,26 @@ class Dashboard(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+            
+        # search button command
+        def search():
+            controller.show_canvas(Charts)
+            Charts.update_coin(collection_of_canvases[Charts], coin_name.get())
+            Charts.generate_data(collection_of_canvases[Charts])
+            Charts.generate_chart(collection_of_canvases[Charts], 365)
+            search_entry.delete(0, tk.END)
+
+        # search bar
+        coin_name = tk.StringVar(canvas)
+        search_img = PhotoImage(file=f"charts_textBox2.png")
+        canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
+        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -559,131 +579,116 @@ class Charts(tk.Frame):
         self.controller = controller
 
         flash_delay = 100  # in milliseconds.
-        canvas = Canvas(self, bg="#1b3152", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
-        canvas.place(x=0, y=0)
+        self.canvas = Canvas(self, bg="#1b3152", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvas.place(x=0, y=0)
+        
+        self.charts = MplCharts(self.canvas)
 
         self.background_img = PhotoImage(file=f"charts_background.png")
-        canvas.create_image(720.0, 512.0, image=self.background_img)
+        self.canvas.create_image(720.0, 512.0, image=self.background_img)
 
         # creates and opens up a log out pop up
         logout_image_path = "dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
-
-
+        logoutButton = self.canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
+        self.canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
+        
+        # end date label
         self.entry0_img = PhotoImage(file=f"charts_textBox0.png")
-        canvas.create_image(1337.0, 377.0, image=self.entry0_img)
+        self.canvas.create_image(1337.0, 377.0, image=self.entry0_img)
         entry0 = Entry(self, bd=0, bg="#2a2b31", highlightthickness=0)
         entry0.place(x=1248.0, y=357, width=178.0, height=38)
 
+        # start date label
         self.entry1_img = PhotoImage(file=f"charts_textBox1.png")
-        canvas.create_image(1085.0, 377.0, image=self.entry1_img)
+        self.canvas.create_image(1085.0, 377.0, image=self.entry1_img)
         entry1 = Entry(self, bd=0, bg="#2a2b31", highlightthickness=0)
         entry1.place(x=996.0, y=357, width=178.0, height=38)
 
-        canvas.create_text(1333.0, 265.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(25.0)))
-        canvas.create_text(854.0, 265.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(25.0)))
-        canvas.create_text(483.0, 265.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(25.0)))
-        canvas.create_text(1333.0, 167.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(25.0)))
-        canvas.create_text(854.0, 167.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(25.0)))
-        canvas.create_text(483.0, 167.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(25.0)))
+        # text fields for data
+        self.mc = self.canvas.create_text(483.0, 167.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
+        self.cs = self.canvas.create_text(483.0, 265.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))        
+        self.h24 = self.canvas.create_text(854.0, 167.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
+        self.l24 = self.canvas.create_text(854.0, 265.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))        
+        self.vol = self.canvas.create_text(1333.0, 167.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
+        self.fdv = self.canvas.create_text(1333.0, 265.0, text="0.00", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
 
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
-        dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
-        canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
+        dashboard_image_obj = self.canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
+        self.canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(dashboard_image_obj), self.close_charts(), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
         simulated_trading_image_path = "dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
-        simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
-        canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
+        simulated_trading_image_obj = self.canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
+        self.canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(simulated_trading_image_obj), self.close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path = "dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
-        charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
-        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
+        charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
+        self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(charts_image_obj), self.close_charts(), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
-        portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
-        canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
+        portfolio_image_obj = self.canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
+        self.canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(portfolio_image_obj), self.close_charts(), controller.show_canvas(Portfolio)))
 
         alarm_image_path = "dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
-        alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
-        canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
+        alarm_image_obj = self.canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
+        self.canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(alarm_image_obj), self.close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
         news_image_path = "dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
-        news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
-        canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
+        news_image_obj = self.canvas.create_image(0, 670, anchor='nw', image=self.news_image)
+        self.canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(news_image_obj), self.close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
         settings_image_path = "dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
-        settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
-        canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
+        settings_image_obj = self.canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
+        self.canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(settings_image_obj), self.close_charts(), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
         notifications_image_path = "dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
+        notifications_button = self.canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        self.canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
-        support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
-        canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
+        support_image_obj = self.canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
+        self.canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(support_image_obj), self.close_charts(), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
         notes_image_path = "dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
-        notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
-        canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
+        notes_image_obj = self.canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
+        self.canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(notes_image_obj), self.close_charts(), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path = "dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
-        profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
-        canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
+        profile_image_obj = self.canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
+        self.canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(profile_image_obj), self.close_charts(), controller.show_canvas(Settings)))
 
-        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        def flash_hidden(image_obj):
-            """
-            Method sets the state of the object, and hides the buttons when they are interacted with
-            :param image_obj: is the image object to hide
-            :type : int
-            :return: a hidden button when pressed
-            """
-            set_state(tk.HIDDEN, image_obj)
-            canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
-
-        def set_state(state, image_obj):
-            """
-            Sets the state of the image object
-            :param state: the state to apply to the buttons
-            :param image_obj: is the image object to apply a state on
-            :return: an image object with a state applied
-            """
-            canvas.itemconfigure(image_obj, state=state)
+        self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         self.img0 = PhotoImage(file=f"charts_img0.png")
         b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
@@ -705,14 +710,88 @@ class Charts(tk.Frame):
         b4 = Button(self, image=self.img4, borderwidth=0, highlightthickness=0, relief="flat")
         b4.place(x=618, y=369, width=26, height=16)
 
-        self.entry2_img = PhotoImage(file=f"charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=self.entry2_img)
-        entry2 = Entry(self, bd=0, bg="#41597c", highlightthickness=0)
-        entry2.place(x=592.0, y=10, width=242.0, height=30)
+        # search bar
+        self.coin_name = tk.StringVar(self.canvas)
+        search_img = PhotoImage(file=f"charts_textBox2.png")
+        self.canvas.create_image(713.0, 26.0, image=search_img)
+        self.search_entry = tk.Entry(self.canvas, textvariable=self.coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        self.search_entry.place(x=592.0, y=10, width=242.0, height=30)
 
-        self.img17 = PhotoImage(file=f"charts_img17.png")
-        b17 = Button(self, image=self.img17, borderwidth=0, highlightthickness=0, relief="flat")
-        b17.place(x=812, y=17, width=20, height=21)
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=self.search)
+        search_btn.place(x=812, y=17, width=20, height=21)
+                
+        def flash_hidden(image_obj):
+            """
+            Method sets the state of the object, and hides the buttons when they are interacted with
+            :param image_obj: is the image object to hide
+            :type : int
+            :return: a hidden button when pressed
+            """
+            set_state(tk.HIDDEN, image_obj)
+            self.canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+
+        def set_state(state, image_obj):
+            """
+            Sets the state of the image object
+            :param state: the state to apply to the buttons
+            :param image_obj: is the image object to apply a state on
+            :return: an image object with a state applied
+            """
+            self.canvas.itemconfigure(image_obj, state=state)
+            
+    
+    def search(self):
+        self.coin = self.coin_name.get()
+        self.generate_data()
+        self.generate_chart(365)
+        self.search_entry.delete(0, tk.END)
+        
+    def format_currency(self, num):
+        if num != "N/A":
+            if num > 1:
+                return "${:,.2f}".format(num)
+            else:
+                return "${:.3g}".format(num)
+        else:
+            return num
+
+    def update_coin(self, coin):
+        self.coin = coin
+
+    def generate_data(self):
+        self.data = self.charts.charts_data(self.coin)
+        for key, value in self.data.items():
+            if value is None:
+                self.data[key] = "N/A"
+
+        self.current_price = self.data["current_price"]
+
+        self.canvas.itemconfig(self.mc, text=self.format_currency(self.data["market_cap"]))
+        self.canvas.itemconfig(self.fdv, text=self.format_currency(self.data["fully_diluted_valuation"]))
+        self.canvas.itemconfig(self.h24, text=self.format_currency(self.data["high_24h"]))
+        self.canvas.itemconfig(self.l24, text=self.format_currency(self.data["low_24h"]))
+        self.canvas.itemconfig(self.vol, text=self.format_currency(self.data["total_volume"]))
+        self.canvas.itemconfig(self.cs, text=self.data["circulating_supply"])
+        
+    def generate_chart(self, days_previous):
+        ohlc = self.charts.candlestick(self.coin, days_previous)
+        # # there is no field for price/percent change
+        # start_price = ohlc["open"][0]
+        # perc_change = 100 * (self.current_price - start_price) / start_price
+        # color = "green" if perc_change > 0 else "red"
+        # perc_text = "(" + "{:.2f}".format(perc_change) + "%)"
+        # self.canvas.itemconfig(self.percent, text=perc_text, fill=color)
+
+    def close_charts(self):
+        self.charts.close()
+        self.canvas.itemconfig(self.mc, text="")
+        self.canvas.itemconfig(self.fdv, text="")
+        self.canvas.itemconfig(self.h24, text="")
+        self.canvas.itemconfig(self.l24, text="")
+        self.canvas.itemconfig(self.vol, text="")
+        self.canvas.itemconfig(self.cs, text="")
 
 
 class ComingSoon(tk.Frame):
@@ -814,7 +893,27 @@ class ComingSoon(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+        
+        # search button command
+        def search():
+            controller.show_canvas(Charts)
+            Charts.update_coin(collection_of_canvases[Charts], coin_name.get())
+            Charts.generate_data(collection_of_canvases[Charts])
+            Charts.generate_chart(collection_of_canvases[Charts], 365)
+            search_entry.delete(0, tk.END)
 
+        # search bar
+        coin_name = tk.StringVar(canvas)
+        search_img = PhotoImage(file=f"charts_textBox2.png")
+        canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
+        search_btn.place(x=812, y=17, width=20, height=21)
+            
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
@@ -940,6 +1039,25 @@ class Settings(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+
+        def search():
+            controller.show_canvas(Charts)
+            Charts.update_coin(collection_of_canvases[Charts], coin_name.get())
+            Charts.generate_data(collection_of_canvases[Charts])
+            Charts.generate_chart(collection_of_canvases[Charts], 365)
+            search_entry.delete(0, tk.END)
+
+        # search bar
+        coin_name = tk.StringVar(canvas)
+        search_img = PhotoImage(file=f"charts_textBox2.png")
+        canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
+        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -1085,6 +1203,26 @@ class NotesTab(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+         
+        # search button command
+        def search():
+            controller.show_canvas(Charts)
+            Charts.update_coin(collection_of_canvases[Charts], coin_name.get())
+            Charts.generate_data(collection_of_canvases[Charts])
+            Charts.generate_chart(collection_of_canvases[Charts], 365)
+            search_entry.delete(0, tk.END)
+        
+        # search bar
+        coin_name = tk.StringVar(canvas)
+        search_img = PhotoImage(file=f"charts_textBox2.png")
+        canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
+        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -1553,6 +1691,26 @@ class Portfolio(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
+        # search button command
+        def search():
+            controller.show_canvas(Charts)
+            Charts.update_coin(collection_of_canvases[Charts], coin_name.get())
+            Charts.generate_data(collection_of_canvases[Charts])
+            Charts.generate_chart(collection_of_canvases[Charts], 365)
+            search_entry.delete(0, tk.END)
+
+        # search bar
+        coin_name = tk.StringVar(canvas)
+        search_img = PhotoImage(file=f"charts_textBox2.png")
+        canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat", command=search)
+        search_btn.place(x=812, y=17, width=20, height=21)
+            
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
