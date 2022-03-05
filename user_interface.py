@@ -34,6 +34,25 @@ def logoutbuttonClicker(self, controller):
             self.logout_no_img = PhotoImage(file=f"Collection of all UI Graphics\logout_no.png")
             logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
             logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
+
+
+def Error(self, message):
+    pop = Toplevel(self)
+    pop.geometry('537x250')
+    pop.config(height=273, width=537)
+
+    error_canvas = Canvas(pop, bg="#ffffff", height=273, width=537, bd=0, highlightthickness=0, relief="ridge")
+    error_canvas.place(x=0, y=0)
+
+    self.error_background_img = PhotoImage(file=f"Collection of all UI Graphics\error_background.png")
+    error_canvas.create_image(0, 0, anchor='nw', image=self.error_background_img)
+
+    def destroy_error():
+        pop.destroy()
+    error_canvas.create_text(200, 125, text=message, fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+    self.error_button_img = PhotoImage(file=f"Collection of all UI Graphics/error_button_img.png")
+    error_button_obj = error_canvas.create_image(280, 200, image=self.error_button_img)
+    error_canvas.tag_bind(error_button_obj, "<ButtonRelease-1>", lambda event: destroy_error())
             
 # general method for the notifications button
 def notificationsClicker(self):
@@ -200,26 +219,31 @@ class LoginPage(tk.Frame):
     Configures, and displays the login page
     """
 
-    def sign_in(self, controller, usernameE, passwordE):
-        global username
-        username = usernameE.get()
-        password = passwordE.get()
+    def sign_in(self, controller, usernameEntry, passwordEntry):
+        username = usernameEntry.get()
+        password = passwordEntry.get()
+        if username == "" or password == "":
+            Error(self, "Please fill out both fields")
+            usernameEntry.set("")
+            passwordEntry.set("")
+            return
 
         if Database.checkUsername(username):
             if PasswordEncryption.password_comparison(username, password):
-                usernameE.set("")
-                passwordE.set("")
+                usernameEntry.set("")
+                passwordEntry.set("")
+
                 controller.show_canvas(Dashboard)
             else:
 
                 error = "Incorrect Password"
                 self.logoutbuttonClicker()
-                passwordE.set("")
+                passwordEntry.set("")
         else:
             error = "No Username"
             self.logoutbuttonClicker()
-            usernameE.set("")
-            passwordE.set("")
+            usernameEntry.set("")
+            passwordEntry.set("")
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
