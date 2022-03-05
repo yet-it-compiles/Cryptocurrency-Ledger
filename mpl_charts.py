@@ -151,7 +151,8 @@ class MplCharts:
         else: 
             
             print("no data found!")
-        
+           
+        return ohlc_data
         
     def charts_data(self, coin_name : str):
         
