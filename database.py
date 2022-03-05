@@ -15,6 +15,7 @@ class Database:
         self.all_transactions = []
         self.current_holdings = {}
         self.pull_transactions()
+        self.get_current()
 
     @staticmethod
     def connect():
@@ -121,7 +122,7 @@ class Database:
             postgres_query = "INSERT INTO allTransactions VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             for transaction in self.all_transactions:
                 if transaction.id > self.session_start_id:
-                    cusrsor.execute(postgres_query, transaction.id, self.username, transaction.crypto_name,
+                    cursor.execute(postgres_query, transaction.id, self.username, transaction.crypto_name,
                                     transaction.is_buy,
                                     transaction.current_price, transaction.num_coins_trading, transaction.target,
                                     transaction.fee, transaction.utc_date_time)
@@ -133,9 +134,9 @@ class Database:
 
         finally:
             # closing database is_connected.
-            if is_connected:
-                executes_query.close()
-                is_connected.close()
+            if connection:
+                cursor.close()
+                connection.close()
 
         return success
 
@@ -222,9 +223,9 @@ class Database:
 
         finally:
             # closing database is_connected.
-            if is_connected:
-                executes_query.close()
-                is_connected.close()
+            if connection:
+                cursor.close()
+                connection.close()
 
         return success
 
@@ -232,8 +233,8 @@ class Database:
         connection = Database.connect()
         try:
             cursor = connection.cursor()
-            postgres_query = "SELECT * FROM currentHoldings"
-            cursor.execute(postgres_select_query, (self.username,))
+            postgres_query = "SELECT * FROM currentHoldings Where username = %s"
+            cursor.execute(postgres_query, (self.username,))
             result = cursor.fetchall()
             """
             username = row[0]

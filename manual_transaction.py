@@ -17,8 +17,8 @@ class ManualTransaction:
     timezone = ""
     is_buy = True if 'buy' else False  # default value: True = Buy; False = Sell
 
-    def __init__(self, crypto_name, buy_or_sell, price, num_coins_trading, target, fee, time):
-        self.id = "id_num"
+    def __init__(self, id_num, crypto_name, buy_or_sell, price, num_coins_trading, target, fee, time):
+        self.id = id_num
         self.crypto_name = crypto_name
         self.num_coins_trading = num_coins_trading  # amount
         self.fee = fee

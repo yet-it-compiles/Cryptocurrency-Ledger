@@ -229,10 +229,15 @@ class LoginPage(tk.Frame):
             return
 
         if Database.checkUsername(username):
+            #IF BOTH FIELDS CHECK OUT WITH THE DATABASE
             if PasswordEncryption.password_comparison(username, password):
+                # reset username and password for when they return to the login screen
                 usernameEntry.set("")
                 passwordEntry.set("")
 
+                # Set up Dashboard UI to have all customer information
+                Dashboard.create_user(Collection_of_canvases[Dashboard], username)
+                Dashboard.update(Collection_of_canvases[Dashboard])
                 controller.show_canvas(Dashboard)
             else:
 
@@ -380,71 +385,72 @@ class Dashboard(tk.Frame):
         flash_delay = 100  # Milliseconds.
         self.controller = controller
 
-        global user
-        user = Database(username="")
+        self.canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvas.place(x=0, y=0)
 
-        canvas = tk.Canvas(self, bg="#343333", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
-        canvas.place(x=0, y=0)
+        #Creates a blank Database object that will be filled in after sign in
+
+        self.user_data = Database("")
 
         # Captures the background image for the canvas
         image_path = "Collection of all UI Graphics/dashboard_background.png"
         self.background_img = tk.PhotoImage(file=image_path)
-        canvas.create_image(0, 0, anchor='nw', image=self.background_img)
+        self.canvas.create_image(0, 0, anchor='nw', image=self.background_img)
 
         # creates and opens up a log out pop up
         logout_image_path = "Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
-        logoutButton = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
+        logoutButton = self.canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
+        self.canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
 
         # Creates text-fields for Searchbar, and Username
         # canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
-        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+        self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         # Investing Portfolio
-        canvas.create_text(430.0, 198.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(430.0, 248.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(430.0, 298.5, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.total_portfolio = self.canvas.create_text(430.0, 198.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.buy_power = self.canvas.create_text(430.0, 248.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.total_change = self.canvas.create_text(430.0, 298.5, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #1
-        canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_1_1 = self.canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_1_2 = self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_1_3 = self.canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #2
-        canvas.create_text(865.0, 147.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(865.0, 190.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(920.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_2_1 = self.canvas.create_text(865.0, 147.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_2_2 = self.canvas.create_text(865.0, 190.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_2_3 = self.canvas.create_text(920.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #3
-        canvas.create_text(1096.0, 149.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1096.0, 192.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1149.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_3_1 = self.canvas.create_text(1096.0, 149.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_3_2 = self.canvas.create_text(1096.0, 192.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_3_3 = self.canvas.create_text(1149.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #4
-        canvas.create_text(1322.0, 149.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1322.0, 192.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1373.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_4_1 = self.canvas.create_text(1322.0, 149.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_4_2 = self.canvas.create_text(1322.0, 192.0, text="$", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
+        self.top_earner_4_3 = self.canvas.create_text(1373.0, 214.0, text="%", fill="#e5e5e5", font=("Rosarivo-Regular", int(10.0)))
 
         # Closest to profit #1
-        canvas.create_text(640.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(640.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(690.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_1_1 = self.canvas.create_text(640.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_1_2 = self.canvas.create_text(640.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_1_3 = self.canvas.create_text(690.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Closest to profit #2
-        canvas.create_text(865.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(865.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(920.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_2_1 = self.canvas.create_text(865.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_2_1 = self.canvas.create_text(865.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_2_3 = self.canvas.create_text(920.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Closest to profit #3
-        canvas.create_text(1096.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1096.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1149.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_3_1 = self.canvas.create_text(1096.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_3_2 = self.canvas.create_text(1096.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_3_3 = self.canvas.create_text(1149.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Closest to profit #4
-        canvas.create_text(1322.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1322.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
-        canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_4_1 = self.canvas.create_text(1322.0, 295.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_4_2 = self.canvas.create_text(1322.0, 338.0, text="$", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
+        self.closest_4_3 = self.canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff", font=("Rosarivo-Regular", int(10.0)))
 
         # Percent Increase Calculator
         calc = responsive_calculator.ResponsiveCalculator()
@@ -464,10 +470,10 @@ class Dashboard(tk.Frame):
          raw_entry.delete(0, END)])
         calculate_button.place(x=1085, y=600, height=20, width=50)
 
-        canvas.create_window(985, 460, window=initial_entry)
-        canvas.create_window(985, 502, window=final_entry)
-        canvas.create_window(985, 547, window=percent_entry)
-        canvas.create_window(985, 595, window=raw_entry)
+        self.canvas.create_window(985, 460, window=initial_entry)
+        self.canvas.create_window(985, 502, window=final_entry)
+        self.canvas.create_window(985, 547, window=percent_entry)
+        self.canvas.create_window(985, 595, window=raw_entry)
 
         initial_price.trace('w', calc.calculate_initial_price)
         final_price.trace('w', calc.calculate_final_price)
@@ -477,79 +483,79 @@ class Dashboard(tk.Frame):
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path ="Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
-        dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
-        canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
+        dashboard_image_obj = self.canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
+        self.canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
         simulated_trading_image_path ="Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
-        simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
-        canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
+        simulated_trading_image_obj = self.canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
+        self.canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path ="Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
-        charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
-        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+        charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
+        self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path ="Collection of all UI Graphics/dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
-        portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
-        canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
+        portfolio_image_obj = self.canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
+        self.canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
         alarm_image_path ="Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
-        alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
-        canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
+        alarm_image_obj = self.canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
+        self.canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
         news_image_path ="Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
-        news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
-        canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
+        news_image_obj = self.canvas.create_image(0, 670, anchor='nw', image=self.news_image)
+        self.canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
         settings_image_path ="Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
-        settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
-        canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
+        settings_image_obj = self.canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
+        self.canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
         notifications_image_path ="Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
+        notifications_button = self.canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        self.canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notificationsClicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path ="Collection of all UI Graphics/dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
-        support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
-        canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
+        support_image_obj = self.canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
+        self.canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
         notes_image_path ="Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
-        notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
-        canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
+        notes_image_obj = self.canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
+        self.canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path ="Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
-        profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
-        canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
+        profile_image_obj = self.canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
+        self.canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
-        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+        self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
             
         # search button command
         def search():
@@ -560,10 +566,10 @@ class Dashboard(tk.Frame):
             search_entry.delete(0, tk.END)
 
         # search bar
-        coin_name = tk.StringVar(canvas)
+        coin_name = tk.StringVar(self.canvas)
         search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        self.canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(self.canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
         search_entry.place(x=592.0, y=10, width=242.0, height=30)
 
         # search bar go button
@@ -580,7 +586,7 @@ class Dashboard(tk.Frame):
             :return: a hidden button when pressed
             """
             set_state(tk.HIDDEN, image_obj)
-            canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+            self.canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
 
         def set_state(state, image_obj):
             """
@@ -590,9 +596,15 @@ class Dashboard(tk.Frame):
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
             """
-            canvas.itemconfigure(image_obj, state=state)
+            self.canvas.itemconfigure(image_obj, state=state)
 
         self.background_img.width(), self.background_img.height()
+
+    def create_user(self, username):
+        self.user_data = Database(username)
+    def update(self):
+
+        self.canvas.itemconfig(self.total_portfolio, text="100")
 
 
 class Charts(tk.Frame):
@@ -1554,7 +1566,7 @@ class Portfolio(tk.Frame):
         canvas.tag_bind(logoutButton, "<ButtonRelease-1>", lambda event: logoutbuttonClicker(self, self.controller))
 
         ycoor = 0
-        portfolio = user.current_holdings
+        portfolio = {}
         for coin in portfolio:
             avg_buy = portfolio[coin]["avg_price"]
             amount = portfolio[coin]["amount"]
