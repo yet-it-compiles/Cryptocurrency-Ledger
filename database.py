@@ -1,14 +1,11 @@
+""" TODO - Document """
 import psycopg2
-from psycopg2 import Error
-import manual_transaction
 from manual_transaction import *
-import weighted_calculator
 from weighted_calculator import update_average
 
 
 class Database:
-
-    def __init__(self, username) -> object:
+    def __init__(self, username):
         self.username = username
         self.session_start_id = 0
         self.transaction_id = 0
@@ -18,48 +15,51 @@ class Database:
         self.get_current()
 
     @staticmethod
-    def connect():
-        connection = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
-                                      database="dilabshsjveo3",
-                                      user="ogjzilgdyfltod",
-                                      password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471"
-                                      )
-        return connection
+    def database_connection():
+        """
+        Returns a new database connection
+        """
+        is_connected = psycopg2.connect(host="ec2-3-232-22-121.compute-1.amazonaws.com",
+                                        database="dilabshsjveo3",
+                                        user="ogjzilgdyfltod",
+                                        password="2a5fff6b7763149071662013def40f9cb2f9f6c8eef3e719f286d8e499ea8471")
+        return is_connected
 
     @staticmethod
-    def adduser(username, email, password):
+    def adduser(users_username, email, password):
         """
         Adds the user for the first time
         """
-        if Database.checkUsername(username):
+        if Database.checkUsername(users_username):
             "username is taken"
             return
-        is_connected = Database.connect()
+
+        is_connected = Database.database_connection()
         try:
 
             executes_query = is_connected.cursor()
-            postgres_insert_query = "INSERT INTO users Values( %s, %s, %s)"
-            record_to_insert = (username, email, password)
+            postgres_insert_query = "INSERT INTO users Values(%s, %s, %s)"
+            record_to_insert = (users_username, email, password)
 
             executes_query.execute(postgres_insert_query, record_to_insert)
 
             is_connected.commit()
 
-            count = executes_query.rowcount
-            print(count, "Record inserted successfully into mobile table")
+            row_cursor = executes_query.rowcount
+            print(row_cursor, "Record inserted successfully into mobile table")
 
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
 
         finally:
-            # closing database is_connected.
+            # Logic to define is the database is connected, then to close it
             if is_connected:
                 executes_query.close()
                 is_connected.close()
 
     @staticmethod
     def get_pass(username):
-        is_connected = Database.connect()
+        is_connected = Database.database_connection()
         try:
 
             executes_query = is_connected.cursor()
@@ -67,182 +67,184 @@ class Database:
 
             executes_query.execute(postgres_select_query, (username,))
 
-            result = executes_query.fetchone()
+            next_query_row = executes_query.fetchone()
 
-            return result
+            return next_query_row
 
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
 
         finally:
-            # closing database is_connected.
+            # Logic to define is the database is connected, then to close it
             if is_connected:
                 executes_query.close()
                 is_connected.close()
 
     @staticmethod
-    def checkUsername(name) -> bool:
+    def checkUsername(users_username) -> bool:
         """
-        Checks Database for the username provided. Static because it needs to be accessed from outside a database object
-        returns true if is in the database
-        param:  NAME: username as a string
-        return type: boolean
-        """
-        connection = Database.connect()
-        try:
+        Checks database for the username provided, and returns true if username exists
 
-            cursor = connection.cursor()
+        :param users_username: string representation of the users name
+        :return: bool
+        """
+        is_connected = Database.database_connection()
+        try:
+            cursor = is_connected.cursor()
             postgres_select_query = "Select username FROM users WHERE  username = %s"
 
-            cursor.execute(postgres_select_query, (name,))
+            cursor.execute(postgres_select_query, (users_username,))
 
             result = cursor.fetchone()
             if result is None:
                 return False
-            return True
+            else:
+                return True
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
 
         finally:
             # closing database connection.
-            if connection:
+            if is_connected:
                 cursor.close()
-                connection.close()
+                is_connected.close()
 
     def push_transactions(self):
         """
-        takes the updated transaction lists and updates the database upon program close
-        param: database object.
-        return type: boolean
-        """
-        connection = Database.connect()
-        success = True
-        try:
-            cursor = connection.cursor()
-            postgres_query = "INSERT INTO allTransactions VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            for transaction in self.all_transactions:
-                if transaction.id > self.session_start_id:
-                    cursor.execute(postgres_query, transaction.id, self.username, transaction.crypto_name,
-                                    transaction.is_buy,
-                                    transaction.current_price, transaction.num_coins_trading, transaction.target,
-                                    transaction.fee, transaction.utc_date_time)
+        Retrieves the updated transaction lists then updates the database upon the program being closed
 
-                connection.commit()
+        :return: bool
+        """
+        is_connected = Database.database_connection()
+        is_successful = True
+
+        try:
+            cursor = is_connected.cursor()
+            postgres_query = "INSERT INTO allTransactions VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            for each_transaction in self.all_transactions:
+                if each_transaction.id > self.session_start_id:
+                    cursor.execute(postgres_query, each_transaction.id, self.username, each_transaction.crypto_name,
+                                   each_transaction.is_buy,
+                                   each_transaction.current_price, each_transaction.num_coins_trading
+                                   , each_transaction.target, each_transaction.fee, each_transaction.utc_date_time)
+
+                is_connected.commit()
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
-            success = False
+            is_successful = False
 
         finally:
             # closing database is_connected.
-            if connection:
+            if is_connected:
                 cursor.close()
-                connection.close()
+                is_connected.close()
 
-        return success
+        return is_successful
 
     def pull_transactions(self):
         """
-        connects to the database and appends the list of all transactions
-        param: self
-        return: void
-        """
-        connection = Database.connect()
+        Connects to the database, and appends the list of all transactions
+
+        id = row[0]        username = row[1]        coin_name  = row[2]        buy_trade = row[3]
+        price = row[4]     amount  = row[5]         target = row[6]            Fee = row[7]
+        time = row[8]
+
+    :return: an updated database, with a list of all transactions
+    """
+        is_connected = Database.database_connection()
+
         try:
-            cursor = connection.cursor()
+            cursor = is_connected.cursor()
             postgres_select_query = "Select * FROM allTransactions WHERE  username = %s"
             cursor.execute(postgres_select_query, (self.username,))
-            result = cursor.fetchall()
-            """
-            "Id = ", row[0]
-            "username = ", row[1]
-            "coin_name  = ", row[2]
-            "buy_trade = ", row[3]
-            "price = ", row[4]
-            "amount  = ", row[5]
-            "target = ", row[6]
-            "Fee = ", row[7]
-            "time  = ", row[8]
-            """
-            if result is None:
-                return
-            for row in result:
-                transaction = ManualTransaction(row[0], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+
+            remaining_query_rows = cursor.fetchall()
+
+            if remaining_query_rows is None:
+                pass
+
+            for each_row in remaining_query_rows:
+                transaction = ManualTransaction(each_row[0], each_row[2], each_row[3], each_row[4], each_row[5]
+                                                , each_row[6], each_row[7], each_row[8])
                 self.all_transactions.append(transaction)
-                if row[0] > self.transaction_id:
-                    self.transaction_id = row[0]
-                    self.session_start_id = row[0]
+
+                if each_row[0] > self.transaction_id:
+                    self.transaction_id = each_row[0]
+                    self.session_start_id = each_row[0]
 
         except(Exception, psycopg2.Error) as error:
             print("Failed to retrieve record into mobile table", error)
 
         finally:
             # closing database connection.
-            if connection:
+            if is_connected:
                 cursor.close()
-                connection.close()
+                is_connected.close()
 
     def get_coin_transactions(self, coin_name):
         """
-        Gets all the transactions related to the current coin
+        Retrieves all the transactions related to the current coin
+
+        Current Holding dictionary:  (Dictionary of Dictionaries)
+        "coin_name": {avg_price: int, amount: int, target: int}
+        
         :param coin_name: The name of the coin that is being accessed
         :return: a list of all the transactions with the coin
         """
-        result = []
-        for row in self.all_transactions:
-            if row.coin_name == coin_name:
-                result.append(row)
-        return result
+        collection_of_coin_names = []
 
-    """
-    Current Holding dictionary:  (Dictionary of Dictionaries)
-    "coin_name": {avg_price: int, amount: int, target: int}
-    """
+        for each_row in self.all_transactions:
+            if each_row.coin_name == coin_name:
+                collection_of_coin_names.append(each_row)
+        return collection_of_coin_names
 
     def push_current(self):
         """
-        Takes the dictionary and updates all the fields in the
-        returns true if successfully inserted
-        return type: boolean
+        Retrieves the dictionary, and updates all the fields to return true if a successful insert occurred.
+
+        :return: bool
         """
-        connection = Database.connect()
-        success = True
+        is_connected = Database.database_connection()
+        is_successful = True
+
         try:
-            cursor = connection.cursor()
+            cursor = is_connected.cursor()
             postgres_query = "UPDATE currentHoldings SET avg_price = %s, amount = %s, target = %s WHERE username = %s " \
                              "AND coin_name = %s "
-            for key in self.current_holdings:
-                cursor.execute(postgres_query, self.current_holdings[key]['avg_price'],
-                               self.current_holdings[key]['amount'],
-                               self.current_holdings[key]['target'],
-                               self.username, key)
+            for each_key in self.current_holdings:
+                cursor.execute(postgres_query, self.current_holdings[each_key]['avg_price'],
+                               self.current_holdings[each_key]['amount'],
+                               self.current_holdings[each_key]['target'],
+                               self.username, each_key)
 
-            connection.commit()
+            is_connected.commit()
         except(Exception, psycopg2.Error) as error:
             print("Failed to insert record into mobile table", error)
-            success = False
+            is_successful = False
 
         finally:
             # closing database is_connected.
-            if connection:
+            if is_connected:
                 cursor.close()
-                connection.close()
+                is_connected.close()
 
-        return success
+        return is_successful
 
     def get_current(self):
-        connection = Database.connect()
+        """
+        TODO - Document
+        username = row[0]            coin_name = row[1]            avg_price = row[2]
+        amount = row[3]              target = row[4]
+        :return:
+        """
+        is_connected = Database.database_connection()
+
         try:
-            cursor = connection.cursor()
+            cursor = is_connected.cursor()
             postgres_query = "SELECT * FROM currentHoldings Where username = %s"
             cursor.execute(postgres_query, (self.username,))
             result = cursor.fetchall()
-            """
-            username = row[0]
-            coin_name = row[1]
-            avg_price = row[2]
-            amount = row[3]
-            target = row[4]
-            """
+
             for row in result:
                 self.current_holdings[row[1]]['avg_price'] = row[2]
                 self.current_holdings[row[1]]['amount'] = row[3]
@@ -252,11 +254,16 @@ class Database:
 
         finally:
             # closing database connection.
-            if connection:
+            if is_connected:
                 cursor.close()
-                connection.close()
+                is_connected.close()
 
     def add_transaction(self, transaction):
+        """
+        TODO - Document
+        :param transaction:
+        :return:
+        """
         # all Transactions update
         self.transaction_id += 1
         transaction.id = self.transaction_id
@@ -285,10 +292,6 @@ class Database:
             self.current_holdings[coin_name]['target'] = transaction.target
 
 
-
-
-"""
-
 def main():
     test = Database("admin")
 
@@ -296,4 +299,5 @@ def main():
     print(test.all_transactions)
 
 
-"""
+if __name__ == '__main__':
+    main()
