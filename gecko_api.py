@@ -199,6 +199,51 @@ class GeckoApi:
             return times, total_volumes
         else:
             return total_volume_history
+        
+    @staticmethod
+    def get_prices(coins : list, ascending=False):
+        """
+        Takes a list of coin names (strings) as a parameter, 
+        and returns a dictionary of coins and their respective prices,
+        ordered from most to least valuable. 
+
+        Note: use coin name, not symbol (i.e. "bitcoin", not "btc")
+
+        :param coins: list of coin names as strings
+        :param ascending: determines sort order (default False)
+        :rtype: dict
+        :return: sort_dict | {} 
+        """ 
+
+        if coins:
+            # format request
+            api_url_1 = "https://api.coingecko.com/api/v3/simple/price?ids="
+            api_url_2 = "&vs_currencies=usd"
+            coins_str = ""
+            for coin in coins[:-1]:
+                coins_str = coins_str + coin + "%2c"
+            coins_str = coins_str + coins[-1]
+            
+            # fetch data
+            request = requests.get(api_url_1 + coins_str + api_url_2).json()
+            
+            # format data
+            for coin in request.keys():
+                request[coin] = request[coin]["usd"]
+            
+            if ascending == True:
+                sort_coins = sorted(request.items(), key=lambda x: x[1])
+            else:
+                sort_coins = sorted(request.items(), key=lambda x: x[1], reverse=True)
+            
+            sort_dict = {}
+            for coin in sort_coins:
+                sort_dict[coin[0]] = coin[1]
+
+            return sort_dict
+        
+        else:
+            return {}
 
 
 # def main():
@@ -217,6 +262,8 @@ class GeckoApi:
     
 #     crypto_info.get_icon().show()
 
+#     prices = GeckoApi.get_prices(["shiba-inu", "bitcoin", "polkadot", "cardano", "dogecoin", "ethereum", "tether"])
+#     print(prices)
 
 # if __name__ == '__main__':
 #     main()
