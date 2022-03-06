@@ -162,9 +162,9 @@ class GeckoApi:
             market_caps = []
             # only try to split if market_cap_hist is non-empty
             if market_cap_hist:
-                for item in market_cap_hist:
-                    times.append(item[0])
-                    market_caps.append(item[1])
+                for each_item in market_cap_hist:
+                    times.append(each_item[0])
+                    market_caps.append(each_item[1])
             return times, market_caps
         else:
             return market_cap_hist
@@ -194,19 +194,17 @@ class GeckoApi:
             total_volumes = []
             # only try to split if total_volume_hist is non-empty
             if total_volume_history:
-                for item in total_volume_history:
-                    times.append(item[0])
-                    total_volumes.append(item[1])
+                for each_item in total_volume_history:
+                    times.append(each_item[0])
+                    total_volumes.append(each_item[1])
             return times, total_volumes
         else:
             return total_volume_history
 
     @staticmethod
-    def get_prices(coins : list, ascending=False):
+    def get_prices(coins: list, ascending=False):
         """
-        Takes a list of coin names (strings) as a parameter,
-        and returns a dictionary of coins and their respective prices,
-        ordered from most to least valuable.
+        Takes a list of coins, and returns a dictionary of each with their respective prices from greatest to least
 
         Note: use coin name, not symbol (i.e. "bitcoin", not "btc")
 
@@ -215,56 +213,55 @@ class GeckoApi:
         :rtype: dict
         :return: sort_dict | {}
         """
-
         if coins:
-            # format request
+            # Logic to format the request
             api_url_1 = "https://api.coingecko.com/api/v3/simple/price?ids="
             api_url_2 = "&vs_currencies=usd"
             coins_str = ""
-            for coin in coins[:-1]:
-                coins_str = coins_str + coin + "%2c"
+
+            for each_coin in coins[:-1]:  # starts from the end of the list
+                coins_str = coins_str + each_coin + "%2c"
             coins_str = coins_str + coins[-1]
 
-            # fetch data
+            # Logic to fetch data
             request = requests.get(api_url_1 + coins_str + api_url_2).json()
 
             # format data
-            for coin in request.keys():
-                request[coin] = request[coin]["usd"]
+            for each_coin in request.keys():
+                request[each_coin] = request[each_coin]["usd"]
 
-            if ascending == True:
+            if ascending:
                 sort_coins = sorted(request.items(), key=lambda x: x[1])
             else:
                 sort_coins = sorted(request.items(), key=lambda x: x[1], reverse=True)
 
-            sort_dict = {}
-            for coin in sort_coins:
-                sort_dict[coin[0]] = coin[1]
-
-            return sort_dict
-
+            sorted_dictionary = {}
+            for each_coin in sort_coins:
+                sorted_dictionary[each_coin[0]] = each_coin[1]
+            return sorted_dictionary
         else:
             return {}
 
 
-# def main():
-#     crypto_info = GeckoApi("bitcoin")
+def main():
+    crypto_info = GeckoApi("bitcoin")
 
-#     # print('Cryptocurrency Name: ' + str(crypto_info.name).title())
-#     # print('Current Price: ' + str(crypto_info.get_attribute("current_price")))
-#     # print('Market Cap: ' + str(crypto_info.get_attribute("market_cap")))
-#     # print('Total Supply: ' + str(crypto_info.get_attribute("total_supply")))
-#     # print('Price High: ' + str(crypto_info.get_attribute("high_24h")))
-#     # print('Price Low: ' + str(crypto_info.get_attribute("low_24h")))
-#     # print('OHLC Data: ' + str(crypto_info.get_ohlc_data(2)))
+    # print('Cryptocurrency Name: ' + str(crypto_info.name).title())
+    # print('Current Price: ' + str(crypto_info.get_attribute("current_price")))
+    # print('Market Cap: ' + str(crypto_info.get_attribute("market_cap")))
+    # print('Total Supply: ' + str(crypto_info.get_attribute("total_supply")))
+    # print('Price High: ' + str(crypto_info.get_attribute("high_24h")))
+    # print('Price Low: ' + str(crypto_info.get_attribute("low_24h")))
+    # print('OHLC Data: ' + str(crypto_info.get_ohlc_data(2)))
 
-#     # print('Price History: ' + str(crypto_info.get_price_history(2)))
-#     # print('Market Cap History: ' + str(crypto_info.get_market_cap_history(2)))
+    # print('Price History: ' + str(crypto_info.get_price_history(2)))
+    # print('Market Cap History: ' + str(crypto_info.get_market_cap_history(2)))
 
-#     crypto_info.get_icon().show()
+    crypto_info.get_icon().show()
 
-#     prices = GeckoApi.get_prices(["shiba-inu", "bitcoin", "polkadot", "cardano", "dogecoin", "ethereum", "tether"])
-#     print(prices)
+    prices = GeckoApi.get_prices(["shiba-inu", "bitcoin", "polkadot", "cardano", "dogecoin", "ethereum", "tether"])
+    print(prices)
 
-# if __name__ == '__main__':
-#     main()
+
+if __name__ == '__main__':
+    main()
