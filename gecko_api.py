@@ -1,26 +1,25 @@
 """ Simple module which retrieves the requested cryptocurrency information """
 
+import pandas as pd
+import urllib.error
 import requests
 import json
 from PIL import Image
 from io import BytesIO
 
-import pandas as pd
-import urllib.error
-
 
 class GeckoApi:
     def __init__(self, crypto_name):
-        name = crypto_name.lower().strip()
-        
+        cryptocurrency_name = crypto_name.lower().strip()
+
         with open("coins.json") as file:
-            coins = json.load(file)
-            
-            if coins.get(name):
-                if type(coins[name]) == list:
-                    self.name = coins[name][0]
+            collection_of_coins = json.load(file)
+
+            if collection_of_coins.get(cryptocurrency_name):
+                if type(collection_of_coins[cryptocurrency_name]) == list:
+                    self.name = collection_of_coins[cryptocurrency_name][0]
                 else:
-                    self.name = coins[name]
+                    self.name = collection_of_coins[cryptocurrency_name]
 
     def get_coin(self):
         """
@@ -48,6 +47,7 @@ class GeckoApi:
         :return: crypto_attribute[0][attribute]
         """
         crypto_attribute = self.get_coin()
+
         if crypto_attribute:
             return crypto_attribute[attribute]
 
@@ -77,7 +77,7 @@ class GeckoApi:
         """
         api_url_1 = 'https://api.coingecko.com/api/v3/coins/'
         api_url_2 = '/ohlc?vs_currency=usd&days='
-        
+
         # handle any days_previous input (API only accepts listed values below)
         possible_days = [1, 7, 14, 30, 90, 180, 365]
         if days_previous < 1:
@@ -90,17 +90,17 @@ class GeckoApi:
             else:
                 days_previous = possible_days[-1]
 
-        # fetch data
+        # Logic to fetch cryptocurrency data
         try:
             coin_ohlc = pd.read_json(api_url_1 + self.name + api_url_2 + str(days_previous))
             coin_ohlc.columns = ['date', 'open', 'high', 'low', 'close']
             coin_ohlc['date'] = pd.to_datetime(coin_ohlc['date'], unit='ms')
             coin_ohlc['date'] = pd.DatetimeIndex(coin_ohlc['date'])
             coin_ohlc = coin_ohlc.set_index('date')
-              
+
         except urllib.error.HTTPError:
             coin_ohlc = []
-            
+
         return coin_ohlc
 
     def get_price_history(self, days_previous, separate=False):
@@ -123,15 +123,16 @@ class GeckoApi:
         else:
             price_history = price_history["prices"]
 
-        # separate json dictionary into two lists
+        # Separates the json dictionary into two lists
         if separate:
             times = []
             prices = []
-            # only try to split if price_hist is non-empty
+
+            # Attempts to split only if price_history is not empty
             if price_history:
-                for item in price_history:
-                    times.append(item[0])
-                    prices.append(item[1])
+                for each_element in price_history:
+                    times.append(each_element[0])
+                    prices.append(each_element[1])
             return times, prices
         else:
             return price_history
@@ -199,21 +200,21 @@ class GeckoApi:
             return times, total_volumes
         else:
             return total_volume_history
-        
+
     @staticmethod
     def get_prices(coins : list, ascending=False):
         """
-        Takes a list of coin names (strings) as a parameter, 
+        Takes a list of coin names (strings) as a parameter,
         and returns a dictionary of coins and their respective prices,
-        ordered from most to least valuable. 
+        ordered from most to least valuable.
 
         Note: use coin name, not symbol (i.e. "bitcoin", not "btc")
 
         :param coins: list of coin names as strings
         :param ascending: determines sort order (default False)
         :rtype: dict
-        :return: sort_dict | {} 
-        """ 
+        :return: sort_dict | {}
+        """
 
         if coins:
             # format request
@@ -223,25 +224,25 @@ class GeckoApi:
             for coin in coins[:-1]:
                 coins_str = coins_str + coin + "%2c"
             coins_str = coins_str + coins[-1]
-            
+
             # fetch data
             request = requests.get(api_url_1 + coins_str + api_url_2).json()
-            
+
             # format data
             for coin in request.keys():
                 request[coin] = request[coin]["usd"]
-            
+
             if ascending == True:
                 sort_coins = sorted(request.items(), key=lambda x: x[1])
             else:
                 sort_coins = sorted(request.items(), key=lambda x: x[1], reverse=True)
-            
+
             sort_dict = {}
             for coin in sort_coins:
                 sort_dict[coin[0]] = coin[1]
 
             return sort_dict
-        
+
         else:
             return {}
 
@@ -256,10 +257,10 @@ class GeckoApi:
 #     # print('Price High: ' + str(crypto_info.get_attribute("high_24h")))
 #     # print('Price Low: ' + str(crypto_info.get_attribute("low_24h")))
 #     # print('OHLC Data: ' + str(crypto_info.get_ohlc_data(2)))
-    
+
 #     # print('Price History: ' + str(crypto_info.get_price_history(2)))
 #     # print('Market Cap History: ' + str(crypto_info.get_market_cap_history(2)))
-    
+
 #     crypto_info.get_icon().show()
 
 #     prices = GeckoApi.get_prices(["shiba-inu", "bitcoin", "polkadot", "cardano", "dogecoin", "ethereum", "tether"])
