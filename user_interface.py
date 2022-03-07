@@ -10,6 +10,8 @@ from mpl_charts import MplCharts
 import responsive_calculator
 import manual_transaction
 
+# initializing canvases to an empty dictionary
+Collection_of_canvases = {}
 
 def logout_button_display(self, controller):
     pop = Toplevel(self)
@@ -31,7 +33,7 @@ def logout_button_display(self, controller):
     logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
                            lambda event: [destroy_logout(), (controller.show_canvas(LoginPage))])
 
-    # creates and adds functionality for the No button in the log out pop up
+    # creates and adds functionality for the No button in the log-out pop up
     self.logout_no_img = PhotoImage(file=f"Collection of all UI Graphics\logout_no.png")
     logout_no_img_obj = logout_canvas.create_image(297, 135, anchor='nw', image=self.logout_no_img)
     logout_canvas.tag_bind(logout_no_img_obj, "<ButtonRelease-1>", lambda event: destroy_logout())
@@ -90,20 +92,20 @@ def notificationsClicker(self):
 
     # frequency options menu
     frequencies = ["One Time", "Persistent"]
-    clickedFreq = StringVar()
-    clickedFreq.set(frequencies[0])
+    click_frequency = StringVar()
+    click_frequency.set(frequencies[0])
 
     self.frequency_img = PhotoImage(file=f"Collection of all UI Graphics/alert_popup_img0.png")
-    frequency_button = OptionMenu(notifications_canvas, clickedFreq, *frequencies)
+    frequency_button = OptionMenu(notifications_canvas, click_frequency, *frequencies)
     frequency_button.place(x=289, y=209, width=98, height=22)
 
     # conditions options menu
     conditions = [">", "<", "="]
-    clickedCon = StringVar(pop)
-    clickedCon.set("")
+    clicked_counter = StringVar(pop)
+    clicked_counter.set("")
 
     self.condition_img = PhotoImage(file=f"Collection of all UI Graphics/alert_popup_img1.png")
-    b1 = OptionMenu(notifications_canvas, clickedCon, *conditions)
+    b1 = OptionMenu(notifications_canvas, clicked_counter, *conditions)
     b1.place(x=249, y=156, width=85, height=22)
 
     # autofill search function for coins
@@ -172,10 +174,6 @@ def notificationsClicker(self):
     self.add_alerts_img = PhotoImage(file=f"Collection of all UI Graphics/alert_popup_img1.png")
     add_alert_button = notifications_canvas.create_image(293, 307, anchor='nw', image=self.add_alerts_img)
     notifications_canvas.tag_bind(add_alert_button, "<ButtonRelease-1>", lambda event: destroy_alerts())
-
-
-# initializing canvases to an empty dictionary
-Collection_of_canvases = {}
 
 
 class CryptocurrencyLedger(tk.Tk):
@@ -314,16 +312,17 @@ class Enrollment(tk.Frame):
     """
 
     def add_user(self, controller, username, password, email):
-        usernameTxt = username.get()
-        passwordTxt = password.get()
-        emailTxt = email.get()
+        get_username = username.get()
+        get_password = password.get()
+        get_email = email.get()
 
-        if Database.checkUsername(usernameTxt):
+        if Database.checkUsername(get_username):
             error = "username is taken"
             print(error)
             controller.show_canvas(LoginPage)
+
         # possible check for password constraints
-        Database.adduser(usernameTxt, emailTxt, passwordTxt)
+        Database.adduser(get_username, get_email, get_password)
         controller.show_canvas(LoginPage)
         username.set("")
         password.set("")
@@ -333,9 +332,9 @@ class Enrollment(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.config(width=1000, height=600)
         self.controller = controller
-        email = tk.StringVar()
-        username = tk.StringVar()
-        password = tk.StringVar()
+        user_email = tk.StringVar()
+        user_username = tk.StringVar()
+        user_password = tk.StringVar()
 
         # Initializes the enrollment page, and configures the position of the canvas
         enrollment_canvas = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
@@ -349,22 +348,22 @@ class Enrollment(tk.Frame):
         # Declaration of string variable which captures user entries
         self.enrollment_text_box = PhotoImage(file=f"Collection of all UI Graphics/enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 176.0, image=self.enrollment_text_box)
-        email_text_box = Entry(self, textvariable=email, bd=0, bg="#696969", highlightthickness=0)
+        email_text_box = Entry(self, textvariable=user_email, bd=0, bg="#696969", highlightthickness=0)
         email_text_box.place(x=586.0, y=153, width=273.0, height=44)
 
         self.enrollment_text_box_2 = PhotoImage(file=f"Collection of all UI Graphics/enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 293.0, image=self.enrollment_text_box_2)
-        enrollment_text_box = Entry(self, textvariable=password, bd=0, bg="#696969", highlightthickness=0)
+        enrollment_text_box = Entry(self, textvariable=user_password, bd=0, bg="#696969", highlightthickness=0)
         enrollment_text_box.place(x=586.0, y=270, width=273.0, height=44)
 
         self.enrollment_text_box_3 = PhotoImage(file=f"Collection of all UI Graphics/enrollment_textBox.png")
         enrollment_canvas.create_image(722.5, 410.0, image=self.enrollment_text_box_3)
-        user_name_text_box = Entry(self, textvariable=username, bd=0, bg="#696969", highlightthickness=0)
+        user_name_text_box = Entry(self, textvariable=user_username, bd=0, bg="#696969", highlightthickness=0)
         user_name_text_box.place(x=586.0, y=387, width=273.0, height=44)
 
         self.get_started_button = PhotoImage(file=f"Collection of all UI Graphics/enrollment_get_started.png")
         get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
-                                        command=lambda: self.add_user(controller, username, password, email),
+                                        command=lambda: self.add_user(controller, user_username, user_password, user_email),
                                         relief="flat",
                                         activebackground="#343333")
         get_started_background.place(x=636, y=481, width=161, height=53)
@@ -384,7 +383,6 @@ class Dashboard(tk.Frame):
     """
     Configures, and displays the Dashboard
     """
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width=1440, height=1024)
@@ -395,7 +393,6 @@ class Dashboard(tk.Frame):
         self.canvas.place(x=0, y=0)
 
         # Creates a blank Database object that will be filled in after sign in
-
         self.user_data = Database("")
 
         # Captures the background image for the canvas
