@@ -246,9 +246,9 @@ class Database:
             result = cursor.fetchall()
 
             for row in result:
-                self.current_holdings[row[1]]['avg_price'] = row[2]
-                self.current_holdings[row[1]]['amount'] = row[3]
-                self.current_holdings[row[1]]['target'] = row[4]
+                self.current_holdings[row[1]] = {}
+                self.current_holdings[row[1]] = {'avg_price': row[2], 'amount': row[3], 'target': row[4]}
+
         except(Exception, psycopg2.Error) as error:
             print("Failed to retrieve record into mobile table", error)
 
@@ -291,13 +291,48 @@ class Database:
             self.current_holdings[coin_name]['amount'] = new_amt
             self.current_holdings[coin_name]['target'] = transaction.target
 
+    def get_total_portfolio(self):
+        list_of_coins = []
+        for key in self.current_holdings:
+            list_of_coins.append(key)
+        dict_of_prices = GeckoApi.get_prices(list_of_coins)
+        total_amount = 0
+        for key in self.current_holdings:
+            total_amount += self.current_holdings[key]['amount'] * dict_of_prices[key]
+        return '{:.2f}'.format(total_amount)
+
+    def get_top_earners(self):
+        if len(self.current_holdings) == 0:
+            return {}
+
+        list_of_coins = []
+        for key in self.current_holdings:
+            list_of_coins.append(key)
+
+        dict_of_prices = GeckoApi.get_prices(list_of_coins)
+        """
+        diction of results: 
+        
+        (coin_name): [current_price, purchase_price, percent_increased]
+        """
+
+        results = {}
+        for key in self.current_holdings:
+
+            current_price = dict_of_prices[key]
+            avg_buy = self.current_holdings[key]['avg_price']
+            percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
+            list_of_values = [current_price, avg_buy, percent_change]
+            results[key] = list_of_values
+
+        sorted_dict = sorted(results.items(), key=lambda x: x[1][2], reverse=True)
+        return sorted_dict
+
 
 def main():
-    test = Database("admin")
-
-    print(test.transaction_id)
-    print(test.all_transactions)
-
+    test = Database("hinduhops")
+    dict = test.get_top_earners()
+    print(dict[1][1])
 
 if __name__ == '__main__':
     main()

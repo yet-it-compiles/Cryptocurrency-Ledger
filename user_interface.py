@@ -229,13 +229,14 @@ class LoginPage(tk.Frame):
     Configures, and displays the login page
     """
 
-    def sign_in(self, controller, usernameEntry, passwordEntry):
+    def sign_in(self, controller,  usernameEntry, passwordEntry):
         username = usernameEntry.get()
         password = passwordEntry.get()
         if username == "" or password == "":
             Error(self, "Please fill out both fields")
             usernameEntry.set("")
             passwordEntry.set("")
+            return
 
         if Database.checkUsername(username):
             if PasswordEncryption.password_comparison(username, password):
@@ -249,11 +250,11 @@ class LoginPage(tk.Frame):
                 controller.show_canvas(Dashboard)
             else:
                 error = "Incorrect Password"
-                logout_button_display(self, controller)
+                Error(self, error)
                 passwordEntry.set("")
         else:
             error = "No Username"
-            logout_button_display(self, controller)
+            Error(self, error)
             usernameEntry.set("")
             passwordEntry.set("")
 
@@ -275,7 +276,7 @@ class LoginPage(tk.Frame):
         # Logic to populate the window
         self.sign_in_button = PhotoImage(file=f"Collection of all UI Graphics/sign_in_button.png")
         sign_in_button_location = Button(self, image=self.sign_in_button, borderwidth=0, highlightthickness=0,
-                                         command=lambda: self.sign_in(self.controller, username, password),
+                                         command=lambda: self.sign_in(self.controller,username, password),
                                          relief="flat",
                                          activebackground="#343333")
         sign_in_button_location.place(x=659, y=417, width=159, height=53)
@@ -639,9 +640,43 @@ class Dashboard(tk.Frame):
 
     def create_user(self, username):
         self.user_data = Database(username)
+        print("successfully created")
 
     def update(self):
-        self.canvas.itemconfig(self.total_portfolio, text="100")
+        # Total Value Updater
+        self.canvas.itemconfig(self.total_portfolio, text=('$', self.user_data.get_total_portfolio()))
+
+        # Top Earners Updater
+
+        counter = 1
+        dict_of_top_earners = {}
+        dict_of_top_earners = self.user_data.get_top_earners()
+        if len(dict_of_top_earners) == 0:
+            return
+
+        for counter in range(len(dict_of_top_earners)):
+            print("made it", counter)
+            if counter == 0:
+                print("counter = 1")
+                self.canvas.itemconfig(self.top_earner_1_1, text=dict_of_top_earners[0][1][0])
+                self.canvas.itemconfig(self.top_earner_1_2, text=dict_of_top_earners[0][1][1])
+                self.canvas.itemconfig(self.top_earner_1_3, text=dict_of_top_earners[0][1][2])
+            elif counter == 1:
+                self.canvas.itemconfig(self.top_earner_2_1, text=dict_of_top_earners[1][1][0])
+                self.canvas.itemconfig(self.top_earner_2_2, text=dict_of_top_earners[1][1][1])
+                self.canvas.itemconfig(self.top_earner_2_3, text=dict_of_top_earners[1][1][2])
+            elif counter == 2:
+                self.canvas.itemconfig(self.top_earner_3_1, text=dict_of_top_earners[2][1][0])
+                self.canvas.itemconfig(self.top_earner_3_2, text=dict_of_top_earners[2][1][1])
+                self.canvas.itemconfig(self.top_earner_3_3, text=dict_of_top_earners[2][1][2])
+            elif counter == 3:
+                self.canvas.itemconfig(self.top_earner_4_1, text=dict_of_top_earners[3][1][0])
+                self.canvas.itemconfig(self.top_earner_4_2, text=dict_of_top_earners[3][1][1])
+                self.canvas.itemconfig(self.top_earner_4_3, text=dict_of_top_earners[3][1][2])
+            else:
+                break
+
+        # Closest to Profit Goals
 
 
 class Charts(tk.Frame):
