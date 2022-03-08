@@ -6,11 +6,19 @@ from weighted_calculator import update_average
 
 class Database:
     def __init__(self, username):
+
+        # Basic User Information
         self.username = username
         self.session_start_id = 0
         self.transaction_id = 0
+
+        # All storage devices
         self.all_transactions = []
         self.current_holdings = {}
+        self.targets = {}
+        self.new_target = {}
+
+        # methods to populate storage
         self.pull_transactions()
         self.get_current()
 
@@ -254,6 +262,52 @@ class Database:
                 cursor.close()
                 is_connected.close()
 
+    def get_targets(self):
+        is_connected = Database.database_connection()
+
+        try:
+            cursor = is_connected.cursor()
+            postgres_query = "SELECT * FROM targets where username = %s "
+            cursor.execute(postgres_query, (self.username,))
+            result = cursor.fetchall()
+            """
+            username = row[0]
+            coin_name = row[1]
+            conditions = row[2]
+            frequency = row[3]
+            price = row[4]
+            alert_name = row[5]
+            """
+            for row in result:
+                alert_info = [row[2], row[3], row[4], row[5]]
+                self.targets[row[1]] = alert_info
+        except(Exception, psycopg2.Error) as error:
+            print("Failed to retrieve record into mobile table", error)
+
+        finally:
+            # closing database connection
+            if is_connected:
+                cursor.close()
+                is_connected.close()
+    def push_targets(self):
+        is_connected = Database.database_connection()
+
+        try:
+            cursor = is_connected.cursor()
+            postgres_query = "INSERT INTO targets VALUES ( %s, %s, %s, %s, %s, %s)"
+            for key in self.new_target:
+                info = self.new_target[key]
+                cursor.execute(postgres_query, (self.username, key, info[0], info[1], info[2], info[3]))
+            is_connected.commit()
+        except(Exception, psycopg2.Error) as error:
+            print("Failed to retrieve record into mobile table", error)
+
+        finally:
+            # closing database connection
+            if is_connected:
+                cursor.close()
+                is_connected.close()
+
     def add_transaction(self, transaction):
         """
         TODO - Document
@@ -287,6 +341,10 @@ class Database:
             self.current_holdings[coin_name]['amount'] = new_amt
             self.current_holdings[coin_name]['target'] = transaction.target
 
+    def add_target(self, coin_name, conditions, frequency, price, alert_name):
+        target = [conditions, frequency, price, alert_name]
+        self.new_target[coin_name] = target
+
     def get_total_portfolio(self):
         list_of_coins = []
         for key in self.current_holdings:
@@ -298,37 +356,18 @@ class Database:
         return '{:.2f}'.format(total_amount)
 
     def get_top_earners(self):
-        if len(self.current_holdings) == 0:
-            return {}
 
-        list_of_coins = []
-        for key in self.current_holdings:
-            list_of_coins.append(key)
-
-        dict_of_prices = GeckoApi.get_prices(list_of_coins)
-        """
-        diction of results: 
-        
-        (coin_name): [current_price, purchase_price, percent_increased]
-        """
-
-        results = {}
-        for key in self.current_holdings:
-
-            current_price = dict_of_prices[key]
-            avg_buy = self.current_holdings[key]['avg_price']
-            percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
-            list_of_values = [current_price, avg_buy, percent_change]
-            results[key] = list_of_values
-
-        sorted_dict = sorted(results.items(), key=lambda x: x[1][2], reverse=True)
-        return sorted_dict
+    def get_closest_target(self):
+        list_coins = []
+        for key in self.targets
+            if
 
 
 def main():
     test = Database("hinduhops")
     dict = test.get_top_earners()
     print(dict[1][1])
+
 
 if __name__ == '__main__':
     main()

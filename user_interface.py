@@ -653,7 +653,6 @@ class Dashboard(tk.Frame):
         dict_of_top_earners = self.user_data.get_top_earners()
         if len(dict_of_top_earners) == 0:
             return
-
         for counter in range(len(dict_of_top_earners)):
             if counter == 0:
                 toPrint = "$"  + str(dict_of_top_earners[0][1][0])
