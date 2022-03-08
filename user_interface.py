@@ -504,7 +504,8 @@ class Dashboard(tk.Frame):
 
         calculate_button = Button(self, text="Calculate", borderwidth=0, highlightthickness=0, command= lambda:
         [initial_price.set(calc.initial_price_answer.get()), final_price.set(calc.final_price_answer.get()), 
-        percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get())])
+        percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get()),
+        percent_entry.config(fg = calc.get_color()), raw_entry.config(fg = calc.get_color())])
         calculate_button.place(x=1075, y=575, height=20, width=55)
         
         window = self.canvas.create_window(985, 460, window = initial_entry)
