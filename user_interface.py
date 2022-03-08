@@ -2,6 +2,8 @@
 
 import tkinter as tk
 from tkinter import *
+from tkcalendar import DateEntry
+from tktimepicker import AnalogPicker, AnalogThemes
 import database
 from database import *
 import password_encryption
@@ -495,21 +497,21 @@ class Dashboard(tk.Frame):
         final_entry = tk.Entry(self,textvariable=final_price, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
         percent_entry = tk.Entry(self, textvariable=percent_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
         raw_entry = tk.Entry(self, textvariable=raw_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-
-        clear_button = Button(self, text= "clear", borderwidth=0, highlightthickness=0, command=lambda:
+         
+        clear_button = Button(self, text= "clear", borderwidth=0, highlightthickness=0, command=lambda: 
         [initial_entry.delete(0, END), final_entry.delete(0, END), percent_entry.delete(0, END), raw_entry.delete(0, END)])
         clear_button.place(x=1075, y= 600, height=20, width=55)
 
         calculate_button = Button(self, text="Calculate", borderwidth=0, highlightthickness=0, command= lambda:
-        [initial_price.set(calc.initial_price_answer.get()), final_price.set(calc.final_price_answer.get()),
-         percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get())])
+        [initial_price.set(calc.initial_price_answer.get()), final_price.set(calc.final_price_answer.get()), 
+        percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get())])
         calculate_button.place(x=1075, y=575, height=20, width=55)
-
-        self.canvas.create_window(985, 460, window = initial_entry)
-        self.canvas.create_window(985, 502, window = final_entry)
-        self.canvas.create_window(985, 547, window = percent_entry)
-        self.canvas.create_window(985, 595, window = raw_entry)
-
+        
+        window = self.canvas.create_window(985, 460, window = initial_entry)
+        window = self.canvas.create_window(985, 502, window = final_entry)
+        window = self.canvas.create_window(985, 547, window = percent_entry)
+        window = self.canvas.create_window(985, 595, window = raw_entry)
+        
         initial_price.trace('w', calc.calculate_initial_price)
         final_price.trace('w', calc.calculate_final_price)
         percent_difference.trace('w', calc.calculate_percent_difference)
@@ -593,11 +595,26 @@ class Dashboard(tk.Frame):
 
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        # Search bar
-        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
-        self.canvas.create_image(657.0, 34.5, image=self.search_bar_image)
-        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
-        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
+        # search button command
+        def search():
+            controller.show_canvas(Charts)
+            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
+            Charts.generate_data(Collection_of_canvases[Charts])
+            Charts.generate_chart(Collection_of_canvases[Charts], 365)
+            search_entry.delete(0, tk.END)
+
+        # search bar
+        coin_name = tk.StringVar(self.canvas)
+        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
+        self.canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(self.canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
+                               command=search)
+        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -613,6 +630,7 @@ class Dashboard(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -626,10 +644,6 @@ class Dashboard(tk.Frame):
         print("successfully created")
 
     def update(self):
-        """
-        TODO - Document
-        :return:
-        """
         # Total Value Updater
         self.canvas.itemconfig(self.total_portfolio, text=('$', self.user_data.get_total_portfolio()))
 
@@ -644,29 +658,22 @@ class Dashboard(tk.Frame):
         for counter in range(len(dict_of_top_earners)):
             print("made it", counter)
             if counter == 0:
-                toPrint = '$ ' + str(dict_of_top_earners[0][1][0])
-                self.canvas.itemconfig(self.top_earner_1_1, text=toPrint)
-                toPrint = '$ ' + str(dict_of_top_earners[0][1][1])
-                self.canvas.itemconfig(self.top_earner_1_2, text=toPrint)
-                self.canvas.itemconfig(self.top_earner_1_3, text=( dict_of_top_earners[0][1][2], '%'))
+                print("counter = 1")
+                self.canvas.itemconfig(self.top_earner_1_1, text=dict_of_top_earners[0][1][0])
+                self.canvas.itemconfig(self.top_earner_1_2, text=dict_of_top_earners[0][1][1])
+                self.canvas.itemconfig(self.top_earner_1_3, text=dict_of_top_earners[0][1][2])
             elif counter == 1:
-                toPrint = '$ ' + str(dict_of_top_earners[1][1][0])
-                self.canvas.itemconfig(self.top_earner_2_1, text=toPrint)
-                toPrint = '$ ' + str(dict_of_top_earners[1][1][1])
-                self.canvas.itemconfig(self.top_earner_2_2, text=toPrint)
-                self.canvas.itemconfig(self.top_earner_2_3, text=( dict_of_top_earners[1][1][2], '%'))
+                self.canvas.itemconfig(self.top_earner_2_1, text=dict_of_top_earners[1][1][0])
+                self.canvas.itemconfig(self.top_earner_2_2, text=dict_of_top_earners[1][1][1])
+                self.canvas.itemconfig(self.top_earner_2_3, text=dict_of_top_earners[1][1][2])
             elif counter == 2:
-                toPrint = '$ ' + str(dict_of_top_earners[2][1][0])
-                self.canvas.itemconfig(self.top_earner_3_1, text=toPrint)
-                toPrint = '$ ' + str(dict_of_top_earners[2][1][1])
-                self.canvas.itemconfig(self.top_earner_3_2, text=toPrint)
-                self.canvas.itemconfig(self.top_earner_3_3, text=( dict_of_top_earners[2][1][2], '%'))
+                self.canvas.itemconfig(self.top_earner_3_1, text=dict_of_top_earners[2][1][0])
+                self.canvas.itemconfig(self.top_earner_3_2, text=dict_of_top_earners[2][1][1])
+                self.canvas.itemconfig(self.top_earner_3_3, text=dict_of_top_earners[2][1][2])
             elif counter == 3:
-                toPrint = '$ ' + str(dict_of_top_earners[3][1][0])
-                self.canvas.itemconfig(self.top_earner_4_1, text=toPrint)
-                toPrint = '$ ' + str(dict_of_top_earners[3][1][1])
-                self.canvas.itemconfig(self.top_earner_4_2, text=toPrint)
-                self.canvas.itemconfig(self.top_earner_4_3, text=( dict_of_top_earners[3][1][2], '%'))
+                self.canvas.itemconfig(self.top_earner_4_1, text=dict_of_top_earners[3][1][0])
+                self.canvas.itemconfig(self.top_earner_4_2, text=dict_of_top_earners[3][1][1])
+                self.canvas.itemconfig(self.top_earner_4_3, text=dict_of_top_earners[3][1][2])
             else:
                 break
 
@@ -674,11 +681,10 @@ class Dashboard(tk.Frame):
 
 
 class Charts(tk.Frame):
-    """ Configures, and displays the charts page """
+    """ Configures, and displays the Charts Tab """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.coin_name = None
         self.coin = None
         self.data = None
         self.current_price = None
@@ -841,11 +847,18 @@ class Charts(tk.Frame):
         b4 = Button(self, image=self.img4, borderwidth=0, highlightthickness=0, relief="flat")
         b4.place(x=618, y=369, width=26, height=16)
 
-        # Search bar
-        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
-        self.canvas.create_image(657.0, 34.5, image=self.search_bar_image)
-        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
-        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
+        # search bar
+        self.coin_name = tk.StringVar(self.canvas)
+        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
+        self.canvas.create_image(713.0, 26.0, image=search_img)
+        self.search_entry = tk.Entry(self.canvas, textvariable=self.coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        self.search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
+                               command=self.search)
+        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -869,21 +882,12 @@ class Charts(tk.Frame):
             self.canvas.itemconfigure(image_obj, state=state)
 
     def search(self):
-        """
-
-        :return:
-        """
         self.coin = self.coin_name.get()
         self.generate_data()
         self.generate_chart(365)
         self.search_entry.delete(0, tk.END)
 
     def format_currency(self, num):
-        """
-
-        :param num:
-        :return:
-        """
         if num != "N/A":
             if num > 1:
                 return "${:,.2f}".format(num)
@@ -893,18 +897,9 @@ class Charts(tk.Frame):
             return num
 
     def update_coin(self, coin):
-        """
-
-        :param coin:
-        :return:
-        """
         self.coin = coin
 
     def generate_data(self):
-        """
-
-        :return:
-        """
         self.data = self.charts.charts_data(self.coin)
         for key, value in self.data.items():
             if value is None:
@@ -920,11 +915,6 @@ class Charts(tk.Frame):
         self.canvas.itemconfig(self.cs, text=self.data["circulating_supply"])
 
     def generate_chart(self, days_previous):
-        """
-
-        :param days_previous:
-        :return:
-        """
         ohlc = self.charts.candlestick(self.coin, days_previous)
         # # there is no field for price/percent change
         # start_price = ohlc["open"][0]
@@ -934,10 +924,6 @@ class Charts(tk.Frame):
         # self.canvas.itemconfig(self.percent, text=perc_text, fill=color)
 
     def close_charts(self):
-        """
-
-        :return:
-        """
         self.charts.close()
         self.canvas.itemconfig(self.mc, text="")
         self.canvas.itemconfig(self.fdv, text="")
@@ -1048,13 +1034,25 @@ class ComingSoon(tk.Frame):
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         # search button command
-        def search(coin_name=None, search_entry=None):
+        def search():
             controller.show_canvas(Charts)
             Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
             Charts.generate_data(Collection_of_canvases[Charts])
             Charts.generate_chart(Collection_of_canvases[Charts], 365)
             search_entry.delete(0, tk.END)
-            
+
+        # search bar
+        coin_name = tk.StringVar(canvas)
+        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
+        canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
+        search_button = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
+                                  command=search)
+        search_button.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -1182,16 +1180,30 @@ class Settings(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        def search(coin_name=None, search_entry=None):
+        def search():
             controller.show_canvas(Charts)
             Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
             Charts.generate_data(Collection_of_canvases[Charts])
             Charts.generate_chart(Collection_of_canvases[Charts], 365)
             search_entry.delete(0, tk.END)
 
+        # search bar
+        coin_name = tk.StringVar(canvas)
+        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
+        canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
+                               command=search)
+        search_btn.place(x=812, y=17, width=20, height=21)
+
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1235,7 +1247,7 @@ class Settings(tk.Frame):
 
 class NotesTab(tk.Frame):
     """
-    Configures, and displays the notes page
+    Configures, and displays the Notes tab
     """
 
     def __init__(self, parent, controller):
@@ -1480,6 +1492,7 @@ class NotesTab(tk.Frame):
 
 class Portfolio(tk.Frame):
     """
+
     """
 
     def __init__(self, parent, controller):
@@ -1514,8 +1527,8 @@ class Portfolio(tk.Frame):
             # variables to send to manual transaction module
             self.is_Buy = True  # default option is buy
             coin_name_var = tk.StringVar()
-            date_purchased_var = tk.StringVar()
-            time_purchased_var = tk.StringVar()
+            # date_purchased_var = tk.StringVar()
+            # time_purchased_var = tk.StringVar()
             amount_purchased_var = tk.StringVar()
             price_purchased_var = tk.StringVar()
             purchase_fee_var = tk.StringVar()
@@ -1547,28 +1560,27 @@ class Portfolio(tk.Frame):
             entry3.place(x=86.0, y=422, width=123.0, height=44)
 
             # time purchased
-            self.entry4_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox4.png")
-            add_transactions_canvas.create_image(336.5, 344.0, image=self.entry4_img)
-            entry4 = Entry(pop, textvariable=time_purchased_var, bd=0, bg="#696969", highlightthickness=0)
-            entry4.place(x=275.0, y=321, width=123.0, height=44)
+            self.time_picker_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox4.png")
+            add_transactions_canvas.create_image(336.5, 344.0, image=self.time_picker_img)
+            time_picker = AnalogPicker(pop)
+            
+            time_picker.place(x=275.0, y=321, width=123.0, height=44)
+
+            time_picker_theme = AnalogThemes(time_picker)
+            time_picker_theme.setNavyBlue()
 
             # date purchased
             self.date_purchased_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox5.png")
             add_transactions_canvas.create_image(147.5, 344.0, image=self.date_purchased_img)
-            date_purchased_entry = Entry(pop, textvariable=date_purchased_var, bd=0, bg="#696969", highlightthickness=0)
+            date_purchased_entry = DateEntry(pop)
             date_purchased_entry.place(x=86.0, y=321, width=123.0, height=44)
 
             # autofill search function for coins
             coin_listbox = Listbox(add_transactions_canvas)
             coin_list = manual_transaction.get_list_of_coins()
 
-            # updates the listbox
+            """ method that updates the listbox """
             def update(data):
-                """
-
-                :param data:
-                :return:
-                """
                 # changes the size of the listbox to number of items in list
                 listbox_height = len(data)
                 if len(data) > 5:
@@ -1582,11 +1594,6 @@ class Portfolio(tk.Frame):
 
             # allows users to choose items from list
             def fill_out(event):
-                """
-
-                :param event:
-                :return:
-                """
                 coin_name_entry.delete(0, END)
                 coin_name_entry.insert(0, coin_listbox.get(ACTIVE))
                 coin_listbox.place_forget()
@@ -1594,10 +1601,6 @@ class Portfolio(tk.Frame):
 
             # displays in list appropriate items comparatively to entry
             def check():
-                """
-
-                :return:
-                """
                 # Retrieve user input
                 typed = coin_name_entry.get()
 
@@ -1611,17 +1614,13 @@ class Portfolio(tk.Frame):
                 update(data)
 
             def show_list():
-                """
-
-                :return:
-                """
                 coin_listbox.place(x=114.0, y=270, width=140.0, height=63)
                 date_purchased_entry.place_forget()  # Entry box appears in front of List box
                 check()
 
                 coin_listbox.bind("<<ListboxSelect>>", fill_out)
 
-            # each_coin name
+            # coin name
             self.coin_name_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox6.png")
             add_transactions_canvas.create_image(242.5, 249.0, image=self.coin_name_img)
             coin_name_entry = Entry(pop, textvariable=coin_name_var, bd=0, bg="#696969", highlightthickness=0)
@@ -1630,23 +1629,14 @@ class Portfolio(tk.Frame):
             """ End of Entry boxes """
 
             def buy_or_sell(buy_or_sell):
-                """
-
-                :param buy_or_sell:
-                :return:
-                """
                 self.is_Buy = buy_or_sell
 
             def submit():
-                """
-
-                :return:
-                """
                 # grabs all entry box entries
 
                 coin_name = coin_name_var.get()
-                date_purchased = date_purchased_var.get()
-                time_purchased = time_purchased_var.get()
+                date_purchased = date_purchased_entry.get_date()
+                # time_purchased = time_purchased_var.get()
                 amount_purchased = amount_purchased_var.get()
                 price_purchased = price_purchased_var.get()
                 purchase_fee = purchase_fee_var.get()
@@ -1691,11 +1681,11 @@ class Portfolio(tk.Frame):
 
         ycoor = 0
         portfolio = {}
-        for each_coin in portfolio:
-            avg_buy = portfolio[each_coin]["avg_price"]
-            amount = portfolio[each_coin]["amount"]
+        for coin in portfolio:
+            avg_buy = portfolio[coin]["avg_price"]
+            amount = portfolio[coin]["amount"]
 
-            target = portfolio[each_coin]["target"]
+            target = portfolio[coin]["target"]
             current_price = 0
             profit_and_loss = current_price - avg_buy * amount
             percent_profit = current_price / avg_buy * amount * 100
@@ -1854,12 +1844,25 @@ class Portfolio(tk.Frame):
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         # search button command
-        def search(coin_name=None, search_entry=None):
+        def search():
             controller.show_canvas(Charts)
             Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
             Charts.generate_data(Collection_of_canvases[Charts])
             Charts.generate_chart(Collection_of_canvases[Charts], 365)
             search_entry.delete(0, tk.END)
+
+        # search bar
+        coin_name = tk.StringVar(canvas)
+        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
+        canvas.create_image(713.0, 26.0, image=search_img)
+        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
+        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+
+        # search bar go button
+        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
+        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
+                               command=search)
+        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -1930,6 +1933,7 @@ class Portfolio(tk.Frame):
 def main():
     """
     Launchpad method to compile, and run this module
+
     :return: runs the program
     """
     app = CryptocurrencyLedger()
@@ -1938,4 +1942,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
