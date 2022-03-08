@@ -211,6 +211,7 @@ class CryptocurrencyLedger(tk.Tk):
     def show_canvas(self, container):
         """
         Displays the current from that is passed as a parameter, and raises it to the current stack
+
         :param container: The passed in window to display next
         :return: the new canvas
         """
@@ -317,15 +318,10 @@ class Enrollment(tk.Frame):
         get_password = password.get()
         get_email = email.get()
 
-        if (get_username == "" or get_password == "" or get_email == ""):
-            error = "Please fill out every field"
-            Error(self, error)
-            return
-
         if Database.checkUsername(get_username):
-            error = "Username is taken. Please choose a different username"
-            Error(self, error)
-            return
+            error = "username is taken"
+            print(error)
+            controller.show_canvas(LoginPage)
 
         # possible check for password constraints
         Database.adduser(get_username, get_email, get_password)
@@ -429,67 +425,67 @@ class Dashboard(tk.Frame):
 
         # Top Earner #1
         self.top_earner_1_1 = self.canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_1_2 = self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_1_3 = self.canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #2
         self.top_earner_2_1 = self.canvas.create_text(865.0, 147.0, text="$", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_2_2 = self.canvas.create_text(865.0, 190.0, text="$", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_2_3 = self.canvas.create_text(920.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #3
         self.top_earner_3_1 = self.canvas.create_text(1096.0, 149.0, text="$", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_3_2 = self.canvas.create_text(1096.0, 192.0, text="$", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_3_3 = self.canvas.create_text(1149.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #4
         self.top_earner_4_1 = self.canvas.create_text(1322.0, 149.0, text="$", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_4_2 = self.canvas.create_text(1322.0, 192.0, text="$", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_4_3 = self.canvas.create_text(1373.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("SourceCodePro-Regular", int(10.0)))
+                                                      font=("Rosarivo-Regular", int(10.0)))
 
         # Closest to profit #1
         self.closest_1_1 = self.canvas.create_text(640.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
         self.closest_1_2 = self.canvas.create_text(640.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
         self.closest_1_3 = self.canvas.create_text(690.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
 
         # Closest to profit #2
         self.closest_2_1 = self.canvas.create_text(865.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
         self.closest_2_1 = self.canvas.create_text(865.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
         self.closest_2_3 = self.canvas.create_text(920.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
 
         # Closest to profit #3
         self.closest_3_1 = self.canvas.create_text(1096.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
         self.closest_3_2 = self.canvas.create_text(1096.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
         self.closest_3_3 = self.canvas.create_text(1149.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
 
         # Closest to profit #4
         self.closest_4_1 = self.canvas.create_text(1322.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
         self.closest_4_2 = self.canvas.create_text(1322.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
         self.closest_4_3 = self.canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("SourceCodePro-Regular", int(10.0)))
+                                                   font=("Rosarivo-Regular", int(10.0)))
 
         # Percent Increase Calculator
         calc = responsive_calculator.ResponsiveCalculator()
@@ -606,6 +602,7 @@ class Dashboard(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -629,6 +626,10 @@ class Dashboard(tk.Frame):
         print("successfully created")
 
     def update(self):
+        """
+        TODO - Document
+        :return:
+        """
         # Total Value Updater
         self.canvas.itemconfig(self.total_portfolio, text=('$', self.user_data.get_total_portfolio()))
 
@@ -643,7 +644,6 @@ class Dashboard(tk.Frame):
         for counter in range(len(dict_of_top_earners)):
             print("made it", counter)
             if counter == 0:
-                print("counter = 1")
                 toPrint = '$ ' + str(dict_of_top_earners[0][1][0])
                 self.canvas.itemconfig(self.top_earner_1_1, text=toPrint)
                 toPrint = '$ ' + str(dict_of_top_earners[0][1][1])
@@ -674,10 +674,11 @@ class Dashboard(tk.Frame):
 
 
 class Charts(tk.Frame):
-    """ Configures, and displays the Charts Tab """
+    """ Configures, and displays the charts page """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        self.coin_name = None
         self.coin = None
         self.data = None
         self.current_price = None
@@ -849,6 +850,7 @@ class Charts(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -859,6 +861,7 @@ class Charts(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -866,12 +869,21 @@ class Charts(tk.Frame):
             self.canvas.itemconfigure(image_obj, state=state)
 
     def search(self):
+        """
+
+        :return:
+        """
         self.coin = self.coin_name.get()
         self.generate_data()
         self.generate_chart(365)
         self.search_entry.delete(0, tk.END)
 
     def format_currency(self, num):
+        """
+
+        :param num:
+        :return:
+        """
         if num != "N/A":
             if num > 1:
                 return "${:,.2f}".format(num)
@@ -881,9 +893,18 @@ class Charts(tk.Frame):
             return num
 
     def update_coin(self, coin):
+        """
+
+        :param coin:
+        :return:
+        """
         self.coin = coin
 
     def generate_data(self):
+        """
+
+        :return:
+        """
         self.data = self.charts.charts_data(self.coin)
         for key, value in self.data.items():
             if value is None:
@@ -899,6 +920,11 @@ class Charts(tk.Frame):
         self.canvas.itemconfig(self.cs, text=self.data["circulating_supply"])
 
     def generate_chart(self, days_previous):
+        """
+
+        :param days_previous:
+        :return:
+        """
         ohlc = self.charts.candlestick(self.coin, days_previous)
         # # there is no field for price/percent change
         # start_price = ohlc["open"][0]
@@ -908,6 +934,10 @@ class Charts(tk.Frame):
         # self.canvas.itemconfig(self.percent, text=perc_text, fill=color)
 
     def close_charts(self):
+        """
+
+        :return:
+        """
         self.charts.close()
         self.canvas.itemconfig(self.mc, text="")
         self.canvas.itemconfig(self.fdv, text="")
@@ -1029,6 +1059,7 @@ class ComingSoon(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: an image object that is hidden
@@ -1039,6 +1070,7 @@ class ComingSoon(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1170,6 +1202,7 @@ class Settings(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1202,7 +1235,7 @@ class Settings(tk.Frame):
 
 class NotesTab(tk.Frame):
     """
-    Configures, and displays the Notes tab
+    Configures, and displays the notes page
     """
 
     def __init__(self, parent, controller):
@@ -1324,6 +1357,7 @@ class NotesTab(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1334,6 +1368,7 @@ class NotesTab(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1529,6 +1564,11 @@ class Portfolio(tk.Frame):
 
             # updates the listbox
             def update(data):
+                """
+
+                :param data:
+                :return:
+                """
                 # changes the size of the listbox to number of items in list
                 listbox_height = len(data)
                 if len(data) > 5:
@@ -1542,6 +1582,11 @@ class Portfolio(tk.Frame):
 
             # allows users to choose items from list
             def fill_out(event):
+                """
+
+                :param event:
+                :return:
+                """
                 coin_name_entry.delete(0, END)
                 coin_name_entry.insert(0, coin_listbox.get(ACTIVE))
                 coin_listbox.place_forget()
@@ -1549,6 +1594,10 @@ class Portfolio(tk.Frame):
 
             # displays in list appropriate items comparatively to entry
             def check():
+                """
+
+                :return:
+                """
                 # Retrieve user input
                 typed = coin_name_entry.get()
 
@@ -1562,13 +1611,17 @@ class Portfolio(tk.Frame):
                 update(data)
 
             def show_list():
+                """
+
+                :return:
+                """
                 coin_listbox.place(x=114.0, y=270, width=140.0, height=63)
                 date_purchased_entry.place_forget()  # Entry box appears in front of List box
                 check()
 
                 coin_listbox.bind("<<ListboxSelect>>", fill_out)
 
-            # coin name
+            # each_coin name
             self.coin_name_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox6.png")
             add_transactions_canvas.create_image(242.5, 249.0, image=self.coin_name_img)
             coin_name_entry = Entry(pop, textvariable=coin_name_var, bd=0, bg="#696969", highlightthickness=0)
@@ -1577,9 +1630,18 @@ class Portfolio(tk.Frame):
             """ End of Entry boxes """
 
             def buy_or_sell(buy_or_sell):
+                """
+
+                :param buy_or_sell:
+                :return:
+                """
                 self.is_Buy = buy_or_sell
 
             def submit():
+                """
+
+                :return:
+                """
                 # grabs all entry box entries
 
                 coin_name = coin_name_var.get()
@@ -1629,11 +1691,11 @@ class Portfolio(tk.Frame):
 
         ycoor = 0
         portfolio = {}
-        for coin in portfolio:
-            avg_buy = portfolio[coin]["avg_price"]
-            amount = portfolio[coin]["amount"]
+        for each_coin in portfolio:
+            avg_buy = portfolio[each_coin]["avg_price"]
+            amount = portfolio[each_coin]["amount"]
 
-            target = portfolio[coin]["target"]
+            target = portfolio[each_coin]["target"]
             current_price = 0
             profit_and_loss = current_price - avg_buy * amount
             percent_profit = current_price / avg_buy * amount * 100
@@ -1802,6 +1864,7 @@ class Portfolio(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1812,6 +1875,7 @@ class Portfolio(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
+
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1874,3 +1938,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
