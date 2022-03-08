@@ -396,6 +396,7 @@ class Database:
         closest_prices = {}
         for key in self.current_holdings:
             if key in self.targets:
+                print("im here")
                 info = self.targets[key]
                 current_price = dict_of_prices[key]
                 target_price = info[2]
@@ -409,19 +410,16 @@ class Database:
                 target_price = info[2]
                 avg_buy = self.current_holdings[key]['avg_price']
                 percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
-                list_of_values = [current_price, avg_buy, percent_change]
+                list_of_values = [current_price, target_price, percent_change]
                 closest_prices[key] = list_of_values
 
         sorted_dict = sorted(closest_prices.items(), key=lambda x: x[1][2], reverse=True)
         return sorted_dict
-                
-
-
 
 def main():
     test = Database("hinduhops")
-    dict = test.get_top_earners()
-    print(dict[1][1])
+    dict = test.get_targets()
+    print(dict[0][1])
 
 
 if __name__ == '__main__':

@@ -112,6 +112,8 @@ def notifications_clicker(self):
     coin_listbox = Listbox(notifications_canvas)
     coin_list = manual_transaction.get_list_of_coins()
 
+
+
     # updates the listbox
     def update(data):
         """
@@ -649,37 +651,67 @@ class Dashboard(tk.Frame):
         counter = 1
         dict_of_top_earners = {}
         dict_of_top_earners = self.user_data.get_top_earners()
-        if len(dict_of_top_earners) == 0:
-            return
-        for counter in range(len(dict_of_top_earners)):
-            if counter == 0:
-                toPrint = "$"  + str(dict_of_top_earners[0][1][0])
-                self.canvas.itemconfig(self.top_earner_1_1, text=toPrint)
-                toPrint = "$" + str(dict_of_top_earners[0][1][1])
-                self.canvas.itemconfig(self.top_earner_1_2, text=toPrint)
-                self.canvas.itemconfig(self.top_earner_1_3, text=dict_of_top_earners[0][1][2])
-            elif counter == 1:
-                toPrint = "$" + str(dict_of_top_earners[1][1][0])
-                self.canvas.itemconfig(self.top_earner_2_1, text=toPrint)
-                toPrint = "$" + str(dict_of_top_earners[1][1][1])
-                self.canvas.itemconfig(self.top_earner_2_2, text=toPrint)
-                self.canvas.itemconfig(self.top_earner_2_3, text=dict_of_top_earners[1][1][2])
-            elif counter == 2:
-                toPrint = "$" + str(dict_of_top_earners[2][1][0])
-                self.canvas.itemconfig(self.top_earner_3_1, text=toPrint)
-                toPrint = "$" + str(dict_of_top_earners[2][1][1])
-                self.canvas.itemconfig(self.top_earner_3_2, text=toPrint)
-                self.canvas.itemconfig(self.top_earner_3_3, text=dict_of_top_earners[2][1][2])
-            elif counter == 3:
-                toPrint = "$" + str(dict_of_top_earners[3][1][0])
-                self.canvas.itemconfig(self.top_earner_4_1, text=toPrint)
-                toPrint = "$" + str(dict_of_top_earners[3][1][1])
-                self.canvas.itemconfig(self.top_earner_4_2, text=toPrint)
-                self.canvas.itemconfig(self.top_earner_4_3, text=dict_of_top_earners[3][1][2])
-            else:
-                break
+
+        if not len(dict_of_top_earners) == 0:
+            for counter in range(len(dict_of_top_earners)):
+                if counter == 0:
+                    toPrint = "$"  + str(dict_of_top_earners[0][1][0])
+                    self.canvas.itemconfig(self.top_earner_1_1, text=toPrint)
+                    toPrint = "$" + str(dict_of_top_earners[0][1][1])
+                    self.canvas.itemconfig(self.top_earner_1_2, text=toPrint)
+                    self.canvas.itemconfig(self.top_earner_1_3, text=dict_of_top_earners[0][1][2])
+                elif counter == 1:
+                    toPrint = "$" + str(dict_of_top_earners[1][1][0])
+                    self.canvas.itemconfig(self.top_earner_2_1, text=toPrint)
+                    toPrint = "$" + str(dict_of_top_earners[1][1][1])
+                    self.canvas.itemconfig(self.top_earner_2_2, text=toPrint)
+                    self.canvas.itemconfig(self.top_earner_2_3, text=dict_of_top_earners[1][1][2])
+                elif counter == 2:
+                    toPrint = "$" + str(dict_of_top_earners[2][1][0])
+                    self.canvas.itemconfig(self.top_earner_3_1, text=toPrint)
+                    toPrint = "$" + str(dict_of_top_earners[2][1][1])
+                    self.canvas.itemconfig(self.top_earner_3_2, text=toPrint)
+                    self.canvas.itemconfig(self.top_earner_3_3, text=dict_of_top_earners[2][1][2])
+                elif counter == 3:
+                    toPrint = "$" + str(dict_of_top_earners[3][1][0])
+                    self.canvas.itemconfig(self.top_earner_4_1, text=toPrint)
+                    toPrint = "$" + str(dict_of_top_earners[3][1][1])
+                    self.canvas.itemconfig(self.top_earner_4_2, text=toPrint)
+                    self.canvas.itemconfig(self.top_earner_4_3, text=dict_of_top_earners[3][1][2])
+                else:
+                    break
 
         # Closest to Profit Goals
+
+        dict_of_closest = self.user_data.get_closest_target()
+        if not len(dict_of_closest) == 0:
+            for counter in range(len(dict_of_closest)):
+                if counter == 0:
+                    toPrint = "$"+ str(dict_of_dict[0][1][0])
+                    self.canvas.itemconfig(self.closest_1_1, text=toPrint)
+                    toPrint = "$" + str(dict_of_closest[0][1][1])
+                    self.canvas.itemconfig(self.closest_1_2, text=toPrint)
+                    self.canvas.itemconfig(self.closest_1_3, text=dict_of_closest[0][1][2])
+                elif counter == 1:
+                    toPrint = "$" + str(dict_of_closest[1][1][0])
+                    self.canvas.itemconfig(self.closest_2_1, text=toPrint)
+                    toPrint = "$" + str(dict_of_closest[1][1][1])
+                    self.canvas.itemconfig(self.closest_2_2, text=toPrint)
+                    self.canvas.itemconfig(self.closest_2_3, text=dict_of_closest[1][1][2])
+                elif counter == 2:
+                    toPrint = "$" + str(dict_of_closest[2][1][0])
+                    self.canvas.itemconfig(self.closest_3_1, text=toPrint)
+                    toPrint = "$" + str(dict_of_closest[2][1][1])
+                    self.canvas.itemconfig(self.closest_3_2, text=toPrint)
+                    self.canvas.itemconfig(self.closest_3_3, text=dict_of_closest[2][1][2])
+                elif counter == 3:
+                    toPrint = "$" + str(dict_of_closest[3][1][0])
+                    self.canvas.itemconfig(self.closest_4_1, text=toPrint)
+                    toPrint = "$" + str(dict_of_closest[3][1][1])
+                    self.canvas.itemconfig(self.closest_4_2, text=toPrint)
+                    self.canvas.itemconfig(self.closest_4_3, text=dict_of_closest[3][1][2])
+                else:
+                    break
 
 
 class Charts(tk.Frame):
