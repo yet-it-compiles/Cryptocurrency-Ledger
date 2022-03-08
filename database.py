@@ -356,11 +356,66 @@ class Database:
         return '{:.2f}'.format(total_amount)
 
     def get_top_earners(self):
+        if len(self.current_holdings) == 0:
+            return {}
+
+        list_of_coins = []
+        for key in self.current_holdings:
+            list_of_coins.append(key)
+
+        dict_of_prices = GeckoApi.get_prices(list_of_coins)
+        """
+        diction of results: 
+
+        (coin_name): [current_price, purchase_price, percent_increased]
+        """
+
+        results = {}
+        for key in self.current_holdings:
+            current_price = dict_of_prices[key]
+            avg_buy = self.current_holdings[key]['avg_price']
+            percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
+            list_of_values = [current_price, avg_buy, percent_change]
+            results[key] = list_of_values
+
+        sorted_dict = sorted(results.items(), key=lambda x: x[1][2], reverse=True)
+        return sorted_dict
+
 
     def get_closest_target(self):
         list_coins = []
-        for key in self.targets
-            if
+        for key in self.targets:
+            if key not in list_coins:
+                list_coins.append(key)
+        for key in self.new_target:
+            if key not in list_coins:
+                list_coins.append(key)
+
+        dict_of_prices = GeckoApi.get_prices(list_coins)
+
+        closest_prices = {}
+        for key in self.current_holdings:
+            if key in self.targets:
+                info = self.targets[key]
+                current_price = dict_of_prices[key]
+                target_price = info[2]
+                avg_buy = self.current_holdings[key]['avg_price']
+                percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
+                list_of_values = [current_price, avg_buy, percent_change]
+                closest_prices[key] = list_of_values
+            if key in self.new_target:
+                info = self.targets[key]
+                current_price = dict_of_prices[key]
+                target_price = info[2]
+                avg_buy = self.current_holdings[key]['avg_price']
+                percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
+                list_of_values = [current_price, avg_buy, percent_change]
+                closest_prices[key] = list_of_values
+
+        sorted_dict = sorted(closest_prices.items(), key=lambda x: x[1][2], reverse=True)
+        return sorted_dict
+                
+
 
 
 def main():
