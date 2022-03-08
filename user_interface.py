@@ -429,69 +429,6 @@ class Dashboard(tk.Frame):
 
         # Top Earner #1
         self.top_earner_1_1 = self.canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5",
-<<<<<<< Updated upstream
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_1_2 = self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_1_3 = self.canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-
-        # Top Earner #2
-        self.top_earner_2_1 = self.canvas.create_text(865.0, 147.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_2_2 = self.canvas.create_text(865.0, 190.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_2_3 = self.canvas.create_text(920.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-
-        # Top Earner #3
-        self.top_earner_3_1 = self.canvas.create_text(1096.0, 149.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_3_2 = self.canvas.create_text(1096.0, 192.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_3_3 = self.canvas.create_text(1149.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-
-        # Top Earner #4
-        self.top_earner_4_1 = self.canvas.create_text(1322.0, 149.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_4_2 = self.canvas.create_text(1322.0, 192.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_4_3 = self.canvas.create_text(1373.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-
-        # Closest to profit #1
-        self.closest_1_1 = self.canvas.create_text(640.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_1_2 = self.canvas.create_text(640.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_1_3 = self.canvas.create_text(690.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-
-        # Closest to profit #2
-        self.closest_2_1 = self.canvas.create_text(865.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_2_1 = self.canvas.create_text(865.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_2_3 = self.canvas.create_text(920.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-
-        # Closest to profit #3
-        self.closest_3_1 = self.canvas.create_text(1096.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_3_2 = self.canvas.create_text(1096.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_3_3 = self.canvas.create_text(1149.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-
-        # Closest to profit #4
-        self.closest_4_1 = self.canvas.create_text(1322.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_4_2 = self.canvas.create_text(1322.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_4_3 = self.canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-=======
                                                       font=("SourceCodePro-Regular", int(10.0)))
         self.top_earner_1_2 = self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5",
                                                       font=("SourceCodePro-Regular", int(10.0)))
@@ -553,7 +490,6 @@ class Dashboard(tk.Frame):
                                                    font=("SourceCodePro-Regular", int(10.0)))
         self.closest_4_3 = self.canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff",
                                                    font=("SourceCodePro-Regular", int(10.0)))
->>>>>>> Stashed changes
 
         # Percent Increase Calculator
         calc = responsive_calculator.ResponsiveCalculator()
