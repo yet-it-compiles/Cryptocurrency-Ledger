@@ -687,7 +687,7 @@ class Dashboard(tk.Frame):
         if not len(dict_of_closest) == 0:
             for counter in range(len(dict_of_closest)):
                 if counter == 0:
-                    toPrint = "$"+ str(dict_of_dict[0][1][0])
+                    toPrint = "$"+ str(dict_of_closest[0][1][0])
                     self.canvas.itemconfig(self.closest_1_1, text=toPrint)
                     toPrint = "$" + str(dict_of_closest[0][1][1])
                     self.canvas.itemconfig(self.closest_1_2, text=toPrint)

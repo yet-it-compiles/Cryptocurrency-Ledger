@@ -21,6 +21,7 @@ class Database:
         # methods to populate storage
         self.pull_transactions()
         self.get_current()
+        self.get_targets()
 
     @staticmethod
     def database_connection():
@@ -279,6 +280,7 @@ class Database:
             alert_name = row[5]
             """
             for row in result:
+                print(row)
                 alert_info = [row[2], row[3], row[4], row[5]]
                 self.targets[row[1]] = alert_info
         except(Exception, psycopg2.Error) as error:
@@ -419,7 +421,7 @@ class Database:
 def main():
     test = Database("hinduhops")
     dict = test.get_targets()
-    print(dict[0][1])
+    print(dict)
 
 
 if __name__ == '__main__':
