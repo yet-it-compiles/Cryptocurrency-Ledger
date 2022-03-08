@@ -151,13 +151,13 @@ class ResponsiveCalculator(tk.Tk):
 
     def get_color(self):
         try:
-            if float(self.percent_difference.get()) < 0.0:
-                return 'red'
-            else:
+            if float(self.percent_difference.get()) > 0.0:
                 return 'green'
+            else:
+                return 'red'
         except Exception as ex:
             print(ex)
-            return 'green'
+            return 'red'
 
     def update_labels(self, initial, final, percent, raw):
         self.initial_price_answer.set(str("{:.2f}".format(initial)))
