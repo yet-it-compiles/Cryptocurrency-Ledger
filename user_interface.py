@@ -596,7 +596,7 @@ class Dashboard(tk.Frame):
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         # search button command
-        def search():
+        def search(event):
             controller.show_canvas(Charts)
             Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
             Charts.generate_data(Collection_of_canvases[Charts])
@@ -605,16 +605,13 @@ class Dashboard(tk.Frame):
 
         # search bar
         coin_name = tk.StringVar(self.canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        self.canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(self.canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
+        search_entry = tk.Entry(self.canvas, textvariable=coin_name, bd=0, bg="#2e3a4b", fg="white", highlightthickness=0)
+        search_entry.place(x=540.0, y=21.0, width=215.0, height=30)
 
         # search bar go button
         self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=search)
-        search_btn.place(x=812, y=17, width=20, height=21)
+        self.search_button = self.canvas.create_image(768, 37, image=self.search_btn_img)
+        self.canvas.tag_bind(self.search_button, "<Button-1>", search)
 
         def flash_hidden(image_obj):
             """
@@ -853,16 +850,15 @@ class Charts(tk.Frame):
 
         # search bar
         self.coin_name = tk.StringVar(self.canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        self.canvas.create_image(713.0, 26.0, image=search_img)
-        self.search_entry = tk.Entry(self.canvas, textvariable=self.coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        self.search_entry.place(x=592.0, y=10, width=242.0, height=30)
+        self.search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
+        self.canvas.create_image(713.0, 26.0, image=self.search_img)
+        self.search_entry = tk.Entry(self.canvas, textvariable=self.coin_name, bd=0, bg="#808288", highlightthickness=0)
+        self.search_entry.place(x=592.0, y=8.0, width=215.0, height=30.0)
 
         # search bar go button
         self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=self.search)
-        search_btn.place(x=812, y=17, width=20, height=21)
+        self.search_button = self.canvas.create_image(828.0, 22.0, image=self.search_btn_img)
+        self.canvas.tag_bind(self.search_button, "<Button-1>", self.search)
 
         def flash_hidden(image_obj):
             """
@@ -885,7 +881,7 @@ class Charts(tk.Frame):
             """
             self.canvas.itemconfigure(image_obj, state=state)
 
-    def search(self):
+    def search(self, event):
         self.coin = self.coin_name.get()
         self.generate_data()
         self.generate_chart(365)
@@ -1037,27 +1033,6 @@ class ComingSoon(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        # search button command
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_button = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                                  command=search)
-        search_button.place(x=812, y=17, width=20, height=21)
-
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
@@ -1183,26 +1158,6 @@ class Settings(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=search)
-        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -1348,27 +1303,6 @@ class NotesTab(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        # search button command
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=search)
-        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -1846,27 +1780,6 @@ class Portfolio(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        # search button command
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=search)
-        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
