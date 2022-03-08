@@ -398,7 +398,7 @@ class Database:
         closest_prices = {}
         for key in self.current_holdings:
             if key in self.targets:
-                print("im here")
+
                 info = self.targets[key]
                 current_price = dict_of_prices[key]
                 target_price = info[2]

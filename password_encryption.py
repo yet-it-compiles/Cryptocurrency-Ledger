@@ -52,9 +52,6 @@ class PasswordEncryption:
         """
         #encrypted = PasswordEncryption.encrypt(password)
         stored = Database.get_pass(username)
-
-
-        print(f"From Database: {stored[0]} and from user {password}")
         db = stored[0]
         if db == password:
             return True
