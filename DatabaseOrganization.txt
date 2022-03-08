@@ -9,5 +9,5 @@ transaction id, username, coin_name, buy_trade, price, amount, target, fee, time
 currentHoldings: 
 username, coin_name, avg_price, amount, target
 
-target
-coin_name, coinditions, frequency, price, alert_name
+targets
+username, coin_name, conditions, frequency, price, alert_name
