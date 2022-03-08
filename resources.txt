@@ -1,4 +1,5 @@
-This is a list of all the different programs needed to run this project on a
+This is a list of all the different libraries needed to run this project
+
 psycopg2
 requests
 Pillow
@@ -6,3 +7,5 @@ pandas
 cryptography
 python-dotenv
 --upgrade mplfinance
+tkcalendar
+tktimepicker
