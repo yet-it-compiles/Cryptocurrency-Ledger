@@ -491,26 +491,25 @@ class Dashboard(tk.Frame):
         calc = responsive_calculator.ResponsiveCalculator()
         initial_price, final_price, percent_difference, raw_difference = calc.return_labels()
 
-        initial_entry = tk.Entry(self, textvariable=initial_price, font=("Rosarivo-Regular", int(10)), width=15, bd=0,
-                                 bg='#d3d3d3')
-        final_entry = tk.Entry(self, textvariable=final_price, font=("Rosarivo-Regular", int(10)), width=15, bd=0,
-                               bg='#d3d3d3')
-        percent_entry = tk.Entry(self, textvariable=percent_difference, font=("Rosarivo-Regular", int(10)), width=15,
-                                 bd=0, bg='#d3d3d3')
-        raw_entry = tk.Entry(self, textvariable=raw_difference, font=("Rosarivo-Regular", int(10)), width=15, bd=0,
-                             bg='#d3d3d3')
+        initial_entry = tk.Entry(self, textvariable=initial_price,  font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
+        final_entry = tk.Entry(self,textvariable=final_price, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
+        percent_entry = tk.Entry(self, textvariable=percent_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
+        raw_entry = tk.Entry(self, textvariable=raw_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
+         
+        clear_button = Button(self, text= "clear", borderwidth=0, highlightthickness=0, command=lambda: 
+        [initial_entry.delete(0, END), final_entry.delete(0, END), percent_entry.delete(0, END), raw_entry.delete(0, END)])
+        clear_button.place(x=1075, y= 600, height=20, width=55)
 
-        calculate_button = Button(self, text="clear", borderwidth=0, highlightthickness=0,
-                                  command=lambda: [initial_entry.delete(0, END), final_entry.delete(0, END),
-                                                   percent_entry.delete(0, END),
-                                                   raw_entry.delete(0, END)])
-        calculate_button.place(x=1085, y=600, height=20, width=50)
-
-        self.canvas.create_window(985, 460, window=initial_entry)
-        self.canvas.create_window(985, 502, window=final_entry)
-        self.canvas.create_window(985, 547, window=percent_entry)
-        self.canvas.create_window(985, 595, window=raw_entry)
-
+        calculate_button = Button(self, text="Calculate", borderwidth=0, highlightthickness=0, command= lambda:
+        [initial_price.set(calc.initial_price_answer.get()), final_price.set(calc.final_price_answer.get()), 
+        percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get())])
+        calculate_button.place(x=1075, y=575, height=20, width=55)
+        
+        window = canvas.create_window(985, 460, window = initial_entry)
+        window = canvas.create_window(985, 502, window = final_entry)
+        window = canvas.create_window(985, 547, window = percent_entry)
+        window = canvas.create_window(985, 595, window = raw_entry)
+        
         initial_price.trace('w', calc.calculate_initial_price)
         final_price.trace('w', calc.calculate_final_price)
         percent_difference.trace('w', calc.calculate_percent_difference)
