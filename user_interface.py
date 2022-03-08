@@ -425,7 +425,7 @@ class Dashboard(tk.Frame):
 
         # Top Earner #1
         self.canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
-        self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regularr", int(10.0)))
+        self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
         self.canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
 
         # Top Earner #2
@@ -620,7 +620,7 @@ class Dashboard(tk.Frame):
 
 
 class Charts(tk.Frame):
-    """ Configures, and displays the Charts Tab """
+    """ Configures, and displays the charts tab """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -853,7 +853,7 @@ class Charts(tk.Frame):
         # perc_change = 100 * (self.current_price - start_price) / start_price
         # color = "green" if perc_change > 0 else "red"
         # perc_text = "(" + "{:.2f}".format(perc_change) + "%)"
-        # self.canvas.itemconfig(self.percent, text=perc_text, fill=color)
+        # self.canvas.item config(self.percent, text=perc_text, fill=color)
 
     def close_charts(self):
         self.charts.close()
@@ -1539,7 +1539,7 @@ class Portfolio(tk.Frame):
             buy_button = add_transactions_canvas.create_image(83, 125, anchor='nw', image=self.buy_button_image)
             add_transactions_canvas.tag_bind(buy_button, "<ButtonRelease-1>", lambda event: buy_or_sell(True))
 
-        # creates and opens up a log out pop up
+        # creates and opens up a log-out pop up
         logout_image_path = "Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         log_out_button = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
@@ -1547,11 +1547,11 @@ class Portfolio(tk.Frame):
 
         ycoor = 0
         portfolio = {}
-        for coin in portfolio:
-            avg_buy = portfolio[coin]["avg_price"]
-            amount = portfolio[coin]["amount"]
+        for each_coin in portfolio:
+            avg_buy = portfolio[each_coin]["avg_price"]
+            amount = portfolio[each_coin]["amount"]
 
-            target = portfolio[coin]["target"]
+            target = portfolio[each_coin]["target"]
             current_price = 0
             profit_and_loss = current_price - avg_buy * amount
             percent_profit = current_price / avg_buy * amount * 100
