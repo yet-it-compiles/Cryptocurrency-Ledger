@@ -549,6 +549,12 @@ class Dashboard(tk.Frame):
 
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
+        # Search bar
+        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
+        self.canvas.create_image(657.0, 34.5, image=self.search_bar_image)
+        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
+        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
+
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
@@ -959,12 +965,6 @@ class ComingSoon(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        # Search bar
-        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
-        canvas.create_image(657.0, 34.5, image=self.search_bar_image)
-        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
-        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
-
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
@@ -1090,12 +1090,6 @@ class Settings(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        # Search bar
-        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
-        canvas.create_image(657.0, 34.5, image=self.search_bar_image)
-        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
-        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
 
         def flash_hidden(image_obj):
             """
@@ -1241,27 +1235,6 @@ class NotesTab(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        # search button command
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=search)
-        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -1735,12 +1708,6 @@ class Portfolio(tk.Frame):
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        # Search bar
-        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
-        canvas.create_image(657.0, 34.5, image=self.search_bar_image)
-        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
-        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
 
         def flash_hidden(image_obj):
             """
