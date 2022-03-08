@@ -25,7 +25,7 @@ def logout_button_display(self, controller):
     def destroy_logout():
         pop.destroy()
 
-    # creates and adds functionality for the Yes button in the log out pop up
+    # creates and adds functionality for the Yes button in the log-out pop up
     self.logout_yes_img = PhotoImage(file="Collection of all UI Graphics\logout_yes.png")
     logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
     logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
@@ -229,7 +229,7 @@ class LoginPage(tk.Frame):
     Configures, and displays the login page
     """
 
-    def sign_in(self, controller,  usernameEntry, passwordEntry):
+    def sign_in(self, controller, usernameEntry, passwordEntry):
         username = usernameEntry.get()
         password = passwordEntry.get()
         if username == "" or password == "":
@@ -276,7 +276,7 @@ class LoginPage(tk.Frame):
         # Logic to populate the window
         self.sign_in_button = PhotoImage(file=f"Collection of all UI Graphics/sign_in_button.png")
         sign_in_button_location = Button(self, image=self.sign_in_button, borderwidth=0, highlightthickness=0,
-                                         command=lambda: self.sign_in(self.controller,username, password),
+                                         command=lambda: self.sign_in(self.controller, username, password),
                                          relief="flat",
                                          activebackground="#343333")
         sign_in_button_location.place(x=659, y=417, width=159, height=53)
@@ -424,96 +424,52 @@ class Dashboard(tk.Frame):
                                                     font=("Rosarivo-Regular", int(10.0)))
 
         # Top Earner #1
-        self.top_earner_1_1 = self.canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_1_2 = self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_1_3 = self.canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
+        self.canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regularr", int(10.0)))
+        self.canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
 
         # Top Earner #2
-        self.top_earner_2_1 = self.canvas.create_text(865.0, 147.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_2_2 = self.canvas.create_text(865.0, 190.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_2_3 = self.canvas.create_text(920.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
+        self.canvas.create_text(865.0, 147.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(865.0, 190.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(920.0, 214.0, text="%", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
 
         # Top Earner #3
-        self.top_earner_3_1 = self.canvas.create_text(1096.0, 149.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_3_2 = self.canvas.create_text(1096.0, 192.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_3_3 = self.canvas.create_text(1149.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
+        self.canvas.create_text(1096.0, 149.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(1096.0, 192.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(1149.0, 214.0, text="%", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
 
         # Top Earner #4
-        self.top_earner_4_1 = self.canvas.create_text(1322.0, 149.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_4_2 = self.canvas.create_text(1322.0, 192.0, text="$", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
-        self.top_earner_4_3 = self.canvas.create_text(1373.0, 214.0, text="%", fill="#e5e5e5",
-                                                      font=("Rosarivo-Regular", int(10.0)))
+        self.canvas.create_text(1322.0, 149.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(1322.0, 192.0, text="$", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(1373.0, 214.0, text="%", fill="#e5e5e5", font=("SourceCodePro-Regular", int(10.0)))
 
         # Closest to profit #1
-        self.closest_1_1 = self.canvas.create_text(640.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_1_2 = self.canvas.create_text(640.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_1_3 = self.canvas.create_text(690.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
+        self.canvas.create_text(640.0, 295.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(640.0, 338.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(690.0, 356.0, text="%", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
 
         # Closest to profit #2
-        self.closest_2_1 = self.canvas.create_text(865.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_2_1 = self.canvas.create_text(865.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_2_3 = self.canvas.create_text(920.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
+        self.canvas.create_text(865.0, 295.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(865.0, 338.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(920.0, 356.0, text="%", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
 
         # Closest to profit #3
-        self.closest_3_1 = self.canvas.create_text(1096.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_3_2 = self.canvas.create_text(1096.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_3_3 = self.canvas.create_text(1149.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
+        self.canvas.create_text(1096.0, 295.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(1096.0, 338.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(1149.0, 356.0, text="%", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
 
         # Closest to profit #4
-        self.closest_4_1 = self.canvas.create_text(1322.0, 295.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_4_2 = self.canvas.create_text(1322.0, 338.0, text="$", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
-        self.closest_4_3 = self.canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff",
-                                                   font=("Rosarivo-Regular", int(10.0)))
+        self.canvas.create_text(1322.0, 295.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(1322.0, 338.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
 
         # Percent Increase Calculator
-        calc = responsive_calculator.ResponsiveCalculator()
-        initial_price, final_price, percent_difference, raw_difference = calc.return_labels()
-
-        initial_entry = tk.Entry(self, textvariable=initial_price,  font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-        final_entry = tk.Entry(self,textvariable=final_price, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-        percent_entry = tk.Entry(self, textvariable=percent_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-        raw_entry = tk.Entry(self, textvariable=raw_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-         
-        clear_button = Button(self, text= "clear", borderwidth=0, highlightthickness=0, command=lambda: 
-        [initial_entry.delete(0, END), final_entry.delete(0, END), percent_entry.delete(0, END), raw_entry.delete(0, END)])
-        clear_button.place(x=1075, y= 600, height=20, width=55)
-
-        calculate_button = Button(self, text="Calculate", borderwidth=0, highlightthickness=0, command= lambda:
-        [initial_price.set(calc.initial_price_answer.get()), final_price.set(calc.final_price_answer.get()), 
-        percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get())])
-        calculate_button.place(x=1075, y=575, height=20, width=55)
-        
-        window = canvas.create_window(985, 460, window = initial_entry)
-        window = canvas.create_window(985, 502, window = final_entry)
-        window = canvas.create_window(985, 547, window = percent_entry)
-        window = canvas.create_window(985, 595, window = raw_entry)
-        
-        initial_price.trace('w', calc.calculate_initial_price)
-        final_price.trace('w', calc.calculate_final_price)
-        percent_difference.trace('w', calc.calculate_percent_difference)
-        raw_difference.trace('w', calc.calculate_raw_difference)
+        self.canvas.create_text(968.0, 460.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(968.0, 503.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(968.0, 546.0, text="%", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(968.0, 595.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(10.0)))
+        self.canvas.create_text(975.0, 620.0, text="$0.00 is a 0% increase from $0.00", fill="#ffffff",
+                                font=("Rosarivo-Regular", int(10.0)))
 
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "Collection of all UI Graphics/dashboard_dashboard.png"
@@ -592,27 +548,6 @@ class Dashboard(tk.Frame):
                              lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
-        # search button command
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(self.canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        self.canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(self.canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=search)
-        search_btn.place(x=812, y=17, width=20, height=21)
 
         def flash_hidden(image_obj):
             """
@@ -845,18 +780,11 @@ class Charts(tk.Frame):
         b4 = Button(self, image=self.img4, borderwidth=0, highlightthickness=0, relief="flat")
         b4.place(x=618, y=369, width=26, height=16)
 
-        # search bar
-        self.coin_name = tk.StringVar(self.canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        self.canvas.create_image(713.0, 26.0, image=search_img)
-        self.search_entry = tk.Entry(self.canvas, textvariable=self.coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        self.search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=self.search)
-        search_btn.place(x=812, y=17, width=20, height=21)
+        # Search bar
+        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
+        self.canvas.create_image(657.0, 34.5, image=self.search_bar_image)
+        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
+        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
 
         def flash_hidden(image_obj):
             """
@@ -1031,26 +959,11 @@ class ComingSoon(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        # search button command
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_button = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                                  command=search)
-        search_button.place(x=812, y=17, width=20, height=21)
+        # Search bar
+        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
+        canvas.create_image(657.0, 34.5, image=self.search_bar_image)
+        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
+        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
 
         def flash_hidden(image_obj):
             """
@@ -1178,25 +1091,11 @@ class Settings(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=search)
-        search_btn.place(x=812, y=17, width=20, height=21)
+        # Search bar
+        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
+        canvas.create_image(657.0, 34.5, image=self.search_bar_image)
+        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
+        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
 
         def flash_hidden(image_obj):
             """
@@ -1837,26 +1736,11 @@ class Portfolio(tk.Frame):
 
         canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
-        # search button command
-        def search():
-            controller.show_canvas(Charts)
-            Charts.update_coin(Collection_of_canvases[Charts], coin_name.get())
-            Charts.generate_data(Collection_of_canvases[Charts])
-            Charts.generate_chart(Collection_of_canvases[Charts], 365)
-            search_entry.delete(0, tk.END)
-
-        # search bar
-        coin_name = tk.StringVar(canvas)
-        search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
-        canvas.create_image(713.0, 26.0, image=search_img)
-        search_entry = tk.Entry(canvas, textvariable=coin_name, bd=0, bg="#41597c", highlightthickness=0)
-        search_entry.place(x=592.0, y=10, width=242.0, height=30)
-
-        # search bar go button
-        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
-        search_btn = tk.Button(self, image=self.search_btn_img, borderwidth=0, highlightthickness=0, relief="flat",
-                               command=search)
-        search_btn.place(x=812, y=17, width=20, height=21)
+        # Search bar
+        self.search_bar_image = PhotoImage(file=f"Collection of all UI Graphics/search_bar.png")
+        canvas.create_image(657.0, 34.5, image=self.search_bar_image)
+        search_bar_textbox = Entry(self, bd=0, bg="#3a495f", highlightthickness=0)
+        search_bar_textbox.place(x=536.0, y=19, width=242.0, height=29)
 
         def flash_hidden(image_obj):
             """
