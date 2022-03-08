@@ -644,20 +644,28 @@ class Dashboard(tk.Frame):
             print("made it", counter)
             if counter == 0:
                 print("counter = 1")
-                self.canvas.itemconfig(self.top_earner_1_1, text=('$', dict_of_top_earners[0][1][0]))
-                self.canvas.itemconfig(self.top_earner_1_2, text=("$", dict_of_top_earners[0][1][1]))
+                toPrint = '$ ' + str(dict_of_top_earners[0][1][0])
+                self.canvas.itemconfig(self.top_earner_1_1, text=toPrint)
+                toPrint = '$ ' + str(dict_of_top_earners[0][1][1])
+                self.canvas.itemconfig(self.top_earner_1_2, text=toPrint)
                 self.canvas.itemconfig(self.top_earner_1_3, text=( dict_of_top_earners[0][1][2], '%'))
             elif counter == 1:
-                self.canvas.itemconfig(self.top_earner_2_1, text=('$', dict_of_top_earners[1][1][0]))
-                self.canvas.itemconfig(self.top_earner_2_2, text=('$', dict_of_top_earners[1][1][1]))
+                toPrint = '$ ' + str(dict_of_top_earners[1][1][0])
+                self.canvas.itemconfig(self.top_earner_2_1, text=toPrint)
+                toPrint = '$ ' + str(dict_of_top_earners[1][1][1])
+                self.canvas.itemconfig(self.top_earner_2_2, text=toPrint)
                 self.canvas.itemconfig(self.top_earner_2_3, text=( dict_of_top_earners[1][1][2], '%'))
             elif counter == 2:
-                self.canvas.itemconfig(self.top_earner_3_1, text=('$', dict_of_top_earners[2][1][0]))
-                self.canvas.itemconfig(self.top_earner_3_2, text=('$', dict_of_top_earners[2][1][1]))
+                toPrint = '$ ' + str(dict_of_top_earners[2][1][0])
+                self.canvas.itemconfig(self.top_earner_3_1, text=toPrint)
+                toPrint = '$ ' + str(dict_of_top_earners[2][1][1])
+                self.canvas.itemconfig(self.top_earner_3_2, text=toPrint)
                 self.canvas.itemconfig(self.top_earner_3_3, text=( dict_of_top_earners[2][1][2], '%'))
             elif counter == 3:
-                self.canvas.itemconfig(self.top_earner_4_1, text=('$', dict_of_top_earners[3][1][0]))
-                self.canvas.itemconfig(self.top_earner_4_2, text=('$', dict_of_top_earners[3][1][1]))
+                toPrint = '$ ' + str(dict_of_top_earners[3][1][0])
+                self.canvas.itemconfig(self.top_earner_4_1, text=toPrint)
+                toPrint = '$ ' + str(dict_of_top_earners[3][1][1])
+                self.canvas.itemconfig(self.top_earner_4_2, text=toPrint)
                 self.canvas.itemconfig(self.top_earner_4_3, text=( dict_of_top_earners[3][1][2], '%'))
             else:
                 break
