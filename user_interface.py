@@ -317,10 +317,15 @@ class Enrollment(tk.Frame):
         get_password = password.get()
         get_email = email.get()
 
+        if (get_username == "" or get_password == "" or get_email == ""):
+            error = "Please fill out every field"
+            Error(self, error)
+            return
+
         if Database.checkUsername(get_username):
-            error = "username is taken"
-            print(error)
-            controller.show_canvas(LoginPage)
+            error = "Username is taken. Please choose a different username"
+            Error(self, error)
+            return
 
         # possible check for password constraints
         Database.adduser(get_username, get_email, get_password)
@@ -424,6 +429,7 @@ class Dashboard(tk.Frame):
 
         # Top Earner #1
         self.top_earner_1_1 = self.canvas.create_text(640.0, 147.0, text="$", fill="#e5e5e5",
+<<<<<<< Updated upstream
                                                       font=("Rosarivo-Regular", int(10.0)))
         self.top_earner_1_2 = self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5",
                                                       font=("Rosarivo-Regular", int(10.0)))
@@ -485,6 +491,69 @@ class Dashboard(tk.Frame):
                                                    font=("Rosarivo-Regular", int(10.0)))
         self.closest_4_3 = self.canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff",
                                                    font=("Rosarivo-Regular", int(10.0)))
+=======
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+        self.top_earner_1_2 = self.canvas.create_text(640.0, 190.0, text="$", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+        self.top_earner_1_3 = self.canvas.create_text(690.0, 214.0, text="%", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+
+        # Top Earner #2
+        self.top_earner_2_1 = self.canvas.create_text(865.0, 147.0, text="$", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+        self.top_earner_2_2 = self.canvas.create_text(865.0, 190.0, text="$", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+        self.top_earner_2_3 = self.canvas.create_text(920.0, 214.0, text="%", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+
+        # Top Earner #3
+        self.top_earner_3_1 = self.canvas.create_text(1096.0, 149.0, text="$", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+        self.top_earner_3_2 = self.canvas.create_text(1096.0, 192.0, text="$", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+        self.top_earner_3_3 = self.canvas.create_text(1149.0, 214.0, text="%", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+
+        # Top Earner #4
+        self.top_earner_4_1 = self.canvas.create_text(1322.0, 149.0, text="$", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+        self.top_earner_4_2 = self.canvas.create_text(1322.0, 192.0, text="$", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+        self.top_earner_4_3 = self.canvas.create_text(1373.0, 214.0, text="%", fill="#e5e5e5",
+                                                      font=("SourceCodePro-Regular", int(10.0)))
+
+        # Closest to profit #1
+        self.closest_1_1 = self.canvas.create_text(640.0, 295.0, text="$", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+        self.closest_1_2 = self.canvas.create_text(640.0, 338.0, text="$", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+        self.closest_1_3 = self.canvas.create_text(690.0, 356.0, text="%", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+
+        # Closest to profit #2
+        self.closest_2_1 = self.canvas.create_text(865.0, 295.0, text="$", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+        self.closest_2_1 = self.canvas.create_text(865.0, 338.0, text="$", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+        self.closest_2_3 = self.canvas.create_text(920.0, 356.0, text="%", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+
+        # Closest to profit #3
+        self.closest_3_1 = self.canvas.create_text(1096.0, 295.0, text="$", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+        self.closest_3_2 = self.canvas.create_text(1096.0, 338.0, text="$", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+        self.closest_3_3 = self.canvas.create_text(1149.0, 356.0, text="%", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+
+        # Closest to profit #4
+        self.closest_4_1 = self.canvas.create_text(1322.0, 295.0, text="$", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+        self.closest_4_2 = self.canvas.create_text(1322.0, 338.0, text="$", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+        self.closest_4_3 = self.canvas.create_text(1373.0, 356.0, text="%", fill="#ffffff",
+                                                   font=("SourceCodePro-Regular", int(10.0)))
+>>>>>>> Stashed changes
 
         # Percent Increase Calculator
         calc = responsive_calculator.ResponsiveCalculator()
@@ -639,21 +708,21 @@ class Dashboard(tk.Frame):
             print("made it", counter)
             if counter == 0:
                 print("counter = 1")
-                self.canvas.itemconfig(self.top_earner_1_1, text=dict_of_top_earners[0][1][0])
-                self.canvas.itemconfig(self.top_earner_1_2, text=dict_of_top_earners[0][1][1])
-                self.canvas.itemconfig(self.top_earner_1_3, text=dict_of_top_earners[0][1][2])
+                self.canvas.itemconfig(self.top_earner_1_1, text=('$', dict_of_top_earners[0][1][0]))
+                self.canvas.itemconfig(self.top_earner_1_2, text=("$", dict_of_top_earners[0][1][1]))
+                self.canvas.itemconfig(self.top_earner_1_3, text=( dict_of_top_earners[0][1][2], '%'))
             elif counter == 1:
-                self.canvas.itemconfig(self.top_earner_2_1, text=dict_of_top_earners[1][1][0])
-                self.canvas.itemconfig(self.top_earner_2_2, text=dict_of_top_earners[1][1][1])
-                self.canvas.itemconfig(self.top_earner_2_3, text=dict_of_top_earners[1][1][2])
+                self.canvas.itemconfig(self.top_earner_2_1, text=('$', dict_of_top_earners[1][1][0]))
+                self.canvas.itemconfig(self.top_earner_2_2, text=('$', dict_of_top_earners[1][1][1]))
+                self.canvas.itemconfig(self.top_earner_2_3, text=( dict_of_top_earners[1][1][2], '%'))
             elif counter == 2:
-                self.canvas.itemconfig(self.top_earner_3_1, text=dict_of_top_earners[2][1][0])
-                self.canvas.itemconfig(self.top_earner_3_2, text=dict_of_top_earners[2][1][1])
-                self.canvas.itemconfig(self.top_earner_3_3, text=dict_of_top_earners[2][1][2])
+                self.canvas.itemconfig(self.top_earner_3_1, text=('$', dict_of_top_earners[2][1][0]))
+                self.canvas.itemconfig(self.top_earner_3_2, text=('$', dict_of_top_earners[2][1][1]))
+                self.canvas.itemconfig(self.top_earner_3_3, text=( dict_of_top_earners[2][1][2], '%'))
             elif counter == 3:
-                self.canvas.itemconfig(self.top_earner_4_1, text=dict_of_top_earners[3][1][0])
-                self.canvas.itemconfig(self.top_earner_4_2, text=dict_of_top_earners[3][1][1])
-                self.canvas.itemconfig(self.top_earner_4_3, text=dict_of_top_earners[3][1][2])
+                self.canvas.itemconfig(self.top_earner_4_1, text=('$', dict_of_top_earners[3][1][0]))
+                self.canvas.itemconfig(self.top_earner_4_2, text=('$', dict_of_top_earners[3][1][1]))
+                self.canvas.itemconfig(self.top_earner_4_3, text=( dict_of_top_earners[3][1][2], '%'))
             else:
                 break
 

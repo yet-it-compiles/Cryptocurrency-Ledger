@@ -30,10 +30,6 @@ class Database:
         """
         Adds the user for the first time
         """
-        if Database.checkUsername(users_username):
-            "username is taken"
-            return
-
         is_connected = Database.database_connection()
         try:
 
