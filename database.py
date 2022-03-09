@@ -1,7 +1,7 @@
 """ TODO - Document """
 import psycopg2
 from manual_transaction import *
-from weighted_calculator import update_average
+
 
 
 class Database:
@@ -263,6 +263,20 @@ class Database:
                 cursor.close()
                 is_connected.close()
 
+    def update_average(self, curr_avg, curr_amt, new_purchase, new_amt):
+        """
+        this method updates the new average price considering the price of the coin
+        at the time it was bought
+        param curr_avg: float
+        param curr_amt: float
+        param new_purchase: float
+        new_amt: float
+
+        rtype: float
+        """
+
+        return float("{0:.2f}".format((curr_avg + new_purchase) / (curr_amt + new_amt)))
+
     def get_targets(self):
         is_connected = Database.database_connection()
 
@@ -332,7 +346,7 @@ class Database:
             current_avg = self.current_holdings[coin_name]["avg_price"]
             current_amt = self.current_holdings[coin_name]["amount"]
 
-            new_avg = update_average(current_avg, current_amt, new_purchase, new_amt)
+            new_avg = self.update_average(current_avg, current_amt, new_purchase, new_amt)
 
             if transaction.is_buy:
                 current_amt += new_amt
@@ -425,7 +439,7 @@ class Database:
         old_price = 0
         for trans in self.all_transactions:
             if trans.crypto_name == coin_name and not trans.is_buy:
-                old_price = update_average(old_price, old_amount, trans.current_price, trans.num_coins_trading)
+                old_price = self.update_average(old_price, old_amount, trans.current_price, trans.num_coins_trading)
                 old_amount += trans.num_coins_trading
 
         return old_amount
@@ -433,7 +447,7 @@ class Database:
     def build_portfolio(self):
         """
         The portfolio class needs:
-        coin_name, current_price, holdings, avg_price, avg_sell, Pnl%, Pnl$
+        coin_name, current_price, holdings$, holdings%, avg_price, avg_sell, Pnl%, Pnl$
         """
 
         curr_prices = GeckoApi.get_prices(list(self.current_holdings.keys()))
@@ -441,11 +455,12 @@ class Database:
         for key in curr_prices:
             current_price = curr_prices[key]
             holdings = self.current_holdings[key]['amount']
+            holdings_cash = holdings * current_price
             avg_buy = self.current_holdings[key]['avg_price']
             avg_sell = self.avg_sell(key)
-            profit = (current_price- avg_buy) * holdings
+            profit = '{:.2f}'.format((current_price- avg_buy) * holdings)
             percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
-            list_of_items = [current_price, holdings, avg_buy, avg_sell, profit, percent_change]
+            list_of_items = [key.title(), current_price, holdings_cash, holdings, avg_buy, avg_sell, profit, percent_change]
             result.append(list_of_items)
 
         return result
@@ -454,9 +469,10 @@ class Database:
 
 def main():
     test = Database("hinduhops")
-    mt = ManualTransaction(0,"ethereum", True, 2500, 2, 0, "3/9/2022 04:12" )
+    mt = ManualTransaction(0,"dogecoin", True, .12, 2000, 0, "3/9/2022 04:12" )
     test.add_transaction(mt)
-    print(test.all_transactions)
+
+    print(test.current_holdings)
 
 if __name__ == '__main__':
     main()

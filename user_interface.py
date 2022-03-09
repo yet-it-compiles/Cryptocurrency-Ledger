@@ -1484,11 +1484,11 @@ class Portfolio(tk.Frame):
 
         flash_delay = 100  # in milliseconds.
 
-        canvas = Canvas(self, bg="#ffffff", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
-        canvas.place(x=0, y=0)
+        self.canvas = Canvas(self, bg="#ffffff", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvas.place(x=0, y=0)
 
         self.background_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_background.png")
-        canvas.create_image(720.0, 512.0, image=self.background_img)
+        self.canvas.create_image(720.0, 512.0, image=self.background_img)
 
         def AddTransactionClicker():
             """
@@ -1647,8 +1647,9 @@ class Portfolio(tk.Frame):
                     except Exception as error:
                         Error(self, "Input a float")
 
-                    mt = ManualTransaction(0, coin_name, self.is_Buy, price_purchased, amount_purchased,
+                    mt = ManualTransaction(0, coin_name.lower(), self.is_Buy, price_purchased, amount_purchased,
                                            purchase_fee, time_purchased)
+                    print(amount_purchased)
                     Collection_of_canvases[Dashboard].user_data.add_transaction(mt)
                     pop.destroy()
 
@@ -1676,171 +1677,88 @@ class Portfolio(tk.Frame):
         # creates and opens up a log out pop up
         logout_image_path = "Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
-        log_out_button = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
-        canvas.tag_bind(log_out_button, "<ButtonRelease-1>", lambda event: logout_button_display(self, self.controller))
+        log_out_button = self.canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
+        self.canvas.tag_bind(log_out_button, "<ButtonRelease-1>", lambda event: logout_button_display(self, self.controller))
 
 
-        x = 397
 
-        canvas.create_text(5525, 387, text="First", fill="#ffffff",
-                           font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(725, 360, text="second", fill="#ffffff",
-                           font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1250.0, 360, text="third", fill="#ffffff",
-                           font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1250.0, 400, text="fourth", fill="#ffffff",
-                           font=("RopaSans-Regular", int(13.0)))
-        canvas.create_text(725, 400, text="fifth", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(376.0, 387, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(925, 387, text="sevent", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(1100, 387, text="eight", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(525, 387, text="Bitcoin", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(376.0, x+70 , text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(376.0, x + 140, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(376.0, x + 210, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(376.0, x + 280, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(376.0, x + 350, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
 
-        """
-        canvas.create_text(601.0, 904.0, text="First", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(763.0, 886.0, text="Second", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 895.0, text="Third", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 917.0, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
-        canvas.create_text(763.0, 912.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(376.0, 905.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(978.5, 191.5, text="0.00%", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
-        canvas.create_text(717.5, 191.5, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
-        canvas.create_text(1196.5, 191.5, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
-        canvas.create_text(374.5, 197.5, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(25.0)))
-        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-        canvas.create_text(601.0, 387.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(759.0, 387.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 378.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(938.0, 387.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(938.0, 463.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(938.0, 549.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(938.0, 640.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(938.0, 724.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(938.0, 818.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(938.0, 904.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1131.0, 387.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1131.0, 460.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1131.0, 546.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1131.0, 637.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1131.0, 721.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1131.0, 815.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1131.0, 901.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 399.0, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
-        canvas.create_text(759.0, 409.0, text="0 ", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(376.0, 384.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(601.0, 466.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(763.0, 451.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 460.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 482.0, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
-        canvas.create_text(763.0, 477.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(376.0, 470.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(601.0, 562.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(763.0, 538.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 547.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 569.0, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
-        canvas.create_text(763.0, 564.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(376.0, 557.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(601.0, 644.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(763.0, 625.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 634.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 656.0, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
-        canvas.create_text(763.0, 651.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(376.0, 644.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(601.0, 727.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(763.0, 710.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 719.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 741.0, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
-        canvas.create_text(763.0, 736.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(376.0, 729.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(601.0, 822.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(763.0, 803.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 812.0, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(1270.0, 834.0, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
-        canvas.create_text(763.0, 829.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text(376.0, 822.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
-        canvas.create_text(378.5, 237.0, text="0.00%", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
-        """
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
-        dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
-        canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
+        dashboard_image_obj = self.canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
+        self.canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
         simulated_trading_image_path = "Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
-        simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
-        canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
+        simulated_trading_image_obj = self.canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
+        self.canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(CoinInfo)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
-        charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
-        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+        charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
+        self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
-        portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
-        canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
+        portfolio_image_obj = self.canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
+        self.canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
         alarm_image_path = "Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
-        alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
-        canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
+        alarm_image_obj = self.canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
+        self.canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
         news_image_path = "Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
-        news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
-        canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
+        news_image_obj = self.canvas.create_image(0, 670, anchor='nw', image=self.news_image)
+        self.canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
         settings_image_path = "Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
-        settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
-        canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
+        settings_image_obj = self.canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
+        self.canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
         notifications_image_path = "Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
-        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notifications_clicker(self))
+        notifications_button = self.canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        self.canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notifications_clicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "Collection of all UI Graphics/dashboard_support.png"
         self.support_image = tk.PhotoImage(file=support_image_path)
-        support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
-        canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
+        support_image_obj = self.canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
+        self.canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
         notes_image_path = "Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
-        notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
-        canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
+        notes_image_obj = self.canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
+        self.canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path = "Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
-        profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
-        canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
+        profile_image_obj = self.canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
+        self.canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
-        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+        self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         def flash_hidden(image_obj):
             """
@@ -1851,7 +1769,7 @@ class Portfolio(tk.Frame):
             :return: a hidden button when pressed
             """
             set_state(tk.HIDDEN, image_obj)
-            canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+            self.canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
 
         def set_state(state, image_obj):
             """
@@ -1861,18 +1779,18 @@ class Portfolio(tk.Frame):
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
             """
-            canvas.itemconfigure(image_obj, state=state)
+            self.canvas.itemconfigure(image_obj, state=state)
 
         self.entry0_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_textBox0.png")
-        canvas.create_image(977.0, 251.0, image=self.entry0_img)
+        self.canvas.create_image(977.0, 251.0, image=self.entry0_img)
 
         entry0 = Entry(self, bd=0, bg="#053f53", highlightthickness=0)
         entry0.place(x=856.0, y=235, width=242.0, height=30)
 
         # add transactions button
         self.add_transactions_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img12.png")
-        notifications_button = canvas.create_image(1140, 226, anchor='nw', image=self.add_transactions_img)
-        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: AddTransactionClicker())
+        notifications_button = self.canvas.create_image(1140, 226, anchor='nw', image=self.add_transactions_img)
+        self.canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: AddTransactionClicker())
 
         self.all_option_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img13.png")
         all_option_button = Button(self, image=self.all_option_img, borderwidth=0, highlightthickness=0, relief="flat")
@@ -1906,6 +1824,46 @@ class Portfolio(tk.Frame):
         self.search_icon = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img19.png")
         search_button = Button(self, image=self.search_icon, borderwidth=0, highlightthickness=0, relief="flat")
         search_button.place(x=1074, y=238, width=30, height=27)
+
+        self.start = 0
+        self.end = 0
+        button = Button(self, text = "Update", command = lambda : self.update())
+        button.place(x=1350, y=800)
+
+
+    def update(self):
+        self.canvas.delete("portfolio")
+        assets = Collection_of_canvases[Dashboard].user_data.build_portfolio()
+        if len(assets) > 7:
+            button = Button(self, text="See More", command=lambda: self.update())
+            button.place(x=1350, y=850)
+
+        if len(assets) - self.start - 7 < 0:
+            self.end = len(assets)
+
+        spacer = 0
+        for x in range(self.start, self.end):
+            row = assets[x]
+            y = 387 + spacer * 85
+            upper_y = 365 + spacer * 85
+            lower_y = 400 + spacer * 85
+            to_print = str(row[0])
+            self.canvas.create_text(376.0, y, text= to_print, fill="#ffffff", font=("Rosarivo-Regular", int(13.0)), tag = "portfolio")
+            to_print = "$ " + str(row[1])
+            self.canvas.create_text(525, y, text=to_print, fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)), tag = "portfolio")
+            to_print = "$ " + str(row[2])
+            self.canvas.create_text(725, upper_y, text=to_print, fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)), tag = "portfolio")
+            to_print = str(row[3])
+            self.canvas.create_text(725, lower_y, text=to_print, fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)), tag = "portfolio")
+            to_print = "$ " + str(row[4])
+            self.canvas.create_text(925, y, text=to_print, fill="#ffffff", font=("Rosarivo-Regular", int(13.0)), tag = "portfolio")
+            to_print = "$ " + str(row[5])
+            self.canvas.create_text(1100, y, text=to_print, fill="#ffffff", font=("Rosarivo-Regular", int(13.0)), tag = "portfolio")
+            to_print = "$ " + str(row[6])
+            self.canvas.create_text(1250.0, upper_y, text=to_print, fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)), tag = "portfolio")
+            to_print = str(row[7]) + "%"
+            self.canvas.create_text(1250.0, lower_y, text=to_print, fill="#ffffff", font=("RopaSans-Regular", int(13.0)), tag = "portfolio")
+            spacer += 1
 
 class CoinInfo(tk.Frame):
     """
