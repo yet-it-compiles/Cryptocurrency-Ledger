@@ -291,6 +291,7 @@ class Database:
             if is_connected:
                 cursor.close()
                 is_connected.close()
+
     def push_targets(self):
         is_connected = Database.database_connection()
 
@@ -383,7 +384,6 @@ class Database:
         sorted_dict = sorted(results.items(), key=lambda x: x[1][2], reverse=True)
         return sorted_dict
 
-
     def get_closest_target(self):
         list_coins = []
         for key in self.targets:
@@ -398,7 +398,6 @@ class Database:
         closest_prices = {}
         for key in self.current_holdings:
             if key in self.targets:
-
                 info = self.targets[key]
                 current_price = dict_of_prices[key]
                 target_price = info[2]
@@ -418,10 +417,41 @@ class Database:
         sorted_dict = sorted(closest_prices.items(), key=lambda x: x[1][2], reverse=True)
         return sorted_dict
 
+    def avg_sell(self, coin_name):
+        old_amount = 0
+        old_price = 0
+        for trans in self.all_transactions:
+            if trans.crypto_name == coin_name and not trans.is_buy:
+                old_price = update_average(old_price, old_amount, trans.current_price, trans.num_coins_trading)
+                old_amount += trans.num_coins_trading
+
+        return old_amount
+
+    def build_portfolio(self):
+        """
+        The portfolio class needs:
+        coin_name, current_price, holdings, avg_price, avg_sell, Pnl%, Pnl$
+        """
+
+        curr_prices = GeckoApi.get_prices(list(self.current_holdings.keys()))
+        result = {}
+        for key in curr_prices:
+            current_price = curr_prices[key]
+            holdings = self.current_holdings[key]['amount']
+            avg_buy = self.current_holdings[key]['avg_price']
+            avg_sell = self.avg_sell(key)
+            profit = (current_price- avg_buy) * holdings
+            percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
+            list_of_items = [current_price, holdings, avg_buy, avg_sell, profit, percent_change]
+            result[key] = list_of_items
+
+        return result
+
+
+
 def main():
     test = Database("hinduhops")
-    dict = test.get_targets()
-    print(dict)
+    print(test.build_portfolio())
 
 
 if __name__ == '__main__':
