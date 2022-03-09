@@ -873,27 +873,32 @@ class Charts(tk.Frame):
                                  controller.show_canvas(Settings)))
 
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+        
+        # date range buttons
+        year_button = Button(self, text="1y", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat", 
+                    command = lambda: self.generate_chart(365))
+        year_button.place(x=855, y=370, width=26, height=16)
 
-        self.img0 = PhotoImage(file=f"Collection of all UI Graphics/charts_img0.png")
-        b0 = Button(self, image=self.img0, borderwidth=0, highlightthickness=0, relief="flat")
-        b0.place(x=855, y=370, width=26, height=16)
+        sixmo_button = Button(self, text="6m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat", 
+                              command = lambda: self.generate_chart(180))
+        sixmo_button.place(x=809, y=370, width=25, height=16)
 
-        self.img1 = PhotoImage(file=f"Collection of all UI Graphics/charts_img1.png")
-        b1 = Button(self, image=self.img1, borderwidth=0, highlightthickness=0, relief="flat")
-        b1.place(x=799, y=370, width=25, height=16)
+        threemo_button = Button(self, text="3m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
+                                command = lambda: self.generate_chart(90))
+        threemo_button.place(x=763, y=371, width=26, height=16)
 
-        self.img2 = PhotoImage(file=f"Collection of all UI Graphics/charts_img2.png")
-        b2 = Button(self, image=self.img2, borderwidth=0, highlightthickness=0, relief="flat")
-        b2.place(x=743, y=371, width=26, height=16)
+        month_button = Button(self, text="1m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
+                                command = lambda: self.generate_chart(30))
+        month_button.place(x=717, y=370, width=28, height=17)
 
-        self.img3 = PhotoImage(file=f"Collection of all UI Graphics/charts_img3.png")
-        b3 = Button(self, image=self.img3, borderwidth=0, highlightthickness=0, relief="flat")
-        b3.place(x=677, y=370, width=28, height=17)
-
-        self.img4 = PhotoImage(file=f"Collection of all UI Graphics/charts_img4.png")
-        b4 = Button(self, image=self.img4, borderwidth=0, highlightthickness=0, relief="flat")
-        b4.place(x=618, y=369, width=26, height=16)
-
+        week_button = Button(self, text="1w", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
+                                command = lambda: self.generate_chart(7))
+        week_button.place(x=671, y=369, width=26, height=16)
+        
+        day_button = Button(self, text="1d", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
+                                command = lambda: self.generate_chart(1))
+        day_button.place(x=625, y=369, width=26, height=16)
+        
         # search bar
         self.coin_name = tk.StringVar(self.canvas)
         self.search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
