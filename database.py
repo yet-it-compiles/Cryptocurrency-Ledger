@@ -280,9 +280,9 @@ class Database:
             alert_name = row[5]
             """
             for row in result:
-                print(row)
                 alert_info = [row[2], row[3], row[4], row[5]]
                 self.targets[row[1]] = alert_info
+
         except(Exception, psycopg2.Error) as error:
             print("Failed to retrieve record into mobile table", error)
 
