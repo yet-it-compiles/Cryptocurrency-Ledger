@@ -251,6 +251,7 @@ class LoginPage(tk.Frame):
                 # Set up Dashboard UI to have all customer information
                 Dashboard.create_user(Collection_of_canvases[Dashboard], username)
                 Dashboard.update(Collection_of_canvases[Dashboard])
+                Portfolio.update(Collection_of_canvases[Portfolio])
                 controller.show_canvas(Dashboard)
             else:
                 error = "Incorrect Password"
