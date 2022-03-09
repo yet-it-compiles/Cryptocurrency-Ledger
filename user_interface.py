@@ -203,7 +203,7 @@ class CryptocurrencyLedger(tk.Tk):
 
         # Declaration of logic to iterate through each page layout
         for each_layout in (LoginPage, Enrollment, Dashboard, Charts, ComingSoon, Settings
-                            , NotesTab, Portfolio):
+                            , NotesTab, Portfolio, CoinInfo):
             each_canvas = each_layout(canvas_setup, self)
 
             Collection_of_canvases[each_layout] = each_canvas
@@ -1749,7 +1749,7 @@ class Portfolio(tk.Frame):
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
+                        lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(CoinInfo)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
@@ -1879,6 +1879,311 @@ class Portfolio(tk.Frame):
         search_button = Button(self, image=self.search_icon, borderwidth=0, highlightthickness=0, relief="flat")
         search_button.place(x=1074, y=238, width=30, height=27)
 
+class CoinInfo(tk.Frame):
+    """
+
+    """
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width=1440, height=1024)
+        self.controller = controller
+
+        flash_delay = 100  # in milliseconds.
+
+        canvas = Canvas(self, bg="#ffffff", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        canvas.place(x=0, y=0)
+
+        self.background_img = PhotoImage(file=f"Collection of all UI Graphics/coinInfo_background.png")
+        canvas.create_image(720.0, 512.0, image=self.background_img)
+        
+        def AddTransactionClicker():
+            """
+            TODO
+            """
+            pop = Toplevel(self)
+            pop.geometry('485x704')
+            pop.config(height=704, width=485)
+
+            add_transactions_canvas = Canvas(pop, bg="#ffffff", height=704, width=485, bd=0, highlightthickness=0,
+                                             relief="ridge")
+            add_transactions_canvas.place(x=0, y=0)
+
+            self.add_transactions_background_img = PhotoImage(file=f"Collection of all UI "
+                                                                   f"Graphics/add_transaction_background.png")
+            add_transactions_canvas.create_image(242.5, 350.0, image=self.add_transactions_background_img)
+
+            # variables to send to manual transaction module
+            self.is_Buy = True  # default option is buy
+            coin_name_var = tk.StringVar()
+            # date_purchased_var = tk.StringVar()
+            # time_purchased_var = tk.StringVar()
+            amount_purchased_var = tk.StringVar()
+            price_purchased_var = tk.StringVar()
+            purchase_fee_var = tk.StringVar()
+            currency_selection_var = tk.StringVar()
+
+            """ Entry boxes """
+            # currency selection
+            self.entry0_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox0.png")
+            add_transactions_canvas.create_image(336.5, 538.0, image=self.entry0_img)
+            entry0 = Entry(pop, textvariable=currency_selection_var, bd=0, bg="#696969", highlightthickness=0)
+            entry0.place(x=275.0, y=515, width=123.0, height=44)
+
+            # purchase fee
+            self.entry1_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox1.png")
+            add_transactions_canvas.create_image(147.5, 538.0, image=self.entry1_img)
+            entry1 = Entry(pop, textvariable=purchase_fee_var, bd=0, bg="#696969", highlightthickness=0)
+            entry1.place(x=86.0, y=515, width=123.0, height=44)
+
+            # price purchased
+            self.entry2_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox2.png")
+            add_transactions_canvas.create_image(336.5, 445.0, image=self.entry2_img)
+            entry2 = Entry(pop, textvariable=price_purchased_var, bd=0, bg="#696969", highlightthickness=0)
+            entry2.place(x=275.0, y=422, width=123.0, height=44)
+
+            # amount purchased
+            self.entry3_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox3.png")
+            add_transactions_canvas.create_image(147.5, 445.0, image=self.entry3_img)
+            entry3 = Entry(pop, textvariable=amount_purchased_var, bd=0, bg="#696969", highlightthickness=0)
+            entry3.place(x=86.0, y=422, width=123.0, height=44)
+
+            # time purchased
+            self.time_picker_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox4.png")
+            add_transactions_canvas.create_image(336.5, 344.0, image=self.time_picker_img)
+            time_picker = AnalogPicker(pop)
+            
+            time_picker.place(x=275.0, y=321, width=123.0, height=44)
+
+            time_picker_theme = AnalogThemes(time_picker)
+            time_picker_theme.setNavyBlue()
+
+            # date purchased
+            self.date_purchased_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox5.png")
+            add_transactions_canvas.create_image(147.5, 344.0, image=self.date_purchased_img)
+            date_purchased_entry = DateEntry(pop)
+            date_purchased_entry.place(x=86.0, y=321, width=123.0, height=44)
+
+            # autofill search function for coins
+            coin_listbox = Listbox(add_transactions_canvas)
+            coin_list = manual_transaction.get_list_of_coins()
+
+            """ method that updates the listbox """
+            def update(data):
+                # changes the size of the listbox to number of items in list
+                listbox_height = len(data)
+                if len(data) > 5:
+                    listbox_height = 5
+                coin_listbox.place(height=(16.5 * listbox_height))
+
+                # clears the listbox
+                coin_listbox.delete(0, END)
+                for item in data:
+                    coin_listbox.insert(END, item)
+
+            # allows users to choose items from list
+            def fill_out(event):
+                coin_name_entry.delete(0, END)
+                coin_name_entry.insert(0, coin_listbox.get(ACTIVE))
+                coin_listbox.place_forget()
+                date_purchased_entry.place(x=86.0, y=321, width=123.0, height=44)
+
+            # displays in list appropriate items comparatively to entry
+            def check():
+                # Retrieve user input
+                typed = coin_name_entry.get()
+
+                if typed == "":
+                    data = coin_list
+                else:
+                    data = []
+                    for each_item in coin_list:
+                        if typed.lower() in each_item.lower():
+                            data.append(each_item)
+                update(data)
+
+            def show_list():
+                coin_listbox.place(x=114.0, y=270, width=140.0, height=63)
+                date_purchased_entry.place_forget()  # Entry box appears in front of List box
+                check()
+
+                coin_listbox.bind("<<ListboxSelect>>", fill_out)
+
+            # coin name
+            self.coin_name_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox6.png")
+            add_transactions_canvas.create_image(242.5, 249.0, image=self.coin_name_img)
+            coin_name_entry = Entry(pop, textvariable=coin_name_var, bd=0, bg="#696969", highlightthickness=0)
+            coin_name_entry.place(x=106.0, y=226, width=273.0, height=44)
+            coin_name_entry.bind("<KeyRelease>", lambda event: show_list())
+            """ End of Entry boxes """
+
+            def buy_or_sell(buy_or_sell):
+                self.is_Buy = buy_or_sell
+
+            def submit():
+                # grabs all entry box entries
+
+                coin_name = coin_name_var.get()
+                date_purchased = date_purchased_entry.get_date()
+                # time_purchased = time_purchased_var.get()
+                amount_purchased = amount_purchased_var.get()
+                price_purchased = price_purchased_var.get()
+                purchase_fee = purchase_fee_var.get()
+                currency_selection = currency_selection_var.get()
+                # print(str(coin_name)+'\n'+str(date_purchased))
+                print(self.is_Buy)
+
+                if currency_selection != "":
+                    mt = ManualTransaction(coin_name, self.is_Buy, price_purchased, amount_purchased, "target",
+                                           purchase_fee, "time")
+
+                    print("works")
+
+                    pop.destroy()
+
+            # submit button
+            self.submit_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img0.png")
+            submit_button = add_transactions_canvas.create_image(181, 620, anchor='nw', image=self.submit_button_image)
+            add_transactions_canvas.tag_bind(submit_button, "<ButtonRelease-1>", lambda event: submit())
+
+            # transfer button
+            self.transfer_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img1.png")
+            transfer_button = add_transactions_canvas.create_image(313, 125, anchor='nw',
+                                                                   image=self.transfer_button_image)
+            add_transactions_canvas.tag_bind(transfer_button, "<ButtonRelease-1>")
+
+            # sell button
+            self.sell_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img2.png")
+            sell_button = add_transactions_canvas.create_image(200, 125, anchor='nw', image=self.sell_button_image)
+            add_transactions_canvas.tag_bind(sell_button, "<ButtonRelease-1>", lambda event: buy_or_sell(False))
+
+            # buy button
+            self.buy_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img3.png")
+            buy_button = add_transactions_canvas.create_image(83, 125, anchor='nw', image=self.buy_button_image)
+            add_transactions_canvas.tag_bind(buy_button, "<ButtonRelease-1>", lambda event: buy_or_sell(True))
+        
+        # Retrieves the images, and configures the dashboard button
+        dashboard_image_path = "Collection of all UI Graphics/dashboard_dashboard.png"
+        self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
+        dashboard_image_obj = canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
+        canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
+
+        # Retrieves the images, and configures the simulated trading button
+        simulated_trading_image_path = "Collection of all UI Graphics/dashboard_simulated_trading.png"
+        self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
+        simulated_trading_image_obj = canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
+        canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
+
+        # Retrieves the images, and configures the charts button
+        charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
+        self.charts_image = tk.PhotoImage(file=charts_image_path)
+        charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
+        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
+
+        # Retrieves the images, and configures the portfolio button
+        portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
+        self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
+        portfolio_image_obj = canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
+        canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
+
+        alarm_image_path = "Collection of all UI Graphics/dashboard_alarms.png"
+        self.alarm_image = tk.PhotoImage(file=alarm_image_path)
+        alarm_image_obj = canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
+        canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
+
+        # Retrieves the images, and configures the news button
+        news_image_path = "Collection of all UI Graphics/dashboard_news.png"
+        self.news_image = tk.PhotoImage(file=news_image_path)
+        news_image_obj = canvas.create_image(0, 670, anchor='nw', image=self.news_image)
+        canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
+
+        # Retrieves the images, and configures the settings button
+        settings_image_path = "Collection of all UI Graphics/dashboard_settings.png"
+        self.settings_image = tk.PhotoImage(file=settings_image_path)
+        settings_image_obj = canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
+        canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
+
+        # Retrieves the images, and opens the notifications image
+        notifications_image_path = "Collection of all UI Graphics/dashboard_notifications.png"
+        self.notifications_image = tk.PhotoImage(file=notifications_image_path)
+        notifications_button = canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notifications_clicker(self))
+
+        # Retrieves the images, and configures the support image
+        support_image_path = "Collection of all UI Graphics/dashboard_support.png"
+        self.support_image = tk.PhotoImage(file=support_image_path)
+        support_image_obj = canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
+        canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
+
+        # Retrieves the images, and configures the profile image
+        notes_image_path = "Collection of all UI Graphics/dashboard_notes.png"
+        self.notes_image = tk.PhotoImage(file=notes_image_path)
+        notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
+        canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
+
+        # Retrieves the images, and configures the profile image
+        profile_image_path = "Collection of all UI Graphics/dashboard_profile_img.png"
+        self.profile_image = tk.PhotoImage(file=profile_image_path)
+        profile_image_obj = canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
+        canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
+
+        canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+
+        def flash_hidden(image_obj):
+            """
+            Method sets the state of the object, and hides the buttons when they are interacted with
+
+            :param image_obj: is the image object to hide
+            :type : int
+            :return: a hidden button when pressed
+            """
+            set_state(tk.HIDDEN, image_obj)
+            canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+
+        def set_state(state, image_obj):
+            """
+            Sets the state of the image object
+
+            :param state: the state to apply to the buttons
+            :param image_obj: is the image object to apply a state on
+            :return: an image object with a state applied
+            """
+            canvas.itemconfigure(image_obj, state=state)
+            
+        # add transactions button
+        self.add_transactions_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img12.png")
+        notifications_button = canvas.create_image(1180, 167, anchor='nw', image=self.add_transactions_img)
+        canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: AddTransactionClicker())
+        
+        canvas.create_text( 426.0, 107.0, text = "<CoinName> Breakdown", fill = "#ffffff", font = ("Rosarivo-Regular", int(24.0)))
+        canvas.create_text( 349.5, 145.5, text = "$", fill = "#ffffff", font = ("SourceCodePro-Regular", int(25.0)))
+        canvas.create_text( 349.5, 192.0, text = "0.00%",  fill = "#ffffff", font = ("SourceCodePro-Regular", int(15.0)))
+        
+        # Coin Break down
+        canvas.create_text( 626.0, 267.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 1222.0, 267.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 1225.0, 389.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 1225.0, 326.5, text = "0 ", fill = "#ffffff",font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 626.0, 391.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 626.0, 326.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        
+        canvas.create_text( 480.0, 585.5, text = "$", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 1245.0, 596.5, text = "0.00%", fill = "#ffffff", font = ("RopaSans-Regular", int(13.0)))
+        canvas.create_text( 341.0, 583.0, text = "BUY",fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text(  1025.0, 585.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 655.0, 585.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 820.0, 585.5, text = "mm/dd/yy", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        
 
 def main():
     """
