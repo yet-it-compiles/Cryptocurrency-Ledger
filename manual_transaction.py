@@ -6,6 +6,13 @@ import datetime
 import pytz
 import json
 
+def convert_date_time_to_string(date, hour, minute, period):
+    if period == "PM":
+        hour = hour + 12
+    date_time_str = (str(date) + " " + str(hour) + ":" + str(minute))
+
+    return date_time_str
+
 def get_list_of_coins():
         data = json.load(open("market_cap_ranking_coin_list.json", encoding="utf8"))
         name_list = [item.get("name") for item in data]
@@ -37,11 +44,6 @@ class ManualTransaction:
             transaction_dictonary[key] = {self.crypto_name, self.is_buy, self.current_price,
                                            self.num_coins_trading, self.target, self.utc_date_time}
         return transaction_dictonary
-    
-    def capture_datetime(self, date, time):
-        
-        
-        return
 
     def quantity_display(self):
         """
@@ -100,26 +102,26 @@ class ManualTransaction:
         return "${0:.1f}".format(value)
 
 
-def main():
-#     users_timezone = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
-#     datetime.datetime.now()  # is the current time zone
+# def main():
+# #     users_timezone = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
+# #     datetime.datetime.now()  # is the current time zone
 
-#     # print("key: " + str(date_time) + " " + "crypto_name", "num_coins_trading")
-#     utc_dt = datetime.datetime.utcnow()
+# #     # print("key: " + str(date_time) + " " + "crypto_name", "num_coins_trading")
+# #     utc_dt = datetime.datetime.utcnow()
 
-#     mt = ManualTransaction("Bitcoin", 2, 0, True)
+# #     mt = ManualTransaction("Bitcoin", 2, 0, True)
 
-#     print("current UTC date and time: " + str(utc_dt))
-#     print("display_local() method: " + str(mt.display_local()))
+# #     print("current UTC date and time: " + str(utc_dt))
+# #     print("display_local() method: " + str(mt.display_local()))
 
-#     # print(str(dt))
-#     # print(users_timezone)
+# #     # print(str(dt))
+# #     # print(users_timezone)
 
-#     # print("Formatted UTC datetime: " + str(utc_dt.strftime("%b %d %Y %X %p")))
+# #     # print("Formatted UTC datetime: " + str(utc_dt.strftime("%b %d %Y %X %p")))
 
-    name_list = get_list_of_coins()
-    print(name_list[0])
+#     name_list = get_list_of_coins()
+#     print(name_list[0])
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
