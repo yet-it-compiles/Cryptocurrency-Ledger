@@ -437,7 +437,7 @@ class Database:
         """
 
         curr_prices = GeckoApi.get_prices(list(self.current_holdings.keys()))
-        result = {}
+        result = []
         for key in curr_prices:
             current_price = curr_prices[key]
             holdings = self.current_holdings[key]['amount']
@@ -446,7 +446,7 @@ class Database:
             profit = (current_price- avg_buy) * holdings
             percent_change = '{:.2f}'.format((current_price - avg_buy) / avg_buy * 100)
             list_of_items = [current_price, holdings, avg_buy, avg_sell, profit, percent_change]
-            result[key] = list_of_items
+            result.append(list_of_items)
 
         return result
 

@@ -317,16 +317,23 @@ class Enrollment(tk.Frame):
     Configures, and displays the login page
     """
 
-    def add_user(self, controller, username, password, email):
+    def add_user(self, controller, email, username, password, password_confirm):
         get_username = username.get()
         get_password = password.get()
+        get_confirm = password_confirm.get()
         get_email = email.get()
 
         if Database.checkUsername(get_username):
-            error = "username is taken"
-            print(error)
+            error = "This username is taken. Please choose a differnt one"
+            Error(self, error)
             controller.show_canvas(LoginPage)
-
+            return
+        if not get_confirm == get_password:
+            error = "Passwords do not match. Please enter them both again"
+            Error(self, error)
+            password.set('')
+            password_confirm.set("")
+            return
         # possible check for password constraints
         Database.adduser(get_username, get_email, get_password)
         controller.show_canvas(LoginPage)
@@ -341,6 +348,7 @@ class Enrollment(tk.Frame):
         user_email = tk.StringVar()
         user_username = tk.StringVar()
         user_password = tk.StringVar()
+        user_password_confirm = tk.StringVar()
 
         # Initializes the enrollment page, and configures the position of the canvas
         enrollment_canvas = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
@@ -358,25 +366,28 @@ class Enrollment(tk.Frame):
         email_text_box.place(x=586.0, y=153, width=273.0, height=44)
 
         self.enrollment_text_box_2 = PhotoImage(file=f"Collection of all UI Graphics/enrollment_textBox.png")
-        enrollment_canvas.create_image(722.5, 293.0, image=self.enrollment_text_box_2)
-        enrollment_text_box = Entry(self, textvariable=user_password, bd=0, bg="#696969", highlightthickness=0)
-        enrollment_text_box.place(x=586.0, y=270, width=273.0, height=44)
+        enrollment_canvas.create_image(722.5, 273.0, image=self.enrollment_text_box_2)
+        enrollment_text_box = Entry(self, textvariable=user_username, bd=0, bg="#696969", highlightthickness=0)
+        enrollment_text_box.place(x=586.0, y=250, width=273.0, height=44)
 
         self.enrollment_text_box_3 = PhotoImage(file=f"Collection of all UI Graphics/enrollment_textBox.png")
-        enrollment_canvas.create_image(722.5, 410.0, image=self.enrollment_text_box_3)
-        user_name_text_box = Entry(self, textvariable=user_username, bd=0, bg="#696969", highlightthickness=0)
-        user_name_text_box.place(x=586.0, y=387, width=273.0, height=44)
+        enrollment_canvas.create_image(722.5, 360.0, image=self.enrollment_text_box_3)
+        user_name_text_box = Entry(self, textvariable=user_password, bd=0, bg="#696969", highlightthickness=0)
+        user_name_text_box.place(x=586.0, y=337, width=273.0, height=44)
+
+        self.enrollment_text_box_4 = PhotoImage(file=f"Collection of all UI Graphics/enrollment_textBox.png")
+        enrollment_canvas.create_image(722.5, 450.0, image=self.enrollment_text_box_4)
+        user_name_text_box = Entry(self, textvariable=user_password_confirm, bd=0, bg="#696969", highlightthickness=0)
+        user_name_text_box.place(x=586, y=427, width=273.0, height=44)
 
         self.get_started_button = PhotoImage(file=f"Collection of all UI Graphics/enrollment_get_started.png")
         get_started_background = Button(self, image=self.get_started_button, borderwidth=0, highlightthickness=0,
-                                        command=lambda: self.add_user(controller, user_username, user_password,
-                                                                      user_email),
+                                        command=lambda: self.add_user(controller, user_email, user_username, user_password,
+                                                                      user_password_confirm),
                                         relief="flat",
                                         activebackground="#343333")
         get_started_background.place(x=636, y=481, width=161, height=53)
 
-        enrollment_canvas.create_text(727.5, 71.5, text="Create Account", fill="#ffffff",
-                                      font=("Rosarivo-Regular", int(36.0)))
 
         self.existing_account = PhotoImage(file=f"Collection of all UI Graphics/enrollment_existing_account.png")
         existing_account_background = Button(self, image=self.existing_account, borderwidth=0, highlightthickness=0,
@@ -1668,19 +1679,27 @@ class Portfolio(tk.Frame):
         log_out_button = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(log_out_button, "<ButtonRelease-1>", lambda event: logout_button_display(self, self.controller))
 
-        portfolio = {}
-        for coin in portfolio:
 
-            canvas.create_text(601.0, 904.0, text=f"${current_price}", fill="#ffffff",
-                               font=("SourceCodePro-Regular", int(13.0)))
-            canvas.create_text(763.0, 886.0, text=f"${net_balance}", fill="#ffffff",
-                               font=("SourceCodePro-Regular", int(13.0)))
-            canvas.create_text(1270.0, 895.0, text=f"${profit_and_loss}", fill="#ffffff",
-                               font=("SourceCodePro-Regular", int(13.0)))
-            canvas.create_text(1270.0, 917.0, text=f"{percent_profit}%", fill="#ffffff",
-                               font=("RopaSans-Regular", int(13.0)))
-            canvas.create_text(763.0, 912.0, text="0", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-            canvas.create_text(376.0, 905.0, text="-", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        x = 397
+
+        canvas.create_text(5525, 387, text="First", fill="#ffffff",
+                           font=("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text(725, 360, text="second", fill="#ffffff",
+                           font=("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text(1250.0, 360, text="third", fill="#ffffff",
+                           font=("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text(1250.0, 400, text="fourth", fill="#ffffff",
+                           font=("RopaSans-Regular", int(13.0)))
+        canvas.create_text(725, 400, text="fifth", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text(376.0, 387, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(925, 387, text="sevent", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(1100, 387, text="eight", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(525, 387, text="Bitcoin", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(376.0, x+70 , text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(376.0, x + 140, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(376.0, x + 210, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(376.0, x + 280, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
+        canvas.create_text(376.0, x + 350, text="sixth", fill="#ffffff", font=("Rosarivo-Regular", int(13.0)))
 
         """
         canvas.create_text(601.0, 904.0, text="First", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
