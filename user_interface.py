@@ -1463,7 +1463,7 @@ class NotesTab(tk.Frame):
 
 class Portfolio(tk.Frame):
     """
-
+    Configures, and displays the Portfolio tab
     """
 
     def __init__(self, parent, controller):
@@ -1481,7 +1481,9 @@ class Portfolio(tk.Frame):
 
         def AddTransactionClicker():
             """
-            TODO
+            opens up a pop up for the user to manually add transactions
+            the user inputs a coin name, amount of coins being sold/purchased, amount sold/purchased for,
+            the date and time the transaction occured, the fee, and the currency
             """
             pop = Toplevel(self)
             pop.geometry('485x704')
@@ -1495,11 +1497,19 @@ class Portfolio(tk.Frame):
                                                                    f"Graphics/add_transaction_background.png")
             add_transactions_canvas.create_image(242.5, 350.0, image=self.add_transactions_background_img)
 
+            def flash_hidden(image_obj):
+                """
+                Method sets the state of the object, and hides the buttons when they are interacted with
+
+                :param image_obj: is the image object to hide
+                :return: a hidden button when pressed
+                """
+                set_state(tk.HIDDEN, image_obj)
+                add_transactions_canvas.after(100, set_state, tk.NORMAL, image_obj)
+
             # variables to send to manual transaction module
             self.is_Buy = True  # default option is buy
             coin_name_var = tk.StringVar()
-            # date_purchased_var = tk.StringVar()
-            # time_purchased_var = tk.StringVar()
             amount_purchased_var = tk.StringVar()
             price_purchased_var = tk.StringVar()
             purchase_fee_var = tk.StringVar()
@@ -1534,16 +1544,14 @@ class Portfolio(tk.Frame):
             self.time_picker_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox4.png")
             add_transactions_canvas.create_image(336.5, 344.0, image=self.time_picker_img)
             time_picker = AnalogPicker(pop)
-            
             time_picker.place(x=275.0, y=321, width=123.0, height=44)
-
             time_picker_theme = AnalogThemes(time_picker)
-            time_picker_theme.setNavyBlue()
+            time_picker_theme.setDracula()
 
             # date purchased
             self.date_purchased_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox5.png")
             add_transactions_canvas.create_image(147.5, 344.0, image=self.date_purchased_img)
-            date_purchased_entry = DateEntry(pop)
+            date_purchased_entry = DateEntry(pop, font=("Rosarivo-Regular", int(13.0)), bg="#696969")
             date_purchased_entry.place(x=86.0, y=321, width=123.0, height=44)
 
             # autofill search function for coins
@@ -1604,23 +1612,34 @@ class Portfolio(tk.Frame):
 
             def submit():
                 # grabs all entry box entries
-
-                coin_name = coin_name_var.get()
+                time_hours = time_picker.hours()
+                time_minutes = time_picker.minutes()
+                time_period = time_picker.period()
                 date_purchased = date_purchased_entry.get_date()
-                # time_purchased = time_purchased_var.get()
+                
+                time_purchased = manual_transaction.convert_date_time_to_string(date_purchased, time_hours, time_minutes, time_period)
+
+                coin_name = coin_name_var.get()              
                 amount_purchased = amount_purchased_var.get()
                 price_purchased = price_purchased_var.get()
                 purchase_fee = purchase_fee_var.get()
+                if purchase_fee == "":
+                    purchase_fee = 0.00 # default value for purchase fee
                 currency_selection = currency_selection_var.get()
-                # print(str(coin_name)+'\n'+str(date_purchased))
-                print(self.is_Buy)
 
-                if currency_selection != "":
+                if currency_selection == "" or amount_purchased == "" or price_purchased == "" or coin_name == "":
+                    Error(self, "Fill out other entries")
+                else:
+                    try: 
+                        op_one = float(currency_selection)
+                        op_two = float(amount_purchased)
+                    except Exception as error:
+                        Error(self, "Input a float")
+
                     mt = ManualTransaction(coin_name, self.is_Buy, price_purchased, amount_purchased, "target",
-                                           purchase_fee, "time")
-
-                    print("works")
-
+                                           purchase_fee, time_purchased)
+                    mt.return_transaction()
+                    # destroys add transactions window
                     pop.destroy()
 
             # submit button
@@ -1899,7 +1918,9 @@ class CoinInfo(tk.Frame):
         
         def AddTransactionClicker():
             """
-            TODO
+            opens up a pop up for the user to manually add transactions
+            the user inputs a coin name, amount of coins being sold/purchased, amount sold/purchased for,
+            the date and time the transaction occured, the fee, and the currency
             """
             pop = Toplevel(self)
             pop.geometry('485x704')
@@ -1913,11 +1934,19 @@ class CoinInfo(tk.Frame):
                                                                    f"Graphics/add_transaction_background.png")
             add_transactions_canvas.create_image(242.5, 350.0, image=self.add_transactions_background_img)
 
+            def flash_hidden(image_obj):
+                """
+                Method sets the state of the object, and hides the buttons when they are interacted with
+
+                :param image_obj: is the image object to hide
+                :return: a hidden button when pressed
+                """
+                set_state(tk.HIDDEN, image_obj)
+                add_transactions_canvas.after(100, set_state, tk.NORMAL, image_obj)
+
             # variables to send to manual transaction module
             self.is_Buy = True  # default option is buy
             coin_name_var = tk.StringVar()
-            # date_purchased_var = tk.StringVar()
-            # time_purchased_var = tk.StringVar()
             amount_purchased_var = tk.StringVar()
             price_purchased_var = tk.StringVar()
             purchase_fee_var = tk.StringVar()
@@ -1952,16 +1981,14 @@ class CoinInfo(tk.Frame):
             self.time_picker_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox4.png")
             add_transactions_canvas.create_image(336.5, 344.0, image=self.time_picker_img)
             time_picker = AnalogPicker(pop)
-            
             time_picker.place(x=275.0, y=321, width=123.0, height=44)
-
             time_picker_theme = AnalogThemes(time_picker)
-            time_picker_theme.setNavyBlue()
+            time_picker_theme.setDracula()
 
             # date purchased
             self.date_purchased_img = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_textBox5.png")
             add_transactions_canvas.create_image(147.5, 344.0, image=self.date_purchased_img)
-            date_purchased_entry = DateEntry(pop)
+            date_purchased_entry = DateEntry(pop, font=("Rosarivo-Regular", int(13.0)), bg="#696969")
             date_purchased_entry.place(x=86.0, y=321, width=123.0, height=44)
 
             # autofill search function for coins
@@ -2022,29 +2049,40 @@ class CoinInfo(tk.Frame):
 
             def submit():
                 # grabs all entry box entries
-
-                coin_name = coin_name_var.get()
+                time_hours = time_picker.hours()
+                time_minutes = time_picker.minutes()
+                time_period = time_picker.period()
                 date_purchased = date_purchased_entry.get_date()
-                # time_purchased = time_purchased_var.get()
+                
+                time_purchased = manual_transaction.convert_date_time_to_string(date_purchased, time_hours, time_minutes, time_period)
+
+                coin_name = coin_name_var.get()              
                 amount_purchased = amount_purchased_var.get()
                 price_purchased = price_purchased_var.get()
                 purchase_fee = purchase_fee_var.get()
+                if purchase_fee == "":
+                    purchase_fee = 0.00 # default value for purchase fee
                 currency_selection = currency_selection_var.get()
-                # print(str(coin_name)+'\n'+str(date_purchased))
-                print(self.is_Buy)
 
-                if currency_selection != "":
+                if currency_selection == "" or amount_purchased == "" or price_purchased == "" or coin_name == "":
+                    Error(self, "Fill out other entries")
+                else:
+                    try: 
+                        op_one = float(currency_selection)
+                        op_two = float(amount_purchased)
+                    except Exception as error:
+                        Error(self, "Input a float")
+
                     mt = ManualTransaction(coin_name, self.is_Buy, price_purchased, amount_purchased, "target",
-                                           purchase_fee, "time")
-
-                    print("works")
-
+                                           purchase_fee, time_purchased)
+                    mt.return_transaction()
+                    # destroys add transactions window
                     pop.destroy()
 
             # submit button
             self.submit_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img0.png")
             submit_button = add_transactions_canvas.create_image(181, 620, anchor='nw', image=self.submit_button_image)
-            add_transactions_canvas.tag_bind(submit_button, "<ButtonRelease-1>", lambda event: submit())
+            add_transactions_canvas.tag_bind(submit_button, "<ButtonRelease-1>", lambda event: [flash_hidden(submit_button), submit()])
 
             # transfer button
             self.transfer_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img1.png")
@@ -2055,7 +2093,7 @@ class CoinInfo(tk.Frame):
             # sell button
             self.sell_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img2.png")
             sell_button = add_transactions_canvas.create_image(200, 125, anchor='nw', image=self.sell_button_image)
-            add_transactions_canvas.tag_bind(sell_button, "<ButtonRelease-1>", lambda event: buy_or_sell(False))
+            add_transactions_canvas.tag_bind(sell_button, "<ButtonRelease-1>", lambda event: [flash_hidden(sell_button), buy_or_sell(False)])
 
             # buy button
             self.buy_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img3.png")
