@@ -327,7 +327,10 @@ class Enrollment(tk.Frame):
         if Database.checkUsername(get_username):
             error = "This username is taken. Please choose a differnt one"
             Error(self, error)
-            controller.show_canvas(LoginPage)
+            username.set("")
+            password.set("")
+            password_confirm("")
+            email.set("")
             return
         if not get_confirm == get_password:
             error = "Passwords do not match. Please enter them both again"
@@ -341,6 +344,7 @@ class Enrollment(tk.Frame):
         username.set("")
         password.set("")
         email.set("")
+        password_confirm.set("")
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
