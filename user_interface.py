@@ -1713,7 +1713,7 @@ class Portfolio(tk.Frame):
         charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
-        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+        self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
                              lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
                                             Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
                                             Charts.generate_data(Collection_of_canvases[Charts]),
