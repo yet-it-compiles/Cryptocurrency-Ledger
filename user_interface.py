@@ -552,7 +552,10 @@ class Dashboard(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                            Charts.generate_data(Collection_of_canvases[Charts]),
+                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -622,6 +625,7 @@ class Dashboard(tk.Frame):
         coin_name = tk.StringVar(self.canvas)
         search_entry = tk.Entry(self.canvas, textvariable=coin_name, bd=0, bg="#2e3a4b", fg="white", highlightthickness=0)
         search_entry.place(x=540.0, y=21.0, width=215.0, height=30)
+        search_entry.bind("<Return>", search)
 
         # search bar go button
         self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
@@ -801,9 +805,6 @@ class Charts(tk.Frame):
         charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
-        self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (
-                                 flash_hidden(charts_image_obj), self.close_charts(), controller.show_canvas(Charts)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -843,7 +844,7 @@ class Charts(tk.Frame):
         notifications_image_path = "Collection of all UI Graphics/dashboard_notifications.png"
         self.notifications_image = tk.PhotoImage(file=notifications_image_path)
         notifications_button = self.canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
-        self.canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notifications_clicker())
+        self.canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notifications_clicker(self))
 
         # Retrieves the images, and configures the support image
         support_image_path = "Collection of all UI Graphics/dashboard_support.png"
@@ -899,6 +900,7 @@ class Charts(tk.Frame):
         self.canvas.create_image(713.0, 26.0, image=self.search_img)
         self.search_entry = tk.Entry(self.canvas, textvariable=self.coin_name, bd=0, bg="#808288", highlightthickness=0)
         self.search_entry.place(x=592.0, y=8.0, width=215.0, height=30.0)
+        self.search_entry.bind("<Return>", self.search)
 
         # search bar go button
         self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/charts_img17.png")
@@ -1020,7 +1022,10 @@ class ComingSoon(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                            Charts.generate_data(Collection_of_canvases[Charts]),
+                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -1146,7 +1151,10 @@ class Settings(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                            Charts.generate_data(Collection_of_canvases[Charts]),
+                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -1291,7 +1299,10 @@ class NotesTab(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                            Charts.generate_data(Collection_of_canvases[Charts]),
+                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -1702,8 +1713,11 @@ class Portfolio(tk.Frame):
         charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
-        self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
+        canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                            Charts.generate_data(Collection_of_canvases[Charts]),
+                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -2087,7 +2101,10 @@ class CoinInfo(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts)))
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                            Charts.generate_data(Collection_of_canvases[Charts]),
+                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
