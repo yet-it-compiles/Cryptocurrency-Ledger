@@ -1616,10 +1616,10 @@ class Portfolio(tk.Frame):
                 time_minutes = time_picker.minutes()
                 time_period = time_picker.period()
                 date_purchased = date_purchased_entry.get_date()
-                
+
                 time_purchased = manual_transaction.convert_date_time_to_string(date_purchased, time_hours, time_minutes, time_period)
 
-                coin_name = coin_name_var.get()              
+                coin_name = coin_name_var.get()
                 amount_purchased = amount_purchased_var.get()
                 price_purchased = price_purchased_var.get()
                 purchase_fee = purchase_fee_var.get()
@@ -1630,16 +1630,15 @@ class Portfolio(tk.Frame):
                 if currency_selection == "" or amount_purchased == "" or price_purchased == "" or coin_name == "":
                     Error(self, "Fill out other entries")
                 else:
-                    try: 
-                        op_one = float(currency_selection)
+                    try:
+                        op_one = float(price_purchased)
                         op_two = float(amount_purchased)
                     except Exception as error:
                         Error(self, "Input a float")
 
-                    mt = ManualTransaction(coin_name, self.is_Buy, price_purchased, amount_purchased, "target",
+                    mt = ManualTransaction(0, coin_name, self.is_Buy, price_purchased, amount_purchased,
                                            purchase_fee, time_purchased)
-                    mt.return_transaction()
-                    # destroys add transactions window
+                    Collection_of_canvases[Dashboard].user_data.add_transaction(mt)
                     pop.destroy()
 
             # submit button
@@ -1669,17 +1668,8 @@ class Portfolio(tk.Frame):
         log_out_button = canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         canvas.tag_bind(log_out_button, "<ButtonRelease-1>", lambda event: logout_button_display(self, self.controller))
 
-        ycoor = 0
         portfolio = {}
         for coin in portfolio:
-            avg_buy = portfolio[coin]["avg_price"]
-            amount = portfolio[coin]["amount"]
-
-            target = portfolio[coin]["target"]
-            current_price = 0
-            profit_and_loss = current_price - avg_buy * amount
-            percent_profit = current_price / avg_buy * amount * 100
-            net_balance = current_price * amount
 
             canvas.create_text(601.0, 904.0, text=f"${current_price}", fill="#ffffff",
                                font=("SourceCodePro-Regular", int(13.0)))

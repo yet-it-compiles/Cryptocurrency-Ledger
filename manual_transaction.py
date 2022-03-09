@@ -6,6 +6,7 @@ import datetime
 import pytz
 import json
 
+
 def convert_date_time_to_string(date, hour, minute, period):
     if period == "PM":
         hour = hour + 12
@@ -13,26 +14,28 @@ def convert_date_time_to_string(date, hour, minute, period):
 
     return date_time_str
 
-def get_list_of_coins():
-        data = json.load(open("market_cap_ranking_coin_list.json", encoding="utf8"))
-        name_list = [item.get("name") for item in data]
 
-        return name_list
+def get_list_of_coins():
+    data = json.load(open("market_cap_ranking_coin_list.json", encoding="utf8"))
+    name_list = [item.get("name") for item in data]
+
+    return name_list
+
 
 class ManualTransaction:
     local_date_time = ""
     timezone = ""
     is_buy = True if 'buy' else False  # default value: True = Buy; False = Sell
 
-    def __init__(self, id_num, crypto_name, buy_or_sell, price, num_coins_trading, target, fee, time):
+    def __init__(self, id_num, crypto_name, buy_or_sell, price, num_coins_trading, fee, time):
         self.id = id_num
         self.crypto_name = crypto_name
-        self.num_coins_trading = num_coins_trading  # amount
+        self.num_coins_trading = float(num_coins_trading)  # amount
         self.fee = fee
         self.is_buy = buy_or_sell
-        self.current_price = price
+        self.current_price = float(price)
         self.trade_value = self.trade_value_format()
-        self.target = target
+        self.target = self.current_price * 1.2
         self.utc_date_time = time
 
     def return_transaction(self):
@@ -42,7 +45,7 @@ class ManualTransaction:
         transaction_dictonary = {}
         if key not in transaction_dictonary:
             transaction_dictonary[key] = {self.crypto_name, self.is_buy, self.current_price,
-                                           self.num_coins_trading, self.target, self.utc_date_time}
+                                          self.num_coins_trading, self.target, self.utc_date_time}
         return transaction_dictonary
 
     def quantity_display(self):
@@ -100,7 +103,6 @@ class ManualTransaction:
         :rtype str
         """
         return "${0:.1f}".format(value)
-
 
 # def main():
 # #     users_timezone = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo

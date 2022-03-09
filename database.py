@@ -170,7 +170,7 @@ class Database:
 
             for each_row in remaining_query_rows:
                 transaction = ManualTransaction(each_row[0], each_row[2], each_row[3], each_row[4], each_row[5]
-                                                , each_row[6], each_row[7], each_row[8])
+                                                , each_row[7], each_row[8])
                 self.all_transactions.append(transaction)
 
                 if each_row[0] > self.transaction_id:
@@ -317,6 +317,8 @@ class Database:
         :param transaction:
         :return:
         """
+
+        print("made it")
         # all Transactions update
         self.transaction_id += 1
         transaction.id = self.transaction_id
@@ -340,6 +342,7 @@ class Database:
             self.current_holdings[coin_name]['amount'] = current_amt
             self.current_holdings[coin_name]['target'] = transaction.target
         else:
+            self.current_holdings[coin_name] = {}
             self.current_holdings[coin_name]['avg_price'] = new_purchase
             self.current_holdings[coin_name]['amount'] = new_amt
             self.current_holdings[coin_name]['target'] = transaction.target
@@ -451,8 +454,9 @@ class Database:
 
 def main():
     test = Database("hinduhops")
-    print(test.build_portfolio())
-
+    mt = ManualTransaction(0,"ethereum", True, 2500, 2, 0, "3/9/2022 04:12" )
+    test.add_transaction(mt)
+    print(test.all_transactions)
 
 if __name__ == '__main__':
     main()
