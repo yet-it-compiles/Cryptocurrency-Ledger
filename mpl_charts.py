@@ -124,7 +124,7 @@ class MplCharts:
                     # set size
                 # figratio=(15, 10),
                 # figscale=1.5,
-                figsize=(1293*pixels, 649*pixels),
+                figsize=(1293*pixels, 609*pixels),
 
                     # if we include volume data in ohlc,
                     # we can add volume chart underneath
@@ -146,7 +146,7 @@ class MplCharts:
             
             self.canvas = FigureCanvasTkAgg(fig)
             self.canvas.draw()
-            self.canvas.get_tk_widget().place(x=135, y=357)
+            self.canvas.get_tk_widget().place(x=135, y=397)
         
         else: 
             
