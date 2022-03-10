@@ -11,10 +11,8 @@ from mpl_charts import MplCharts
 import responsive_calculator
 import manual_transaction
 import webbrowser
-
-
-# import news_scraper
-# from news_scraper import NewsScraper
+import news_scraper
+from news_scraper import NewsScraper
 
 
 def logout_button_display(self, controller):
@@ -775,21 +773,21 @@ class Dashboard(tk.Frame):
 
         flash_delay = 100  # Milliseconds.
 
-        # def build_news(self):
+        def build_news(self):
 
-        #     link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
-        #     self.link_image = tk.PhotoImage(file=link_image_path)
-        #
-        #     articles = NewsScraper.get_headlines()
-        #
-        #     for x in range(5):
-        #         y = 500 + x * 100
-        #         button_y = 550 + x * 100
-        #         self.canvas.create_text(1300, y, text=articles[x][0], fill="#ffffff",
-        #                                 font=("SourceCodePro-Regular", int(13.0)), width=230)
-        #         link_image_obj = self.canvas.create_image(1350, button_y, anchor='sw', image=self.link_image)
-        #         self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
-        #                              lambda event: (flash_hidden(link_image_obj), callback(articles[x][1])))
+            link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
+            self.link_image = tk.PhotoImage(file=link_image_path)
+
+            articles = NewsScraper.get_headlines()
+
+            for x in range(5):
+                y = 500 + x * 100
+                button_y = 550 + x * 100
+                self.canvas.create_text(1300, y, text=articles[x][0], fill="#ffffff",
+                                        font=("SourceCodePro-Regular", int(13.0)), width=230)
+                link_image_obj = self.canvas.create_image(1350, button_y, anchor='sw', image=self.link_image)
+                self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                                     lambda event: (flash_hidden(link_image_obj), callback(articles[x][1])))
 
         def flash_hidden(image_obj):
             """
