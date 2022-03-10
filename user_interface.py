@@ -5,15 +5,14 @@ from tkinter import *
 from tkcalendar import DateEntry
 from tktimepicker import AnalogPicker, AnalogThemes
 import database
-from database import *
 import password_encryption
 from password_encryption import *
 from mpl_charts import MplCharts
 import responsive_calculator
 import manual_transaction
 import webbrowser
-import news_scraper
-from news_scraper import NewsScraper
+# import news_scraper
+# from news_scraper import NewsScraper
 
 
 def logout_button_display(self, controller):
@@ -331,7 +330,7 @@ class Enrollment(tk.Frame):
         get_email = email.get()
 
         if Database.checkUsername(get_username):
-            error = "This username is taken. Please choose a differnt one"
+            error = "This username is taken. Please choose a different one"
             Error(self, error)
             username.set("")
             password.set("")
@@ -772,21 +771,22 @@ class Dashboard(tk.Frame):
             self.canvas.create_text(1060.0, upper_y, text=to_print, fill="#ffffff",
                                     font=("SourceCodePro-Regular", int(10.0)), tag="transactions")
 
-    def build_news(self):
         flash_delay = 100  # Milliseconds.
-        link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
-        self.link_image = tk.PhotoImage(file=link_image_path)
+    # def build_news(self):
 
-        articles = NewsScraper.get_headlines()
-
-        for x in range(5):
-            y = 500 + x * 100
-            button_y = 550 + x * 100
-            self.canvas.create_text(1300, y, text=articles[x][0], fill="#ffffff",
-                                    font=("SourceCodePro-Regular", int(13.0)), width=230)
-            link_image_obj = self.canvas.create_image(1350, button_y, anchor='sw', image=self.link_image)
-            self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
-                                 lambda event: (flash_hidden(link_image_obj), callback(articles[x][1])))
+    #     link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
+    #     self.link_image = tk.PhotoImage(file=link_image_path)
+    #
+    #     articles = NewsScraper.get_headlines()
+    #
+    #     for x in range(5):
+    #         y = 500 + x * 100
+    #         button_y = 550 + x * 100
+    #         self.canvas.create_text(1300, y, text=articles[x][0], fill="#ffffff",
+    #                                 font=("SourceCodePro-Regular", int(13.0)), width=230)
+    #         link_image_obj = self.canvas.create_image(1350, button_y, anchor='sw', image=self.link_image)
+    #         self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+    #                              lambda event: (flash_hidden(link_image_obj), callback(articles[x][1])))
 
         def flash_hidden(image_obj):
             """
@@ -861,10 +861,6 @@ class Charts(tk.Frame):
                                            font=("SourceCodePro-Regular", int(15.0)))
         self.fdv = self.canvas.create_text(1333.0, 265.0, text="0.00", fill="#ffffff",
                                            font=("SourceCodePro-Regular", int(15.0)))
-
-        self.canvas.create_text(301.5, 36.5, text="Crypto Name", fill="#ffffff", font=("Rosarivo-Regular", int(36.0)))
-        self.current_price = self.canvas.create_text(253.0, 393.0, text="90.00", fill="#ffffff",
-                                                     font=("SourceCodePro-Regular", int(25.0)))
 
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "Collection of all UI Graphics/dashboard_dashboard.png"
@@ -962,30 +958,30 @@ class Charts(tk.Frame):
                              command=lambda: self.generate_chart(365))
         year_button.place(x=855, y=370, width=26, height=16)
 
-        sixmo_button = Button(self, text="6m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
+        six_month_button = Button(self, text="6m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
                               highlightthickness=0, relief="flat",
                               command=lambda: self.generate_chart(180))
-        sixmo_button.place(x=809, y=370, width=25, height=16)
+        six_month_button.place(x=809, y=370, width=25, height=16)
 
-        threemo_button = Button(self, text="3m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
+        three_month_button = Button(self, text="3m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
                                 highlightthickness=0, relief="flat",
                                 command=lambda: self.generate_chart(90))
-        threemo_button.place(x=763, y=371, width=26, height=16)
+        three_month_button.place(x=763, y=371, width=26, height=16)
 
-        month_button = Button(self, text="1m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
+        one_month_button = Button(self, text="1m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
                               highlightthickness=0, relief="flat",
                               command=lambda: self.generate_chart(30))
-        month_button.place(x=717, y=370, width=28, height=17)
+        one_month_button.place(x=717, y=370, width=28, height=17)
 
-        week_button = Button(self, text="1w", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
+        one_week_button = Button(self, text="1w", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
                              highlightthickness=0, relief="flat",
                              command=lambda: self.generate_chart(7))
-        week_button.place(x=671, y=369, width=26, height=16)
+        one_week_button.place(x=671, y=369, width=26, height=16)
 
-        day_button = Button(self, text="1d", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
+        one_day_button = Button(self, text="1d", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
                             highlightthickness=0, relief="flat",
                             command=lambda: self.generate_chart(1))
-        day_button.place(x=625, y=369, width=26, height=16)
+        one_day_button.place(x=625, y=369, width=26, height=16)
 
         # search bar
         self.coin_name = tk.StringVar(self.canvas)
@@ -1003,6 +999,7 @@ class Charts(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
+            
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1589,9 +1586,9 @@ class Portfolio(tk.Frame):
 
         def AddTransactionClicker():
             """
-            opens up a pop up for the user to manually add transactions
+            opens up a pop-up for the user to manually add transactions
             the user inputs a coin name, amount of coins being sold/purchased, amount sold/purchased for,
-            the date and time the transaction occured, the fee, and the currency
+            the date and time the transaction occurred, the fee, and the currency
             """
             pop = Toplevel(self)
             pop.geometry('485x704')
@@ -1772,7 +1769,7 @@ class Portfolio(tk.Frame):
             buy_button = add_transactions_canvas.create_image(83, 125, anchor='nw', image=self.buy_button_image)
             add_transactions_canvas.tag_bind(buy_button, "<ButtonRelease-1>", lambda event: buy_or_sell(True))
 
-        # creates and opens up a log out pop up
+        # creates and opens up a log-out pop up
         logout_image_path = "Collection of all UI Graphics/dashboard_logout.png"
         self.logout_image = tk.PhotoImage(file=logout_image_path)
         log_out_button = self.canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
@@ -2303,6 +2300,7 @@ class CoinInfo(tk.Frame):
 def main():
     """
     Launchpad method to compile, and run this module
+
     :return: runs the program
     """
     app = CryptocurrencyLedger()
