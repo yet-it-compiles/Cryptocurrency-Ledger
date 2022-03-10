@@ -16,7 +16,6 @@ class NewsScraper:
         soup = BeautifulSoup(res.content, 'html.parser')
 
         headlines = soup.find_all(attrs={'class':'headline'})
-        urls = soup.find_all('a', href=True)
 
         articles = []
         for i in headlines:
