@@ -11,6 +11,9 @@ from password_encryption import *
 from mpl_charts import MplCharts
 import responsive_calculator
 import manual_transaction
+import webbrowser
+import news_scraper
+from news_scraper import NewsScraper
 
 
 def logout_button_display(self, controller):
@@ -57,6 +60,9 @@ def Error(self, message):
     self.error_button_img = PhotoImage(file="Collection of all UI Graphics/error_button_img.png")
     error_button_obj = error_canvas.create_image(280, 200, image=self.error_button_img)
     error_canvas.tag_bind(error_button_obj, "<ButtonRelease-1>", lambda event: destroy_error())
+
+def callback(url):
+    webbrowser.open_new(url)
 
 
 # general method for the notifications button
@@ -293,6 +299,8 @@ class LoginPage(tk.Frame):
                                           relief="flat", activebackground="#343333")
         forgot_password_location.place(x=444, y=537, width=142, height=50)
 
+        button = Button(self, text="Update", command=lambda: callback("https://www.coindesk.com/"))
+        button.place(x=0, y=0)
         # Creates, and displays the sign-up button
         self.sign_up_button = PhotoImage(file=f"Collection of all UI Graphics/sign_up_button.png")
         sign_up_button_location = Button(self, image=self.sign_up_button, borderwidth=0, highlightthickness=0,
@@ -659,12 +667,13 @@ class Dashboard(tk.Frame):
 
         self.background_img.width(), self.background_img.height()
         button = Button(self, text="Update", command=lambda: self.update())
-        button.place(x=1350, y=800)
+        button.place(x=350, y=800)
 
     def create_user(self, username):
         self.user_data = Database(username)
 
     def update(self):
+        self.build_news()
         # Total Value Updater
         self.canvas.itemconfig(self.total_portfolio, text=('$', self.user_data.get_total_portfolio()))
 
@@ -758,6 +767,44 @@ class Dashboard(tk.Frame):
             to_print = "$ " + str(info[5])
             self.canvas.create_text(1060.0, upper_y, text=to_print, fill="#ffffff",
                                     font=("SourceCodePro-Regular", int(10.0)), tag = "transactions")
+
+    def build_news(self):
+        flash_delay = 100  # Milliseconds.
+        link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
+        self.link_image = tk.PhotoImage(file=link_image_path)
+
+        articles = NewsScraper.get_headlines()
+
+        for x in range(5):
+            y = 500 + x * 100
+            button_y = 550 + x * 100
+            self.canvas.create_text(1300, y, text = articles[x][0], fill = "#ffffff", font=("SourceCodePro-Regular", int(13.0)),width=230)
+            link_image_obj = self.canvas.create_image(1350, button_y, anchor='sw', image=self.link_image)
+            self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                                 lambda event: (flash_hidden(link_image_obj), callback(articles[x][1])))
+
+
+        def flash_hidden(image_obj):
+            """
+            Method sets the state of the object, and hides the buttons when they are interacted with
+
+            :param image_obj: is the image object to hide
+            :type : int
+            :return: a hidden button when pressed
+            """
+            set_state(tk.HIDDEN, image_obj)
+            self.canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+
+        def set_state(state, image_obj):
+            """
+            Sets the state of the image object
+
+            :param state: the state to apply to the buttons
+            :param image_obj: is the image object to apply a state on
+            :return: an image object with a state applied
+            """
+            self.canvas.itemconfigure(image_obj, state=state)
+
 
 
 
