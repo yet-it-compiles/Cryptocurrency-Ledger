@@ -11,6 +11,8 @@ from mpl_charts import MplCharts
 import responsive_calculator
 import manual_transaction
 import webbrowser
+
+
 # import news_scraper
 # from news_scraper import NewsScraper
 
@@ -29,7 +31,7 @@ def logout_button_display(self, controller):
     def destroy_logout():
         pop.destroy()
 
-    # creates and adds functionality for the Yes button in the log out pop up
+    # creates and adds functionality for the Yes button in the log-out pop up
     self.logout_yes_img = PhotoImage(file="Collection of all UI Graphics\logout_yes.png")
     logout_yes_img_obj = logout_canvas.create_image(112, 135, anchor='nw', image=self.logout_yes_img)
     logout_canvas.tag_bind(logout_yes_img_obj, "<ButtonRelease-1>",
@@ -688,28 +690,28 @@ class Dashboard(tk.Frame):
         if not len(dict_of_top_earners) == 0:
             for counter in range(len(dict_of_top_earners)):
                 if counter == 0:
-                    toPrint = "$" + str(dict_of_top_earners[0][1][0])
-                    self.canvas.itemconfig(self.top_earner_1_1, text=toPrint)
-                    toPrint = "$" + str(dict_of_top_earners[0][1][1])
-                    self.canvas.itemconfig(self.top_earner_1_2, text=toPrint)
+                    to_print = "$" + str(dict_of_top_earners[0][1][0])
+                    self.canvas.itemconfig(self.top_earner_1_1, text=to_print)
+                    to_print = "$" + str(dict_of_top_earners[0][1][1])
+                    self.canvas.itemconfig(self.top_earner_1_2, text=to_print)
                     self.canvas.itemconfig(self.top_earner_1_3, text=dict_of_top_earners[0][1][2])
                 elif counter == 1:
-                    toPrint = "$" + str(dict_of_top_earners[1][1][0])
-                    self.canvas.itemconfig(self.top_earner_2_1, text=toPrint)
-                    toPrint = "$" + str(dict_of_top_earners[1][1][1])
-                    self.canvas.itemconfig(self.top_earner_2_2, text=toPrint)
+                    to_print = "$" + str(dict_of_top_earners[1][1][0])
+                    self.canvas.itemconfig(self.top_earner_2_1, text=to_print)
+                    to_print = "$" + str(dict_of_top_earners[1][1][1])
+                    self.canvas.itemconfig(self.top_earner_2_2, text=to_print)
                     self.canvas.itemconfig(self.top_earner_2_3, text=dict_of_top_earners[1][1][2])
                 elif counter == 2:
-                    toPrint = "$" + str(dict_of_top_earners[2][1][0])
-                    self.canvas.itemconfig(self.top_earner_3_1, text=toPrint)
-                    toPrint = "$" + str(dict_of_top_earners[2][1][1])
-                    self.canvas.itemconfig(self.top_earner_3_2, text=toPrint)
+                    to_print = "$" + str(dict_of_top_earners[2][1][0])
+                    self.canvas.itemconfig(self.top_earner_3_1, text=to_print)
+                    to_print = "$" + str(dict_of_top_earners[2][1][1])
+                    self.canvas.itemconfig(self.top_earner_3_2, text=to_print)
                     self.canvas.itemconfig(self.top_earner_3_3, text=dict_of_top_earners[2][1][2])
                 elif counter == 3:
-                    toPrint = "$" + str(dict_of_top_earners[3][1][0])
-                    self.canvas.itemconfig(self.top_earner_4_1, text=toPrint)
-                    toPrint = "$" + str(dict_of_top_earners[3][1][1])
-                    self.canvas.itemconfig(self.top_earner_4_2, text=toPrint)
+                    to_print = "$" + str(dict_of_top_earners[3][1][0])
+                    self.canvas.itemconfig(self.top_earner_4_1, text=to_print)
+                    to_print = "$" + str(dict_of_top_earners[3][1][1])
+                    self.canvas.itemconfig(self.top_earner_4_2, text=to_print)
                     self.canvas.itemconfig(self.top_earner_4_3, text=dict_of_top_earners[3][1][2])
                 else:
                     break
@@ -720,28 +722,28 @@ class Dashboard(tk.Frame):
         if not len(dict_of_closest) == 0:
             for counter in range(len(dict_of_closest)):
                 if counter == 0:
-                    toPrint = "$" + str(dict_of_closest[0][1][0])
-                    self.canvas.itemconfig(self.closest_1_1, text=toPrint)
-                    toPrint = "$" + str(dict_of_closest[0][1][1])
-                    self.canvas.itemconfig(self.closest_1_2, text=toPrint)
+                    to_print = "$" + str(dict_of_closest[0][1][0])
+                    self.canvas.itemconfig(self.closest_1_1, text=to_print)
+                    to_print = "$" + str(dict_of_closest[0][1][1])
+                    self.canvas.itemconfig(self.closest_1_2, text=to_print)
                     self.canvas.itemconfig(self.closest_1_3, text=dict_of_closest[0][1][2])
                 elif counter == 1:
-                    toPrint = "$" + str(dict_of_closest[1][1][0])
-                    self.canvas.itemconfig(self.closest_2_1, text=toPrint)
-                    toPrint = "$" + str(dict_of_closest[1][1][1])
-                    self.canvas.itemconfig(self.closest_2_2, text=toPrint)
+                    to_print = "$" + str(dict_of_closest[1][1][0])
+                    self.canvas.itemconfig(self.closest_2_1, text=to_print)
+                    to_print = "$" + str(dict_of_closest[1][1][1])
+                    self.canvas.itemconfig(self.closest_2_2, text=to_print)
                     self.canvas.itemconfig(self.closest_2_3, text=dict_of_closest[1][1][2])
                 elif counter == 2:
-                    toPrint = "$" + str(dict_of_closest[2][1][0])
-                    self.canvas.itemconfig(self.closest_3_1, text=toPrint)
-                    toPrint = "$" + str(dict_of_closest[2][1][1])
-                    self.canvas.itemconfig(self.closest_3_2, text=toPrint)
+                    to_print = "$" + str(dict_of_closest[2][1][0])
+                    self.canvas.itemconfig(self.closest_3_1, text=to_print)
+                    to_print = "$" + str(dict_of_closest[2][1][1])
+                    self.canvas.itemconfig(self.closest_3_2, text=to_print)
                     self.canvas.itemconfig(self.closest_3_3, text=dict_of_closest[2][1][2])
                 elif counter == 3:
-                    toPrint = "$" + str(dict_of_closest[3][1][0])
-                    self.canvas.itemconfig(self.closest_4_1, text=toPrint)
-                    toPrint = "$" + str(dict_of_closest[3][1][1])
-                    self.canvas.itemconfig(self.closest_4_2, text=toPrint)
+                    to_print = "$" + str(dict_of_closest[3][1][0])
+                    self.canvas.itemconfig(self.closest_4_1, text=to_print)
+                    to_print = "$" + str(dict_of_closest[3][1][1])
+                    self.canvas.itemconfig(self.closest_4_2, text=to_print)
                     self.canvas.itemconfig(self.closest_4_3, text=dict_of_closest[3][1][2])
                 else:
                     break
@@ -772,21 +774,22 @@ class Dashboard(tk.Frame):
                                     font=("SourceCodePro-Regular", int(10.0)), tag="transactions")
 
         flash_delay = 100  # Milliseconds.
-    # def build_news(self):
 
-    #     link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
-    #     self.link_image = tk.PhotoImage(file=link_image_path)
-    #
-    #     articles = NewsScraper.get_headlines()
-    #
-    #     for x in range(5):
-    #         y = 500 + x * 100
-    #         button_y = 550 + x * 100
-    #         self.canvas.create_text(1300, y, text=articles[x][0], fill="#ffffff",
-    #                                 font=("SourceCodePro-Regular", int(13.0)), width=230)
-    #         link_image_obj = self.canvas.create_image(1350, button_y, anchor='sw', image=self.link_image)
-    #         self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
-    #                              lambda event: (flash_hidden(link_image_obj), callback(articles[x][1])))
+        # def build_news(self):
+
+        #     link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
+        #     self.link_image = tk.PhotoImage(file=link_image_path)
+        #
+        #     articles = NewsScraper.get_headlines()
+        #
+        #     for x in range(5):
+        #         y = 500 + x * 100
+        #         button_y = 550 + x * 100
+        #         self.canvas.create_text(1300, y, text=articles[x][0], fill="#ffffff",
+        #                                 font=("SourceCodePro-Regular", int(13.0)), width=230)
+        #         link_image_obj = self.canvas.create_image(1350, button_y, anchor='sw', image=self.link_image)
+        #         self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+        #                              lambda event: (flash_hidden(link_image_obj), callback(articles[x][1])))
 
         def flash_hidden(image_obj):
             """
@@ -958,29 +961,33 @@ class Charts(tk.Frame):
                              command=lambda: self.generate_chart(365))
         year_button.place(x=855, y=370, width=26, height=16)
 
-        six_month_button = Button(self, text="6m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
-                              highlightthickness=0, relief="flat",
-                              command=lambda: self.generate_chart(180))
+        six_month_button = Button(self, text="6m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969",
+                                  borderwidth=0,
+                                  highlightthickness=0, relief="flat",
+                                  command=lambda: self.generate_chart(180))
         six_month_button.place(x=809, y=370, width=25, height=16)
 
-        three_month_button = Button(self, text="3m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
-                                highlightthickness=0, relief="flat",
-                                command=lambda: self.generate_chart(90))
+        three_month_button = Button(self, text="3m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969",
+                                    borderwidth=0,
+                                    highlightthickness=0, relief="flat",
+                                    command=lambda: self.generate_chart(90))
         three_month_button.place(x=763, y=371, width=26, height=16)
 
-        one_month_button = Button(self, text="1m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
-                              highlightthickness=0, relief="flat",
-                              command=lambda: self.generate_chart(30))
+        one_month_button = Button(self, text="1m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969",
+                                  borderwidth=0,
+                                  highlightthickness=0, relief="flat",
+                                  command=lambda: self.generate_chart(30))
         one_month_button.place(x=717, y=370, width=28, height=17)
 
-        one_week_button = Button(self, text="1w", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
-                             highlightthickness=0, relief="flat",
-                             command=lambda: self.generate_chart(7))
+        one_week_button = Button(self, text="1w", font=("SourceCodePro-Regular", int(10.0)), bg="#696969",
+                                 borderwidth=0,
+                                 highlightthickness=0, relief="flat",
+                                 command=lambda: self.generate_chart(7))
         one_week_button.place(x=671, y=369, width=26, height=16)
 
         one_day_button = Button(self, text="1d", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0,
-                            highlightthickness=0, relief="flat",
-                            command=lambda: self.generate_chart(1))
+                                highlightthickness=0, relief="flat",
+                                command=lambda: self.generate_chart(1))
         one_day_button.place(x=625, y=369, width=26, height=16)
 
         # search bar
@@ -999,7 +1006,7 @@ class Charts(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-            
+
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1789,7 +1796,7 @@ class Portfolio(tk.Frame):
         simulated_trading_image_obj = self.canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         self.canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                              lambda event: (
-                             flash_hidden(simulated_trading_image_obj), controller.show_canvas(CoinInfo)))
+                                 flash_hidden(simulated_trading_image_obj), controller.show_canvas(CoinInfo)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
@@ -1987,9 +1994,9 @@ class CoinInfo(tk.Frame):
 
         def AddTransactionClicker():
             """
-            opens up a pop up for the user to manually add transactions
+            opens up a pop-up for the user to manually add transactions
             the user inputs a coin name, amount of coins being sold/purchased, amount sold/purchased for,
-            the date and time the transaction occured, the fee, and the currency
+            the date and time the transaction occurred, the fee, and the currency
             """
             pop = Toplevel(self)
             pop.geometry('485x704')
