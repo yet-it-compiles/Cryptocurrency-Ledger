@@ -254,6 +254,7 @@ class LoginPage(tk.Frame):
                 # Set up Dashboard UI to have all customer information
                 Dashboard.create_user(Collection_of_canvases[Dashboard], username)
                 Dashboard.update(Collection_of_canvases[Dashboard])
+                Dashboard.build_news(Collection_of_canvases[Dashboard])
                 Portfolio.update(Collection_of_canvases[Portfolio])
                 controller.show_canvas(Dashboard)
             else:
@@ -296,8 +297,7 @@ class LoginPage(tk.Frame):
                                           relief="flat", activebackground="#343333")
         forgot_password_location.place(x=444, y=537, width=142, height=50)
 
-        button = Button(self, text="Update", command=lambda: callback("https://www.coindesk.com/"))
-        button.place(x=0, y=0)
+
         # Creates, and displays the sign-up button
         self.sign_up_button = PhotoImage(file=f"Collection of all UI Graphics/sign_up_button.png")
         sign_up_button_location = Button(self, image=self.sign_up_button, borderwidth=0, highlightthickness=0,
@@ -675,7 +675,6 @@ class Dashboard(tk.Frame):
         self.user_data = Database(username)
 
     def update(self):
-        self.build_news()
         # Total Value Updater
         self.canvas.itemconfig(self.total_portfolio, text=('$', self.user_data.get_total_portfolio()))
 
