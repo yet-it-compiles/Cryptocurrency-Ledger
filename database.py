@@ -465,6 +465,21 @@ class Database:
 
         return result
 
+    def recent_transactions(self):
+        result = []
+        for key in reversed(self.all_transactions):
+            coin_name = key.crypto_name.title()
+            is_buy = "Buy"
+            if not key.is_buy:
+                is_buy = "Sell"
+            price = key.current_price
+            amount = key.num_coins_trading
+            total = key.trade_value
+            info = [coin_name, key.is_buy, is_buy, price, amount, total]
+            result.append(info)
+        return result
+
+
 
 
 def main():

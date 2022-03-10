@@ -515,22 +515,22 @@ class Dashboard(tk.Frame):
         final_entry = tk.Entry(self,textvariable=final_price, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
         percent_entry = tk.Entry(self, textvariable=percent_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
         raw_entry = tk.Entry(self, textvariable=raw_difference, font=("Rosarivo-Regular", int(10)), width = 15, bd = 0, bg = '#d3d3d3')
-         
-        clear_button = Button(self, text= "clear", borderwidth=0, highlightthickness=0, command=lambda: 
+
+        clear_button = Button(self, text= "clear", borderwidth=0, highlightthickness=0, command=lambda:
         [initial_entry.delete(0, END), final_entry.delete(0, END), percent_entry.delete(0, END), raw_entry.delete(0, END)])
         clear_button.place(x=1075, y= 600, height=20, width=55)
 
         calculate_button = Button(self, text="Calculate", borderwidth=0, highlightthickness=0, command= lambda:
-        [initial_price.set(calc.initial_price_answer.get()), final_price.set(calc.final_price_answer.get()), 
+        [initial_price.set(calc.initial_price_answer.get()), final_price.set(calc.final_price_answer.get()),
         percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get()),
         percent_entry.config(fg = calc.get_color()), raw_entry.config(fg = calc.get_color())])
         calculate_button.place(x=1075, y=575, height=20, width=55)
-        
+
         window = self.canvas.create_window(985, 460, window = initial_entry)
         window = self.canvas.create_window(985, 502, window = final_entry)
         window = self.canvas.create_window(985, 547, window = percent_entry)
         window = self.canvas.create_window(985, 595, window = raw_entry)
-        
+
         initial_price.trace('w', calc.calculate_initial_price)
         final_price.trace('w', calc.calculate_final_price)
         percent_difference.trace('w', calc.calculate_percent_difference)
@@ -556,7 +556,7 @@ class Dashboard(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
                                             Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
                                             Charts.generate_data(Collection_of_canvases[Charts]),
                                             Charts.generate_chart(Collection_of_canvases[Charts], 365)))
@@ -658,6 +658,8 @@ class Dashboard(tk.Frame):
             self.canvas.itemconfigure(image_obj, state=state)
 
         self.background_img.width(), self.background_img.height()
+        button = Button(self, text="Update", command=lambda: self.update())
+        button.place(x=1350, y=800)
 
     def create_user(self, username):
         self.user_data = Database(username)
@@ -732,6 +734,33 @@ class Dashboard(tk.Frame):
                     self.canvas.itemconfig(self.closest_4_3, text=dict_of_closest[3][1][2])
                 else:
                     break
+
+        #Transactions
+        self.canvas.delete("transactions")
+        transactions = self.user_data.recent_transactions()
+        max = 6 if len(transactions) > 6 else len(transactions)
+        for x in range(max):
+            info = transactions[x]
+            upper_y = 710 + x * 50
+            lower_y = 725 + x * 50
+            to_print = str(info[0])
+            self.canvas.create_text(875.0, upper_y, text=to_print, fill="#ffffff",font=("SourceCodePro-Regular", int(10.0)), tag = "transactions")
+            color = "#00ff00" if  info[1] else "#ff0000"
+            to_print = str(info[2])
+            self.canvas.create_text(875.0, lower_y, text=to_print, fill=color,
+                                    font=("SourceCodePro-Regular", int(10.0)), tag = "transactions")
+            to_print = "$ " + str(info[3])
+            self.canvas.create_text(975.0, upper_y, text=to_print, fill="#ffffff",
+                                    font=("SourceCodePro-Regular", int(10.0)), tag = "transactions")
+            to_print = str(info[4])
+            self.canvas.create_text(1060.0, lower_y, text=to_print, fill="#ffffff",
+                                    font=("SourceCodePro-Regular", int(10.0)), tag= "transactions")
+            to_print = "$ " + str(info[5])
+            self.canvas.create_text(1060.0, upper_y, text=to_print, fill="#ffffff",
+                                    font=("SourceCodePro-Regular", int(10.0)), tag = "transactions")
+
+
+
 
 
 class Charts(tk.Frame):
@@ -877,13 +906,13 @@ class Charts(tk.Frame):
                                  controller.show_canvas(Settings)))
 
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-        
+
         # date range buttons
-        year_button = Button(self, text="1y", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat", 
+        year_button = Button(self, text="1y", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
                     command = lambda: self.generate_chart(365))
         year_button.place(x=855, y=370, width=26, height=16)
 
-        sixmo_button = Button(self, text="6m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat", 
+        sixmo_button = Button(self, text="6m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
                               command = lambda: self.generate_chart(180))
         sixmo_button.place(x=809, y=370, width=25, height=16)
 
@@ -898,11 +927,11 @@ class Charts(tk.Frame):
         week_button = Button(self, text="1w", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
                                 command = lambda: self.generate_chart(7))
         week_button.place(x=671, y=369, width=26, height=16)
-        
+
         day_button = Button(self, text="1d", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
                                 command = lambda: self.generate_chart(1))
         day_button.place(x=625, y=369, width=26, height=16)
-        
+
         # search bar
         self.coin_name = tk.StringVar(self.canvas)
         self.search_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox2.png")
@@ -1031,7 +1060,7 @@ class ComingSoon(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
                                             Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
                                             Charts.generate_data(Collection_of_canvases[Charts]),
                                             Charts.generate_chart(Collection_of_canvases[Charts], 365)))
@@ -1160,7 +1189,7 @@ class Settings(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
                                             Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
                                             Charts.generate_data(Collection_of_canvases[Charts]),
                                             Charts.generate_chart(Collection_of_canvases[Charts], 365)))
@@ -1308,7 +1337,7 @@ class NotesTab(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
                                             Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
                                             Charts.generate_data(Collection_of_canvases[Charts]),
                                             Charts.generate_chart(Collection_of_canvases[Charts], 365)))
@@ -1723,7 +1752,7 @@ class Portfolio(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
                                             Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
                                             Charts.generate_data(Collection_of_canvases[Charts]),
                                             Charts.generate_chart(Collection_of_canvases[Charts], 365)))
@@ -1906,7 +1935,7 @@ class CoinInfo(tk.Frame):
 
         self.background_img = PhotoImage(file=f"Collection of all UI Graphics/coinInfo_background.png")
         canvas.create_image(720.0, 512.0, image=self.background_img)
-        
+
         def AddTransactionClicker():
             """
             opens up a pop up for the user to manually add transactions
@@ -2044,10 +2073,10 @@ class CoinInfo(tk.Frame):
                 time_minutes = time_picker.minutes()
                 time_period = time_picker.period()
                 date_purchased = date_purchased_entry.get_date()
-                
+
                 time_purchased = manual_transaction.convert_date_time_to_string(date_purchased, time_hours, time_minutes, time_period)
 
-                coin_name = coin_name_var.get()              
+                coin_name = coin_name_var.get()
                 amount_purchased = amount_purchased_var.get()
                 price_purchased = price_purchased_var.get()
                 purchase_fee = purchase_fee_var.get()
@@ -2058,7 +2087,7 @@ class CoinInfo(tk.Frame):
                 if currency_selection == "" or amount_purchased == "" or price_purchased == "" or coin_name == "":
                     Error(self, "Fill out other entries")
                 else:
-                    try: 
+                    try:
                         op_one = float(currency_selection)
                         op_two = float(amount_purchased)
                     except Exception as error:
@@ -2090,7 +2119,7 @@ class CoinInfo(tk.Frame):
             self.buy_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img3.png")
             buy_button = add_transactions_canvas.create_image(83, 125, anchor='nw', image=self.buy_button_image)
             add_transactions_canvas.tag_bind(buy_button, "<ButtonRelease-1>", lambda event: buy_or_sell(True))
-        
+
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "Collection of all UI Graphics/dashboard_dashboard.png"
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
@@ -2110,7 +2139,7 @@ class CoinInfo(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts), 
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
                                             Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
                                             Charts.generate_data(Collection_of_canvases[Charts]),
                                             Charts.generate_chart(Collection_of_canvases[Charts], 365)))
@@ -2191,16 +2220,16 @@ class CoinInfo(tk.Frame):
             :return: an image object with a state applied
             """
             canvas.itemconfigure(image_obj, state=state)
-            
+
         # add transactions button
         self.add_transactions_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img12.png")
         notifications_button = canvas.create_image(1180, 167, anchor='nw', image=self.add_transactions_img)
         canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: AddTransactionClicker())
-        
+
         canvas.create_text( 426.0, 107.0, text = "<CoinName> Breakdown", fill = "#ffffff", font = ("Rosarivo-Regular", int(24.0)))
         canvas.create_text( 349.5, 145.5, text = "$", fill = "#ffffff", font = ("SourceCodePro-Regular", int(25.0)))
         canvas.create_text( 349.5, 192.0, text = "0.00%",  fill = "#ffffff", font = ("SourceCodePro-Regular", int(15.0)))
-        
+
         # Coin Break down
         canvas.create_text( 626.0, 267.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
         canvas.create_text( 1222.0, 267.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
@@ -2208,14 +2237,14 @@ class CoinInfo(tk.Frame):
         canvas.create_text( 1225.0, 326.5, text = "0 ", fill = "#ffffff",font = ("SourceCodePro-Regular", int(13.0)))
         canvas.create_text( 626.0, 391.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
         canvas.create_text( 626.0, 326.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        
+
         canvas.create_text( 480.0, 585.5, text = "$", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
         canvas.create_text( 1245.0, 596.5, text = "0.00%", fill = "#ffffff", font = ("RopaSans-Regular", int(13.0)))
         canvas.create_text( 341.0, 583.0, text = "BUY",fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(  1025.0, 585.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
         canvas.create_text( 655.0, 585.5, text = "0 ", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
         canvas.create_text( 820.0, 585.5, text = "mm/dd/yy", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
-        
+
 
 def main():
     """
