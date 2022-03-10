@@ -221,7 +221,6 @@ class CryptocurrencyLedger(tk.Tk):
     def show_canvas(self, container):
         """
         Displays the current from that is passed as a parameter, and raises it to the current stack
-
         :param container: The passed in window to display next
         :return: the new canvas
         """
@@ -530,8 +529,8 @@ class Dashboard(tk.Frame):
 
         calculate_button = Button(self, text="Calculate", borderwidth=0, highlightthickness=0, command= lambda:
         [initial_price.set(calc.initial_price_answer.get()), final_price.set(calc.final_price_answer.get()),
-        percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get()),
-        percent_entry.config(fg = calc.get_color()), raw_entry.config(fg = calc.get_color())])
+         percent_difference.set(calc.percent_difference_answer.get()), raw_difference.set(calc.raw_difference_answer.get()),
+         percent_entry.config(fg = calc.get_color()), raw_entry.config(fg = calc.get_color())])
         calculate_button.place(x=1075, y=575, height=20, width=55)
 
         window = self.canvas.create_window(985, 460, window = initial_entry)
@@ -647,7 +646,6 @@ class Dashboard(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -658,7 +656,6 @@ class Dashboard(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -787,7 +784,6 @@ class Dashboard(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -798,7 +794,6 @@ class Dashboard(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -863,6 +858,8 @@ class Charts(tk.Frame):
                                            font=("SourceCodePro-Regular", int(15.0)))
         self.fdv = self.canvas.create_text(1333.0, 265.0, text="0.00", fill="#ffffff",
                                            font=("SourceCodePro-Regular", int(15.0)))
+        self.canvas.create_text(301.5, 36.5, text="Crypto Name", fill="#ffffff", font=("Rosarivo-Regular", int(36.0)))
+
 
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "Collection of all UI Graphics/dashboard_dashboard.png"
@@ -956,7 +953,7 @@ class Charts(tk.Frame):
 
         # date range buttons
         year_button = Button(self, text="1y", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
-                    command = lambda: self.generate_chart(365))
+                             command = lambda: self.generate_chart(365))
         year_button.place(x=855, y=370, width=26, height=16)
 
         sixmo_button = Button(self, text="6m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
@@ -968,15 +965,15 @@ class Charts(tk.Frame):
         threemo_button.place(x=763, y=371, width=26, height=16)
 
         month_button = Button(self, text="1m", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
-                                command = lambda: self.generate_chart(30))
+                              command = lambda: self.generate_chart(30))
         month_button.place(x=717, y=370, width=28, height=17)
 
         week_button = Button(self, text="1w", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
-                                command = lambda: self.generate_chart(7))
+                             command = lambda: self.generate_chart(7))
         week_button.place(x=671, y=369, width=26, height=16)
 
         day_button = Button(self, text="1d", font=("SourceCodePro-Regular", int(10.0)), bg="#696969", borderwidth=0, highlightthickness=0, relief="flat",
-                                command = lambda: self.generate_chart(1))
+                            command = lambda: self.generate_chart(1))
         day_button.place(x=625, y=369, width=26, height=16)
 
         # search bar
@@ -995,7 +992,6 @@ class Charts(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1006,7 +1002,6 @@ class Charts(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1107,10 +1102,10 @@ class ComingSoon(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
-                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
-                                            Charts.generate_data(Collection_of_canvases[Charts]),
-                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
+                                       Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                       Charts.generate_data(Collection_of_canvases[Charts]),
+                                       Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -1171,7 +1166,6 @@ class ComingSoon(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: an image object that is hidden
@@ -1182,7 +1176,6 @@ class ComingSoon(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1236,10 +1229,10 @@ class Settings(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
-                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
-                                            Charts.generate_data(Collection_of_canvases[Charts]),
-                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
+                                       Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                       Charts.generate_data(Collection_of_canvases[Charts]),
+                                       Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -1300,7 +1293,6 @@ class Settings(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1311,7 +1303,6 @@ class Settings(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1384,10 +1375,10 @@ class NotesTab(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
-                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
-                                            Charts.generate_data(Collection_of_canvases[Charts]),
-                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
+                                       Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                       Charts.generate_data(Collection_of_canvases[Charts]),
+                                       Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -1448,7 +1439,6 @@ class NotesTab(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1459,7 +1449,6 @@ class NotesTab(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1608,7 +1597,6 @@ class Portfolio(tk.Frame):
             def flash_hidden(image_obj):
                 """
                 Method sets the state of the object, and hides the buttons when they are interacted with
-
                 :param image_obj: is the image object to hide
                 :return: a hidden button when pressed
                 """
@@ -1785,14 +1773,14 @@ class Portfolio(tk.Frame):
         self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
         dashboard_image_obj = self.canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
         self.canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
+                             lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
 
         # Retrieves the images, and configures the simulated trading button
         simulated_trading_image_path = "Collection of all UI Graphics/dashboard_simulated_trading.png"
         self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
         simulated_trading_image_obj = self.canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         self.canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(CoinInfo)))
+                             lambda event: (flash_hidden(simulated_trading_image_obj), controller.show_canvas(CoinInfo)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
@@ -1809,27 +1797,27 @@ class Portfolio(tk.Frame):
         self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
         portfolio_image_obj = self.canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
         self.canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
+                             lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
 
         alarm_image_path = "Collection of all UI Graphics/dashboard_alarms.png"
         self.alarm_image = tk.PhotoImage(file=alarm_image_path)
         alarm_image_obj = self.canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
         self.canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
+                             lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the news button
         news_image_path = "Collection of all UI Graphics/dashboard_news.png"
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = self.canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         self.canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
+                             lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the settings button
         settings_image_path = "Collection of all UI Graphics/dashboard_settings.png"
         self.settings_image = tk.PhotoImage(file=settings_image_path)
         settings_image_obj = self.canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
         self.canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
+                             lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
 
         # Retrieves the images, and opens the notifications image
         notifications_image_path = "Collection of all UI Graphics/dashboard_notifications.png"
@@ -1842,28 +1830,27 @@ class Portfolio(tk.Frame):
         self.support_image = tk.PhotoImage(file=support_image_path)
         support_image_obj = self.canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
         self.canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
+                             lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the profile image
         notes_image_path = "Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = self.canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         self.canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
+                             lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
 
         # Retrieves the images, and configures the profile image
         profile_image_path = "Collection of all UI Graphics/dashboard_profile_img.png"
         self.profile_image = tk.PhotoImage(file=profile_image_path)
         profile_image_obj = self.canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
         self.canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
-                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
+                             lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
 
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -1874,7 +1861,6 @@ class Portfolio(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -1967,7 +1953,6 @@ class Portfolio(tk.Frame):
 
 class CoinInfo(tk.Frame):
     """
-
     """
 
     def __init__(self, parent, controller):
@@ -2004,7 +1989,6 @@ class CoinInfo(tk.Frame):
             def flash_hidden(image_obj):
                 """
                 Method sets the state of the object, and hides the buttons when they are interacted with
-
                 :param image_obj: is the image object to hide
                 :return: a hidden button when pressed
                 """
@@ -2186,10 +2170,10 @@ class CoinInfo(tk.Frame):
         self.charts_image = tk.PhotoImage(file=charts_image_path)
         charts_image_obj = canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
         canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
-                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
-                                            Charts.generate_data(Collection_of_canvases[Charts]),
-                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
+                        lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
+                                       Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                       Charts.generate_data(Collection_of_canvases[Charts]),
+                                       Charts.generate_chart(Collection_of_canvases[Charts], 365)))
 
         # Retrieves the images, and configures the portfolio button
         portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
@@ -2250,7 +2234,6 @@ class CoinInfo(tk.Frame):
         def flash_hidden(image_obj):
             """
             Method sets the state of the object, and hides the buttons when they are interacted with
-
             :param image_obj: is the image object to hide
             :type : int
             :return: a hidden button when pressed
@@ -2261,7 +2244,6 @@ class CoinInfo(tk.Frame):
         def set_state(state, image_obj):
             """
             Sets the state of the image object
-
             :param state: the state to apply to the buttons
             :param image_obj: is the image object to apply a state on
             :return: an image object with a state applied
@@ -2296,7 +2278,6 @@ class CoinInfo(tk.Frame):
 def main():
     """
     Launchpad method to compile, and run this module
-
     :return: runs the program
     """
     app = CryptocurrencyLedger()
