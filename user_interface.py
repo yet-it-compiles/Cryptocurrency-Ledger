@@ -2110,12 +2110,19 @@ class Alarms(tk.Frame):
         self.canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                              lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
-        # Retrieves the images, and configures the profile image
+        # Retrieves the images, and configures the notes image
         notes_image_path = "Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = self.canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
         self.canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
                              lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
+
+        # Retrieves the images, and configures the profile image
+        profile_image_path = "Collection of all UI Graphics/dashboard_profile_img.png"
+        self.profile_image = tk.PhotoImage(file=profile_image_path)
+        profile_image_obj = self.canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
+        self.canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
+                        lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
 
 
 class CoinInfo(tk.Frame):
@@ -2386,7 +2393,7 @@ class CoinInfo(tk.Frame):
         canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
                         lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
 
-        # Retrieves the images, and configures the profile image
+        # Retrieves the images, and configures the notes image
         notes_image_path = "Collection of all UI Graphics/dashboard_notes.png"
         self.notes_image = tk.PhotoImage(file=notes_image_path)
         notes_image_obj = canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
