@@ -62,6 +62,7 @@ def Error(self, message):
 
 
 def callback(url):
+    print(url)
     webbrowser.open_new(url)
 
 
@@ -207,7 +208,7 @@ class CryptocurrencyLedger(tk.Tk):
 
         # Declaration of logic to iterate through each page layout
         for each_layout in (LoginPage, Enrollment, Dashboard, Charts, ComingSoon, Settings
-                            , NotesTab, Portfolio, CoinInfo):
+                            , NotesTab, Portfolio, CoinInfo, News):
             each_canvas = each_layout(canvas_setup, self)
 
             Collection_of_canvases[each_layout] = each_canvas
@@ -296,7 +297,6 @@ class LoginPage(tk.Frame):
                                           command=lambda: controller.show_canvas(Dashboard),
                                           relief="flat", activebackground="#343333")
         forgot_password_location.place(x=444, y=537, width=142, height=50)
-
 
         # Creates, and displays the sign-up button
         self.sign_up_button = PhotoImage(file=f"Collection of all UI Graphics/sign_up_button.png")
@@ -439,7 +439,7 @@ class Dashboard(tk.Frame):
         # Creates text-fields for searchbar, and username
         # canvas.create_text(588.0, 40.5, text="Search Bar\n", fill="#abb0c8", font=("Rosarivo-Regular", int(12.0)))
         self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
-
+        self.build_news()
         # Investing Portfolio
         self.total_portfolio = self.canvas.create_text(430.0, 198.0, text="$", fill="#ffffff",
                                                        font=("Rosarivo-Regular", int(10.0)))
@@ -590,7 +590,7 @@ class Dashboard(tk.Frame):
         self.news_image = tk.PhotoImage(file=news_image_path)
         news_image_obj = self.canvas.create_image(0, 670, anchor='nw', image=self.news_image)
         self.canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
-                             lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
+                             lambda event: (flash_hidden(news_image_obj), controller.show_canvas(News)))
 
         # Retrieves the images, and configures the settings button
         settings_image_path = "Collection of all UI Graphics/dashboard_settings.png"
@@ -772,21 +772,41 @@ class Dashboard(tk.Frame):
 
         flash_delay = 100  # Milliseconds.
 
-        def build_news(self):
+    def build_news(self):
 
-            link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
-            self.link_image = tk.PhotoImage(file=link_image_path)
+        link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
+        self.link_image = tk.PhotoImage(file=link_image_path)
+        flash_delay = 100  # Milliseconds.
+        articles = NewsScraper.get_headlines()
 
-            articles = NewsScraper.get_headlines()
+        self.canvas.create_text(1300, 500, text=articles[0][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(1350, 550, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[0][1])))
 
-            for x in range(5):
-                y = 500 + x * 100
-                button_y = 550 + x * 100
-                self.canvas.create_text(1300, y, text=articles[x][0], fill="#ffffff",
-                                        font=("SourceCodePro-Regular", int(13.0)), width=230)
-                link_image_obj = self.canvas.create_image(1350, button_y, anchor='sw', image=self.link_image)
-                self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
-                                     lambda event: (flash_hidden(link_image_obj), callback(articles[x][1])))
+        self.canvas.create_text(1300, 600, text=articles[1][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(1350, 650, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[1][1])))
+        self.canvas.create_text(1300, 700, text=articles[2][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(1350, 750, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[2][1])))
+
+        self.canvas.create_text(1300, 800, text=articles[3][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(1350, 850, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[3][1])))
+
+        self.canvas.create_text(1300, 900, text=articles[4][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(1350, 950, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[4][1])))
 
         def flash_hidden(image_obj):
             """
@@ -1880,7 +1900,6 @@ class Portfolio(tk.Frame):
             """
             self.canvas.itemconfigure(image_obj, state=state)
 
-
         # add transactions button
         self.add_transactions_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img12.png")
         notifications_button = self.canvas.create_image(1140, 226, anchor='nw', image=self.add_transactions_img)
@@ -1914,7 +1933,7 @@ class Portfolio(tk.Frame):
         oneday_option_button = Button(self, image=self.oneday_option_img, borderwidth=0, highlightthickness=0,
                                       relief="flat")
         oneday_option_button.place(x=614, y=96, width=32, height=26)
-        
+
         # search button command
         def search(event):
             controller.show_canvas(CoinInfo)
@@ -1922,17 +1941,17 @@ class Portfolio(tk.Frame):
         # self.search_icon = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img19.png")
         # search_button = Button(self, image=self.search_icon, borderwidth=0, highlightthickness=0, relief="flat")
         # search_button.place(x=1074, y=238, width=30, height=27)
-        
-        #self.entry0_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_textBox0.png")
-        #self.canvas.create_image(977.0, 251.0, image=self.entry0_img)
 
-        #Search bar
+        # self.entry0_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_textBox0.png")
+        # self.canvas.create_image(977.0, 251.0, image=self.entry0_img)
+
+        # Search bar
         coin_name = tk.StringVar(self.canvas)
-        entry0 = tk.Entry(self.canvas, textvariable = coin_name,  bd=0, bg="#053f53", fg = "white",
+        entry0 = tk.Entry(self.canvas, textvariable=coin_name, bd=0, bg="#053f53", fg="white",
                           highlightthickness=0)
         entry0.place(x=845.0, y=235, width=242.0, height=27)
         entry0.bind("<Return>", search)
-        
+
         # Search bar button
         self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img19.png")
         self.search_button = self.canvas.create_image(1100, 248, image=self.search_btn_img)
@@ -2308,12 +2327,287 @@ class CoinInfo(tk.Frame):
         canvas.create_text(626.0, 326.5, text="0 ", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
 
         canvas.create_text(480.0, 585.5, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
-        canvas.create_text( 1245.0, 577.5, text = "$", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text(1245.0, 577.5, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(1245.0, 596.5, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
         canvas.create_text(341.0, 583.0, text="BUY", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(1025.0, 585.5, text="0 ", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(655.0, 585.5, text="0 ", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(820.0, 585.5, text="mm/dd/yy", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+
+
+class News(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width=1440, height=1024)
+        self.controller = controller
+        flash_delay = 100  # Milliseconds.
+
+        self.canvas = Canvas(self, bg="#ffffff", height=1024, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvas.place(x=0, y=0)
+
+        self.background_img = PhotoImage(file=f"Collection of all UI Graphics/news_background.png")
+        self.canvas.create_image(720.0, 512.0, image=self.background_img)
+
+
+        # All the specific news buttons
+        # Bitcoin Button
+        self.bitcoin_button = PhotoImage(file=f"Collection of all UI Graphics/news_bitcoin_button.png")
+        bitcoin_button_location = Button(self, image=self.bitcoin_button, borderwidth=0, highlightthickness=0,
+                                         command=lambda: build_specific("bitcoin"),
+                                         relief="flat",
+                                         activebackground="#343333")
+        bitcoin_button_location.place(x=990, y=200, width=162, height=35)
+        # Ethereum Button
+        self.ether_button = PhotoImage(file=f"Collection of all UI Graphics/news_ethereum_button.png")
+        ether_button_location = Button(self, image=self.ether_button, borderwidth=0, highlightthickness=0,
+                                       command=lambda: build_specific("ethereum"),
+                                       relief="flat",
+                                       activebackground="#343333")
+        ether_button_location.place(x=990, y=250, width=162, height=35)
+
+        self.alt_button = PhotoImage(file=f"Collection of all UI Graphics/news_alt_button.png")
+        alt_button_location = Button(self, image=self.alt_button, borderwidth=0, highlightthickness=0,
+                                     command=lambda: build_specific("altcoin"),
+                                     relief="flat",
+                                     activebackground="#343333")
+        alt_button_location.place(x=990, y=300, width=162, height=35)
+
+        self.block_button = PhotoImage(file=f"Collection of all UI Graphics/news_block_button.png")
+        block_button_location = Button(self, image=self.block_button, borderwidth=0, highlightthickness=0,
+                                       command=lambda: build_specific("blockchain"),
+                                       relief="flat",
+                                       activebackground="#343333")
+        block_button_location.place(x=990, y=350, width=162, height=35)
+
+        self.nft_button = PhotoImage(file=f"Collection of all UI Graphics/news_nft_button.png")
+        nft_button_location = Button(self, image=self.nft_button, borderwidth=0, highlightthickness=0,
+                                     command=lambda: build_specific("nft"),
+                                     relief="flat",
+                                     activebackground="#343333")
+        nft_button_location.place(x=990, y=400, width=162, height=35)
+
+        self.defi_button = PhotoImage(file=f"Collection of all UI Graphics/news_defi_button.png")
+        defi_button_location = Button(self, image=self.defi_button, borderwidth=0, highlightthickness=0,
+                                      command=lambda: build_specific("defi"),
+                                      relief="flat",
+                                      activebackground="#343333")
+        defi_button_location.place(x=990, y=450, width=162, height=35)
+
+        link_image_path = "Collection of all UI Graphics/dashboard_link_button.png"
+        self.link_image = tk.PhotoImage(file=link_image_path)
+
+        # Reuters Section
+        articles = NewsScraper.get_reuters()
+
+        self.canvas.create_text(250, 200, text=articles[0][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(300, 250, anchor='sw', image=self.link_image)
+
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[0][1])))
+
+        self.canvas.create_text(250, 300, text=articles[1][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(300, 350, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[1][1])))
+
+        self.canvas.create_text(250, 400, text=articles[2][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(300, 450, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[2][1])))
+
+        self.canvas.create_text(250, 500, text=articles[3][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(300, 550, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[3][1])))
+
+        self.canvas.create_text(250, 600, text=articles[4][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(300, 650, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[4][1])))
+
+        # Coin Desk Section
+        articles = NewsScraper.get_headlines()
+        x_var = 530
+        button_x = 580
+        self.canvas.create_text(x_var, 220, text=articles[0][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(button_x, 250, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[0][1])))
+
+        self.canvas.create_text(x_var, 300, text=articles[1][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(button_x, 350, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[1][1])))
+
+        self.canvas.create_text(x_var, 400, text=articles[2][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(button_x, 450, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[2][1])))
+
+        self.canvas.create_text(x_var, 500, text=articles[3][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(button_x, 550, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[3][1])))
+
+        self.canvas.create_text(x_var, 600, text=articles[4][0], fill="#ffffff",
+                                font=("SourceCodePro-Regular", int(13.0)), width=230)
+        link_image_obj = self.canvas.create_image(button_x, 650, anchor='sw', image=self.link_image)
+        self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(link_image_obj), callback(articles[4][1])))
+
+        def build_specific(category):
+            self.canvas.delete("specific")
+            articles = NewsScraper.get_specific(category)
+            x_var = 1300
+            button_x = 1340
+            self.canvas.create_text(x_var, 200, text=articles[0][0], fill="#ffffff",
+                                    font=("SourceCodePro-Regular", int(13.0)), width=230, tag = "specific")
+            link_image_obj = self.canvas.create_image(button_x, 250, anchor='sw', image=self.link_image,tag = "specific")
+            self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                                 lambda event: (flash_hidden(link_image_obj), callback(articles[0][1])))
+
+            self.canvas.create_text(x_var, 300, text=articles[1][0], fill="#ffffff",
+                                    font=("SourceCodePro-Regular", int(13.0)), width=230,tag = "specific")
+            link_image_obj = self.canvas.create_image(button_x, 350, anchor='sw', image=self.link_image,tag = "specific")
+            self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                                 lambda event: (flash_hidden(link_image_obj), callback(articles[1][1])))
+
+            self.canvas.create_text(x_var, 400, text=articles[2][0], fill="#ffffff",
+                                    font=("SourceCodePro-Regular", int(13.0)), width=230,tag = "specific")
+            link_image_obj = self.canvas.create_image(button_x, 450, anchor='sw', image=self.link_image,tag = "specific")
+            self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                                 lambda event: (flash_hidden(link_image_obj), callback(articles[2][1])))
+
+            self.canvas.create_text(x_var, 500, text=articles[3][0], fill="#ffffff",
+                                    font=("SourceCodePro-Regular", int(13.0)), width=230,tag = "specific")
+            link_image_obj = self.canvas.create_image(button_x, 550, anchor='sw', image=self.link_image,tag = "specific")
+            self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                                 lambda event: (flash_hidden(link_image_obj), callback(articles[3][1])))
+
+            self.canvas.create_text(x_var, 600, text=articles[4][0], fill="#ffffff",
+                                    font=("SourceCodePro-Regular", int(13.0)), width=230,tag = "specific")
+            link_image_obj = self.canvas.create_image(button_x, 650, anchor='sw', image=self.link_image,tag = "specific")
+            self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
+                                 lambda event: (flash_hidden(link_image_obj), callback(articles[4][1])))
+
+        build_specific("bitcoin")
+
+        logout_image_path = "Collection of all UI Graphics/dashboard_logout.png"
+        self.logout_image = tk.PhotoImage(file=logout_image_path)
+        log_out_button = self.canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
+        self.canvas.tag_bind(log_out_button, "<ButtonRelease-1>",
+                             lambda event: logout_button_display(self, self.controller))
+
+        # Retrieves the images, and configures the dashboard button
+        dashboard_image_path = "Collection of all UI Graphics/dashboard_dashboard.png"
+        self.dashboard_image = tk.PhotoImage(file=dashboard_image_path)
+        dashboard_image_obj = self.canvas.create_image(0, 120, anchor='nw', image=self.dashboard_image)
+        self.canvas.tag_bind(dashboard_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(dashboard_image_obj), controller.show_canvas(Dashboard)))
+
+        # Retrieves the images, and configures the simulated trading button
+        simulated_trading_image_path = "Collection of all UI Graphics/dashboard_simulated_trading.png"
+        self.simulated_trading_image = tk.PhotoImage(file=simulated_trading_image_path)
+        simulated_trading_image_obj = self.canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
+        self.canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
+                             lambda event: (
+                                 flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
+
+
+        # Retrieves the images, and configures the charts button
+        charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
+        self.charts_image = tk.PhotoImage(file=charts_image_path)
+        charts_image_obj = self.canvas.create_image(0, 340, anchor='nw', image=self.charts_image)
+        self.canvas.tag_bind(charts_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(charts_image_obj), controller.show_canvas(Charts),
+                                            Charts.update_coin(Collection_of_canvases[Charts], "bitcoin"),
+                                            Charts.generate_data(Collection_of_canvases[Charts]),
+                                            Charts.generate_chart(Collection_of_canvases[Charts], 365)))
+
+        # Retrieves the images, and configures the portfolio button
+        portfolio_image_path = "Collection of all UI Graphics/dashboard_portfolio.png"
+        self.portfolio_image = tk.PhotoImage(file=portfolio_image_path)
+        portfolio_image_obj = self.canvas.create_image(0, 450, anchor='nw', image=self.portfolio_image)
+        self.canvas.tag_bind(portfolio_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(portfolio_image_obj), controller.show_canvas(Portfolio)))
+
+        alarm_image_path = "Collection of all UI Graphics/dashboard_alarms.png"
+        self.alarm_image = tk.PhotoImage(file=alarm_image_path)
+        alarm_image_obj = self.canvas.create_image(0, 560, anchor='nw', image=self.alarm_image)
+        self.canvas.tag_bind(alarm_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(alarm_image_obj), controller.show_canvas(ComingSoon)))
+
+        # Retrieves the images, and configures the news button
+        news_image_path = "Collection of all UI Graphics/dashboard_news.png"
+        self.news_image = tk.PhotoImage(file=news_image_path)
+        news_image_obj = self.canvas.create_image(0, 670, anchor='nw', image=self.news_image)
+        self.canvas.tag_bind(news_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(news_image_obj), controller.show_canvas(ComingSoon)))
+
+        # Retrieves the images, and configures the settings button
+        settings_image_path = "Collection of all UI Graphics/dashboard_settings.png"
+        self.settings_image = tk.PhotoImage(file=settings_image_path)
+        settings_image_obj = self.canvas.create_image(0, 780, anchor='nw', image=self.settings_image)
+        self.canvas.tag_bind(settings_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(settings_image_obj), controller.show_canvas(Settings)))
+
+        # Retrieves the images, and opens the notifications image
+        notifications_image_path = "Collection of all UI Graphics/dashboard_notifications.png"
+        self.notifications_image = tk.PhotoImage(file=notifications_image_path)
+        notifications_button = self.canvas.create_image(1027, 19, anchor='nw', image=self.notifications_image)
+        self.canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: notifications_clicker(self))
+
+        # Retrieves the images, and configures the support image
+        support_image_path = "Collection of all UI Graphics/dashboard_support.png"
+        self.support_image = tk.PhotoImage(file=support_image_path)
+        support_image_obj = self.canvas.create_image(1155, 16, anchor='nw', image=self.support_image)
+        self.canvas.tag_bind(support_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(support_image_obj), controller.show_canvas(ComingSoon)))
+
+        # Retrieves the images, and configures the profile image
+        notes_image_path = "Collection of all UI Graphics/dashboard_notes.png"
+        self.notes_image = tk.PhotoImage(file=notes_image_path)
+        notes_image_obj = self.canvas.create_image(1268, 19, anchor='nw', image=self.notes_image)
+        self.canvas.tag_bind(notes_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(notes_image_obj), controller.show_canvas(NotesTab)))
+
+        # Retrieves the images, and configures the profile image
+        profile_image_path = "Collection of all UI Graphics/dashboard_profile_img.png"
+        self.profile_image = tk.PhotoImage(file=profile_image_path)
+        profile_image_obj = self.canvas.create_image(1360, 4, anchor='nw', image=self.profile_image)
+        self.canvas.tag_bind(profile_image_obj, "<ButtonRelease-1>",
+                             lambda event: (flash_hidden(profile_image_obj), controller.show_canvas(Settings)))
+
+        self.canvas.create_text(1398.5, 68.5, text="John Doe", fill="#ffffff", font=("Rosarivo-Regular", int(12.0)))
+
+        def flash_hidden(image_obj):
+            """
+            Method sets the state of the object, and hides the buttons when they are interacted with
+            :param image_obj: is the image object to hide
+            :type : int
+            :return: a hidden button when pressed
+            """
+            set_state(tk.HIDDEN, image_obj)
+            self.canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+
+        def set_state(state, image_obj):
+            """
+            Sets the state of the image object
+            :param state: the state to apply to the buttons
+            :param image_obj: is the image object to apply a state on
+            :return: an image object with a state applied
+            """
+            self.canvas.itemconfigure(image_obj, state=state)
 
 
 def main():
