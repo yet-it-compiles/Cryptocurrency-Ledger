@@ -1793,7 +1793,7 @@ class Portfolio(tk.Frame):
         simulated_trading_image_obj = self.canvas.create_image(0, 230, anchor='nw', image=self.simulated_trading_image)
         self.canvas.tag_bind(simulated_trading_image_obj, "<ButtonRelease-1>",
                              lambda event: (
-                                 flash_hidden(simulated_trading_image_obj), controller.show_canvas(CoinInfo)))
+                                 flash_hidden(simulated_trading_image_obj), controller.show_canvas(ComingSoon)))
 
         # Retrieves the images, and configures the charts button
         charts_image_path = "Collection of all UI Graphics/dashboard_charts.png"
@@ -1880,11 +1880,6 @@ class Portfolio(tk.Frame):
             """
             self.canvas.itemconfigure(image_obj, state=state)
 
-        self.entry0_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_textBox0.png")
-        self.canvas.create_image(977.0, 251.0, image=self.entry0_img)
-
-        entry0 = Entry(self, bd=0, bg="#053f53", highlightthickness=0)
-        entry0.place(x=856.0, y=235, width=242.0, height=30)
 
         # add transactions button
         self.add_transactions_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img12.png")
@@ -1919,10 +1914,29 @@ class Portfolio(tk.Frame):
         oneday_option_button = Button(self, image=self.oneday_option_img, borderwidth=0, highlightthickness=0,
                                       relief="flat")
         oneday_option_button.place(x=614, y=96, width=32, height=26)
+        
+        # search button command
+        def search(event):
+            controller.show_canvas(CoinInfo)
 
-        self.search_icon = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img19.png")
-        search_button = Button(self, image=self.search_icon, borderwidth=0, highlightthickness=0, relief="flat")
-        search_button.place(x=1074, y=238, width=30, height=27)
+        # self.search_icon = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img19.png")
+        # search_button = Button(self, image=self.search_icon, borderwidth=0, highlightthickness=0, relief="flat")
+        # search_button.place(x=1074, y=238, width=30, height=27)
+        
+        #self.entry0_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_textBox0.png")
+        #self.canvas.create_image(977.0, 251.0, image=self.entry0_img)
+
+        #Search bar
+        coin_name = tk.StringVar(self.canvas)
+        entry0 = tk.Entry(self.canvas, textvariable = coin_name,  bd=0, bg="#053f53", fg = "white",
+                          highlightthickness=0)
+        entry0.place(x=845.0, y=235, width=242.0, height=27)
+        entry0.bind("<Return>", search)
+        
+        # Search bar button
+        self.search_btn_img = PhotoImage(file=f"Collection of all UI Graphics/portfolio_img19.png")
+        self.search_button = self.canvas.create_image(1100, 248, image=self.search_btn_img)
+        self.canvas.tag_bind(self.search_button, "<Button-1>", search)
 
         self.start = 0
         self.end = 0
@@ -2280,9 +2294,9 @@ class CoinInfo(tk.Frame):
         notifications_button = canvas.create_image(1180, 167, anchor='nw', image=self.add_transactions_img)
         canvas.tag_bind(notifications_button, "<ButtonRelease-1>", lambda event: AddTransactionClicker())
 
-        canvas.create_text(426.0, 107.0, text="<CoinName> Breakdown", fill="#ffffff",
+        canvas.create_text(349.5, 107.0, text="CoinName", fill="#ffffff",
                            font=("Rosarivo-Regular", int(24.0)))
-        canvas.create_text(349.5, 145.5, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(25.0)))
+        canvas.create_text(349.5, 145.5, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(20.0)))
         canvas.create_text(349.5, 192.0, text="0.00%", fill="#ffffff", font=("SourceCodePro-Regular", int(15.0)))
 
         # Coin Break down
@@ -2294,6 +2308,7 @@ class CoinInfo(tk.Frame):
         canvas.create_text(626.0, 326.5, text="0 ", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
 
         canvas.create_text(480.0, 585.5, text="$", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
+        canvas.create_text( 1245.0, 577.5, text = "$", fill = "#ffffff", font = ("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(1245.0, 596.5, text="0.00%", fill="#ffffff", font=("RopaSans-Regular", int(13.0)))
         canvas.create_text(341.0, 583.0, text="BUY", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
         canvas.create_text(1025.0, 585.5, text="0 ", fill="#ffffff", font=("SourceCodePro-Regular", int(13.0)))
