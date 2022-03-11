@@ -204,6 +204,7 @@ class CryptocurrencyLedger(tk.Tk):
         # Declares the size of the canvas, and positions it on the screen
         tk.Tk.geometry(self, "")
         tk.Tk.configure(self, bg="#343333")
+        
 
         canvas_setup = Canvas(self, bg="#343333", height=600, width=1000, bd=0, highlightthickness=0,
                               relief="ridge")
@@ -223,6 +224,8 @@ class CryptocurrencyLedger(tk.Tk):
             each_canvas.grid(row=5, column=0, sticky="nsew")
 
         self.show_canvas(LoginPage)  # First frame to show
+
+
 
     def show_canvas(self, container):
         """
@@ -2544,7 +2547,7 @@ class News(tk.Frame):
         # Reuters Section
         articles = NewsScraper.get_reuters()
 
-        self.canvas.create_text(250, 200, text=articles[0][0], fill="#ffffff",
+        self.canvas.create_text(250, 220, text=articles[0][0], fill="#ffffff",
                                 font=("SourceCodePro-Regular", int(13.0)), width=230)
         link_image_obj = self.canvas.create_image(300, 250, anchor='sw', image=self.link_image)
 
