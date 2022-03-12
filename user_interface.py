@@ -1081,21 +1081,22 @@ class Charts(tk.Frame):
 
     def generate_data(self):
         self.data = self.charts.charts_data(self.coin)
-        for key, value in self.data.items():
-            if value is None:
-                self.data[key] = "N/A"
+        if self.data:
+            for key, value in self.data.items():
+                if value is None:
+                    self.data[key] = "N/A"
 
-        self.current_price = self.data["current_price"]
+            self.current_price = self.data["current_price"]
 
-        self.canvas.itemconfig(self.name, text=self.data["name"])
-        self.canvas.itemconfig(self.mc, text=self.format_currency(self.data["market_cap"]))
-        self.canvas.itemconfig(self.fdv, text=self.format_currency(self.data["fully_diluted_valuation"]))
-        self.canvas.itemconfig(self.h24, text=self.format_currency(self.data["high_24h"]))
-        self.canvas.itemconfig(self.l24, text=self.format_currency(self.data["low_24h"]))
-        self.canvas.itemconfig(self.vol, text=self.format_currency(self.data["total_volume"]))
-        self.canvas.itemconfig(self.cs, text=self.data["circulating_supply"])
-        self.canvas.itemconfig(self.cs, text="{:,.3f}".format(self.data["circulating_supply"]))
-        self.canvas.itemconfig(self.price, text=self.format_currency(self.current_price))
+            self.canvas.itemconfig(self.name, text=self.data["name"])
+            self.canvas.itemconfig(self.mc, text=self.format_currency(self.data["market_cap"]))
+            self.canvas.itemconfig(self.fdv, text=self.format_currency(self.data["fully_diluted_valuation"]))
+            self.canvas.itemconfig(self.h24, text=self.format_currency(self.data["high_24h"]))
+            self.canvas.itemconfig(self.l24, text=self.format_currency(self.data["low_24h"]))
+            self.canvas.itemconfig(self.vol, text=self.format_currency(self.data["total_volume"]))
+            self.canvas.itemconfig(self.cs, text=self.data["circulating_supply"])
+            self.canvas.itemconfig(self.cs, text="{:,.3f}".format(self.data["circulating_supply"]))
+            self.canvas.itemconfig(self.price, text=self.format_currency(self.current_price))
 
     def generate_chart(self, days_previous):
         ohlc = self.charts.candlestick(self.coin, days_previous)
