@@ -70,19 +70,19 @@ class MplCharts:
         ohlc_data = coin.get_ohlc_data(days_previous)
         pixels = 1/plt.rcParams['figure.dpi']
         
-        # x-axis (date) format
-        if days_previous == 1:
-            dt_format = '%b %d, %H:%M'
-        else:
-            dt_format = '%b %d'
-
-        # y-axis (price) format
-        if ohlc_data["high"][0] > 0.01:
-            y_format = '$%.2f'
-        else: 
-            y_format = '$%.3g'
-
         if type(ohlc_data) != list:
+            
+            # x-axis (date) format
+            if days_previous == 1:
+                dt_format = '%b %d, %H:%M'
+            else:
+                dt_format = '%b %d'
+
+            # y-axis (price) format
+            if ohlc_data["high"][0] > 0.01:
+                y_format = '$%.2f'
+            else: 
+                y_format = '$%.3g'
             
             colors = fplt.make_marketcolors(
                 up='tab:blue', down='tab:red',
@@ -147,10 +147,6 @@ class MplCharts:
             self.canvas = FigureCanvasTkAgg(fig)
             self.canvas.draw()
             self.canvas.get_tk_widget().place(x=135, y=397)
-        
-        else: 
-            
-            print("no data found!")
            
         return ohlc_data
         
@@ -158,12 +154,15 @@ class MplCharts:
         
         coin = GeckoApi(coin_name)
         data = coin.get_coin()
-        attributes = ["name", "current_price", "market_cap", "fully_diluted_valuation", 
-                      "total_volume", "high_24h", "low_24h", "price_change_percentage_24h", 
-                      "circulating_supply", "ath", "atl"]
-        
-        new_data = {key: value for key, value in data.items() if key in attributes}
-        return new_data
+        if data:
+            attributes = ["name", "current_price", "market_cap", "fully_diluted_valuation", 
+                        "total_volume", "high_24h", "low_24h", "price_change_percentage_24h", 
+                        "circulating_supply", "ath", "atl"]
+            
+            new_data = {key: value for key, value in data.items() if key in attributes}
+            return new_data
+        else:
+            return {}
         
     def close(self):
         try: 
