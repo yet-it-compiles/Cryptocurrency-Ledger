@@ -11,6 +11,7 @@ from io import BytesIO
 class GeckoApi:
     def __init__(self, crypto_name):
         cryptocurrency_name = crypto_name.lower().strip()
+        self.name=""
 
         with open("coins.json") as file:
             collection_of_coins = json.load(file)
