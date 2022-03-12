@@ -321,12 +321,13 @@ class LoginPage(tk.Frame):
         login_canvas.create_image(738.5, 263.0, image=self.login_textbox_one)
         textbox_one_location = Entry(self, textvariable=username, bd=0, bg="#696969", highlightthickness=0)
         textbox_one_location.place(x=602.0, y=240, width=273.0, height=44)
+        textbox_one_location.bind("<Return>", lambda x: self.sign_in(self.controller, username, password))
 
         self.login_textbox_two = PhotoImage(file=f"Collection of all UI Graphics/login_textbox.png")
         login_canvas.create_image(738.5, 368.0, image=self.login_textbox_two)
         textbox_two_location = Entry(self, textvariable=password, bd=0, bg="#696969", highlightthickness=0, show='*')
         textbox_two_location.place(x=602.0, y=345, width=273.0, height=44)
-
+        textbox_two_location.bind("<Return>", lambda x: self.sign_in(self.controller, username, password))
 
 class Enrollment(tk.Frame):
     """
@@ -679,8 +680,6 @@ class Dashboard(tk.Frame):
             self.canvas.itemconfigure(image_obj, state=state)
 
         self.background_img.width(), self.background_img.height()
-        button = Button(self, text="Update", command=lambda: [self.update(), check_alerts()])
-        button.place(x=350, y=800)
 
     def create_user(self, username):
         self.user_data = Database(username)
@@ -871,20 +870,20 @@ class Charts(tk.Frame):
         logout_button = self.canvas.create_image(45, 950, anchor='nw', image=self.logout_image)
         self.canvas.tag_bind(logout_button, "<ButtonRelease-1>",
                              lambda event: logout_button_display(self, self.controller))
-
-        # start date label
-        self.entry1_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox1.png")
-        self.canvas.create_image(1085.0, 377.0, image=self.entry1_img)
-        entry1 = Entry(self, bd=0, bg="#2a2b31", highlightthickness=0)
-        entry1.place(x=996.0, y=357, width=178.0, height=38)
-
-        # end date label
-        self.entry0_img = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox0.png")
-        self.canvas.create_image(1337.0, 377.0, image=self.entry0_img)
-        entry0 = Entry(self, bd=0, bg="#2a2b31", highlightthickness=0)
-        entry0.place(x=1248.0, y=357, width=178.0, height=38)
+        
+        # date label backgrounds 
+        self.start_date_bg = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox1.png")
+        self.canvas.create_image(1085.0, 377.0, image=self.start_date_bg)
+        self.end_date_bg = PhotoImage(file=f"Collection of all UI Graphics/charts_textBox0.png")
+        self.canvas.create_image(1337.0, 377.0, image=self.end_date_bg)
 
         # text fields for data
+        self.name = self.canvas.create_text(200.0, 100.0, text="", fill="#ffffff", 
+                                            font=("SourceCodePro-Regular", int(25.0)), anchor=W)
+        self.start_date = self.canvas.create_text(1085.0, 377.0, text="", fill="#ffffff", 
+                                                  font=("SourceCodePro-Regular", int(15.0)))
+        self.end_date = self.canvas.create_text(1337.0, 377.0, text="", fill="#ffffff",
+                                                  font=("SourceCodePro-Regular", int(15.0)))
         self.mc = self.canvas.create_text(483.0, 167.0, text="0.00", fill="#ffffff",
                                           font=("SourceCodePro-Regular", int(15.0)))
         self.cs = self.canvas.create_text(483.0, 265.0, text="0.00", fill="#ffffff",
@@ -897,6 +896,12 @@ class Charts(tk.Frame):
                                            font=("SourceCodePro-Regular", int(15.0)))
         self.fdv = self.canvas.create_text(1333.0, 265.0, text="0.00", fill="#ffffff",
                                            font=("SourceCodePro-Regular", int(15.0)))
+        self.price = self.canvas.create_text(400.0, 360.0, text="0.00", fill="#ffffff",
+                                            font=("SourceCodePro-Regular", int(15.0)))
+        self.percent_bg = self.canvas.create_text(502.0, 361.0, text="", fill="#000000", 
+                                               font=("SourceCodePro-Regular", int(15.0)))
+        self.percent_fg = self.canvas.create_text(501.0, 360.0, text="", fill="#ffffff", 
+                                               font=("SourceCodePro-Regular", int(15.0)))
 
         # Retrieves the images, and configures the dashboard button
         dashboard_image_path = "Collection of all UI Graphics/dashboard_dashboard.png"
@@ -1082,30 +1087,40 @@ class Charts(tk.Frame):
 
         self.current_price = self.data["current_price"]
 
+        self.canvas.itemconfig(self.name, text=self.data["name"])
         self.canvas.itemconfig(self.mc, text=self.format_currency(self.data["market_cap"]))
         self.canvas.itemconfig(self.fdv, text=self.format_currency(self.data["fully_diluted_valuation"]))
         self.canvas.itemconfig(self.h24, text=self.format_currency(self.data["high_24h"]))
         self.canvas.itemconfig(self.l24, text=self.format_currency(self.data["low_24h"]))
         self.canvas.itemconfig(self.vol, text=self.format_currency(self.data["total_volume"]))
         self.canvas.itemconfig(self.cs, text=self.data["circulating_supply"])
+        self.canvas.itemconfig(self.cs, text="{:,.3f}".format(self.data["circulating_supply"]))
+        self.canvas.itemconfig(self.price, text=self.format_currency(self.current_price))
 
     def generate_chart(self, days_previous):
         ohlc = self.charts.candlestick(self.coin, days_previous)
-        # # there is no field for price/percent change
-        # start_price = ohlc["open"][0]
-        # perc_change = 100 * (self.current_price - start_price) / start_price
-        # color = "green" if perc_change > 0 else "red"
-        # perc_text = "(" + "{:.2f}".format(perc_change) + "%)"
-        # self.canvas.itemconfig(self.percent, text=perc_text, fill=color)
+        if type(ohlc) != list:
+            start_price = ohlc["open"][0]
+            perc_change = 100 * (self.current_price - start_price) / start_price
+            color = "green" if perc_change > 0 else "red"
+            perc_text = "(" + "{:.2f}".format(perc_change) + "%)"
+            self.canvas.itemconfig(self.percent_fg, text=perc_text, fill=color)
+            self.canvas.itemconfig(self.percent_bg, text=perc_text)
 
     def close_charts(self):
         self.charts.close()
+        self.canvas.itemconfig(self.name, text="")
+        self.canvas.itemconfig(self.start_date, text="")
+        self.canvas.itemconfig(self.end_date, text="")
         self.canvas.itemconfig(self.mc, text="")
         self.canvas.itemconfig(self.fdv, text="")
         self.canvas.itemconfig(self.h24, text="")
         self.canvas.itemconfig(self.l24, text="")
         self.canvas.itemconfig(self.vol, text="")
         self.canvas.itemconfig(self.cs, text="")
+        self.canvas.itemconfig(self.price, text="")
+        self.canvas.itemconfig(self.percent_fg, text="")
+        self.canvas.itemconfig(self.percent_bg, text="")
 
 
 class ComingSoon(tk.Frame):
@@ -1791,7 +1806,9 @@ class Portfolio(tk.Frame):
             # submit button
             self.submit_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img0.png")
             submit_button = add_transactions_canvas.create_image(181, 620, anchor='nw', image=self.submit_button_image)
-            add_transactions_canvas.tag_bind(submit_button, "<ButtonRelease-1>", lambda event: submit())
+            add_transactions_canvas.tag_bind(submit_button, "<ButtonRelease-1>", 
+                                             lambda event: (submit(), Dashboard.update(Collection_of_canvases[Dashboard]), 
+                                             Portfolio.update(Collection_of_canvases[Portfolio])))
 
             # transfer button
             self.transfer_button_image = PhotoImage(file=f"Collection of all UI Graphics/add_transaction_img1.png")
@@ -1976,8 +1993,6 @@ class Portfolio(tk.Frame):
 
         self.start = 0
         self.end = 0
-        button = Button(self, text="Update", command=lambda: self.update())
-        button.place(x=1350, y=800)
 
     def update(self):
         self.canvas.delete("portfolio")
