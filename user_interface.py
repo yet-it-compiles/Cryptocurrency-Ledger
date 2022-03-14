@@ -823,24 +823,24 @@ class Dashboard(tk.Frame):
         self.canvas.tag_bind(link_image_obj, "<ButtonRelease-1>",
                              lambda event: (flash_hidden(link_image_obj), callback(articles[4][1])))
 
-    def flash_hidden(image_obj):
-        """
-        Method sets the state of the object, and hides the buttons when they are interacted with
-        :param image_obj: is the image object to hide
-        :type : int
-        :return: a hidden button when pressed
-        """
-        set_state(tk.HIDDEN, image_obj)
-        self.canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
+        def flash_hidden(image_obj):
+            """
+            Method sets the state of the object, and hides the buttons when they are interacted with
+            :param image_obj: is the image object to hide
+            :type : int
+            :return: a hidden button when pressed
+            """
+            set_state(tk.HIDDEN, image_obj)
+            self.canvas.after(flash_delay, set_state, tk.NORMAL, image_obj)
 
-    def set_state(state, image_obj):
-        """
-        Sets the state of the image object
-        :param state: the state to apply to the buttons
-        :param image_obj: is the image object to apply a state on
-        :return: an image object with a state applied
-        """
-        self.canvas.itemconfigure(image_obj, state=state)
+        def set_state(state, image_obj):
+            """
+            Sets the state of the image object
+            :param state: the state to apply to the buttons
+            :param image_obj: is the image object to apply a state on
+            :return: an image object with a state applied
+            """
+            self.canvas.itemconfigure(image_obj, state=state)
 
 
 class Charts(tk.Frame):
