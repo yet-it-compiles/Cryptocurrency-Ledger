@@ -16,10 +16,19 @@ def convert_date_time_to_string(date, hour, minute, period):
 
 
 def get_list_of_coins():
-    data = json.load(open("market_cap_ranking_coin_list.json", encoding="utf8"))
-    name_list = [item.get("name") for item in data]
+        data = json.load(open("market_cap_ranking_coin_list1.json", encoding="utf8"))
+        name_list = [item.get("name") for item in data]
 
-    return name_list
+        data = json.load(open("market_cap_ranking_coin_list2.json", encoding="utf8"))
+        name_list2 = [item.get("name") for item in data]
+
+        data = json.load(open("market_cap_ranking_coin_list3.json", encoding="utf8"))
+        name_list3 = [item.get("name") for item in data]
+
+        name_list.extend(name_list2)
+        name_list.extend(name_list3)
+
+        return name_list
 
 
 class ManualTransaction:
